@@ -126,6 +126,7 @@ knitr::kable(head(conllu_bullying))
 ```
 
 ´fst_format_conllu` takes 3 arguments: 
+
 1. `data` the dataframe containing the survey data. 
 2. `field` is the open-ended survey question header in the table, such as "q9"
 3. `model` is the chosen Finnish treebank for annotation, either "ftb" (the default) or "tdt". 
@@ -136,6 +137,7 @@ knitr::kable(head(conllu_bullying))
 This (optional) function will remove stopwords from the CoNLL-U data. `fst_find_stopwords` can be used to find options for stopwords lists. 
 
 `fst_rm_stopwords` takes 2 arguments: 
+
 1. `data` is output from `fst_format_conllu`
 2. `stopword_list` is a list of Finnish stopwords, the default is "nltk" but any "Name" column from `fst_find_stopwords` can be used.
 
