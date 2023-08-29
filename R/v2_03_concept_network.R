@@ -1,0 +1,141 @@
+#' Concept Network - Search Textrank for Concepts
+#'
+#' This function takes a string of terms (separated by commas) or a single term
+#' and, using `textrank_keywords` from `textrank` package, filters data based on
+#' `relevant_pos` and finds words connected to search terms.
+#'
+#' @param data A dataframe of text in CoNLL-U format.
+#' @param concept String of terms to search for, separated by commas.
+#' @param relevant_pos List of UPOS tags for inclusion, default is c("NOUN",
+#' "VERB", "ADJ", "ADV").
+#'
+#' @return Dataframe of n-grams containing searched terms
+#' @export
+#'
+#' @examples
+#' lonely_concepts_2 <- fst_cn_search(conllu_lonely, 'yksinäisyys, tunne, tuntea')
+#' lonely_concepts <- fst_cn_search(conllu_lonely_nltk, 'yksinäisyys, tunne, tuntea')
+#' bullying_concepts <- fst_cn_search(conllu_bullying_iso, 'kiusata, lyöminen')
+fst_cn_search <- function(data,
+                          concept,
+                          relevant_pos = c("NOUN", "VERB", "ADJ", "ADV")) {
+  if(stringr::str_detect(concept, ",")){
+    concept <- stringr::str_extract_all(concept, pattern = "\\w+") %>%
+      unlist()
+  }
+  data <- dplyr::filter(data, token != 'NA')
+  x <- textrank::textrank_keywords(data$lemma, relevant=data$upos %in% relevant_pos)
+  keyword_data <- x$keywords %>%
+    dplyr::filter(ngram > 1 & freq > 1) %>%
+    dplyr::mutate(word2 = strsplit(keyword, "-")) %>%
+    tidyr::unnest(word2) %>%
+    dplyr::group_by(keyword) %>%
+    dplyr::mutate(word1 = dplyr::lag(word2)) %>%
+    dplyr::relocate(word1, .before = word2) %>%
+    dplyr::ungroup() %>%
+    dplyr::filter(!is.na(word1)) #%>%
+    # dplyr::filter(word1 != 'NA') %>%
+  concept_keywords <- keyword_data %>%
+    dplyr::filter(word1 %in% concept)  %>%
+    dplyr::pull(keyword)
+  all_concepts <- keyword_data %>%
+    dplyr::filter(keyword %in% concept_keywords)
+  return(all_concepts)
+}
+
+#' Concept Network - Get Textrank Edges
+#'
+#' This function takes a string of terms (separated by commas) or a single term
+#' and, using `fst_cn_search` find words conected to these searched terms. Then,
+#' a dataframe is returned of 'edges' between two words which are connected
+#' together in an frequently-occurring n-gram containing a concept term
+#'
+#' @param data A dataframe of text in CoNLL-U format.
+#' @param concept List of terms to search for, separated by commas.
+#' @param threshold A minimum number of occurrences threshold for 'edge' between
+#' searched term and other word, default is NULL.
+#' @param relevant_pos List of UPOS tags for inclusion, default is c("NOUN",
+#' "VERB", "ADJ", "ADV").
+#'
+#' @return Dataframe of 'edges' between two connected words.
+#' @export
+#'
+#' @examples
+#' lonely_edges_2 <- fst_cn_edges(conllu_lonely, concept = 'yksinäisyys, tunne, tuntea', threshold=5)
+#' lonely_edges <- fst_cn_edges(conllu_lonely_nltk, 'yksinäisyys, tunne, tuntea')
+#' bullying_edges <-fst_cn_edges(conllu_bullying_iso, 'kiusata, lyöminen')
+fst_cn_edges <- function(data,
+                         concept,
+                         threshold = NULL,
+                         relevant_pos = c("NOUN", "VERB", "ADJ", "ADV")) {
+  data <- dplyr::filter(data, token != 'NA')
+  df <-  data %>%
+    fst_cn_search(concept = concept, relevant_pos = relevant_pos) %>%
+    dplyr::select(word1, word2, freq) %>%
+    dplyr::group_by(word1,word2) %>%
+    dplyr::summarize(n = sum(freq), .groups = "drop") %>%
+    dplyr::rename(from = word1,
+           to = word2)
+  if(!is.null(threshold)) {
+    df <- df %>% dplyr::filter(n >= threshold)
+  }
+  return(df)
+}
+
+#' Concept Network - Get Textrank Nodes
+#'
+#' @param data A dataframe of text in CoNLL-U format.
+#' @param edges Output of get_edges, dataframe of 'edges' connecting two words
+#' @param relevant_pos List of UPOS tags for inclusion, default is c("NOUN",
+#' "VERB", "ADJ", "ADV").
+#'
+#' @return A dataframe containing relevant lemmas and their associated pagerank
+#' @export
+#'
+#' @examples
+#' lonely_nodes_2 <- fst_cn_nodes(conllu_lonely, lonely_edges)
+#' lonely_nodes <- fst_cn_nodes(conllu_lonely_nltk, lonely_edges)
+#' bullying_nodes <- fst_cn_nodes(conllu_bullying, bullying_edges)
+fst_cn_nodes <- function(data,
+                         edges,
+                         relevant_pos = c("NOUN", "VERB", "ADJ", "ADV")) {
+  data <- dplyr::filter(data, token != 'NA')
+  keyw <- textrank::textrank_keywords(data$lemma, relevant=data$upos %in% relevant_pos)
+  textrank_data <- data.frame(pagerank = keyw$pagerank$vector) %>%
+    tibble::rownames_to_column("lemma")
+  keyword_vocab <- unique(c(edges$from, edges$to))
+  df <- textrank_data %>% dplyr::filter(lemma %in% keyword_vocab)
+  return(df)
+}
+
+
+
+fst_cn_graph <- function(edges, nodes, concepts, ...) {
+  if(stringr::str_detect(concepts, ",")){
+    concepts <- concepts  %>% lapply(tolower) %>%
+      stringr::str_extract_all(pattern = "\\w+") %>%
+      unlist()
+  }
+  nodes <- nodes %>%
+    dplyr::mutate(is_concept = factor(ifelse(lemma %in% concepts, 0, 1),
+                                      levels = 0:1,
+                                      labels = c("Concept word", "Regular word")))
+
+  p <- igraph::graph_from_data_frame(edges,
+                                     directed = FALSE, vertices = nodes) %>%
+    ggraph::ggraph(layout = "kk") +
+    ggraph::geom_edge_link(ggplot2::aes(width = n, edge_alpha = n), edge_colour = "lightblue") +
+    ggraph::geom_node_point(ggplot2::aes(size = pagerank)) +
+    ggraph::geom_node_text(ggplot2::aes(label = name, col = is_concept), check_overlap = TRUE, repel = TRUE) +
+    ggplot2::scale_color_manual("", values = c("Concept word" = "red", "Regular word" = "black")) +
+    ggraph::theme_graph() +
+    ggplot2::labs(
+      title = "Textrank extracted keyword occurrences",
+      subtitle = "Adjectives, Nouns, Verbs",
+      ... ) +
+    ggplot2::theme(legend.position = "right")
+
+  return(p)
+}
+
+# fst_cn_graph(edges = lonely_edges, nodes = lonely_nodes, concepts = 'yksinäisyys, tunne, tuntea')

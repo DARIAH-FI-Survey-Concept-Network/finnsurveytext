@@ -1,0 +1,156 @@
+---
+title: "Tutorial1-Prepare_CoNLL-U"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Tutorial1-Prepare_CoNLL-U}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Introduction
+This tutorial demonstrates the process of preparing Finnish survey text data into the CoNLL-U format required for the `finnsurveytext` package functions using functions in r/0.1_prepare_conll-u.r.
+
+**CoNLL-U Format Overview**
+CoNLL-U is a popular annotation scheme often used in Natural Language Processing (NLP) tasks to tokenise and annotate text. In CoNLL-U format, the text is split into one line per word and ten features of each word are recorded including an id,  part-of-speech tagging, the word itself (eg. 'likes'), and word lemma (eg. 'like'). 
+CoNLL stands for the Conference of Natural Language Learning and CoNLL-U format was introduced in 2014. 
+More information on CoNLL-U format can be found in the Universal Dependencies Project, https://universaldependencies.org/format.html. 
+
+### Installation of package.
+
+First, install and load the `finnsurveytext` package as below:
+(Other required packages such as `dplyr` and `stringr` will also be installed if they are not currently installed in your environment.)
+
+```{r setup}
+#install.packages("finnishsurveytext")
+#library(finnsurveytext)
+devtools::load_all() # TO-DO: remove this load_all() line and uncomment the library() line. 
+```
+
+This tutorial uses two sources of data from the Finnish Social Science Data Archive: 
+
+#### 1. Bullying Data
+* Source: FSD3134 Child Barometer 2016
+* Question: "[q7] Kertoisitko, mitä sinun mielestäsi kiusaaminen on? (Avokysymys)"
+* Licence: (A) openly available for all users without registration (CC BY 4.0).
+* Link to Data: https://urn.fi/urn:nbn:fi:fsd:T-FSD3134
+
+#### 2. Loneliness Data
+* Source: FSD3360 Helsingin Sanomat Loneliness Survey 2014
+* Question: "[q9] Miltä yksinäisyys tuntuu? Yksinäisyyteen liittyy usein voimakkaita tunteita, jotka ovat erilaisia eri elämäntilanteissa. Jos haluat, voit kertoa yksinäisyyskokemuksiasi tässä. (Avokysymys)" 
+* Licence: (B) available for **research, teaching and study.**
+* Link to Data: https://urn.fi/urn:nbn:fi:fsd:T-FSD3360 
+
+*Note: To download the Loneliness Data, you will need to register for the service (such as by providing credentials from a Finnish university or research institution) and indicate the use of the data.*
+
+Both of these will be demonstrated below but either can be used to complete the tutorial. You should download one of these in csv format and save it in a location that you can easily find. 
+
+## The Whole Story
+A single function, `fst_prepare_connl` (which calls all the data preparation functions within the package) can be used to prepare the data into the required CoNNL-U format. 
+
+#### 1. Bullying Data
+Using our bullying data, we can call this function as follows: 
+
+```{r eval = FALSE}
+prepd_bullying <- fst_prepare_connlu(data = bullying_data, field = "q7", stopword_list = "nltk")
+```
+
+Summary of components
+
+* `data` is the dataframe of interest. In this case, we are using data that comes with the pacakge called 'bullying_data'. Otherwise, if you read in a csv containing a dataframe, such as through `read.csv` in base R for use in this tutorial.
+* The `field` is the name of the column in your data which contains the open-ended survey question. In this example, the responses about bullying are in question 7. 
+* We have chosen to remove stopwords from the "nltk" stopword list in this example. To find the relevant lists of Finnish stopwords, you can run the `fst_rm_stopwords` function which is outlined below. 
+* The function also requires a Finnish language model available for [udpipe], in this case we are using the default Finnish Treebank, "ftb". 
+* The results in CoNLL-U format are stored in the local environment as "prepd_bullying". 
+
+#### 2. Loneliness Data
+
+As an example, the loneliness data could be prepared using this function call: 
+
+```{r eval = FALSE}
+prepd_lonely <- fst_prepare_connlu(lonely_data, field = "q9", stopword_list = "none", model = "tdt")
+```
+
+* `data` is the dataframe of interest. In this case, we are using data that comes with the pacakge called 'lonely_data'. Otherwise, if you read in a csv containing a dataframe, such as through `read.csv` in base R for use in this tutorial.
+* The `field` is the name of the column in your data which contains the open-ended survey question. In this example, the responses about loneliness are in question 9. 
+* We have chosen *not* to remove stopwords in this example. 
+* The function also requires a Finnish language model available for [udpipe], in this case we are using the Turku Dependency Treebank, "tdt". 
+* The results in CoNLL-U format are stored in the local environment as "prepd_lonely". 
+
+## In greater detail
+To better understand the `fst_prepare_connlu` function, we will go through each of the functions that this one calls. These are: 
+
+* `fst_format_connlu`
+* `fst_rm_stopwords`
+* `fst_save`
+
+Additionally, the `fst_find_stopwords` function can be used to find currently available lists of Finnish stopwords for exclusion from the data. The "name" column can be used to choose a list for the `stopword_list` variable above. 
+Stopword lists are lists of common words (like "and", "the",  and "is", or in Finnish "olla", "ollet", "ollen", and "on"...) which are often filtered out of the data, leaving less frequently-occurring, and thus more more meaningful, words remaining. The
+
+```{r}
+stopwords <- fst_find_stopwords()
+```
+
+The stopwords lists can be very long, so only one (nltk) is shown below. Another two lists, snowball and stopwords-iso, can be found by running the `fst_find_stopwords` function in your local environment. 
+
+```{r echo = FALSE}
+knitr::kable(head(stopwords, 1))
+```
+
+#### Format as CoNNL-U
+`fst_format_connlu`
+
+This function is used to format the data from your open-ended survey question into CoNLL-U format. It also: 
+* trims trailing whitespace from the data; and, 
+* removes NA values. 
+
+Our package works for two of the Finnish language models available, [Turku Dependency Treebank (TDT)](https://universaldependencies.org/treebanks/fi_tdt/index.html) and [FinnTreeBank (FTB)](https://universaldependencies.org/treebanks/fi_ftb/index.html). Further information about these treebanks can be found at the links but, in brief, the TDT is considered "broad coverage" and includes texts from Wikipedia and news sources, and FTB consists of manually annotated grammatical examples from [VISK](https://kaino.kotus.fi/visk/etusivu.php). 
+
+The `fst_format_conllu` function utilises the `udpipe` [package](https://cran.r-project.org/web/packages/udpipe/vignettes/udpipe-annotation.html) and can be run as follows: 
+
+```{r}
+conllu_lonely <- fst_format_conllu(data = lonely_data, field = 'q9')
+conllu_bullying <- fst_format_conllu(data = bullying_data, field = 'q7', model = 'tdt')
+```
+*Note: the first time you run this function, it will download the relevant treebank from udpipe for use in the annotations.*
+
+The top 5 rows of the "conllu_bullying" table are shown below: 
+```{r echo= FALSE}
+knitr::kable(head(conllu_bullying))
+```
+
+´fst_format_conllu` takes 3 arguments: 
+1. `data` the dataframe containing the survey data. 
+2. `field` is the open-ended survey question header in the table, such as "q9"
+3. `model` is the chosen Finnish treebank for annotation, either "ftb" (the default) or "tdt". 
+
+#### Remove stopwords from CoNLL-U data
+`fst_rm_stopwords`
+
+This (optional) function will remove stopwords from the CoNLL-U data. `fst_find_stopwords` can be used to find options for stopwords lists. 
+
+`fst_rm_stopwords` takes 2 arguments: 
+1. `data` is output from `fst_format_conllu`
+2. `stopword_list` is a list of Finnish stopwords, the default is "nltk" but any "Name" column from `fst_find_stopwords` can be used.
+
+```{r}
+conllu_lonely_nltk <- fst_rm_stopwords(data = conllu_lonely)
+conllu_bullying_iso <- fst_rm_stopwords(conllu_bullying, 'stopwords-iso')
+```
+
+The top 5 rows of the "conllu_bullying_iso" table are shown below: 
+```{r echo= FALSE}
+knitr::kable(head(conllu_bullying_iso))
+```
+
+## Citation
+
+Saari, Juho (Tampere University) & Helsingin Sanomat & Kauhanen, Jussi (University of Eastern Finland) & Karhunen, Leila (University of Eastern Finland) & Lagus, Krista (Aalto University) & Kainulainen, Sakari (Diaconia University of Applied Sciences) & Pantzar, Mika (University of Helsinki) & Erola, Jani (University of Turku) & Junttila, Niina (University of Turku) & Müller, Kiti (Finnish Institute of Occupational Health) & Huhta, Jaana (Finnish Institute of Occupational Health): Helsingin Sanomat Loneliness Survey 2014 [dataset]. Version 1.0 (2020-09-01). Finnish Social Science Data Archive [distributor]. http://urn.fi/urn:nbn:fi:fsd:T-FSD3360
+
+The Office of Ombudsman for Children: Child Barometer 2016 [dataset]. Version 1.0 (2016-12-09). Finnish Social Science Data Archive [distributor]. http://urn.fi/urn:nbn:fi:fsd:T-FSD3134
