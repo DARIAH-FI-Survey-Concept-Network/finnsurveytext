@@ -61,7 +61,7 @@ fst_cn_search <- function(data,
 #'
 #' @examples
 #' lonely_edges_2 <- fst_cn_edges(conllu_lonely, concept = 'yksinäisyys, tunne, tuntea', threshold=5)
-#' lonely_edges <- fst_cn_edges(conllu_lonely_nltk, 'yksinäisyys, tunne, tuntea')
+#' lonely_edges <- fst_cn_edges(conllu_lonely_nltk, 'yksinäisyys, tunne, tuntea', threshold = 5)
 #' bullying_edges <-fst_cn_edges(conllu_bullying_iso, 'kiusata, lyöminen')
 fst_cn_edges <- function(data,
                          concept,
@@ -84,7 +84,7 @@ fst_cn_edges <- function(data,
 #' Concept Network - Get Textrank Nodes
 #'
 #' @param data A dataframe of text in CoNLL-U format.
-#' @param edges Output of get_edges, dataframe of 'edges' connecting two words
+#' @param edges Output of fst_cn_edges, dataframe of 'edges' connecting two words
 #' @param relevant_pos List of UPOS tags for inclusion, default is c("NOUN",
 #' "VERB", "ADJ", "ADV").
 #'
@@ -92,7 +92,7 @@ fst_cn_edges <- function(data,
 #' @export
 #'
 #' @examples
-#' lonely_nodes_2 <- fst_cn_nodes(conllu_lonely, lonely_edges)
+#' lonely_nodes_2 <- fst_cn_nodes(conllu_lonely, lonely_edges_2)
 #' lonely_nodes <- fst_cn_nodes(conllu_lonely_nltk, lonely_edges)
 #' bullying_nodes <- fst_cn_nodes(conllu_bullying, bullying_edges)
 fst_cn_nodes <- function(data,
@@ -109,7 +109,20 @@ fst_cn_nodes <- function(data,
 
 
 
-fst_cn_graph <- function(edges, nodes, concepts, ...) {
+#' Plot Concept Network
+#'
+#' @param edges Output of `fst_cn_edges`, dataframe of 'edges' connecting two words
+#' @param nodes Output of `fst_cn_nodes`, dataframe of relevant lemmas and their associated pagerank
+#' @param concepts List of terms which have been searched for, separated by commas.
+#'
+#' @return Plot of Concept Network
+#' @export
+#'
+#' @examples
+#' fst_cn_graph(edges = lonely_edges_2, nodes = lonely_nodes_2, concepts = 'yksinäisyys, tunne, tuntea')
+#' fst_cn_graph(edges = lonely_edges, nodes = lonely_nodes, concepts = 'yksinäisyys, tunne, tuntea')
+#' fst_cn_graph(edges = bullying_edges, nodes = bullying_nodes, concepts = 'kiusata, lyöminen')
+fst_cn_graph <- function(edges, nodes, concepts) {
   if(stringr::str_detect(concepts, ",")){
     concepts <- concepts  %>% lapply(tolower) %>%
       stringr::str_extract_all(pattern = "\\w+") %>%
@@ -119,22 +132,21 @@ fst_cn_graph <- function(edges, nodes, concepts, ...) {
     dplyr::mutate(is_concept = factor(ifelse(lemma %in% concepts, 0, 1),
                                       levels = 0:1,
                                       labels = c("Concept word", "Regular word")))
-
   p <- igraph::graph_from_data_frame(edges,
                                      directed = FALSE, vertices = nodes) %>%
     ggraph::ggraph(layout = "kk") +
-    ggraph::geom_edge_link(ggplot2::aes(width = n, edge_alpha = n), edge_colour = "lightblue") +
-    ggraph::geom_node_point(ggplot2::aes(size = pagerank)) +
+    ggraph::geom_edge_link( ggplot2::aes(width = n, alpha = n), colour = "lightblue") +
+    ggraph::scale_edge_width(range=c(1, 5))+
+    ggraph::scale_edge_alpha(range = c(0.2, 1)) +
+    ggraph::geom_node_point( ggplot2::aes(size = pagerank)) +
     ggraph::geom_node_text(ggplot2::aes(label = name, col = is_concept), check_overlap = TRUE, repel = TRUE) +
-    ggplot2::scale_color_manual("", values = c("Concept word" = "red", "Regular word" = "black")) +
+    ggplot2::scale_color_manual("Word Type", values = c("Concept word" = "red", "Regular word" = "black")) +
     ggraph::theme_graph() +
     ggplot2::labs(
-      title = "Textrank extracted keyword occurrences",
-      subtitle = "Adjectives, Nouns, Verbs",
-      ... ) +
+      title = "Textrank extracted keyword occurrences") +
     ggplot2::theme(legend.position = "right")
 
   return(p)
 }
 
-# fst_cn_graph(edges = lonely_edges, nodes = lonely_nodes, concepts = 'yksinäisyys, tunne, tuntea')
+
