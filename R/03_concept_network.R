@@ -34,7 +34,6 @@ fst_cn_search <- function(data,
     dplyr::relocate(word1, .before = word2) %>%
     dplyr::ungroup() %>%
     dplyr::filter(!is.na(word1)) #%>%
-    # dplyr::filter(word1 != 'NA') %>%
   concept_keywords <- keyword_data %>%
     dplyr::filter(word1 %in% concept)  %>%
     dplyr::pull(keyword)

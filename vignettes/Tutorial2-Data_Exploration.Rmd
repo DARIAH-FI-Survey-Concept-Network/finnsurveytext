@@ -84,7 +84,9 @@ In contrast to the previous two functions, `fst_freq` displays results in a plot
 
 ```{r}
 fst_freq(bullying)
-fst_freq(data = bullying, number = 10, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+fst_freq(data = bullying, 
+         number = 10, 
+         pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
 fst_freq(lonely, 5)
 fst_freq(lonely, 5, c("NOUN", "VERB"))
 ```
@@ -111,3 +113,42 @@ fst_ngrams(lonely, number=5, ngrams=4)
 1. `data` is output from data preparation, prepared data in CoNLL-U format, such as the output of `fst_prepare_connlu`. 
 2. `number` is the number of top n-grams to return, default is `20`.
 3. `ngrams` is the type of n-gram we want. The default is 2, bigrams. 
+
+
+#### Make Wordcloud
+`fst_wordcloud`
+
+This function will create a wordcloud plot for the data. There is an option to select only specific word types (POS tag). 
+
+```{r}
+fst_wordcloud(conllu_bullying_iso)
+fst_wordcloud(conllu_lonely_nltk, 
+              pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+```
+
+`fst_wordclouds` takes 2 arguments: 
+
+1. `data` is output from data preparation, prepared data in CoNLL-U format, such as the output of `fst_prepare_connlu`. 
+2. `pos_filter` is an optional list of POS tags for inclusion in the wordcloud. The defaul is `NULL`.
+
+
+#### Perform Data Exploration
+`fst_discovery`
+
+This function enables the user to run all the above EDA activities in one function call. As such, `fst_summarise` and `fst_plot` are printed within R plots rather than the R console. 
+
+```{r}
+fst_discover(conllu_lonely_nltk)
+fst_discover(conllu_bullying_iso, 
+             freq_number = 10, 
+             ngram_number=8, 
+             ngrams = 2, 
+             pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+```
+
+The arguments of this function are: 
+
+1. `data` is output from data preparation, prepared data in CoNLL-U format, such as the output of `fst_prepare_connlu`. 
+2. `freq_number` is the number of top words to return, default is `20`.
+3. `ngram_number` is the number of top n-grams to return, default is `20`.
+4. `ngrams` is the type of n-gram we want. The default is 2, bigrams.                          5. `pos_filter` is an optional list of which POS tags to include such as c("NOUN", "VERB", "ADJ", "ADV"). The default is NULL, in which case all words in data are considered. `pos_filter` is applied to the Top Words table and the Wordcloud plot.

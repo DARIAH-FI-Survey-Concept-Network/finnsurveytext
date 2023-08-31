@@ -1,0 +1,57 @@
+---
+title: "Tutorial3-Concept_Network"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Tutorial3-Concept_Network}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>", 
+  fig.width=6, fig.height=6
+)
+```
+
+## Introduction
+This tutorial follows on from Tutorial 1 and guides you through creation of a concept network plot. 
+
+
+First, install and load the `finnsurveytext` package as below:
+(Other required packages such as `dplyr` and `stringr` will also be installed if they are not currently installed in your environment.)
+
+```{r setup}
+#install.packages("finnsurveytext")
+#library(finnsurveytext)
+devtools::load_all() # TO-DO: remove this load_all() line and uncomment the library() line. 
+```
+
+There are two data files available within the package for use in this tutorial. These files have been created following the process demonstrated in Tutorial 1. 
+
+#### 1. Bullying Data
+* data/conllu_bullying_iso.rda
+
+#### 2. Loneliness Data
+* data/conllu_lonely_nltk.rda
+
+You can read these in as follows: 
+
+```{r}
+bullying <- conllu_bullying_iso
+knitr::kable(head(bullying))
+lonely <- conllu_lonely_nltk
+```
+
+#### Concept Network - Search Textrank for Concepts
+`fst_cn_search`
+
+This function is used to find words which are related to a list of provided terms. It utilises the `textrank_keywords` function which is part of the `textrank` package. For further information on the package, please see [this documentation](https://cran.r-project.org/web/packages/textrank/vignettes/textrank.html). 
+
+This function goes through the following process: 
+
+1. separates the search string into individual terms
+2. applies the `textrank_keywords` function which finds n-grams in the text that occur multiple times
+3. finds all pairs of words included in these common ngrams 
+4. filters the pairs so that at least one of the pair is a searched term. 

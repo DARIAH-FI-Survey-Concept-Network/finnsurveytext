@@ -9,8 +9,8 @@
 #' @export
 #'
 #' @examples
-#' bullying_summary <- fst_summarise(connlu_bullying_iso)
-#' lonely_summary <- fst_summarise(connlu_lonely_nltk)
+#' bullying_summary <- fst_summarise(conllu_bullying_iso)
+#' lonely_summary <- fst_summarise(conllu_lonely_nltk)
 fst_summarise <- function(data) {
   data %>%
     dplyr::summarize(Respondents = dplyr::n_distinct(doc_id),
@@ -31,8 +31,8 @@ fst_summarise <- function(data) {
 #' @export
 #'
 #' @examples
-#' bullying_pos_table <- fst_pos(connlu_bullying_iso)
-#' lonely_pos_table <- fst_pos(connlu_lonely_nltk)
+#' bullying_pos_table <- fst_pos(conllu_bullying_iso)
+#' lonely_pos_table <- fst_pos(conllu_lonely_nltk)
 fst_pos <- function(data) {
   pos_table <- data %>%
     dplyr::count(upos, sort = TRUE) #%>%
@@ -69,8 +69,8 @@ fst_pos <- function(data) {
 #' @export
 #'
 #' @examples
-#' fst_freq(connlu_bullying_iso)
-#' fst_freq(connlu_bullying_iso, 10, c("NOUN", "VERB", "ADJ", "ADV"))
+#' fst_freq(conllu_bullying_iso)
+#' fst_freq(conllu_bullying_iso, 10, c("NOUN", "VERB", "ADJ", "ADV"))
 fst_freq <- function(data, number = 20, pos_filter = NULL) {
   if (!is.null(pos_filter)) {
     data <- dplyr::filter(data, .data$upos %in% pos_filter)
@@ -101,8 +101,8 @@ fst_freq <- function(data, number = 20, pos_filter = NULL) {
 #' @export
 #'
 #' @examples
-#' fst_ngrams(connlu_bullying_iso)
-#' fst_ngrams(connlu_lonely_nltk, number = 10, ngrams=3)
+#' fst_ngrams(conllu_bullying_iso)
+#' fst_ngrams(conllu_lonely_nltk, number = 10, ngrams=3)
 fst_ngrams <- function(data, number = 20, ngrams = 2){
   data %>%
     dplyr::filter(.data$dep_rel != "punct") %>%
@@ -134,14 +134,16 @@ fst_ngrams <- function(data, number = 20, ngrams = 2){
 #' @export
 #'
 #' @examples
-#' fst_wordcloud(connlu_bullying_iso)
-#' fst_wordcloud(connlu_bullying_iso, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+#' fst_wordcloud(conllu_bullying_iso)
+#' fst_wordcloud(conllu_bullying_iso, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
 fst_wordcloud <- function(data, pos_filter = NULL){
   if (!is.null(pos_filter)) {
     data <- dplyr::filter(data, upos %in% pos_filter)
   }
   wordcloud_data <- data %>%
     dplyr::filter(.data$dep_rel != "punct") %>%
+    dplyr::filter(!is.na(lemma)) %>%
+    dplyr::filter(lemma != 'NA') %>%
     dplyr::count(lemma, sort = TRUE)
   wordcloud::wordcloud(words = wordcloud_data$lemma, freq = wordcloud_data$n,
             max.words= 100,
