@@ -166,7 +166,11 @@ fst_cn_plot <- function(edges, nodes, concepts) {
 #' fst_concept_network(conllu_lonely_nltk, concepts = "tunne, tuntea", threshold=3)
 #' fst_concept_network(conllu_lonely_nltk, concepts = "tunne, tuntea")
 #' fst_concept_network(conllu_lonely, concepts = "yksinäisyys, tunne, tuntea", threshold=5)
+<<<<<<< HEAD
 #' fst_concept_network(conllu_bullying_iso, concepts = 'kiusata, lyöminen')
+=======
+#' fst_concept_network(conllu_bullying_iso concepts = 'kiusata, lyöminen')
+>>>>>>> 821419782e1b8aad31b69dcd41eb33b0c237a2f0
 fst_concept_network <- function(data,
                                 concepts,
                                 threshold = NULL,

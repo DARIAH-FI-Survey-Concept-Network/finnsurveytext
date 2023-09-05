@@ -42,9 +42,15 @@
 #'
 #' This data contains the responses to q7 "Kertoisitko, mitä sinun mielestäsi
 #' kiusaaminen on? (Avokysymys)" in the FSD3134 Lapsibarometri 2016 dataset
+<<<<<<< HEAD
 #' in CoNLL-U format with ISO stopwords and punctuation removed.
 #'
 #' @format ## `conllu_bullying_iso`
+=======
+#' in CONN-LU format with ISO stopwords and punctuation removed.
+#'
+#' @format ## `connlu_bullying_iso`
+>>>>>>> 821419782e1b8aad31b69dcd41eb33b0c237a2f0
 #' A dataframe with 1240 rows and 14 columns:
 #' \describe{
 #'   \item{doc_id} {the identifier of the document}
@@ -110,7 +116,11 @@
 #' @source <https://urn.fi/urn:nbn:fi:fsd:T-FSD3360>
 "conllu_lonely"
 
+<<<<<<< HEAD
 #' Loneliness response data in CoNLL-U format with NLTK stopwords and
+=======
+#' Loneliness response data in CONN-LU format with NLTK stopwords and
+>>>>>>> 821419782e1b8aad31b69dcd41eb33b0c237a2f0
 #' punctuation remvoved.
 #'
 #' This data contains the responses to q9 "Miltä yksinäisyys tuntuu?
@@ -119,7 +129,11 @@
 #' (Avokysymys)" in the FSD3360 Helsingin Sanomat Loneliness Survey
 #' 2014 in CoNLL-U format with NLTK stopwords removed.
 #'
+<<<<<<< HEAD
 #' @format ## `conllu_lonely_nltk`
+=======
+#' @format ## `connlu_lonely_nltk`
+>>>>>>> 821419782e1b8aad31b69dcd41eb33b0c237a2f0
 #' A dataframe with 85042 rows and 14 columns:
 #' \describe{
 #'   \item{doc_id} {the identifier of the document}
