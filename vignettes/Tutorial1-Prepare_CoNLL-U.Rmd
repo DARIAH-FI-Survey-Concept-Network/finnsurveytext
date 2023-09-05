@@ -65,7 +65,7 @@ Summary of components
 
 * `data` is the dataframe of interest. In this case, we are using data that comes with the pacakge called 'bullying_data'. Otherwise, if you read in a csv containing a dataframe, such as through `read.csv` in base R for use in this tutorial.
 * The `field` is the name of the column in your data which contains the open-ended survey question. In this example, the responses about bullying are in question 7. 
-* We have chosen to remove stopwords from the "nltk" stopword list in this example. To find the relevant lists of Finnish stopwords, you can run the `fst_rm_stopwords` function which is outlined below. 
+* We have chosen to remove stopwords from the "nltk" stopword list in this example. To find the relevant lists of Finnish stopwords, you can run the `fst_rm_stopwords` function which is outlined below. Punctuation is also removed from the data.
 * The function also requires a Finnish language model available for [udpipe], in this case we are using the default Finnish Treebank, "ftb". 
 * The results in CoNLL-U format are stored in the local environment as "prepd_bullying". 
 
@@ -79,7 +79,7 @@ prepd_lonely <- fst_prepare_connlu(lonely_data, field = "q9", stopword_list = "n
 
 * `data` is the dataframe of interest. In this case, we are using data that comes with the pacakge called 'lonely_data'. Otherwise, if you read in a csv containing a dataframe, such as through `read.csv` in base R for use in this tutorial.
 * The `field` is the name of the column in your data which contains the open-ended survey question. In this example, the responses about loneliness are in question 9. 
-* We have chosen *not* to remove stopwords in this example. 
+* We have chosen *not* to remove stopwords and punctuation in this example. 
 * The function also requires a Finnish language model available for [udpipe], in this case we are using the Turku Dependency Treebank, "tdt". 
 * The results in CoNLL-U format are stored in the local environment as "prepd_lonely". 
 
@@ -131,10 +131,10 @@ knitr::kable(head(conllu_bullying))
 2. `field` is the open-ended survey question header in the table, such as "q9"
 3. `model` is the chosen Finnish treebank for annotation, either "ftb" (the default) or "tdt". 
 
-#### Remove stopwords from CoNLL-U data
-`fst_rm_stopwords`
+#### Remove stopwords and punctuation from CoNLL-U data
+`fst_rm_stop_punct`
 
-This (optional) function will remove stopwords from the CoNLL-U data. `fst_find_stopwords` can be used to find options for stopwords lists. 
+This (optional) function will remove stopwords and punctuation from the CoNLL-U data. `fst_find_stopwords` can be used to find options for stopwords lists. 
 
 `fst_rm_stopwords` takes 2 arguments: 
 

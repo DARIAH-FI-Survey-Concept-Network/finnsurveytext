@@ -11,13 +11,13 @@
 #' @source <https://urn.fi/urn:nbn:fi:fsd:T-FSD3134>
 "bullying_data"
 
-#' Bullying response data in CONN-LU format
+#' Bullying response data in CoNLL-U format
 #'
 #' This data contains the responses to q7 "Kertoisitko, mitä sinun mielestäsi
 #' kiusaaminen on? (Avokysymys)" in the FSD3134 Lapsibarometri 2016 dataset
-#' in CoNNL-U format.
+#' in CoNLL-U format.
 #'
-#' @format ## `connlu_bullying`
+#' @format ## `conllu_bullying`
 #' A dataframe with 2722 rows and 14 columns:
 #' \describe{
 #'   \item{doc_id} {the identifier of the document}
@@ -36,16 +36,16 @@
 #'   \item{misc} {Any other annotation.}
 #' }
 #' @source <https://urn.fi/urn:nbn:fi:fsd:T-FSD3134>
-"connlu_bullying"
+"conllu_bullying"
 
-#' Bullying response data in CoNNL-U format with ISO stopwords remvoved
+#' Bullying response data in CoNLL-U format with ISO stopwords remvoved
 #'
 #' This data contains the responses to q7 "Kertoisitko, mitä sinun mielestäsi
 #' kiusaaminen on? (Avokysymys)" in the FSD3134 Lapsibarometri 2016 dataset
-#' in CONN-LU format with ISO stopwords removed.
+#' in CoNLL-U format with ISO stopwords and punctuation removed.
 #'
-#' @format ## `connlu_bullying_iso`
-#' A dataframe with 1747 rows and 14 columns:
+#' @format ## `conllu_bullying_iso`
+#' A dataframe with 1240 rows and 14 columns:
 #' \describe{
 #'   \item{doc_id} {the identifier of the document}
 #'   \item{paragraph_id} {the identifier of the paragraph}
@@ -63,7 +63,7 @@
 #'   \item{misc} {Any other annotation.}
 #' }
 #' @source <https://urn.fi/urn:nbn:fi:fsd:T-FSD3134>
-"connlu_bullying_iso"
+"conllu_bullying_iso"
 
 #' Loneliness response data
 #'
@@ -81,15 +81,15 @@
 #' @source <https://urn.fi/urn:nbn:fi:fsd:T-FSD3360>
 "lonely_data"
 
-#' Loneliness response data in CONN-LU format
+#' Loneliness response data in CoNLL-U format
 #'
 #' This data contains the responses to q9 "Miltä yksinäisyys tuntuu?
 #' Yksinäisyyteen liittyy usein voimakkaita tunteita, jotka ovat erilaisia eri
 #' elämäntilanteissa. Jos haluat, voit kertoa yksinäisyyskokemuksiasi tässä.
 #' (Avokysymys)" in the FSD3360 Helsingin Sanomat Loneliness Survey
-#' 2014 in CoNNL-U format.
+#' 2014 in CoNlL-U format.
 #'
-#' @format ## `connlu_lonely`
+#' @format ## `conllu_lonely`
 #' A dataframe with 128946 rows and 14 columns:
 #' \describe{
 #'   \item{doc_id} {the identifier of the document}
@@ -108,18 +108,19 @@
 #'   \item{misc} {Any other annotation.}
 #' }
 #' @source <https://urn.fi/urn:nbn:fi:fsd:T-FSD3360>
-"connlu_lonely"
+"conllu_lonely"
 
-#' Loneliness response data in CONN-LU format with NLTK stopwords remvoved
+#' Loneliness response data in CoNLL-U format with NLTK stopwords and
+#' punctuation remvoved.
 #'
 #' This data contains the responses to q9 "Miltä yksinäisyys tuntuu?
 #' Yksinäisyyteen liittyy usein voimakkaita tunteita, jotka ovat erilaisia eri
 #' elämäntilanteissa. Jos haluat, voit kertoa yksinäisyyskokemuksiasi tässä.
 #' (Avokysymys)" in the FSD3360 Helsingin Sanomat Loneliness Survey
-#' 2014 in CoNNL-U format with NLTK stopwords removed.
+#' 2014 in CoNLL-U format with NLTK stopwords removed.
 #'
-#' @format ## `connlu_lonely_nltk`
-#' A dataframe with 101833 rows and 14 columns:
+#' @format ## `conllu_lonely_nltk`
+#' A dataframe with 85042 rows and 14 columns:
 #' \describe{
 #'   \item{doc_id} {the identifier of the document}
 #'   \item{paragraph_id} {the identifier of the paragraph}
@@ -137,5 +138,5 @@
 #'   \item{misc} {Any other annotation.}
 #' }
 #' @source <https://urn.fi/urn:nbn:fi:fsd:T-FSD3360>
-"connlu_lonely_nltk"
+"conllu_lonely_nltk"
 

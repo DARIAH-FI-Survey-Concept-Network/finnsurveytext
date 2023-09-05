@@ -4,23 +4,12 @@
 \alias{fst_prepare_conllu}
 \title{Read In and format Finnish survey text responses}
 \usage{
-fst_prepare_conllu(
-  pathname,
-  field,
-  file_name,
-  delim = ",",
-  model = "ftb",
-  stopword_list = "nltk"
-)
+fst_prepare_conllu(data, field, model = "ftb", stopword_list = "nltk")
 }
 \arguments{
-\item{pathname}{Path and file name for input csv file.}
+\item{data}{A dataframe of survey responses which contains an open-ended question.}
 
-\item{field}{The field in the csv which contains the relevant responses.}
-
-\item{file_name}{The name for the saved file.}
-
-\item{delim}{The separator character within the csv, defaults to `","`.}
+\item{field}{The field in the dataframe which contains the open-ended question.}
 
 \item{model}{A Finnish language model available for [udpipe], `ftb` (default)
 or `tdt`.}
@@ -29,13 +18,13 @@ or `tdt`.}
 "none".}
 }
 \value{
-Saves file in 'processed_data' folder within working directory.
+CoNLL-U dataframe
 }
 \description{
 `fst_prepare_conllu` produces a dataframe (and saves as csv) containing
 Finnish survey text reponses in CoNLL-U format with stopwords removed.
 }
 \examples{
-prepd_bullying <- fst_prepare_conllu(pathname = "data/daF3134.csv", field = "q7", stopword_list = "nltk", file_name = "bullying", delim = ";")
-prepd_lonely <- fst_prepare_conllu("data/daF3360.csv", field = "q9", stopword_list = "none", file_name="lonely", delim = ";")
+prepd_bullying <- fst_prepare_conllu(data = bullying_data, field = "q7", stopword_list = "stopwords-iso")
+prepd_lonely <- fst_prepare_conllu(data = lonely_data, field = "q9", stopword_list = "nltk")
 }

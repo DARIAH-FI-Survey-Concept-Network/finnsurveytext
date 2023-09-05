@@ -59,10 +59,10 @@ fst_find_stopwords <- function() {
   dplyr::tibble(Name, Stopwords, Length)
 }
 
-#' Remove Finnish stopwords from CoNLL-U dataframe
+#' Remove Finnish stopwords and punctuation from CoNLL-U dataframe
 #'
-#' Removes stopwords from a dataframe containing Finnish survey text data which
-#' is already in CoNLL-U format.
+#' Removes stopwords and punctuation from a dataframe containing Finnish survey
+#' text data which is already in CoNLL-U format.
 #'
 #' @param data A dataframe of Finnish text in CoNLL-U format.
 #' @param stopword_list A valid Finnish stopword list, default is `"nltk"`.
@@ -71,39 +71,17 @@ fst_find_stopwords <- function() {
 #' @export
 #'
 #' @examples
-#' conllu_lonely_nltk <- fst_rm_stopwords(conllu_lonely)
-#' conllu_bullying_iso <- fst_rm_stopwords(conllu_bullying, 'stopwords-iso')
-fst_rm_stopwords <- function(data, stopword_list = "nltk") {
+#' conllu_lonely_nltk <- fst_rm_stop_punct(conllu_lonely)
+#' conllu_bullying_iso <- fst_rm_stop_punct(conllu_bullying, 'stopwords-iso')
+fst_rm_stop_punct <- function(data, stopword_list = "nltk") {
   swords <- stopwords::stopwords("fi", stopword_list)
   output <- data %>%
     dplyr::mutate(lemma = stringr::str_replace(.data$lemma, "#", "")) %>%
-    dplyr::filter(!.data$lemma %in% swords)
+    dplyr::filter(!.data$lemma %in% swords) %>%
+    dplyr::filter(.data$upos != 'PUNCT')
   output
 }
 
-#' Save dataframe
-#'
-#' Saves dataframe to `processed_data` subfolder of working directory.
-#'
-#' @param dataframe A dataframe.
-#' @param file_name The name for the saved file.
-#'
-#' @return Saves file in 'processed_data' folder within working directory.
-#' @export
-#'
-#' @examples
-#' fst_save(conllu_lonely, "lonely_processed")
-#' fst_save(conllu_lonely_nltk, "lonely_stopwords_rm")
-fst_save <- function(dataframe, file_name) {
-  output_dir <- "processed_data"
-  if (!dir.exists(output_dir)) {
-    dir.create(output_dir)
-  }
-  write.csv(dataframe,
-    paste(output_dir, "/", file_name, ".csv", sep = ""),
-    row.names = FALSE
-  )
-}
 
 #' Read In and format Finnish survey text responses
 #'
@@ -129,7 +107,7 @@ fst_prepare_conllu <- function(data,
                                stopword_list = "nltk") {
   an_data <- fst_format_conllu(model = model, data = data, field = field)
   if (stopword_list != "none") {
-    an_data <- fst_rm_stopwords(data = an_data, stopword_list = stopword_list)
+    an_data <- fst_rm_stop_punct(data = an_data, stopword_list = stopword_list)
   }
   an_data
 }

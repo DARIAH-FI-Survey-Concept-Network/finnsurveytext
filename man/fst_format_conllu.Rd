@@ -19,7 +19,7 @@ Dataframe of annotated text in CoNLL-U format.
 }
 \description{
 Creates a dataframe in CoNLL-U format from a list of strings of Finnish text
-Finnish language model and use of [udpipe] package
+using the [udpipe] package and a Finnish language model
 }
 \examples{
 conllu_lonely <- fst_format_conllu(data = lonely_data, field = "q9")
