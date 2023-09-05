@@ -28,7 +28,7 @@ First, install and load the `finnsurveytext` package as below:
 devtools::load_all() # TO-DO: remove this load_all() line and uncomment the library() line. 
 ```
 
-There are two data files available within the package for use in this tutorial. These files have been created following the process demonstrated in Tutorial 1. 
+There are three data files available within the package for use in this tutorial. These files have been created following the process demonstrated in Tutorial 1. 
 
 #### 1. Bullying Data
 * data/conllu_bullying_iso.rda
@@ -36,18 +36,26 @@ There are two data files available within the package for use in this tutorial. 
 #### 2. Loneliness Data
 * data/conllu_lonely_nltk.rda
 
+#### 3. Loneliness Data without Stopwords Removed
+* data/conllu_lonely.rda
+
 You can read these in as follows: 
 
 ```{r}
 bullying <- conllu_bullying_iso
-knitr::kable(head(bullying))
 lonely <- conllu_lonely_nltk
+lonely_full <- conllu_lonely
+
+knitr::kable(head(bullying))
 ```
 
 #### Concept Network - Search Textrank for Concepts
 `fst_cn_search`
 
-This function is used to find words which are related to a list of provided terms. It utilises the `textrank_keywords` function which is part of the `textrank` package. For further information on the package, please see [this documentation](https://cran.r-project.org/web/packages/textrank/vignettes/textrank.html). 
+This function is used to find words which are related to a list of provided terms. It utilises the `textrank_keywords` function which is part of the `textrank` package. For further information on the package, please see [this documentation](https://cran.r-project.org/web/packages/textrank/vignettes/textrank.html) and you can read about the underlying algorithm [here](https://web.eecs.umich.edu/~mihalcea/papers/mihalcea.emnlp04.pdf). 
+
+Importantly, in this package, keywords from the text are found and assigned weighting based not on frequency but on an unsupervised learning algorithm, TextRank. 
+
 
 This function goes through the following process: 
 
@@ -55,3 +63,112 @@ This function goes through the following process:
 2. applies the `textrank_keywords` function which finds n-grams in the text that occur multiple times
 3. finds all pairs of words included in these common ngrams 
 4. filters the pairs so that at least one of the pair is a searched term. 
+
+To run `fst_cn_search`, we provide the following arguments to the function:
+1. `data` which is output from data preparation, prepared data in CoNLL-U format, such as the output of `fst_prepare_connlu`. 
+2. `concept` is a string of concept terms to search for, separated by commas.
+3. `relevant_pos` is a list of UPOS tags for inclusion, default is c("NOUN", "VERB", "ADJ", "ADV").
+
+The function `fst_cn_search` is demonstrated below.
+```{r}
+bullying_concepts <- fst_cn_search(conllu_bullying_iso, 'kiusata, lyöminen, lyödä, potkia')
+lonely_concepts <- fst_cn_search(conllu_lonely_nltk, 'yksinäisyys, tunne, tuntea')
+lonely_concepts_full <- fst_cn_search(conllu_lonely, 'yksinäisyys, tunne, tuntea')
+```
+
+The resulting dataframe is formatted as below:
+```{r}
+knitr::kable(head(lonely_concepts, n=10))
+```
+
+#### Concept Network - Get Textrank Edges
+`fst_cn_edges`
+
+The Get Edges function runs the search function, `fst_cn_search` and then filters for edges (pairs of co-occurring words where one is a concept word) which are larger than the threshold (occurring enough times). The resulting dataframe is simplified in preparation for plotting. 
+
+The arguments are the same as for `fst_cn_search` plus the `threshold`. 
+
+1. `data` which is output from data preparation, prepared data in CoNLL-U format, such as the output of `fst_prepare_connlu`. 
+2. `concept` is a string of concept terms to search for, separated by commas.
+3. `threshold` is the minimum number of occurrences threshold for 'edge' between a concept term and other word, default is NULL.
+3. `relevant_pos` is a list of UPOS tags for inclusion, default is c("NOUN", "VERB", "ADJ", "ADV").
+
+```{r}
+bullying_edges <-fst_cn_edges(conllu_bullying_iso, 'kiusata, lyöminen, lyödä, potkia')
+lonely_edges <- fst_cn_edges(conllu_lonely_nltk, 'yksinäisyys, tunne, tuntea', threshold = 3)
+lonely_edges_full <- fst_cn_edges(conllu_lonely, concept = 'yksinäisyys, tunne, tuntea', threshold=5)
+```
+
+The dataframe has a simplified format from the `fst_cn_search` results, with only columns "to", "from" and "n" which indicates the number of occurences.
+
+```{r}
+knitr::kable(head(lonely_edges, n=10))
+```
+
+#### Concept Network - Get Textrank Nodes
+`fst_cn_nodes`
+
+This function runs the `textrank_keywords` function which is part of the `textrank` package and returns a dataframe containing relevant lemmas and their associated pagerank. You can read more about the PageRank algorithm [here](https://www.sciencedirect.com/science/article/abs/pii/S016975529800110X). This is the same algorithm that Google uses to rank webpages. 
+
+`fst_cn_nodes` requires the following arguments: 
+
+1. `data` which is output from data preparation, prepared data in CoNLL-U format, such as the output of `fst_prepare_connlu`. 
+2. `edges` is the output from `fst_cn_edges`.
+3. `relevant_pos` is a list of UPOS tags for inclusion, default is c("NOUN", "VERB", "ADJ", "ADV").
+
+It is demonstrated as follows: 
+```{r}
+bullying_nodes <- fst_cn_nodes(conllu_bullying, bullying_edges)
+lonely_nodes <- fst_cn_nodes(conllu_lonely_nltk, lonely_edges)
+lonely_nodes_full <- fst_cn_nodes(conllu_lonely, lonely_edges_full)
+```
+
+```{r}
+knitr::kable(head(lonely_nodes, n=10))
+```
+
+#### Plot Concept Network
+`fst_cn_plot`
+
+This function takes the output of the previous functions and plots the concept network. Edges between words in the plot show the number of occurrences with thicker and more opaque edges showing more occurrences. Similarly, the size of the word circle indicates the pagerank with higher pagerank resulting in a larger circle. Concept words are coloured red and other terms are black. 
+
+As `fst_cn_plot` uses results from the previous functions it requires X arguments: 
+
+1. `edges` is the output of `fst_cn_edges`.
+2. `nodes` is the output of `fst_cn_nodes`
+3. `concepts` is a list of terms which have been searched for, separated by commas.
+
+```{r}
+fst_cn_plot(edges = bullying_edges, nodes = bullying_nodes, concepts = 'kiusata, lyöminen')
+```
+
+Recall that for `lonely_edges` we have set the `threshold` as 3.
+```{r}
+fst_cn_plot(edges = lonely_edges, nodes = lonely_nodes, concepts = 'yksinäisyys, tunne, tuntea')
+```
+
+Recall that for `lonely_edges_full` we have set the `threshold` as 5. This is why there are fewer words included in the plot despite more words available (including stopwords) in this data. 
+```{r}
+fst_cn_plot(edges = lonely_edges_full, nodes = lonely_nodes_full, concepts = 'yksinäisyys, tunne, tuntea')
+```
+
+#### Plot Concept Network
+`fst_concept_network`
+
+If you don't want to run all of the individual functions, `fst_cn_search`, `fst_cn_edges`, `fst_cn_nodes`, and `fst_cn_plot`, you can run them all within the one function `fst_concept_network`. 
+
+The arguments are: 
+1. `data` which is output from data preparation, prepared data in CoNLL-U format, such as the output of `fst_prepare_connlu`. 
+2. `concept` is a string of concept terms to search for, separated by commas.
+3. `threshold` is the minimum number of occurrences threshold for 'edge' between a concept term and other word, default is NULL.
+3. `relevant_pos` is a list of UPOS tags for inclusion, default is c("NOUN", "VERB", "ADJ", "ADV").
+
+This function is run as follows: 
+```{r}
+fst_concept_network(conllu_lonely_nltk, concepts = "yksinäisyys, tunne, tuntea", threshold=3)
+fst_concept_network(conllu_lonely_nltk, concepts = "tunne, tuntea", threshold=3)
+fst_concept_network(conllu_lonely_nltk, concepts = "tunne, tuntea")
+fst_concept_network(conllu_lonely, concepts = "yksinäisyys, tunne, tuntea", threshold=5)
+fst_concept_network(conllu_bullying_iso, concepts = 'kiusata, lyöminen')
+```
+

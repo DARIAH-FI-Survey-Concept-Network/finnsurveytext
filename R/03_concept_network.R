@@ -15,7 +15,7 @@
 #' @examples
 #' lonely_concepts_2 <- fst_cn_search(conllu_lonely, 'yksinäisyys, tunne, tuntea')
 #' lonely_concepts <- fst_cn_search(conllu_lonely_nltk, 'yksinäisyys, tunne, tuntea')
-#' bullying_concepts <- fst_cn_search(conllu_bullying_iso, 'kiusata, lyöminen')
+#' bullying_concepts2 <- fst_cn_search(conllu_bullying_iso, 'kiusata, lyöminen, lyödä, potkia')
 fst_cn_search <- function(data,
                           concept,
                           relevant_pos = c("NOUN", "VERB", "ADJ", "ADV")) {
@@ -33,7 +33,7 @@ fst_cn_search <- function(data,
     dplyr::mutate(word1 = dplyr::lag(word2)) %>%
     dplyr::relocate(word1, .before = word2) %>%
     dplyr::ungroup() %>%
-    dplyr::filter(!is.na(word1)) #%>%
+    dplyr::filter(!is.na(word1))
   concept_keywords <- keyword_data %>%
     dplyr::filter(word1 %in% concept)  %>%
     dplyr::pull(keyword)
@@ -61,7 +61,7 @@ fst_cn_search <- function(data,
 #'
 #' @examples
 #' lonely_edges_2 <- fst_cn_edges(conllu_lonely, concept = 'yksinäisyys, tunne, tuntea', threshold=5)
-#' lonely_edges <- fst_cn_edges(conllu_lonely_nltk, 'yksinäisyys, tunne, tuntea', threshold = 5)
+#' lonely_edges <- fst_cn_edges(conllu_lonely_nltk, 'yksinäisyys, tunne, tuntea', threshold = 3)
 #' bullying_edges <-fst_cn_edges(conllu_bullying_iso, 'kiusata, lyöminen')
 fst_cn_edges <- function(data,
                          concept,
@@ -119,10 +119,10 @@ fst_cn_nodes <- function(data,
 #' @export
 #'
 #' @examples
-#' fst_cn_graph(edges = lonely_edges_2, nodes = lonely_nodes_2, concepts = 'yksinäisyys, tunne, tuntea')
-#' fst_cn_graph(edges = lonely_edges, nodes = lonely_nodes, concepts = 'yksinäisyys, tunne, tuntea')
-#' fst_cn_graph(edges = bullying_edges, nodes = bullying_nodes, concepts = 'kiusata, lyöminen')
-fst_cn_graph <- function(edges, nodes, concepts) {
+#' fst_cn_plot(edges = lonely_edges_2, nodes = lonely_nodes_2, concepts = 'yksinäisyys, tunne, tuntea')
+#' fst_cn_plot(edges = lonely_edges, nodes = lonely_nodes, concepts = 'yksinäisyys, tunne, tuntea')
+#' fst_cn_plot(edges = bullying_edges, nodes = bullying_nodes, concepts = 'kiusata, lyöminen')
+fst_cn_plot <- function(edges, nodes, concepts) {
   if(stringr::str_detect(concepts, ",")){
     concepts <- concepts  %>% lapply(tolower) %>%
       stringr::str_extract_all(pattern = "\\w+") %>%
@@ -149,4 +149,33 @@ fst_cn_graph <- function(edges, nodes, concepts) {
   return(p)
 }
 
+#' Concept Network - Make Concept Network Plot
+#'
+#' @param data A dataframe of text in CoNLL-U format.
+#' @param input_word List of terms to search for, separated by commas.
+#' @param threshold A minimum number of occurrences threshold for 'edge' between
+#' searched term and other word, default is NULL.
+#' @param relevant_pos List of UPOS tags for inclusion, default is c("NOUN",
+#' "VERB", "ADJ", "ADV").
+#'
+#' @return Plot of concept network
+#' @export
+#'
+#' @examples
+#' fst_concept_network(conllu_lonely_nltk, concepts = "yksinäisyys, tunne, tuntea", threshold=3)
+#' fst_concept_network(conllu_lonely_nltk, concepts = "tunne, tuntea", threshold=3)
+#' fst_concept_network(conllu_lonely_nltk, concepts = "tunne, tuntea")
+#' fst_concept_network(conllu_lonely, concepts = "yksinäisyys, tunne, tuntea", threshold=5)
+#' fst_concept_network(conllu_bullying_iso concepts = 'kiusata, lyöminen')
+fst_concept_network <- function(data,
+                                concepts,
+                                threshold = NULL,
+                                relevant_pos = c("NOUN", "VERB", "ADJ", "ADV")) {
+  edges <- fst_cn_edges(data = data,
+                        concept = concepts,
+                        threshold = threshold,
+                        relevant_pos = relevant_pos)
+  nodes <- fst_cn_nodes(data = data, edges, relevant_pos = relevant_pos)
+  fst_cn_plot(edges, nodes, concepts = concepts)
+}
 

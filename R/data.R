@@ -42,10 +42,10 @@
 #'
 #' This data contains the responses to q7 "Kertoisitko, mitä sinun mielestäsi
 #' kiusaaminen on? (Avokysymys)" in the FSD3134 Lapsibarometri 2016 dataset
-#' in CONN-LU format with ISO stopwords removed.
+#' in CONN-LU format with ISO stopwords and punctuation removed.
 #'
 #' @format ## `connlu_bullying_iso`
-#' A dataframe with 1747 rows and 14 columns:
+#' A dataframe with 1240 rows and 14 columns:
 #' \describe{
 #'   \item{doc_id} {the identifier of the document}
 #'   \item{paragraph_id} {the identifier of the paragraph}
@@ -110,7 +110,8 @@
 #' @source <https://urn.fi/urn:nbn:fi:fsd:T-FSD3360>
 "connlu_lonely"
 
-#' Loneliness response data in CONN-LU format with NLTK stopwords remvoved
+#' Loneliness response data in CONN-LU format with NLTK stopwords and
+#' punctuation remvoved.
 #'
 #' This data contains the responses to q9 "Miltä yksinäisyys tuntuu?
 #' Yksinäisyyteen liittyy usein voimakkaita tunteita, jotka ovat erilaisia eri
@@ -119,7 +120,7 @@
 #' 2014 in CoNNL-U format with NLTK stopwords removed.
 #'
 #' @format ## `connlu_lonely_nltk`
-#' A dataframe with 101833 rows and 14 columns:
+#' A dataframe with 85042 rows and 14 columns:
 #' \describe{
 #'   \item{doc_id} {the identifier of the document}
 #'   \item{paragraph_id} {the identifier of the paragraph}
