@@ -78,7 +78,7 @@ fst_freq <- function(data, number = 20, pos_filter = NULL) {
   data %>%
     dplyr::filter(.data$dep_rel != "punct") %>%
     dplyr::filter(!is.na(lemma)) %>%
-    dplyr::filter(lemma != 'NA') %>%
+    dplyr::filter(lemma != 'na') %>%
     dplyr::count(lemma, sort = TRUE) %>%
     dplyr::slice_max(n, n = number) %>%
     dplyr::mutate(lemma = reorder(lemma, n)) %>%
@@ -107,7 +107,7 @@ fst_ngrams <- function(data, number = 20, ngrams = 2){
   data %>%
     dplyr::filter(.data$dep_rel != "punct") %>%
     dplyr::filter(!is.na(lemma)) %>%
-    dplyr::filter(lemma != 'NA') %>%
+    dplyr::filter(lemma != 'na') %>%
     dplyr::mutate(n_gram = udpipe::txt_nextgram(lemma, n = ngrams)) %>%
     dplyr::count(n_gram, sort = TRUE) %>%
     dplyr::slice_max(n, n = number) %>%
@@ -143,7 +143,7 @@ fst_wordcloud <- function(data, pos_filter = NULL){
   wordcloud_data <- data %>%
     dplyr::filter(.data$dep_rel != "punct") %>%
     dplyr::filter(!is.na(lemma)) %>%
-    dplyr::filter(lemma != 'NA') %>%
+    dplyr::filter(lemma != 'na') %>%
     dplyr::count(lemma, sort = TRUE)
   wordcloud::wordcloud(words = wordcloud_data$lemma, freq = wordcloud_data$n,
             max.words= 100,

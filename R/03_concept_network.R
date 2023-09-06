@@ -23,7 +23,7 @@ fst_cn_search <- function(data,
     concept <- stringr::str_extract_all(concept, pattern = "\\w+") %>%
       unlist()
   }
-  data <- dplyr::filter(data, token != 'NA')
+  data <- dplyr::filter(data, token != 'na')
   x <- textrank::textrank_keywords(data$lemma, relevant=data$upos %in% relevant_pos)
   keyword_data <- x$keywords %>%
     dplyr::filter(ngram > 1 & freq > 1) %>%
@@ -67,7 +67,7 @@ fst_cn_edges <- function(data,
                          concept,
                          threshold = NULL,
                          relevant_pos = c("NOUN", "VERB", "ADJ", "ADV")) {
-  data <- dplyr::filter(data, token != 'NA')
+  data <- dplyr::filter(data, token != 'na')
   df <-  data %>%
     fst_cn_search(concept = concept, relevant_pos = relevant_pos) %>%
     dplyr::select(word1, word2, freq) %>%
@@ -98,7 +98,7 @@ fst_cn_edges <- function(data,
 fst_cn_nodes <- function(data,
                          edges,
                          relevant_pos = c("NOUN", "VERB", "ADJ", "ADV")) {
-  data <- dplyr::filter(data, token != 'NA')
+  data <- dplyr::filter(data, token != 'na')
   keyw <- textrank::textrank_keywords(data$lemma, relevant=data$upos %in% relevant_pos)
   textrank_data <- data.frame(pagerank = keyw$pagerank$vector) %>%
     tibble::rownames_to_column("lemma")
@@ -166,11 +166,7 @@ fst_cn_plot <- function(edges, nodes, concepts) {
 #' fst_concept_network(conllu_lonely_nltk, concepts = "tunne, tuntea", threshold=3)
 #' fst_concept_network(conllu_lonely_nltk, concepts = "tunne, tuntea")
 #' fst_concept_network(conllu_lonely, concepts = "yksinäisyys, tunne, tuntea", threshold=5)
-<<<<<<< HEAD
 #' fst_concept_network(conllu_bullying_iso, concepts = 'kiusata, lyöminen')
-=======
-#' fst_concept_network(conllu_bullying_iso concepts = 'kiusata, lyöminen')
->>>>>>> 821419782e1b8aad31b69dcd41eb33b0c237a2f0
 fst_concept_network <- function(data,
                                 concepts,
                                 threshold = NULL,

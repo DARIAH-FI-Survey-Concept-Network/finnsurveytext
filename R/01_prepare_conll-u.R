@@ -32,7 +32,9 @@ fst_format_conllu <- function(data, field, model = "ftb") {
     model_tdt <- udpipe::udpipe_load_model(file = "finnish-tdt-ud-2.5-191206.udpipe")
     annotated_data <- as.data.frame(udpipe::udpipe_annotate(model_tdt, x = data))
   }
-  annotated_data
+  annotated_data %>%
+    dplyr::mutate(token = tolower(token)) %>%
+    dplyr::mutate(lemma = tolower(lemma))
 }
 
 #' Get available Finnish stopwords lists
