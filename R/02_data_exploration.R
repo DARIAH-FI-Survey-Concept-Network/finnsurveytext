@@ -170,8 +170,8 @@ fst_wordcloud <- function(data, pos_filter = NULL){
 #' @export
 #'
 #' @examples
-#' fst_discover(bullying)
-#' fst_discover(data, freq_number = 10, ngram_number=8, ngrams = 2, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+#' fst_discover(bullying_data)
+#' fst_discover(conllu_lonely_nltk, freq_number = 10, ngram_number=8, ngrams = 2, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
 fst_discover <- function(data, freq_number = 20, ngram_number = 20,
                          ngrams = 2, pos_filter = NULL){
   plot.new()

@@ -1,0 +1,131 @@
+---
+title: "Dev-Coop-Test"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Dev-Coop-Test}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>", 
+  fig.width=6, fig.height=6
+)
+```
+
+```{r setup}
+#install.packages("finnsurveytext")
+#library(finnsurveytext)
+devtools::load_all() # TO-DO: remove this load_all() line and uncomment the library() line. 
+```
+
+
+## Description
+we're looking at FSD2821 Young People's Views on Development Cooperation 2012
+FSD2821 Nuorten ajatuksia kehitysyhteistyöstä 2012
+
+[q11_1] Jatka lausetta: Kehitysmaa on maa, jossa... (Avokysymys)
+[q11_2] Jatka lausetta: Kehitysyhteistyö on toimintaa, jossa... (Avokysymys)
+[q11_3] Jatka lausetta: Maailman kolme suurinta ongelmaa ovat... (Avokysymys)
+
+(Translations)
+[q11_1] Continue the sentence: A developing country is a country where... (Open question)
+[q11_2] Continue the sentence: Development cooperation is an activity in which... (Open question)
+[q11_3] Continue the sentence: The world's three biggest problems are... (Open question)
+
+## Read in 
+
+```{r}
+devdata <- read.csv('//ad.helsinki.fi/home/a/adeclark/Documents/data/FSD2821/Study/Data/daF2821.csv', sep = ';')
+
+q11_1 <- fst_prepare_conllu(data = devdata, field = "q11_1", stopword_list = "nltk")
+q11_2 <- fst_prepare_conllu(data = devdata, field = "q11_2", stopword_list = "nltk")
+q11_3 <- fst_prepare_conllu(data = devdata, field = "q11_3", stopword_list = "nltk")
+```
+
+## EDA
+
+### Summarise
+```{r}
+fst_summarise(q11_1)
+fst_summarise(q11_2)
+fst_summarise(q11_1)
+```
+
+### POS Summary
+```{r}
+fst_pos(q11_1)
+fst_pos(q11_2)
+fst_pos(q11_3)
+```
+
+### Top Words
+```{r}
+fst_freq(q11_1, 10, c("NOUN", "VERB", "ADJ", "ADV"))
+fst_freq(q11_2, 10, c("NOUN", "VERB", "ADJ", "ADV"))
+fst_freq(q11_3, 10, c("NOUN", "VERB", "ADJ", "ADV"))
+```
+
+### Bi-grams and Trigrams 
+
+```{r}
+fst_ngrams(q11_1, number = 10, ngrams=2)
+fst_ngrams(q11_1, number = 10, ngrams=3)
+
+fst_ngrams(q11_2, number = 10, ngrams=2)
+fst_ngrams(q11_2, number = 10, ngrams=3)
+
+fst_ngrams(q11_3, number = 10, ngrams=2)
+fst_ngrams(q11_3, number = 10, ngrams=3)
+```
+
+### Wordcloud
+```{r}
+fst_wordcloud(q11_1, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+fst_wordcloud(q11_2, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+fst_wordcloud(q11_3, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+
+```
+
+### Exploring some concept networks based on thematic frequently occuring words
+Mostly not setting threshold because there are only ~950 responses
+#### Q11_1
+[q11_1] Jatka lausetta: Kehitysmaa on maa, jossa... (Avokysymys)
+[q11_1] Continue the sentence: A developing country is a country where... (Open question)
+
+* standard of living, poor, man
+```{r}
+fst_concept_network(q11_1, concepts = "elintaso, köyhä")
+fst_concept_network(q11_1, concepts = "elintaso, köyhä", threshold = 3)
+fst_concept_network(q11_1, concepts = "elintaso, köyhä, ihminen")
+fst_concept_network(q11_1, concepts = "elintaso, köyhä, ihminen", threshold = 3)
+```
+
+#### Q11_2
+[q11_2] Jatka lausetta: Kehitysyhteistyö on toimintaa, jossa... (Avokysymys)
+[q11_2] Continue the sentence: Development cooperation is an activity in which... (Open question)
+
+* development, help, strive, country, man
+```{r}
+fst_concept_network(q11_2, concepts = "kehitysmaa, auttaa, pyrkiä, maa, ihminen")
+fst_concept_network(q11_2, concepts = "kehitysmaa, auttaa, pyrkiä, maa, ihminen", threshold = 10)
+fst_concept_network(q11_2, concepts = "kehitysmaa, auttaa, pyrkiä, maa, ihminen", threshold = 5)
+
+fst_concept_network(q11_2, concepts = "kehitysmaa, auttaa, pyrkiä")
+fst_concept_network(q11_2, concepts = "kehitysmaa, auttaa, pyrkiä", threshold = 5)
+
+```
+
+#### Q11_3
+[q11_3] Continue the sentence: The world's three biggest problems are... (Open question)
+[q11_3] Continue the sentence: The world's three biggest problems are... (Open question)
+
+* poverty, famine, war, climate change, lack of
+```{r}
+fst_concept_network(q11_3, concepts = "köyhyys")
+fst_concept_network(q11_3, concepts = "köyhyys, puute")
+#fst_concept_network(q11_3, concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute") # for some reason it cannot find nälänhätä
+```
+

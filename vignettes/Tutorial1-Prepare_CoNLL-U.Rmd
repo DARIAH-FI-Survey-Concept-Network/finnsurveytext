@@ -59,7 +59,7 @@ A single function, `fst_prepare_connlu` (which calls all the data preparation fu
 Using our bullying data, we can call this function as follows: 
 
 ```{r eval = FALSE}
-prepd_bullying <- fst_prepare_connlu(data = bullying_data, 
+prepd_bullying <- fst_prepare_conllu(data = bullying_data, 
                                      field = "q7", 
                                      stopword_list = "nltk")
 ```
@@ -77,7 +77,7 @@ Summary of components
 As an example, the loneliness data could be prepared using this function call: 
 
 ```{r eval = FALSE}
-prepd_lonely <- fst_prepare_connlu(lonely_data, 
+prepd_lonely <- fst_prepare_conllu(lonely_data, 
                                    field = "q9", 
                                    stopword_list = "none", 
                                    model = "tdt")
