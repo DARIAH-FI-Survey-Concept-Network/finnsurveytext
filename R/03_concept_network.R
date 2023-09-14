@@ -24,6 +24,7 @@ fst_cn_search <- function(data,
       unlist()
   }
   data <- dplyr::filter(data, token != 'na')
+  data$lemma <- stringr::str_replace_all(data$lemma,'-','@')
   x <- textrank::textrank_keywords(data$lemma, relevant=data$upos %in% relevant_pos)
   keyword_data <- x$keywords %>%
     dplyr::filter(ngram > 1 & freq > 1) %>%
@@ -34,6 +35,8 @@ fst_cn_search <- function(data,
     dplyr::relocate(word1, .before = word2) %>%
     dplyr::ungroup() %>%
     dplyr::filter(!is.na(word1))
+  keyword_data$word2 <- stringr::str_replace_all(keyword_data$word2, '@', '-')
+  keyword_data$word1 <- stringr::str_replace_all(keyword_data$word1, '@', '-')
   concept_keywords <- keyword_data %>%
     dplyr::filter(word1 %in% concept)  %>%
     dplyr::pull(keyword)

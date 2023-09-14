@@ -23,7 +23,8 @@ devtools::load_all() # TO-DO: remove this load_all() line and uncomment the libr
 
 
 ## Description
-we're looking at FSD2821 Young People's Views on Development Cooperation 2012
+We're looking at FSD2821 Young People's Views on Development Cooperation 2012
+
 FSD2821 Nuorten ajatuksia kehitysyhteistyöstä 2012
 
 [q11_1] Jatka lausetta: Kehitysmaa on maa, jossa... (Avokysymys)
@@ -38,7 +39,9 @@ FSD2821 Nuorten ajatuksia kehitysyhteistyöstä 2012
 ## Read in 
 
 ```{r}
-devdata <- read.csv('//ad.helsinki.fi/home/a/adeclark/Documents/data/FSD2821/Study/Data/daF2821.csv', sep = ';')
+# devdata <- read.csv('//ad.helsinki.fi/home/a/adeclark/Documents/data/FSD2821/Study/Data/daF2821.csv', sep = ';')
+
+devdata <- dev_data
 
 q11_1 <- fst_prepare_conllu(data = devdata, field = "q11_1", stopword_list = "nltk")
 q11_2 <- fst_prepare_conllu(data = devdata, field = "q11_2", stopword_list = "nltk")
@@ -126,6 +129,8 @@ fst_concept_network(q11_2, concepts = "kehitysmaa, auttaa, pyrkiä", threshold =
 ```{r}
 fst_concept_network(q11_3, concepts = "köyhyys")
 fst_concept_network(q11_3, concepts = "köyhyys, puute")
-#fst_concept_network(q11_3, concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute") # for some reason it cannot find nälänhätä
+fst_concept_network(q11_3, concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute") 
+fst_concept_network(q11_3, concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute", threshold = 3)
+fst_concept_network(q11_3, concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute", threshold = 2)
 ```
 
