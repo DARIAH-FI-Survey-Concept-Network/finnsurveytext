@@ -122,7 +122,7 @@ fst_concept_network(q11_2, concepts = "kehitysmaa, auttaa, pyrkiä", threshold =
 ```
 
 #### Q11_3
-[q11_3] Continue the sentence: The world's three biggest problems are... (Open question)
+[q11_3] Jatka lausetta: Maailman kolme suurinta ongelmaa ovat... (Avokysymys)
 [q11_3] Continue the sentence: The world's three biggest problems are... (Open question)
 
 * poverty, famine, war, climate change, lack of
