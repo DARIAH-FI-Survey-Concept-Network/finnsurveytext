@@ -1,0 +1,139 @@
+---
+title: "Tutorial4-Analysis_of_Development-Cooperation_Data"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Dev-Coop-Test}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>", 
+  fig.width=6, fig.height=6
+)
+```
+
+```{r setup}
+#install.packages("finnsurveytext")
+#library(finnsurveytext)
+devtools::load_all() # TO-DO: remove this load_all() line and uncomment the library() line. 
+```
+## Introduction
+
+This tutorial goes into further details demonstrating the use of the package. The intention is to show how the settings for the concept network plot can be experimented with to make it as meaningful as possible.
+
+## The Data
+We're looking at FSD2821 Young People's Views on Development Cooperation 2012 (FSD2821 Nuorten ajatuksia kehitysyhteistyöstä 2012)
+
+There are 3 open-ended questions we look at within this data and we will set the `threshold` and other function arguments to be suit each question.
+
+### The open-ended questions
+* [q11_1] Jatka lausetta: Kehitysmaa on maa, jossa... (Avokysymys)
+  + [q11_1] Continue the sentence: A developing country is a country where... (Open question)
+* [q11_2] Jatka lausetta: Kehitysyhteistyö on toimintaa, jossa... (Avokysymys)
+  + [q11_2] Continue the sentence: Development cooperation is an activity in which... (Open question)
+* [q11_3] Jatka lausetta: Maailman kolme suurinta ongelmaa ovat... (Avokysymys)
+  + [q11_3] Continue the sentence: The world's three biggest problems are... (Open question)
+
+
+
+## Read in 
+
+```{r}
+devdata <- dev_data
+
+q11_1 <- conllu_dev_q11_1_nltk
+q11_2 <- conllu_dev_q11_2_nltk
+q11_3 <- conllu_dev_q11_3_nltk
+```
+
+## EDA
+
+The differences in the types of responses can be seen in the exploratory data analysis results below: 
+
+### Summarise
+```{r}
+fst_summarise(q11_1)
+fst_summarise(q11_2)
+fst_summarise(q11_3)
+```
+
+### POS Summary
+```{r}
+fst_pos(q11_1)
+fst_pos(q11_2)
+fst_pos(q11_3)
+```
+
+### Top Words
+```{r}
+fst_freq(q11_1, 10, c("NOUN", "VERB", "ADJ", "ADV"))
+fst_freq(q11_2, 10, c("NOUN", "VERB", "ADJ", "ADV"))
+fst_freq(q11_3, 10, c("NOUN", "VERB", "ADJ", "ADV"))
+```
+
+### Bi-grams and Trigrams 
+
+```{r}
+fst_ngrams(q11_1, number = 10, ngrams=2)
+fst_ngrams(q11_1, number = 10, ngrams=3)
+
+fst_ngrams(q11_2, number = 10, ngrams=2)
+fst_ngrams(q11_2, number = 10, ngrams=3)
+
+fst_ngrams(q11_3, number = 10, ngrams=2)
+fst_ngrams(q11_3, number = 10, ngrams=3)
+```
+
+### Wordcloud
+```{r}
+fst_wordcloud(q11_1, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+fst_wordcloud(q11_2, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+fst_wordcloud(q11_3, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+
+```
+
+### Exploring some concept networks based on thematic frequently occuring words
+
+#### Q11_1
+* [q11_1] Jatka lausetta: Kehitysmaa on maa, jossa... (Avokysymys)
+  + [q11_1] Continue the sentence: A developing country is a country where... (Open question)
+* "elintaso, köyhä, ihminen"
+  + standard of living, poor, man
+```{r}
+fst_concept_network(q11_1, concepts = "elintaso, köyhä")
+fst_concept_network(q11_1, concepts = "elintaso, köyhä", threshold = 3)
+fst_concept_network(q11_1, concepts = "elintaso, köyhä, ihminen")
+fst_concept_network(q11_1, concepts = "elintaso, köyhä, ihminen", threshold = 3)
+```
+
+#### Q11_2
+* [q11_2] Jatka lausetta: Kehitysyhteistyö on toimintaa, jossa... (Avokysymys)
+  + [q11_2] Continue the sentence: Development cooperation is an activity in which... (Open question)
+* "kehitysmaa, auttaa, pyrkiä, maa, ihminen"
+  + development, help, strive, country, man
+```{r}
+fst_concept_network(q11_2, concepts = "kehitysmaa, auttaa, pyrkiä, maa, ihminen")
+fst_concept_network(q11_2, concepts = "kehitysmaa, auttaa, pyrkiä, maa, ihminen", threshold = 10)
+fst_concept_network(q11_2, concepts = "kehitysmaa, auttaa, pyrkiä, maa, ihminen", threshold = 5)
+
+fst_concept_network(q11_2, concepts = "kehitysmaa, auttaa, pyrkiä")
+fst_concept_network(q11_2, concepts = "kehitysmaa, auttaa, pyrkiä", threshold = 5)
+
+```
+
+#### Q11_3
+* [q11_3] Jatka lausetta: Maailman kolme suurinta ongelmaa ovat... (Avokysymys)
+  + [q11_3] Continue the sentence: The world's three biggest problems are... (Open question)
+* "köyhyys, nälänhätä, sota, ilmastonmuutos, puute"
+  + poverty, famine, war, climate change, lack of
+```{r}
+fst_concept_network(q11_3, concepts = "köyhyys")
+fst_concept_network(q11_3, concepts = "köyhyys, puute")
+fst_concept_network(q11_3, concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute") 
+fst_concept_network(q11_3, concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute", threshold = 3)
+fst_concept_network(q11_3, concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute", threshold = 2)
+```
+

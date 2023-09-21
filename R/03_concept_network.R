@@ -13,9 +13,10 @@
 #' @export
 #'
 #' @examples
-#' lonely_concepts_2 <- fst_cn_search(conllu_lonely, 'yksinäisyys, tunne, tuntea')
-#' lonely_concepts <- fst_cn_search(conllu_lonely_nltk, 'yksinäisyys, tunne, tuntea')
-#' bullying_concepts2 <- fst_cn_search(conllu_bullying_iso, 'kiusata, lyöminen, lyödä, potkia')
+#' q11_1_concepts <- fst_cn_search(conllu_dev_q11_1_nltk, "elintaso, köyhä, ihminen", relevant_pos = "NOUN")
+#' q11_2_concepts <- fst_cn_search(conllu_dev_q11_2_nltk, "kehitysmaa, auttaa, pyrkiä, maa, ihminen", relevant_pos = c("ADV", "ADJ"))
+#' q11_3_concepts <- fst_cn_search(conllu_dev_q11_3_nltk, "köyhyys, nälänhätä, sota, ilmastonmuutos, puute")
+#' bullying_concepts <- fst_cn_search(conllu_bullying_iso, 'kiusata, lyöminen, lyödä, potkia')
 fst_cn_search <- function(data,
                           concept,
                           relevant_pos = c("NOUN", "VERB", "ADJ", "ADV")) {
@@ -63,8 +64,9 @@ fst_cn_search <- function(data,
 #' @export
 #'
 #' @examples
-#' lonely_edges_2 <- fst_cn_edges(conllu_lonely, concept = 'yksinäisyys, tunne, tuntea', threshold=5)
-#' lonely_edges <- fst_cn_edges(conllu_lonely_nltk, 'yksinäisyys, tunne, tuntea', threshold = 3)
+#' q11_1_edges <- fst_cn_edges(conllu_dev_q11_1_nltk, 'elintaso, köyhä, ihminen', threshold = 3)
+#' q11_2_edges <- fst_cn_edges(conllu_dev_q11_2_nltk, "kehitysmaa, auttaa, pyrkiä, maa, ihminen", threshold = 5)
+#' q11_3_edges <- fst_cn_edges(conllu_dev_q11_3_nltk, "köyhyys, nälänhätä, sota, ilmastonmuutos, puute", threshold = 2)
 #' bullying_edges <-fst_cn_edges(conllu_bullying_iso, 'kiusata, lyöminen')
 fst_cn_edges <- function(data,
                          concept,
@@ -95,9 +97,10 @@ fst_cn_edges <- function(data,
 #' @export
 #'
 #' @examples
-#' lonely_nodes_2 <- fst_cn_nodes(conllu_lonely, lonely_edges_2)
-#' lonely_nodes <- fst_cn_nodes(conllu_lonely_nltk, lonely_edges)
-#' bullying_nodes <- fst_cn_nodes(conllu_bullying, bullying_edges)
+#' q11_1_nodes <- fst_cn_nodes(conllu_dev_q11_1_nltk, q11_1_edges)
+#' q11_2_nodes <- fst_cn_nodes(conllu_dev_q11_2_nltk, q11_2_edges)
+#' q11_3_nodes <- fst_cn_nodes(conllu_dev_q11_3_nltk, q11_3_edges)
+#' bullying_nodes <- fst_cn_nodes(conllu_bullying_iso, bullying_edges)
 fst_cn_nodes <- function(data,
                          edges,
                          relevant_pos = c("NOUN", "VERB", "ADJ", "ADV")) {
@@ -122,8 +125,9 @@ fst_cn_nodes <- function(data,
 #' @export
 #'
 #' @examples
-#' fst_cn_plot(edges = lonely_edges_2, nodes = lonely_nodes_2, concepts = 'yksinäisyys, tunne, tuntea')
-#' fst_cn_plot(edges = lonely_edges, nodes = lonely_nodes, concepts = 'yksinäisyys, tunne, tuntea')
+#' fst_cn_plot(edges = q11_1_edges, nodes = q11_1_nodes, concepts = 'elintaso, köyhä, ihminen')
+#' fst_cn_plot(edges = q11_2_edges, nodes = q11_2_nodes, concepts = "kehitysmaa, auttaa, pyrkiä, maa, ihminen")
+#' fst_cn_plot(edges = q11_3_edges, nodes = q11_3_nodes, concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute")
 #' fst_cn_plot(edges = bullying_edges, nodes = bullying_nodes, concepts = 'kiusata, lyöminen')
 fst_cn_plot <- function(edges, nodes, concepts) {
   if(stringr::str_detect(concepts, ",")){
@@ -165,10 +169,9 @@ fst_cn_plot <- function(edges, nodes, concepts) {
 #' @export
 #'
 #' @examples
-#' fst_concept_network(conllu_lonely_nltk, concepts = "yksinäisyys, tunne, tuntea", threshold=3)
-#' fst_concept_network(conllu_lonely_nltk, concepts = "tunne, tuntea", threshold=3)
-#' fst_concept_network(conllu_lonely_nltk, concepts = "tunne, tuntea")
-#' fst_concept_network(conllu_lonely, concepts = "yksinäisyys, tunne, tuntea", threshold=5)
+#' fst_concept_network(conllu_dev_q11_3, concepts = "köyhyys, puute")
+#' fst_concept_network(conllu_dev_q11_3, concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute")
+#' fst_concept_network(conllu_dev_q11_3, concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute", threshold = 3)
 #' fst_concept_network(conllu_bullying_iso, concepts = 'kiusata, lyöminen')
 fst_concept_network <- function(data,
                                 concepts,

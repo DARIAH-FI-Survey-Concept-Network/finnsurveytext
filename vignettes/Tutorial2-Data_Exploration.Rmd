@@ -28,20 +28,27 @@ First, install and load the `finnishsurveytext` package as below:
 devtools::load_all() # TO-DO: remove this load_all() line and uncomment the library() line. 
 ```
 
-There are two data files available within the package for use in this tutorial. These files have been created following the process demonstrated in Tutorial 1. 
+There are two sets of data files available within the package which could be used in this tutorial. These files have been created following the process demonstrated in Tutorial 1. 
 
 ### 1. Bullying Data
+* data/conllu_bullying.rda
 * data/conllu_bullying_iso.rda
 
-### 2. Loneliness Data
-* data/conllu_lonely_nltk.rda
+### 2. Development Cooperation Data
+* data/conllu_dev_q11_1.rda
+* data/conllu_dev_q11_1_nltk.rda
+* data/conllu_dev_q11_1_snow.rda
+* data/conllu_dev_q11_2.rda
+* data/conllu_dev_q11_2_nltk.rda
+* data/conllu_dev_q11_3.rda
+* data/conllu_dev_q11_3_nltk.rda
 
 You can read these in as follows: 
 
 ```{r}
 bullying <- conllu_bullying_iso
 knitr::kable(head(bullying))
-lonely <- conllu_lonely_nltk
+q11_1 <- conllu_dev_q11_1_nltk
 ```
 
 ### Get Summary Table
@@ -52,8 +59,8 @@ This function creates a simple summary table for the data that shows the total n
 ```{r}
 fst_summarise(bullying)
 
-lonely_summary_table <- fst_summarise(lonely)
-lonely_summary_table
+q11_1_summary_table <- fst_summarise(q11_1)
+q11_1_summary_table
 ```
 
 `fst_summarise` takes 1 argument: 
@@ -69,8 +76,8 @@ This function creates a table which counts the number of words of each part-of-s
 ```{r}
 fst_pos(bullying)
 
-lonely_pos_table <- fst_pos(lonely)
-lonely_pos_table
+q11_1_pos_table <- fst_pos(q11_1)
+q11_1_pos_table
 ```
 
 `fst_pos` takes 1 argument: 
@@ -87,8 +94,8 @@ fst_freq(bullying)
 fst_freq(data = bullying, 
          number = 10, 
          pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
-fst_freq(lonely, 5)
-fst_freq(lonely, 5, c("NOUN", "VERB"))
+fst_freq(q11_1, 5)
+fst_freq(q11_1, 5, c("NOUN", "VERB"))
 ```
 
 `fst_freq` takes 3 arguments: 
@@ -104,8 +111,8 @@ This function produces another plot, in this case of n-grams. A n-gram (eg. bigr
 
 ```{r}
 fst_ngrams(bullying)
-fst_ngrams(lonely, number = 10, ngrams=3)
-fst_ngrams(lonely, number=5, ngrams=4)
+fst_ngrams(q11_1, number = 10, ngrams=3)
+fst_ngrams(q11_1, number=5, ngrams=4)
 ```
 
 `fst_ngrams` takes 3 arguments:
@@ -121,8 +128,8 @@ fst_ngrams(lonely, number=5, ngrams=4)
 This function will create a wordcloud plot for the data. There is an option to select only specific word types (POS tag). 
 
 ```{r}
-fst_wordcloud(conllu_bullying_iso)
-fst_wordcloud(conllu_lonely_nltk, 
+fst_wordcloud(bullying)
+fst_wordcloud(q11_1, 
               pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
 ```
 
@@ -138,8 +145,8 @@ fst_wordcloud(conllu_lonely_nltk,
 This function enables the user to run all the above EDA activities in one function call. As such, `fst_summarise` and `fst_plot` are printed within R plots rather than the R console. 
 
 ```{r}
-fst_discover(conllu_lonely_nltk)
-fst_discover(conllu_bullying_iso, 
+fst_discover(q11_1)
+fst_discover(bullying, 
              freq_number = 10, 
              ngram_number=8, 
              ngrams = 2, 

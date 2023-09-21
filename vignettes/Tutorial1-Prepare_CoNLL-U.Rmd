@@ -37,18 +37,17 @@ devtools::load_all() # TO-DO: remove this load_all() line and uncomment the libr
 This tutorial uses two sources of data from the Finnish Social Science Data Archive: 
 
 ### 1. Bullying Data
-* Source: FSD3134 Child Barometer 2016
-* Question: "[q7] Kertoisitko, mitä sinun mielestäsi kiusaaminen on? (Avokysymys)"
+* Source: FSD3134 Lapsibarometri 2016
+* Question: q7 'Kertoisitko, mitä sinun mielestäsi kiusaaminen on? (Avokysymys)'
 * Licence: (A) openly available for all users without registration (CC BY 4.0).
 * Link to Data: https://urn.fi/urn:nbn:fi:fsd:T-FSD3134
 
-### 2. Loneliness Data
-* Source: FSD3360 Helsingin Sanomat Loneliness Survey 2014
-* Question: "[q9] Miltä yksinäisyys tuntuu? Yksinäisyyteen liittyy usein voimakkaita tunteita, jotka ovat erilaisia eri elämäntilanteissa. Jos haluat, voit kertoa yksinäisyyskokemuksiasi tässä. (Avokysymys)" 
-* Licence: (B) available for **research, teaching and study.**
-* Link to Data: https://urn.fi/urn:nbn:fi:fsd:T-FSD3360 
+### 2. Development Cooperation Data
+* Source: FSD2821 Nuorten ajatuksia kehitysyhteistyöstä 2012
+* Questions: q11_1 'Jatka lausetta: Kehitysmaa on maa, jossa... (Avokysymys)', q11_2 'Jatka lausetta: Kehitysyhteistyö on toimintaa, jossa... (Avokysymys)', q11_3' Jatka lausetta: Maailman kolme suurinta ongelmaa ovat... (Avokysymys)'
+* Licence: (A) openly available for all users without registration (CC BY 4.0).
+* Link to Data: https://urn.fi/urn:nbn:fi:fsd:T-FSD2821 
 
-*Note: To download the Loneliness Data, you will need to register for the service (such as by providing credentials from a Finnish university or research institution) and indicate the use of the data.*
 
 Both of these will be demonstrated below but either can be used to complete the tutorial. If you would prefer to use your own data, you can read in this data through `read.csv` or similar so that you have a dataframe ready in your R environment.
 
@@ -72,13 +71,13 @@ Summary of components
 * The function also requires a Finnish language model available for `udpipe`, in this case we are using the default Finnish Treebank, "ftb". 
 * The results in CoNLL-U format are stored in the local environment as "prepd_bullying". 
 
-### 2. Loneliness Data
+### 2. Development Cooperation Data
 
-As an example, the loneliness data could be prepared using this function call: 
+As an example, the development cooperation q11_2 data could be prepared using this function call: 
 
 ```{r eval = FALSE}
-prepd_lonely <- fst_prepare_conllu(lonely_data, 
-                                   field = "q9", 
+prepd_lonely <- fst_prepare_conllu(dev_data, 
+                                   field = "q11_2", 
                                    stopword_list = "none", 
                                    model = "tdt")
 ```
@@ -121,7 +120,7 @@ Our package works for two of the Finnish language models available, [Turku Depen
 The `fst_format_conllu` function utilises the `udpipe` [package](https://cran.r-project.org/web/packages/udpipe/vignettes/udpipe-annotation.html) and can be run as follows: 
 
 ```{r}
-conllu_lonely <- fst_format_conllu(data = lonely_data, field = 'q9')
+conllu_dev_q11_1 <- fst_format_conllu(data = dev_data, field = 'q11_1')
 conllu_bullying <- fst_format_conllu(data = bullying_data, field = 'q7', model = 'tdt')
 ```
 *Note: the first time you run this function, it will download the relevant treebank from udpipe for use in the annotations.*
@@ -148,7 +147,7 @@ This (optional) function will remove stopwords and punctuation from the CoNLL-U 
 2. `stopword_list` is a list of Finnish stopwords, the default is "nltk" but any "Name" column from `fst_find_stopwords` can be used.
 
 ```{r}
-conllu_lonely_nltk <- fst_rm_stop_punct(data = conllu_lonely)
+conllu_dev_q11_1_nltk <- fst_rm_stop_punct(data = conllu_dev_q11_1)
 conllu_bullying_iso <- fst_rm_stop_punct(conllu_bullying, 'stopwords-iso')
 ```
 
@@ -159,6 +158,6 @@ knitr::kable(head(conllu_bullying_iso))
 
 ## Citation
 
-Saari, Juho (Tampere University) & Helsingin Sanomat & Kauhanen, Jussi (University of Eastern Finland) & Karhunen, Leila (University of Eastern Finland) & Lagus, Krista (Aalto University) & Kainulainen, Sakari (Diaconia University of Applied Sciences) & Pantzar, Mika (University of Helsinki) & Erola, Jani (University of Turku) & Junttila, Niina (University of Turku) & Müller, Kiti (Finnish Institute of Occupational Health) & Huhta, Jaana (Finnish Institute of Occupational Health): Helsingin Sanomat Loneliness Survey 2014 [dataset]. Version 1.0 (2020-09-01). Finnish Social Science Data Archive [distributor]. http://urn.fi/urn:nbn:fi:fsd:T-FSD3360
-
 The Office of Ombudsman for Children: Child Barometer 2016 [dataset]. Version 1.0 (2016-12-09). Finnish Social Science Data Archive [distributor]. http://urn.fi/urn:nbn:fi:fsd:T-FSD3134
+
+Finnish Children and Youth Foundation: Young People's Views on Development Cooperation 2012 [dataset]. Version 2.0 (2019-01-22). Finnish Social Science Data Archive [distributor]. http://urn.fi/urn:nbn:fi:fsd:T-FSD2821

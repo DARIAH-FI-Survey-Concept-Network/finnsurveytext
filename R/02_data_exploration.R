@@ -10,7 +10,8 @@
 #'
 #' @examples
 #' bullying_summary <- fst_summarise(conllu_bullying_iso)
-#' lonely_summary <- fst_summarise(conllu_lonely_nltk)
+#' q11_1_summary <- fst_summarise(conllu_dev_q11_1_nltk)
+#' fst_summarise(conllu_dev_q11_2_nltk)
 fst_summarise <- function(data) {
   data %>%
     dplyr::summarize(Respondents = dplyr::n_distinct(doc_id),
@@ -32,7 +33,8 @@ fst_summarise <- function(data) {
 #'
 #' @examples
 #' bullying_pos_table <- fst_pos(conllu_bullying_iso)
-#' lonely_pos_table <- fst_pos(conllu_lonely_nltk)
+#' q11_3_pos_table <- fst_pos(conllu_dev_q11_3_nltk)
+#' fst_pos(conllu_dev_q11_1_snow)
 fst_pos <- function(data) {
   pos_table <- data %>%
     dplyr::count(upos, sort = TRUE) #%>%
@@ -71,6 +73,8 @@ fst_pos <- function(data) {
 #' @examples
 #' fst_freq(conllu_bullying_iso)
 #' fst_freq(conllu_bullying_iso, 10, c("NOUN", "VERB", "ADJ", "ADV"))
+#' fst_freq(conllu_dev_q11_1_nltk, 15, "NOUN")
+#' fst_freq(conllu_dev_q11_1_snow, 15, "ADV")
 fst_freq <- function(data, number = 20, pos_filter = NULL) {
   if (!is.null(pos_filter)) {
     data <- dplyr::filter(data, .data$upos %in% pos_filter)
@@ -102,7 +106,8 @@ fst_freq <- function(data, number = 20, pos_filter = NULL) {
 #'
 #' @examples
 #' fst_ngrams(conllu_bullying_iso)
-#' fst_ngrams(conllu_lonely_nltk, number = 10, ngrams=3)
+#' fst_ngrams(conllu_dev_q11_2_nltk, number = 10, ngrams=3)
+#' fst_ngrams(conllu_dev_q11_3_nltk, ngrams = 4)
 fst_ngrams <- function(data, number = 20, ngrams = 2){
   data %>%
     dplyr::filter(.data$dep_rel != "punct") %>%
@@ -136,6 +141,7 @@ fst_ngrams <- function(data, number = 20, ngrams = 2){
 #' @examples
 #' fst_wordcloud(conllu_bullying_iso)
 #' fst_wordcloud(conllu_bullying_iso, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+#' fst_wordcloud(conllu_dev_q11_1_snow, pos_filter = "VERB")
 fst_wordcloud <- function(data, pos_filter = NULL){
   if (!is.null(pos_filter)) {
     data <- dplyr::filter(data, upos %in% pos_filter)
@@ -145,11 +151,14 @@ fst_wordcloud <- function(data, pos_filter = NULL){
     dplyr::filter(!is.na(lemma)) %>%
     dplyr::filter(lemma != 'na') %>%
     dplyr::count(lemma, sort = TRUE)
-  wordcloud::wordcloud(words = wordcloud_data$lemma, freq = wordcloud_data$n,
-            max.words= 100,
-            random.order=FALSE,
-            rot.per=0.35,
-            colors=RColorBrewer::brewer.pal(8, "Dark2"))
+  par(mar = rep(0, 4))
+  wordcloud::wordcloud(words = wordcloud_data$lemma,
+                       freq = wordcloud_data$n,
+                       max.words= 100,
+                       random.order=FALSE,
+                       rot.per=0.35,
+                       colors=RColorBrewer::brewer.pal(8, "Dark2")
+                       )
 }
 
 #' Perform Data Exploration
@@ -171,7 +180,7 @@ fst_wordcloud <- function(data, pos_filter = NULL){
 #'
 #' @examples
 #' fst_discover(bullying_data)
-#' fst_discover(conllu_lonely_nltk, freq_number = 10, ngram_number=8, ngrams = 2, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+#' fst_discover(conllu_dev_q11_1_nltk, freq_number = 10, ngram_number=8, ngrams = 3, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
 fst_discover <- function(data, freq_number = 20, ngram_number = 20,
                          ngrams = 2, pos_filter = NULL){
   plot.new()
