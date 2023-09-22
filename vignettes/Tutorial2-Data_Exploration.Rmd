@@ -19,12 +19,12 @@ knitr::opts_chunk$set(
 This tutorial follows on from Tutorial 1 and guides you through an Exploratory Data Analysis (EDA) of data which has been prepared into CoNLL-U format. The EDA functions are contained in r/02_data_exploration.R.
 
 
-First, install and load the `finnishsurveytext` package as below:
+First, install and load the `finnsurveytext` package as below:
 (Other required packages such as `dplyr` and `stringr` will also be installed if they are not currently installed in your environment.)
 
 ```{r setup}
-#install.packages("finnishsurveytext")
-#library(finnishsurveytext)
+#install.packages("finnsurveytext")
+#library(finnsurveytext)
 devtools::load_all() # TO-DO: remove this load_all() line and uncomment the library() line. 
 ```
 

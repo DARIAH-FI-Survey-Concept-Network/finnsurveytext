@@ -29,9 +29,8 @@ Plot of concept network
 Concept Network - Make Concept Network Plot
 }
 \examples{
-fst_concept_network(conllu_lonely_nltk, concepts = "yksinäisyys, tunne, tuntea", threshold=3)
-fst_concept_network(conllu_lonely_nltk, concepts = "tunne, tuntea", threshold=3)
-fst_concept_network(conllu_lonely_nltk, concepts = "tunne, tuntea")
-fst_concept_network(conllu_lonely, concepts = "yksinäisyys, tunne, tuntea", threshold=5)
+fst_concept_network(conllu_dev_q11_3, concepts = "köyhyys, puute")
+fst_concept_network(conllu_dev_q11_3, concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute")
+fst_concept_network(conllu_dev_q11_3, concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute", threshold = 3)
 fst_concept_network(conllu_bullying_iso, concepts = 'kiusata, lyöminen')
 }

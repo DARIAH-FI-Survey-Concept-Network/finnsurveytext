@@ -22,5 +22,6 @@ within the data.
 }
 \examples{
 fst_ngrams(conllu_bullying_iso)
-fst_ngrams(conllu_lonely_nltk, number = 10, ngrams=3)
+fst_ngrams(conllu_dev_q11_2_nltk, number = 10, ngrams=3)
+fst_ngrams(conllu_dev_q11_3_nltk, ngrams = 4)
 }

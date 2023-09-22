@@ -6,9 +6,10 @@
 \title{Bullying response data}
 \format{
 ## `bullying_data`
-A list of length 414:
+A dataframe with 414 rows and 2 columns:
 \describe{
-  \item{bullying_data}{response text}
+  \item{fsd_id}{FSD case id}
+  \item{q7}{response text}
 }
 }
 \source{

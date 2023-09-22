@@ -35,5 +35,5 @@ using the left and right arrows to cycle between.
 }
 \examples{
 fst_discover(bullying_data)
-fst_discover(conllu_lonely_nltk, freq_number = 10, ngram_number=8, ngrams = 2, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+fst_discover(conllu_dev_q11_1_nltk, freq_number = 10, ngram_number=8, ngrams = 3, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
 }

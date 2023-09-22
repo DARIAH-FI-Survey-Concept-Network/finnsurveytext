@@ -1,5 +1,5 @@
 Type: Package
-Package: finnishsurveytext
+Package: finnsurveytext
 Title: Analyse Open-ended Survey Responses in Finnish
 Version: 0.1.0
 Authors@R: c(

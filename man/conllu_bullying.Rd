@@ -33,6 +33,6 @@ conllu_bullying
 \description{
 This data contains the responses to q7 "Kertoisitko, mitä sinun mielestäsi
 kiusaaminen on? (Avokysymys)" in the FSD3134 Lapsibarometri 2016 dataset
-in CoNLL-U format.
+in CoNLL-U format using `finnish-tdt` model from [udpipe] package.
 }
 \keyword{datasets}

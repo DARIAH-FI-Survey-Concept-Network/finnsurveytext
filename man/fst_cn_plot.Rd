@@ -20,7 +20,8 @@ Plot of Concept Network
 Plot Concept Network
 }
 \examples{
-fst_cn_plot(edges = lonely_edges_2, nodes = lonely_nodes_2, concepts = 'yksinäisyys, tunne, tuntea')
-fst_cn_plot(edges = lonely_edges, nodes = lonely_nodes, concepts = 'yksinäisyys, tunne, tuntea')
+fst_cn_plot(edges = q11_1_edges, nodes = q11_1_nodes, concepts = 'elintaso, köyhä, ihminen')
+fst_cn_plot(edges = q11_2_edges, nodes = q11_2_nodes, concepts = "kehitysmaa, auttaa, pyrkiä, maa, ihminen")
+fst_cn_plot(edges = q11_3_edges, nodes = q11_3_nodes, concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute")
 fst_cn_plot(edges = bullying_edges, nodes = bullying_nodes, concepts = 'kiusata, lyöminen')
 }

@@ -26,5 +26,5 @@ Finnish survey text reponses in CoNLL-U format with stopwords removed.
 }
 \examples{
 prepd_bullying <- fst_prepare_conllu(data = bullying_data, field = "q7", stopword_list = "stopwords-iso")
-prepd_lonely <- fst_prepare_conllu(data = lonely_data, field = "q9", stopword_list = "nltk")
+prepd_dev_q11_2 <- fst_prepare_conllu(data = dev_data, field = "q11_2", stopword_list = "snowball")
 }

@@ -32,7 +32,8 @@ a dataframe is returned of 'edges' between two words which are connected
 together in an frequently-occurring n-gram containing a concept term
 }
 \examples{
-lonely_edges_2 <- fst_cn_edges(conllu_lonely, concept = 'yksinäisyys, tunne, tuntea', threshold=5)
-lonely_edges <- fst_cn_edges(conllu_lonely_nltk, 'yksinäisyys, tunne, tuntea', threshold = 3)
+q11_1_edges <- fst_cn_edges(conllu_dev_q11_1_nltk, 'elintaso, köyhä, ihminen', threshold = 3)
+q11_2_edges <- fst_cn_edges(conllu_dev_q11_2_nltk, "kehitysmaa, auttaa, pyrkiä, maa, ihminen", threshold = 5)
+q11_3_edges <- fst_cn_edges(conllu_dev_q11_3_nltk, "köyhyys, nälänhätä, sota, ilmastonmuutos, puute", threshold = 2)
 bullying_edges <-fst_cn_edges(conllu_bullying_iso, 'kiusata, lyöminen')
 }

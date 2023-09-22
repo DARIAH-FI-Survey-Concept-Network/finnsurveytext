@@ -49,6 +49,14 @@ q11_2 <- conllu_dev_q11_2_nltk
 q11_3 <- conllu_dev_q11_3_nltk
 ```
 
+```{r}
+knitr::kable(head(dev_data, 10))
+
+knitr::kable(head(q11_1, 10))
+```
+
+
+
 ## EDA
 
 The differences in the types of responses can be seen in the exploratory data analysis results below: 

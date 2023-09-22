@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 ```
 
 ## Introduction
-This tutorial demonstrates the process of preparing Finnish survey text data into the CoNLL-U format required for the `finnishsurveytext` package functions using functions in r/0.1_prepare_conll-u.r.
+This tutorial demonstrates the process of preparing Finnish survey text data into the CoNLL-U format required for the `finnsurveytext` package functions using functions in r/0.1_prepare_conll-u.r.
 
 #### CoNLL-U Format Overview
 CoNLL-U is a popular annotation scheme often used in Natural Language Processing (NLP) tasks to tokenise and annotate text. In CoNLL-U format, the text is split into one line per word and ten features of each word are recorded including an ID,  part-of-speech tagging, the word itself (eg. 'likes'), and word lemma (eg. 'like'). 
@@ -29,8 +29,8 @@ First, install and load the `finnsurveytext` package as below:
 (Other required packages such as `dplyr` and `stringr` will also be installed if they are not currently installed in your environment.)
 
 ```{r setup}
-#install.packages("finnishsurveytext")
-#library(finnishsurveytext)
+#install.packages("finnsurveytext")
+#library(finnsurveytext)
 devtools::load_all() # TO-DO: remove this load_all() line and uncomment the library() line. 
 ```
 

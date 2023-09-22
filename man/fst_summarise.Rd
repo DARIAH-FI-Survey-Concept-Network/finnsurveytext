@@ -18,5 +18,6 @@ number of words, the number of unique words, and the number of unique lemmas.
 }
 \examples{
 bullying_summary <- fst_summarise(conllu_bullying_iso)
-lonely_summary <- fst_summarise(conllu_lonely_nltk)
+q11_1_summary <- fst_summarise(conllu_dev_q11_1_nltk)
+fst_summarise(conllu_dev_q11_2_nltk)
 }

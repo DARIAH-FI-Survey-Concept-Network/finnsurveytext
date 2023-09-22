@@ -24,4 +24,6 @@ data.
 \examples{
 fst_freq(conllu_bullying_iso)
 fst_freq(conllu_bullying_iso, 10, c("NOUN", "VERB", "ADJ", "ADV"))
+fst_freq(conllu_dev_q11_1_nltk, 15, "NOUN")
+fst_freq(conllu_dev_q11_1_snow, 15, "ADV")
 }

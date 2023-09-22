@@ -21,7 +21,8 @@ A dataframe containing relevant lemmas and their associated pagerank
 Concept Network - Get Textrank Nodes
 }
 \examples{
-lonely_nodes_2 <- fst_cn_nodes(conllu_lonely, lonely_edges_2)
-lonely_nodes <- fst_cn_nodes(conllu_lonely_nltk, lonely_edges)
-bullying_nodes <- fst_cn_nodes(conllu_bullying, bullying_edges)
+q11_1_nodes <- fst_cn_nodes(conllu_dev_q11_1_nltk, q11_1_edges)
+q11_2_nodes <- fst_cn_nodes(conllu_dev_q11_2_nltk, q11_2_edges)
+q11_3_nodes <- fst_cn_nodes(conllu_dev_q11_3_nltk, q11_3_edges)
+bullying_nodes <- fst_cn_nodes(conllu_bullying_iso, bullying_edges)
 }

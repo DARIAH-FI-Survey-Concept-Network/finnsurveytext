@@ -19,5 +19,6 @@ words of each part-of-speech tag within the data.
 }
 \examples{
 bullying_pos_table <- fst_pos(conllu_bullying_iso)
-lonely_pos_table <- fst_pos(conllu_lonely_nltk)
+q11_3_pos_table <- fst_pos(conllu_dev_q11_3_nltk)
+fst_pos(conllu_dev_q11_1_snow)
 }
