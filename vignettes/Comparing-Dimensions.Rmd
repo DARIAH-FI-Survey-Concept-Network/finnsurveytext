@@ -21,6 +21,8 @@ knitr::opts_chunk$set(
 devtools::load_all() # TO-DO: remove this load_all() line and uncomment the library() line. 
 ```
 
+NEW LINE FOR TESTING
+
 We will look at the data, and see whether men and women say different things 
 
 Closed question to split data: Qn 19_1, 'Sukupuolesi?'
