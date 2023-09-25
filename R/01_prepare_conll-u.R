@@ -106,8 +106,11 @@ fst_rm_stop_punct <- function(data, stopword_list = "nltk") {
 #' @export
 #'
 #' @examples
-#' prepd_bullying <- fst_prepare_conllu(data = bullying_data, field = "q7", stopword_list = "stopwords-iso")
-#' prepd_dev_q11_2 <- fst_prepare_conllu(data = dev_data, field = "q11_2", stopword_list = "snowball")
+#' prepd_bullying_iso <- fst_prepare_conllu(data = bullying_data, field = "q7", stopword_list = "stopwords-iso")
+#' prepd_dev_q11_2_snow <- fst_prepare_conllu(data = dev_data, field = "q11_2", stopword_list = "snowball")
+#' conllu_f <- fst_prepare_conllu(data = female, field = "q11_1", stopword_list = "nltk")
+#' conllu_m <- fst_prepare_conllu(data = male, field = "q11_1", stopword_list = "nltk")
+#' conllu_s <- fst_prepare_conllu(data = not_spec, field = "q11_1", stopword_list = "nltk")
 fst_prepare_conllu <- function(data,
                                field,
                                model = "ftb",

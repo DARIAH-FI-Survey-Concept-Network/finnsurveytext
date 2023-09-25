@@ -37,8 +37,7 @@ fst_summarise <- function(data) {
 #' fst_pos(conllu_dev_q11_1_snow)
 fst_pos <- function(data) {
   pos_table <- data %>%
-    dplyr::count(upos, sort = TRUE) #%>%
-  #pivot_wider(names_from = upos, values_from = n, values_fill = 0)
+    dplyr::count(upos, sort = TRUE)
   pos_lookup <- data.frame('upos' =c('ADJ', 'ADP', 'ADV', 'AUX', 'CCONJ', 'DET',
                                      'INTJ', 'NOUN', 'NUM', 'PART', 'PRON',
                                      'PROPN', 'PUNCT', 'SCONJ', 'SYM', 'VERB',
