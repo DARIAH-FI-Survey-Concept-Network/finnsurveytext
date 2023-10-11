@@ -1,4 +1,4 @@
-#' Make Summary Table
+#' Make Simple Summary Table
 #'
 #' Creates a summary table for the input CoNLL-U data which provides the total
 #' number of words, the number of unique words, and the number of unique lemmas.
@@ -9,10 +9,10 @@
 #' @export
 #'
 #' @examples
-#' bullying_summary <- fst_summarise(conllu_bullying_iso)
-#' q11_1_summary <- fst_summarise(conllu_dev_q11_1_nltk)
-#' fst_summarise(conllu_dev_q11_2_nltk)
-fst_summarise <- function(data) {
+#' bullying_summary <- fst_summarise_short(conllu_bullying_iso)
+#' q11_1_summary <- fst_summarise_short(conllu_dev_q11_1_nltk)
+#' fst_summarise_short(conllu_dev_q11_2_nltk)
+fst_summarise_short <- function(data) {
   data %>%
     dplyr::summarize(Respondents = dplyr::n_distinct(doc_id),
               'Total Words' = dplyr::n(),
@@ -56,9 +56,9 @@ fst_pos <- function(data) {
 }
 
 
-#' Make Top Words Table
+#' Make Top Words Table Plot
 #'
-#' Creates a table of the most frequently-occurring words (unigrams) within the
+#' Creates a plot of the most frequently-occurring words (unigrams) within the
 #' data.
 #'
 #' @param data A dataframe of text in CoNLL-U format.
@@ -91,9 +91,9 @@ fst_freq <- function(data, number = 20, pos_filter = NULL) {
 }
 
 
-#' Make Top N-Grams Table
+#' Make Top N-Grams Table Plot
 #'
-#' Creates a table of the most frequently-occurring sets of words (n-grams)
+#' Creates a plot of the most frequently-occurring sets of words (n-grams)
 #' within the data.
 #'
 #' @param data A dataframe of text in CoNLL-U format.
