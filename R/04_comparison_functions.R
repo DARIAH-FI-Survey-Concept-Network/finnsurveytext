@@ -1,75 +1,3 @@
-#' Make Top Words Table
-#'
-#' Creates a table of the most frequently-occurring words (unigrams) within the
-#' data.
-#'
-#' @param data A dataframe of text in CoNLL-U format.
-#' @param number The number of top words to return, default is `10`.
-#' @param pos_filter List of UPOS tags for inclusion, default is `NULL` which
-#'  means all word types included
-#'
-#' @return A table of the most frequently occurring words in the data
-#' @export
-#'
-#' @examples
-#' fst_get_top_words(conllu_dev_q11_1_nltk, number = 20)
-#' top_bullying_words <- fst_get_top_words(conllu_bullying, number = 15, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
-#' top_f <- fst_get_top_words(conllu_f_nltk, number = 15)
-#' top_m <- fst_get_top_words(conllu_m_nltk, number = 15)
-#' top_na <- fst_get_top_words(conllu_na_nltk, number = 15)
-fst_get_top_words <- function(data, number = 10, pos_filter = NULL) {
-  if (!is.null(pos_filter)) {
-    data <- dplyr::filter(data, .data$upos %in% pos_filter)
-  }
-  data %>%
-    dplyr::filter(.data$dep_rel != "punct") %>%
-    dplyr::filter(!is.na(lemma)) %>%
-    dplyr::filter(lemma != 'na') %>%
-    dplyr::count(lemma, sort = TRUE) %>%
-    dplyr::slice_max(n, n = number, with_ties = FALSE) %>%
-    dplyr::mutate(lemma = reorder(lemma, n)) %>%
-    dplyr::rename(words = lemma)
-}
-
-#' Make Top N-grams Table
-#'
-#' Creates a table of the most frequently-occurring ngrams within the
-#' data.
-#'
-#' @param data A dataframe of text in CoNLL-U format.
-#' @param number The number of n-grams to return, default is `10`.
-#' @param ngrams The type of n-grams to return, default is `1`.
-#' @param pos_filter List of UPOS tags for inclusion, default is `NULL` which
-#'  means all word types included
-#'
-#' @return A table of the most frequently occurring n-grams in the data.
-#' @export
-#'
-#' @examples
-#' fst_get_top_ngrams(conllu_dev_q11_1_nltk)
-#' fst_get_top_ngrams(conllu_dev_q11_1_nltk, number = 10, ngrams = 1)
-#' top_bullying_ngrams <- fst_get_top_ngrams(conllu_bullying, number = 15, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
-#' topn_f <- fst_get_top_ngrams(conllu_f_nltk, number = 15, ngrams = 2)
-#' topn_m <- fst_get_top_ngrams(conllu_m_nltk, number = 15, ngrams = 2)
-#' topn_na <- fst_get_top_ngrams(conllu_na_nltk, number = 15, ngrams = 2)
-fst_get_top_ngrams <- function(data, number = 10, ngrams = 1, pos_filter = NULL){
-  if (!is.null(pos_filter)) {
-    data <- dplyr::filter(data, .data$upos %in% pos_filter)
-  }
-  data %>%
-    dplyr::filter(.data$dep_rel != "punct") %>%
-    dplyr::filter(!is.na(lemma)) %>%
-    dplyr::filter(lemma != 'na') %>%
-    dplyr::mutate(words = udpipe::txt_nextgram(lemma, n = ngrams)) %>%
-    dplyr::count(words, sort = TRUE) %>%
-    dplyr::slice_max(n, n = number, with_ties = FALSE) %>%
-    dplyr::mutate(words = reorder(words, n)) %>%
-    dplyr::filter(!is.na(words)) %>%
-    dplyr::filter(words != 'na')
-}
-
-
-
 #' Get Unique N-grams
 #'
 #' Takes at least two tables of n-grams and frequencies (either output of
@@ -118,7 +46,7 @@ fst_join_unique <- function(table, unique_table){
   table
 }
 
-#' Plot N-grams
+#' Plot Comparison N-grams
 #'
 #' Plots frequency n-grams with unique n-grams highlighted.
 #'
@@ -132,16 +60,16 @@ fst_join_unique <- function(table, unique_table){
 #' @export
 #'
 #' @examples
-#' fst_ngrams_plot(top_fu, ngrams = 1, name = 'Female')
-#' plot_top_fu <- fst_ngrams_plot(top_fu, ngrams = 1, number = 8, override_title = 'Female')
-#' plot_top_mu <- fst_ngrams_plot(top_mu, ngrams = 1, override_title = 'Male')
-#' plot_top_nau <- fst_ngrams_plot(top_nau, ngrams = 1, override_title = 'No Gender Specified')
-#' plot_topn_fu <- fst_ngrams_plot(topn_fu, name = 'Female')
-#' plot_topn_mu <- fst_ngrams_plot(topn_mu, name = 'Male')
+#' fst_ngrams_compare_plot(top_fu, ngrams = 1, name = 'Female')
+#' plot_top_fu <- fst_ngrams_compare_plot(top_fu, ngrams = 1, number = 8, override_title = 'Female')
+#' plot_top_mu <- fst_ngrams_compare_plot(top_mu, ngrams = 1, override_title = 'Male')
+#' plot_top_nau <- fst_ngrams_compare_plot(top_nau, ngrams = 1, override_title = 'No Gender Specified')
+#' plot_topn_fu <- fst_ngrams_compare_plot(topn_fu, ngrams = 2, name = 'Female')
+#' plot_topn_mu <- fst_ngrams_compare_plot(topn_mu, ngrams = 2, name = 'Male')
 #' plot_top_mu + ggplot2::ggtitle("Plot of Top Male Words") + ggplot2::xlab("Count") + ggplot2::ylab("Top Words") # How to overwrite
-#' plot_topn_nau <- fst_ngrams_plot(topn_nau, name = 'No Gender Specified')
-fst_ngrams_plot <- function(table, number = 10, ngrams = 1, unique_colour = 'indianred', name = NULL, override_title = NULL) {
-   colours <- c("yes" = unique_colour, "no" = "grey50")
+#' plot_topn_nau <- fst_ngrams_compare_plot(topn_nau, ngrams = 2, name = 'No Gender Specified')
+fst_ngrams_compare_plot <- function(table, number = 10, ngrams = 1, unique_colour = 'indianred', name = NULL, override_title = NULL) {
+  colours <- c("yes" = unique_colour, "no" = "grey50")
   if (ngrams == 1) {
     term = 'Words'
   } else if (ngrams == 2) {
@@ -166,7 +94,6 @@ fst_ngrams_plot <- function(table, number = 10, ngrams = 1, unique_colour = 'ind
 
 
 
-
 #' Display Comparison Plots
 #'
 #' Display between 2 and 4 plots within the plots pane. If 2 or 3 plots, they
@@ -181,10 +108,10 @@ fst_ngrams_plot <- function(table, number = 10, ngrams = 1, unique_colour = 'ind
 #' @export
 #'
 #' @examples
-#' fst_plot_compare(plot_top_fu, plot_top_mu, plot_top_nau, main_title = 'Comparison Plots')
-#' fst_plot_compare(plot_topn_fu, plot_topn_mu, plot_topn_nau, plot_topn_nau)
-#' fst_plot_compare(plot_topn_fu, plot_topn_mu, main_title = 'Comparison Plots')
-fst_plot_compare <- function(plot1, plot2, plot3 = NULL, plot4 = NULL, main_title = NULL) {
+#' fst_plot_multiple(plot_top_fu, plot_top_mu, plot_top_nau, main_title = 'Comparison Plots')
+#' fst_plot_multiple(plot_topn_fu, plot_topn_mu, plot_topn_nau, plot_topn_nau)
+#' fst_plot_multiple(plot_topn_fu, plot_topn_mu, main_title = 'Comparison Plots')
+fst_plot_multiple <- function(plot1, plot2, plot3 = NULL, plot4 = NULL, main_title = NULL) {
   if (!is.null(plot3)) {
     if (!is.null(plot4)) {
       gridExtra::grid.arrange(plot1, plot2, plot3, plot4, ncol = 2, top = main_title)
@@ -217,60 +144,74 @@ fst_plot_compare <- function(plot1, plot2, plot3 = NULL, plot4 = NULL, main_titl
 #' @param name3 An optional "name" for the third plot, default is `NULL`
 #' @param name4 An optional "name" for the fourth plot, default is `NULL`
 #' @param unique_colour Colour to display unique words, default is `indianred`.
+#' @param strict Whether to strictly cut-off at `number` (ties are
+#'  alphabetically ordered), default is `TRUE`
 #'
 #' @return Between 2 and 4 plots of Top n-grams in the plots pane with unique
 #' n-grams highlighted
 #' @export
 #'
 #' @examples
-#' fst_unigrams_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, number = 10)
-#' fst_unigrams_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, conllu_dev_q11_1_na_nltk, number = 5)
-#' fst_unigrams_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, conllu_dev_q11_1_na_nltk,number = 15, unique_colour = 'pink', pos_filter = c("NOUN", "VERB", "ADJ", "ADV"), name1 = 'Male', name2 = 'Female', name3 = 'Not Specified')
-fst_unigrams_compare <- function(data1, data2, data3 = NULL, data4 = NULL, number = 10, pos_filter = NULL, name1 = "Group 1", name2 = "Group 2", name3 = "Group 3", name4 = "Group 4", unique_colour = 'indianred') {
+#' fst_freq_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, number = 10)
+#' fst_freq_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, conllu_dev_q11_1_na_nltk, number = 5)
+#' fst_freq_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, conllu_dev_q11_1_na_nltk,number = 15, unique_colour = 'pink', pos_filter = c("NOUN", "VERB", "ADJ", "ADV"), name1 = 'Male', name2 = 'Female', name3 = 'Not Specified')
+fst_freq_compare <- function(data1, data2, data3 = NULL, data4 = NULL, number = 10, pos_filter = NULL, name1 = "Group 1", name2 = "Group 2", name3 = "Group 3", name4 = "Group 4", unique_colour = 'indianred', strict = TRUE) {
   if (!is.null(data3)){
     if (!is.null(data4)){
-      top4 <- fst_get_top_words(data4, number = number, pos_filter = pos_filter)
-      top3 <- fst_get_top_words(data3, number = number, pos_filter = pos_filter)
-      top2 <- fst_get_top_words(data2, number = number, pos_filter = pos_filter)
-      top1 <- fst_get_top_words(data1, number = number, pos_filter = pos_filter)
+      top4 <- fst_get_top_ngrams2(data4, number = number, pos_filter = pos_filter)
+      top3 <- fst_get_top_ngrams2(data3, number = number, pos_filter = pos_filter)
+      top2 <- fst_get_top_ngrams2(data2, number = number, pos_filter = pos_filter)
+      top1 <- fst_get_top_ngrams2(data1, number = number, pos_filter = pos_filter)
     } else {
-      top3 <- fst_get_top_words(data3, number = number, pos_filter = pos_filter)
-      top2 <- fst_get_top_words(data2, number = number, pos_filter = pos_filter)
-      top1 <- fst_get_top_words(data1, number = number, pos_filter = pos_filter)
+      top3 <- fst_get_top_ngrams2(data3, number = number, pos_filter = pos_filter)
+      top2 <- fst_get_top_ngrams2(data2, number = number, pos_filter = pos_filter)
+      top1 <- fst_get_top_ngrams2(data1, number = number, pos_filter = pos_filter)
     }
   } else {
-    top2 <- fst_get_top_words(data2, number = number, pos_filter = pos_filter)
-    top1 <- fst_get_top_words(data1, number = number, pos_filter = pos_filter)
+    top2 <- fst_get_top_ngrams2(data2, number = number, pos_filter = pos_filter)
+    top1 <- fst_get_top_ngrams2(data1, number = number, pos_filter = pos_filter)
   }
+  num1 <- dplyr::n_distinct(data1$doc_id)
+  num2 <- dplyr::n_distinct(data2$doc_id)
   if (!is.null(data3)){
+    num3 <- dplyr::n_distinct(data3$doc_id)
     if (!is.null(data4)){
+      num4 <- dplyr::n_distinct(data4$doc_id)
+      message(paste0("Note: \n Consider whether your data is balanced between groups being compared and whether each group contains enough data for analysis. \n The number of responded in each group (including \'NAs\') are listed below: \n\t", name1, "=", num1, ", ", name2, "=", num2, ", ", name3, "=", num3, ", ", name4, "=", num4, "\n"))
       unique <- fst_get_unique_ngrams(top1, top2, top3, top4)
       top4_2 <- fst_join_unique(top4, unique)
       top3_2 <- fst_join_unique(top3, unique)
       top2_2 <- fst_join_unique(top2, unique)
       top1_2 <- fst_join_unique(top1, unique)
-      plot4 <- fst_ngrams_plot(top4_2, number = number, unique_colour = unique_colour, override_title = name4)
-      plot3 <- fst_ngrams_plot(top3_2, number = number, unique_colour = unique_colour, override_title = name3)
-      plot2 <- fst_ngrams_plot(top2_2, number = number, unique_colour = unique_colour, override_title = name2)
-      plot1 <- fst_ngrams_plot(top1_2, number = number, unique_colour = unique_colour, override_title = name1)
-      fst_plot_compare(plot1 = plot1, plot2 = plot2, plot3 = plot3, plot4 = plot4, main_title = paste("Comparison Plot of", as.character(number),"Most Common Words"))
+      plot4 <- fst_ngrams_compare_plot(top4_2, number = number, unique_colour = unique_colour, override_title = name4)
+      plot3 <- fst_ngrams_compare_plot(top3_2, number = number, unique_colour = unique_colour, override_title = name3)
+      plot2 <- fst_ngrams_compare_plot(top2_2, number = number, unique_colour = unique_colour, override_title = name2)
+      plot1 <- fst_ngrams_compare_plot(top1_2, number = number, unique_colour = unique_colour, override_title = name1)
+      fst_plot_multiple(plot1 = plot1, plot2 = plot2, plot3 = plot3, plot4 = plot4, main_title = paste("Comparison Plot of", as.character(number),"Most Common Words"))
     } else {
+      message(paste0("Note: \n Consider whether your data is balanced between groups being compared and whether each group contains enough data for analysis. \n The number of responded in each group (including \'NAs\') are listed below: \n\t", name1, "=", num1, ", ", name2, "=", num2, ", ", name3, "=", num3, "\n"))
       unique <- fst_get_unique_ngrams(top1, top2, top3)
       top3_2 <- fst_join_unique(top3, unique)
       top2_2 <- fst_join_unique(top2, unique)
       top1_2 <- fst_join_unique(top1, unique)
-      plot3 <- fst_ngrams_plot(top3_2, number = number, unique_colour = unique_colour, override_title = name3)
-      plot2 <- fst_ngrams_plot(top2_2, number = number, unique_colour = unique_colour, override_title = name2)
-      plot1 <- fst_ngrams_plot(top1_2, number = number, unique_colour = unique_colour, override_title = name1)
-      fst_plot_compare(plot1 = plot1, plot2 = plot2, plot3 = plot3, main_title = paste("Comparison Plot of", as.character(number),"Most Common Words"))
+      plot3 <- fst_ngrams_compare_plot(top3_2, number = number, unique_colour = unique_colour, override_title = name3)
+      plot2 <- fst_ngrams_compare_plot(top2_2, number = number, unique_colour = unique_colour, override_title = name2)
+      plot1 <- fst_ngrams_compare_plot(top1_2, number = number, unique_colour = unique_colour, override_title = name1)
+      fst_plot_multiple(plot1 = plot1, plot2 = plot2, plot3 = plot3, main_title = paste("Comparison Plot of", as.character(number),"Most Common Words"))
     }
   } else {
+    message(paste0("Note: \n Consider whether your data is balanced between groups being compared and whether each group contains enough data for analysis. \n The number of responded in each group (including \'NAs\') are listed below: \n\t", name1, "=", num1, ", ", name2, "=", num2, "\n"))
     unique <- fst_get_unique_ngrams(top1, top2)
     top2_2 <- fst_join_unique(top2, unique)
     top1_2 <- fst_join_unique(top1, unique)
-    plot2 <- fst_ngrams_plot(top2_2, number = number, unique_colour = unique_colour, override_title = name2)
-    plot1 <- fst_ngrams_plot(top1_2, number = number, unique_colour = unique_colour, override_title = name1)
-    fst_plot_compare(plot1 = plot1, plot2 = plot2, main_title = paste("Comparison Plot of", as.character(number),"Most Common Words"))
+    plot2 <- fst_ngrams_compare_plot(top2_2, number = number, unique_colour = unique_colour, override_title = name2)
+    plot1 <- fst_ngrams_compare_plot(top1_2, number = number, unique_colour = unique_colour, override_title = name1)
+    fst_plot_multiple(plot1 = plot1, plot2 = plot2, main_title = paste("Comparison Plot of", as.character(number),"Most Common Words"))
+  }
+  if (strict == TRUE) {
+    message("Note:\n Terms with equal occurrence are presented in alphabetial order. \n By default, terms are presented in order to the `number` cutoff word. \n This means that equally-occurring later-alphabetically words beyond the cutoff will not be displayed. \n")
+  } else {
+    message("Note:\n Terms with equal occurrence are presented in alphabetial order. \n With `strict` = FALSE, words occurring equally often as the `number` cutoff word will be displayed. \n")
   }
 }
 
@@ -295,16 +236,18 @@ fst_unigrams_compare <- function(data1, data2, data3 = NULL, data4 = NULL, numbe
 #' @param name3 An optional "name" for the third plot, default is `NULL`
 #' @param name4 An optional "name" for the fourth plot, default is `NULL`
 #' @param unique_colour Colour to display unique words, default is `indianred`.
+#' @param strict Whether to strictly cut-off at `number` (ties are
+#'  alphabetically ordered), default is `TRUE`
 #'
 #' @return Between 2 and 4 plots of Top n-grams in the plots pane with unique
 #' n-grams highlighted
 #' @export
 #'
 #' @examples
-#' fst_ngrams_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, number = 10)
+#' fst_ngrams_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, number = 10, strict = FALSE)
 #' fst_ngrams_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, number = 5, ngrams = 3, unique_colour = "black", name1 = 'Male', name2 = 'Female')
 #' fst_ngrams_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, conllu_dev_q11_1_na_nltk, conllu_dev_q11_1_m, number = 20, unique_colour = 'slateblue', pos_filter = c("NOUN", "VERB", "ADJ", "ADV"), name1 = 'Male', name2 = 'Female', name3 = 'Not Spec', name4 = 'Male2')
- fst_ngrams_compare <- function(data1, data2, data3 = NULL, data4 = NULL, number = 10, ngrams = 1, pos_filter = NULL, name1 = "Group 1", name2 = "Group 2", name3 = "Group 3", name4 = "Group 4", unique_colour = 'indianred') {
+ fst_ngrams_compare <- function(data1, data2, data3 = NULL, data4 = NULL, number = 10, ngrams = 1, pos_filter = NULL, name1 = "Group 1", name2 = "Group 2", name3 = "Group 3", name4 = "Group 4", unique_colour = 'indianred', strict = TRUE) {
   if (ngrams == 1) {
     term = 'Words'
   } else if (ngrams == 2) {
@@ -312,20 +255,27 @@ fst_unigrams_compare <- function(data1, data2, data3 = NULL, data4 = NULL, numbe
   } else {
     term = paste0(as.character(ngrams), "-grams")
   }
+  num1 <- dplyr::n_distinct(data1$doc_id)
+  num2 <- dplyr::n_distinct(data2$doc_id)
   if (!is.null(data3)){
+    num3 <- dplyr::n_distinct(data3$doc_id)
     if (!is.null(data4)){
-      top4 <- fst_get_top_ngrams(data4, number = number, ngrams = ngrams, pos_filter = pos_filter)
-      top3 <- fst_get_top_ngrams(data3, number = number, ngrams = ngrams, pos_filter = pos_filter)
-      top2 <- fst_get_top_ngrams(data2, number = number, ngrams = ngrams, pos_filter = pos_filter)
-      top1 <- fst_get_top_ngrams(data1, number = number, ngrams = ngrams, pos_filter = pos_filter)
+      num4 <- dplyr::n_distinct(data4$doc_id)
+      message(paste0("Note: \n Consider whether your data is balanced between groups being compared and whether each group contains enough data for analysis. \n The number of responded in each group (including \'NAs\') are listed below: \n\t", name1, "=", num1, ", ", name2, "=", num2, ", ", name3, "=", num3, ", ", name4, "=", num4, "\n"))
+      top4 <- fst_get_top_ngrams2(data4, number = number, ngrams = ngrams, pos_filter = pos_filter)
+      top3 <- fst_get_top_ngrams2(data3, number = number, ngrams = ngrams, pos_filter = pos_filter)
+      top2 <- fst_get_top_ngrams2(data2, number = number, ngrams = ngrams, pos_filter = pos_filter)
+      top1 <- fst_get_top_ngrams2(data1, number = number, ngrams = ngrams, pos_filter = pos_filter)
     } else {
-      top3 <- fst_get_top_ngrams(data3, number = number, ngrams = ngrams, pos_filter = pos_filter)
-      top2 <- fst_get_top_ngrams(data2, number = number, ngrams = ngrams, pos_filter = pos_filter)
-      top1 <- fst_get_top_ngrams(data1, number = number, ngrams = ngrams, pos_filter = pos_filter)
+      message(paste0("Note: \n Consider whether your data is balanced between groups being compared and whether each group contains enough data for analysis. \n The number of responded in each group (including \'NAs\') are listed below: \n\t", name1, "=", num1, ", ", name2, "=", num2, ", ", name3, "=", num3, "\n"))
+      top3 <- fst_get_top_ngrams2(data3, number = number, ngrams = ngrams, pos_filter = pos_filter)
+      top2 <- fst_get_top_ngrams2(data2, number = number, ngrams = ngrams, pos_filter = pos_filter)
+      top1 <- fst_get_top_ngrams2(data1, number = number, ngrams = ngrams, pos_filter = pos_filter)
     }
   } else {
-    top2 <- fst_get_top_ngrams(data2, number = number, ngrams = ngrams, pos_filter = pos_filter)
-    top1 <- fst_get_top_ngrams(data1, number = number, ngrams = ngrams, pos_filter = pos_filter)
+    message(paste0("Note: \n Consider whether your data is balanced between groups being compared and whether each group contains enough data for analysis. \n The number of responded in each group (including \'NAs\') are listed below: \n\t", name1, "=", num1, ", ", name2, "=", num2, "\n"))
+    top2 <- fst_get_top_ngrams2(data2, number = number, ngrams = ngrams, pos_filter = pos_filter)
+    top1 <- fst_get_top_ngrams2(data1, number = number, ngrams = ngrams, pos_filter = pos_filter)
   }
   if (!is.null(data3)){
     if (!is.null(data4)){
@@ -334,28 +284,33 @@ fst_unigrams_compare <- function(data1, data2, data3 = NULL, data4 = NULL, numbe
       top3_2 <- fst_join_unique(top3, unique)
       top2_2 <- fst_join_unique(top2, unique)
       top1_2 <- fst_join_unique(top1, unique)
-      plot4 <- fst_ngrams_plot(top4_2, number = number, ngrams = ngrams, unique_colour = unique_colour, override_title = name4)
-      plot3 <- fst_ngrams_plot(top3_2, number = number, ngrams = ngrams, unique_colour = unique_colour, override_title = name3)
-      plot2 <- fst_ngrams_plot(top2_2, number = number, ngrams = ngrams, unique_colour = unique_colour, override_title = name2)
-      plot1 <- fst_ngrams_plot(top1_2, number = number, ngrams = ngrams, unique_colour = unique_colour, override_title = name1)
-      fst_plot_compare(plot1 = plot1, plot2 = plot2, plot3 = plot3, plot4 = plot4, main_title = paste("Comparison Plot of", as.character(number),"Most Common", term))
+      plot4 <- fst_ngrams_compare_plot(top4_2, number = number, ngrams = ngrams, unique_colour = unique_colour, override_title = name4)
+      plot3 <- fst_ngrams_compare_plot(top3_2, number = number, ngrams = ngrams, unique_colour = unique_colour, override_title = name3)
+      plot2 <- fst_ngrams_compare_plot(top2_2, number = number, ngrams = ngrams, unique_colour = unique_colour, override_title = name2)
+      plot1 <- fst_ngrams_compare_plot(top1_2, number = number, ngrams = ngrams, unique_colour = unique_colour, override_title = name1)
+      fst_plot_multiple(plot1 = plot1, plot2 = plot2, plot3 = plot3, plot4 = plot4, main_title = paste("Comparison Plot of", as.character(number),"Most Common", term))
     } else {
       unique <- fst_get_unique_ngrams(top1, top2, top3)
       top3_2 <- fst_join_unique(top3, unique)
       top2_2 <- fst_join_unique(top2, unique)
       top1_2 <- fst_join_unique(top1, unique)
-      plot3 <- fst_ngrams_plot(top3_2, number = number, ngrams = ngrams, unique_colour = unique_colour, override_title = name3)
-      plot2 <- fst_ngrams_plot(top2_2, number = number, ngrams = ngrams, unique_colour = unique_colour, override_title = name2)
-      plot1 <- fst_ngrams_plot(top1_2, number = number, ngrams = ngrams, unique_colour = unique_colour, override_title = name1)
-      fst_plot_compare(plot1 = plot1, plot2 = plot2, plot3 = plot3, main_title = paste("Comparison Plot of", as.character(number),"Most Common", term))
+      plot3 <- fst_ngrams_compare_plot(top3_2, number = number, ngrams = ngrams, unique_colour = unique_colour, override_title = name3)
+      plot2 <- fst_ngrams_compare_plot(top2_2, number = number, ngrams = ngrams, unique_colour = unique_colour, override_title = name2)
+      plot1 <- fst_ngrams_compare_plot(top1_2, number = number, ngrams = ngrams, unique_colour = unique_colour, override_title = name1)
+      fst_plot_multiple(plot1 = plot1, plot2 = plot2, plot3 = plot3, main_title = paste("Comparison Plot of", as.character(number),"Most Common", term))
     }
   } else {
     unique <- fst_get_unique_ngrams(top1, top2)
     top2_2 <- fst_join_unique(top2, unique)
     top1_2 <- fst_join_unique(top1, unique)
-    plot2 <- fst_ngrams_plot(top2_2, number = number, ngrams = ngrams, unique_colour = unique_colour, override_title = name2)
-    plot1 <- fst_ngrams_plot(top1_2, number = number, ngrams = ngrams, unique_colour = unique_colour, override_title = name1)
-    fst_plot_compare(plot1 = plot1, plot2 = plot2, main_title = paste("Comparison Plot of", as.character(number),"Most Common", term))
+    plot2 <- fst_ngrams_compare_plot(top2_2, number = number, ngrams = ngrams, unique_colour = unique_colour, override_title = name2)
+    plot1 <- fst_ngrams_compare_plot(top1_2, number = number, ngrams = ngrams, unique_colour = unique_colour, override_title = name1)
+    fst_plot_multiple(plot1 = plot1, plot2 = plot2, main_title = paste("Comparison Plot of", as.character(number),"Most Common", term))
+  }
+  if (strict == TRUE) {
+    message("Note:\n Terms with equal occurrence are presented in alphabetial order. \n By default, terms are presented in order to the `number` cutoff word. \n This means that equally-occurring later-alphabetically words beyond the cutoff will not be displayed. \n")
+  } else {
+    message("Note:\n Terms with equal occurrence are presented in alphabetial order. \n With `strict` = FALSE, words occurring equally often as the `number` cutoff word will be displayed. \n")
   }
 }
 
@@ -428,35 +383,6 @@ fst_pos_compare <- function(data1, data2, data3 = NULL, data4 = NULL, name1 = "G
 }
 
 
-
-#' Make Summary Table
-#'
-#' Creates a summary table for the input CoNLL-U data which provides the
-#' response count and proportion, total number of words, the number of unique
-#' words, and the number of unique lemmas.
-#'
-#' @param data A dataframe of text in CoNLL-U format.
-#' @param value A string describing respondents, default is `All respondents`
-#'
-#' @return Summary table for data
-#' @export
-#'
-#' @examples
-#' fst_summarise(conllu_dev_q11_1)
-#' female <- fst_summarise(conllu_dev_q11_1_f, "Female respondents")
-fst_summarise <- function(data, value = 'All respondents') {
-  no_resp_count <- length(which(data$sentence %in% c("NA", "na")))
-  df <- data %>%
-    dplyr::summarize('Description' = value,
-                     'No Response' = no_resp_count,
-                     'Respondents' = dplyr::n_distinct(doc_id),
-                     'Proportion' = round(dplyr::n_distinct(doc_id) / (no_resp_count + dplyr::n_distinct(doc_id)), 2),
-                     'Total Words' = dplyr::n(),
-                     'Unique Words' = length(unique(token)),
-                     'Unique Lemmas' = length(unique(lemma)))
-  df
-}
-
 #' Make Comparison Summary
 #'
 #' Compare text responses for between 2 and 4 sets of prepared data.
@@ -499,57 +425,6 @@ fst_summarise_compare <- function(data1, data2, data3 = NULL, data4 = NULL, desc
     df <- rbind(sum1, sum2)
   }
   df
-}
-
-
-#' Make Length Table
-#'
-#' Create table summarising length of responses
-#'
-#' @param dataA dataframe of text in CoNLL-U format.
-#' @param desc An optional string describing respondents, default is `NULL`
-#' @param incl_sentences Whether to include sentence data in table, default is `TRUE`
-#'
-#' @return Table summarising lengths of responses
-#' @export
-#'
-#' @examples
-#' fst_length_summary(conllu_dev_q11_1, incl_sentences = FALSE)
-#' fem <- fst_length_summary(conllu_dev_q11_1, desc = 'Female')
-fst_length_summary <- function(data, desc = NULL, incl_sentences = TRUE) {
-  no_resp_count <- length(which(data$sentence %in% c("NA", "na")))
-  data <- dplyr::select(data, doc_id, sentence) %>%
-    dplyr::mutate(length = stringr::str_count(sentence, '\\w+')) %>%
-    dplyr::filter(!is.na(sentence)) %>%
-    dplyr::filter(sentence != 'na') %>%
-    dplyr::filter(sentence != 'NA')
-  data <- data[!duplicated(data), ] %>%
-    dplyr::group_by(doc_id) %>%
-    dplyr::summarise(number_sentences = dplyr::n(), number_of_words = sum(length))
-  word_df <- data %>%
-    dplyr::summarize('Description' = paste0(desc, '- Words'),
-                     'Respondents' = dplyr::n_distinct(doc_id),
-                     'Mean' = mean(data$number_of_words),
-                     'Minimum' =  min(data$number_of_words),
-                     'Q1' = quantile(data$number_of_words, 0.25),
-                     'Median' = median(data$number_of_words),
-                     'Q3' = quantile(data$number_of_words, 0.75),
-                     'Maximum' = max(data$number_of_words)
-    )
-  if (incl_sentences == TRUE) {
-    sentence_df <- data %>%
-      dplyr::summarize('Description' = paste0(desc, '- Sentences'),
-                       'Respondents' = dplyr::n_distinct(doc_id),
-                       'Mean' = mean(data$number_sentences),
-                       'Minimum' =  min(data$number_sentences),
-                       'Q1' = quantile(data$number_sentences, 0.25),
-                       'Median' = median(data$number_sentences),
-                       'Q3' = quantile(data$number_sentences, 0.75),
-                       'Maximum' = max(data$number_sentences)
-      )
-    word_df <- rbind(word_df, sentence_df)
-  }
-  word_df
 }
 
 
@@ -628,7 +503,8 @@ fst_length_compare <- function(data1, data2, data3 = NULL, data4 = NULL, desc1 =
 #' fst_comparisoncloud(conllu_bullying_iso, conllu_dev_q11_1_nltk, conllu_dev_q11_2_nltk, conllu_dev_q11_3_nltk,max = 400)
 #' fst_comparisoncloud(conllu_dev_q11_1_f_nltk, conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_na_nltk, desc1 = 'Female', desc2 = 'Male', desc3 = 'NA', max = 400)
 #' fst_comparisoncloud(conllu_dev_q11_1_f_nltk, conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_na_nltk, desc1 = 'Female', desc2 = 'Male', desc3 = 'NA', max = 200)
-fst_comparisoncloud <- function(data1, data2, data3 = NULL, data4 = NULL, desc1 = "Group 1", desc2 = "Group 2", desc3 = "Group 3", desc4 = "Group 4", pos_filter = NULL, max = 200){
+fst_comparisoncloud <- function(data1, data2, data3 = NULL, data4 = NULL, desc1 = "Group 1", desc2 = "Group 2", desc3 = "Group 3", desc4 = "Group 4", pos_filter = NULL, max = 100){
+  cat("Notes on use of fst_comparisoncloud: \n If `max` is large, you may receive \"warnings\" indicating any words which are not plotted due to space constraints.\n")
   if (!is.null(data3)) {
     if (!is.null(data4)) {
       if (!is.null(pos_filter)) {
