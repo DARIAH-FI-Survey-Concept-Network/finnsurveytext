@@ -114,12 +114,12 @@ fst_ngrams_compare_plot <- function(table, number = 10, ngrams = 1, unique_colou
 fst_plot_multiple <- function(plot1, plot2, plot3 = NULL, plot4 = NULL, main_title = NULL) {
   if (!is.null(plot3)) {
     if (!is.null(plot4)) {
-      gridExtra::grid.arrange(plot1, plot2, plot3, plot4, ncol = 2, top = main_title)
+      gridExtra::grid.arrange(plot1, plot2, plot3, plot4, ncol = 2, top = ggpubr::text_grob(main_title, size = 15, face = "bold"))
     } else {
-      gridExtra::grid.arrange(plot1, plot2, plot3, ncol = 3, top = main_title)
+      gridExtra::grid.arrange(plot1, plot2, plot3, ncol = 3, top = ggpubr::text_grob(main_title, size = 15, face = "bold"))
     }
   } else {
-    gridExtra::grid.arrange(plot1, plot2, ncol = 2, top = main_title)
+    gridExtra::grid.arrange(plot1, plot2, ncol = 2, top = ggpubr::text_grob(main_title, size = 15, face = "bold"))
   }
 }
 
@@ -155,21 +155,23 @@ fst_plot_multiple <- function(plot1, plot2, plot3 = NULL, plot4 = NULL, main_tit
 #' fst_freq_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, number = 10)
 #' fst_freq_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, conllu_dev_q11_1_na_nltk, number = 5)
 #' fst_freq_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, conllu_dev_q11_1_na_nltk,number = 15, unique_colour = 'pink', pos_filter = c("NOUN", "VERB", "ADJ", "ADV"), name1 = 'Male', name2 = 'Female', name3 = 'Not Specified')
+#' fst_freq_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, conllu_dev_q11_1_na_nltk, number = 10, name1 = 'Female', name2 = 'Male', name3 = 'Gender Not Specified')
+#' fst_freq_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, conllu_dev_q11_1_na_nltk, number = 10, name1 = 'Female', name2 = 'Male', name3 = 'Gender Not Specified', strict = FALSE)
 fst_freq_compare <- function(data1, data2, data3 = NULL, data4 = NULL, number = 10, pos_filter = NULL, name1 = "Group 1", name2 = "Group 2", name3 = "Group 3", name4 = "Group 4", unique_colour = 'indianred', strict = TRUE) {
   if (!is.null(data3)){
     if (!is.null(data4)){
-      top4 <- fst_get_top_ngrams2(data4, number = number, pos_filter = pos_filter)
-      top3 <- fst_get_top_ngrams2(data3, number = number, pos_filter = pos_filter)
-      top2 <- fst_get_top_ngrams2(data2, number = number, pos_filter = pos_filter)
-      top1 <- fst_get_top_ngrams2(data1, number = number, pos_filter = pos_filter)
+      top4 <- fst_get_top_ngrams2(data4, number = number, pos_filter = pos_filter, strict = strict)
+      top3 <- fst_get_top_ngrams2(data3, number = number, pos_filter = pos_filter, strict = strict)
+      top2 <- fst_get_top_ngrams2(data2, number = number, pos_filter = pos_filter, strict = strict)
+      top1 <- fst_get_top_ngrams2(data1, number = number, pos_filter = pos_filter, strict = strict)
     } else {
-      top3 <- fst_get_top_ngrams2(data3, number = number, pos_filter = pos_filter)
-      top2 <- fst_get_top_ngrams2(data2, number = number, pos_filter = pos_filter)
-      top1 <- fst_get_top_ngrams2(data1, number = number, pos_filter = pos_filter)
+      top3 <- fst_get_top_ngrams2(data3, number = number, pos_filter = pos_filter, strict = strict)
+      top2 <- fst_get_top_ngrams2(data2, number = number, pos_filter = pos_filter, strict = strict)
+      top1 <- fst_get_top_ngrams2(data1, number = number, pos_filter = pos_filter, strict = strict)
     }
   } else {
-    top2 <- fst_get_top_ngrams2(data2, number = number, pos_filter = pos_filter)
-    top1 <- fst_get_top_ngrams2(data1, number = number, pos_filter = pos_filter)
+    top2 <- fst_get_top_ngrams2(data2, number = number, pos_filter = pos_filter, strict = strict)
+    top1 <- fst_get_top_ngrams2(data1, number = number, pos_filter = pos_filter, strict = strict)
   }
   num1 <- dplyr::n_distinct(data1$doc_id)
   num2 <- dplyr::n_distinct(data2$doc_id)
@@ -245,6 +247,8 @@ fst_freq_compare <- function(data1, data2, data3 = NULL, data4 = NULL, number = 
 #'
 #' @examples
 #' fst_ngrams_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, number = 10, strict = FALSE)
+#' fst_ngrams_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, ngrams = 2, number = 10, strict = TRUE)
+#' fst_ngrams_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, ngrams = 2, number = 10, strict = FALSE)
 #' fst_ngrams_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, number = 5, ngrams = 3, unique_colour = "black", name1 = 'Male', name2 = 'Female')
 #' fst_ngrams_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, conllu_dev_q11_1_na_nltk, conllu_dev_q11_1_m, number = 20, unique_colour = 'slateblue', pos_filter = c("NOUN", "VERB", "ADJ", "ADV"), name1 = 'Male', name2 = 'Female', name3 = 'Not Spec', name4 = 'Male2')
  fst_ngrams_compare <- function(data1, data2, data3 = NULL, data4 = NULL, number = 10, ngrams = 1, pos_filter = NULL, name1 = "Group 1", name2 = "Group 2", name3 = "Group 3", name4 = "Group 4", unique_colour = 'indianred', strict = TRUE) {
@@ -262,20 +266,20 @@ fst_freq_compare <- function(data1, data2, data3 = NULL, data4 = NULL, number = 
     if (!is.null(data4)){
       num4 <- dplyr::n_distinct(data4$doc_id)
       message(paste0("Note: \n Consider whether your data is balanced between groups being compared and whether each group contains enough data for analysis. \n The number of responded in each group (including \'NAs\') are listed below: \n\t", name1, "=", num1, ", ", name2, "=", num2, ", ", name3, "=", num3, ", ", name4, "=", num4, "\n"))
-      top4 <- fst_get_top_ngrams2(data4, number = number, ngrams = ngrams, pos_filter = pos_filter)
-      top3 <- fst_get_top_ngrams2(data3, number = number, ngrams = ngrams, pos_filter = pos_filter)
-      top2 <- fst_get_top_ngrams2(data2, number = number, ngrams = ngrams, pos_filter = pos_filter)
-      top1 <- fst_get_top_ngrams2(data1, number = number, ngrams = ngrams, pos_filter = pos_filter)
+      top4 <- fst_get_top_ngrams2(data4, number = number, ngrams = ngrams, pos_filter = pos_filter, strict = strict)
+      top3 <- fst_get_top_ngrams2(data3, number = number, ngrams = ngrams, pos_filter = pos_filter, strict = strict)
+      top2 <- fst_get_top_ngrams2(data2, number = number, ngrams = ngrams, pos_filter = pos_filter, strict = strict)
+      top1 <- fst_get_top_ngrams2(data1, number = number, ngrams = ngrams, pos_filter = pos_filter, strict = strict)
     } else {
       message(paste0("Note: \n Consider whether your data is balanced between groups being compared and whether each group contains enough data for analysis. \n The number of responded in each group (including \'NAs\') are listed below: \n\t", name1, "=", num1, ", ", name2, "=", num2, ", ", name3, "=", num3, "\n"))
-      top3 <- fst_get_top_ngrams2(data3, number = number, ngrams = ngrams, pos_filter = pos_filter)
-      top2 <- fst_get_top_ngrams2(data2, number = number, ngrams = ngrams, pos_filter = pos_filter)
-      top1 <- fst_get_top_ngrams2(data1, number = number, ngrams = ngrams, pos_filter = pos_filter)
+      top3 <- fst_get_top_ngrams2(data3, number = number, ngrams = ngrams, pos_filter = pos_filter, strict = strict)
+      top2 <- fst_get_top_ngrams2(data2, number = number, ngrams = ngrams, pos_filter = pos_filter, strict = strict)
+      top1 <- fst_get_top_ngrams2(data1, number = number, ngrams = ngrams, pos_filter = pos_filter, strict = strict)
     }
   } else {
     message(paste0("Note: \n Consider whether your data is balanced between groups being compared and whether each group contains enough data for analysis. \n The number of responded in each group (including \'NAs\') are listed below: \n\t", name1, "=", num1, ", ", name2, "=", num2, "\n"))
-    top2 <- fst_get_top_ngrams2(data2, number = number, ngrams = ngrams, pos_filter = pos_filter)
-    top1 <- fst_get_top_ngrams2(data1, number = number, ngrams = ngrams, pos_filter = pos_filter)
+    top2 <- fst_get_top_ngrams2(data2, number = number, ngrams = ngrams, pos_filter = pos_filter, strict = strict)
+    top1 <- fst_get_top_ngrams2(data1, number = number, ngrams = ngrams, pos_filter = pos_filter, strict = strict)
   }
   if (!is.null(data3)){
     if (!is.null(data4)){
@@ -339,7 +343,7 @@ fst_freq_compare <- function(data1, data2, data3 = NULL, data4 = NULL, number = 
 #'
 #' @examples
 #' fst_pos_compare(conllu_dev_q11_1_f, conllu_dev_q11_1_m, conllu_dev_q11_1_na, conllu_dev_q11_1, "Female", "Male", "No Gender Specified", "All")
-#' fst_pos_compare(conllu_dev_q11_1_f, conllu_dev_q11_1_m)
+#' fst_pos_compare(conllu_dev_q11_1_f, conllu_dev_q11_1_m, name1 = "Female", name2 = "Male")
 #' pos_table <- fst_pos_compare(data1 = conllu_dev_q11_1, name1 = "All", data2 = conllu_dev_q11_1_m, name2 = "Male", data3 = conllu_dev_q11_1_f, name3 = "Female", data4 = conllu_dev_q11_1_na, name4 = "Not Spec")
 fst_pos_compare <- function(data1, data2, data3 = NULL, data4 = NULL, name1 = "Group 1", name2 = "Group 2", name3 = "Group 3", name4 = "Group 4") {
   pos_lookup <- data.frame('upos' =c('ADJ', 'ADP', 'ADV', 'AUX', 'CCONJ', 'DET',

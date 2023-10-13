@@ -367,75 +367,6 @@ fst_ngrams <- function(data, number = 10, ngrams = 1, pos_filter = NULL, strict 
   fst_ngrams_plot(table = ngram_list, number = number, ngrams = ngrams, name = name, pos_filter = pos_filter)
 }
 
-#' #' Make Top Words Table Plot
-#' #'
-#' #' Creates a plot of the most frequently-occurring words (unigrams) within the
-#' #' data.
-#' #'
-#' #' @param data A dataframe of text in CoNLL-U format.
-#' #' @param number The number of top words to return, default is `20`.
-#' #' @param pos_filter List of UPOS tags for inclusion, default is `NULL` which
-#' #'  means all word types included
-#' #'
-#' #' @return A table of the most frequent words (unigrams) in the data
-#' #' @export
-#' #'
-#' #' @examples
-#' #' fst_freq(conllu_bullying_iso)
-#' #' fst_freq(conllu_bullying_iso, 10, c("NOUN", "VERB", "ADJ", "ADV"))
-#' #' fst_freq(conllu_dev_q11_1_nltk, 15, "NOUN")
-#' #' fst_freq(conllu_dev_q11_1_snow, 15, "ADV")
-#' fst_freq <- function(data, number = 20, pos_filter = NULL) {
-#'   if (!is.null(pos_filter)) {
-#'     data <- dplyr::filter(data, .data$upos %in% pos_filter)
-#'   }
-#'   data %>%
-#'     dplyr::filter(.data$dep_rel != "punct") %>%
-#'     dplyr::filter(!is.na(lemma)) %>%
-#'     dplyr::filter(lemma != 'na') %>%
-#'     dplyr::count(lemma, sort = TRUE) %>%
-#'     dplyr::slice_max(n, n = number) %>%
-#'     dplyr::mutate(lemma = reorder(lemma, n)) %>%
-#'     ggplot2::ggplot(ggplot2::aes(n, lemma)) +
-#'     ggplot2::geom_col() +
-#'     ggplot2::labs(y = NULL, title = paste(as.character(number),"Most Common Words"))
-#' }
-#'
-#'
-#' #' Make Top N-Grams Table Plot
-#' #'
-#' #' Creates a plot of the most frequently-occurring sets of words (n-grams)
-#' #' within the data.
-#' #'
-#' #' @param data A dataframe of text in CoNLL-U format.
-#' #' @param number The number of top n-grams to return, default is `20`.
-#' #' @param ngrams The type of n-grams to return, default is `2`.
-#' #'
-#' #' @return A table of the most frequent n-grams in the data
-#' #' @export
-#' #'
-#' #' @examples
-#' #' fst_ngrams(conllu_bullying_iso)
-#' #' fst_ngrams(conllu_dev_q11_2_nltk, number = 10, ngrams=3)
-#' #' fst_ngrams(conllu_dev_q11_3_nltk, ngrams = 4)
-#' fst_ngrams <- function(data, number = 20, ngrams = 2){
-#'   data %>%
-#'     dplyr::filter(.data$dep_rel != "punct") %>%
-#'     dplyr::filter(!is.na(lemma)) %>%
-#'     dplyr::filter(lemma != 'na') %>%
-#'     dplyr::mutate(n_gram = udpipe::txt_nextgram(lemma, n = ngrams)) %>%
-#'     dplyr::count(n_gram, sort = TRUE) %>%
-#'     dplyr::slice_max(n, n = number) %>%
-#'     dplyr::mutate(n_gram = reorder(n_gram, n)) %>%
-#'     ggplot2::ggplot(ggplot2::aes(n, n_gram)) +
-#'     ggplot2::geom_col() +
-#'     if (ngrams == 2) {
-#'       ggplot2::labs(y = NULL, title = paste0(as.character(number), " Most Common Bigrams"))
-#'     } else {
-#'       ggplot2::labs(y = NULL, title = paste0(as.character(number), " Most Common ", as.character(ngrams), "-grams"))
-#'     }
-#' }
-
 
 #' Make Wordcloud
 #'
@@ -489,7 +420,7 @@ fst_wordcloud <- function(data, pos_filter = NULL){
 #' @export
 #'
 #' @examples
-#' fst_discover(bullying_data)
+#' fst_discover(conllu_bullying_iso)
 #' fst_discover(conllu_dev_q11_1_nltk, freq_number = 10, ngram_number=8, ngrams = 3, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
 fst_discover <- function(data, freq_number = 20, ngram_number = 20,
                          ngrams = 2, pos_filter = NULL){

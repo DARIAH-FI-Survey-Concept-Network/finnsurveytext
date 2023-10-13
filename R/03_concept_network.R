@@ -5,7 +5,7 @@
 #' `relevant_pos` and finds words connected to search terms.
 #'
 #' @param data A dataframe of text in CoNLL-U format.
-#' @param concept String of terms to search for, separated by commas.
+#' @param concepts String of terms to search for, separated by commas.
 #' @param relevant_pos List of UPOS tags for inclusion, default is c("NOUN",
 #' "VERB", "ADJ", "ADV").
 #'
@@ -18,10 +18,10 @@
 #' q11_3_concepts <- fst_cn_search(conllu_dev_q11_3_nltk, "köyhyys, nälänhätä, sota, ilmastonmuutos, puute")
 #' bullying_concepts <- fst_cn_search(conllu_bullying_iso, 'kiusata, lyöminen, lyödä, potkia')
 fst_cn_search <- function(data,
-                          concept,
+                          concepts,
                           relevant_pos = c("NOUN", "VERB", "ADJ", "ADV")) {
-  if(stringr::str_detect(concept, ",")){
-    concept <- stringr::str_extract_all(concept, pattern = "\\w+") %>%
+  if(stringr::str_detect(concepts, ",")){
+    concepts <- stringr::str_extract_all(concepts, pattern = "\\w+") %>%
       unlist()
   }
   data <- dplyr::filter(data, token != 'na')
@@ -39,7 +39,7 @@ fst_cn_search <- function(data,
   keyword_data$word2 <- stringr::str_replace_all(keyword_data$word2, '@', '-')
   keyword_data$word1 <- stringr::str_replace_all(keyword_data$word1, '@', '-')
   concept_keywords <- keyword_data %>%
-    dplyr::filter(word1 %in% concept)  %>%
+    dplyr::filter(word1 %in% concepts)  %>%
     dplyr::pull(keyword)
   all_concepts <- keyword_data %>%
     dplyr::filter(keyword %in% concept_keywords)
@@ -54,7 +54,7 @@ fst_cn_search <- function(data,
 #' together in an frequently-occurring n-gram containing a concept term
 #'
 #' @param data A dataframe of text in CoNLL-U format.
-#' @param concept List of terms to search for, separated by commas.
+#' @param concepts List of terms to search for, separated by commas.
 #' @param threshold A minimum number of occurrences threshold for 'edge' between
 #' searched term and other word, default is NULL.
 #' @param relevant_pos List of UPOS tags for inclusion, default is c("NOUN",
@@ -69,12 +69,12 @@ fst_cn_search <- function(data,
 #' q11_3_edges <- fst_cn_edges(conllu_dev_q11_3_nltk, "köyhyys, nälänhätä, sota, ilmastonmuutos, puute", threshold = 2)
 #' bullying_edges <-fst_cn_edges(conllu_bullying_iso, 'kiusata, lyöminen')
 fst_cn_edges <- function(data,
-                         concept,
+                         concepts,
                          threshold = NULL,
-                         relevant_pos = c("NOUN", "VERB", "ADJ", "ADV")) {
+                         relevant_pos =  c("NOUN", "VERB", "ADJ", "ADV")) {
   data <- dplyr::filter(data, token != 'na')
   df <-  data %>%
-    fst_cn_search(concept = concept, relevant_pos = relevant_pos) %>%
+    fst_cn_search(concepts = concepts, relevant_pos = relevant_pos) %>%
     dplyr::select(word1, word2, freq) %>%
     dplyr::group_by(word1,word2) %>%
     dplyr::summarize(n = sum(freq), .groups = "drop") %>%
@@ -178,7 +178,7 @@ fst_concept_network <- function(data,
                                 threshold = NULL,
                                 relevant_pos = c("NOUN", "VERB", "ADJ", "ADV")) {
   edges <- fst_cn_edges(data = data,
-                        concept = concepts,
+                        concepts = concepts,
                         threshold = threshold,
                         relevant_pos = relevant_pos)
   nodes <- fst_cn_nodes(data = data, edges, relevant_pos = relevant_pos)
