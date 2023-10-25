@@ -2,17 +2,17 @@
 % Please edit documentation in R/03_concept_network.R
 \name{fst_cn_search}
 \alias{fst_cn_search}
-\title{Concept Network - Search Textrank for Concepts}
+\title{Concept Network - Search textrank for concepts}
 \usage{
-fst_cn_search(data, concept, relevant_pos = c("NOUN", "VERB", "ADJ", "ADV"))
+fst_cn_search(data, concepts, pos_filter = NULL)
 }
 \arguments{
 \item{data}{A dataframe of text in CoNLL-U format.}
 
-\item{concept}{String of terms to search for, separated by commas.}
+\item{concepts}{String of terms to search for, separated by commas.}
 
-\item{relevant_pos}{List of UPOS tags for inclusion, default is c("NOUN",
-"VERB", "ADJ", "ADV").}
+\item{pos_filter}{List of UPOS tags for inclusion, default is `NULL` to
+include all UPOS tags.}
 }
 \value{
 Dataframe of n-grams containing searched terms
@@ -20,11 +20,11 @@ Dataframe of n-grams containing searched terms
 \description{
 This function takes a string of terms (separated by commas) or a single term
 and, using `textrank_keywords` from `textrank` package, filters data based on
-`relevant_pos` and finds words connected to search terms.
+`pos_filter` and finds words connected to search terms.
 }
 \examples{
-q11_1_concepts <- fst_cn_search(conllu_dev_q11_1_nltk, "elintaso, köyhä, ihminen", relevant_pos = "NOUN")
-q11_2_concepts <- fst_cn_search(conllu_dev_q11_2_nltk, "kehitysmaa, auttaa, pyrkiä, maa, ihminen", relevant_pos = c("ADV", "ADJ"))
-q11_3_concepts <- fst_cn_search(conllu_dev_q11_3_nltk, "köyhyys, nälänhätä, sota, ilmastonmuutos, puute")
-bullying_concepts <- fst_cn_search(conllu_bullying_iso, 'kiusata, lyöminen, lyödä, potkia')
+q11_1_concepts <- fst_cn_search(conllu_dev_q11_1_nltk, "elintaso, köyhä, ihminen")
+q11_2_concepts <- fst_cn_search(conllu_dev_q11_2_nltk, "kehitysmaa, auttaa, pyrkiä", pos_filter = c("NOUN", "ADV", "ADJ"))
+q11_3_concepts <- fst_cn_search(conllu_dev_q11_3_nltk, "köyhyys, nälänhätä, sota, ilmastonmuutos, puute", pos_filter = "NOUN")
+bullying_concepts <- fst_cn_search(conllu_bullying_iso, 'kiusata, lyöminen, lyödä, potkia', pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
 }

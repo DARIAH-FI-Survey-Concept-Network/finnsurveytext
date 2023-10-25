@@ -27,7 +27,7 @@ fst_summarise_short <- function(data) {
 #' words, and the number of unique lemmas.
 #'
 #' @param data A dataframe of text in CoNLL-U format.
-#' @param value A string describing respondents, default is `All respondents`
+#' @param desc A string describing respondents, default is `All respondents`
 #'
 #' @return Summary table for data
 #' @export
@@ -35,12 +35,12 @@ fst_summarise_short <- function(data) {
 #' @examples
 #' fst_summarise(conllu_dev_q11_1)
 #' female <- fst_summarise(conllu_dev_q11_1_f, "Female respondents")
-fst_summarise <- function(data, value = 'All respondents') {
+fst_summarise <- function(data, desc = 'All respondents') {
   no_resp_count <- length(which(data$sentence %in% c("NA", "na")))
   df <- data %>%
-    dplyr::summarize('Description' = value,
-                     'No Response' = no_resp_count,
+    dplyr::summarize('Description' = desc,
                      'Respondents' = dplyr::n_distinct(doc_id),
+                     'No Response' = no_resp_count,
                      'Proportion' = round(dplyr::n_distinct(doc_id) / (no_resp_count + dplyr::n_distinct(doc_id)), 2),
                      'Total Words' = dplyr::n(),
                      'Unique Words' = length(unique(token)),
@@ -91,7 +91,7 @@ fst_pos <- function(data) {
 #' @param desc An optional string describing respondents, default is `NULL`
 #' @param incl_sentences Whether to include sentence data in table, default is `TRUE`
 #'
-#' @return Table summarising lengths of responses
+#' @return Table summarising distribution of lengths of responses
 #' @export
 #'
 #' @examples
@@ -159,9 +159,9 @@ fst_length_summary <- function(data, desc = NULL, incl_sentences = TRUE) {
 fst_get_top_words <- function(data, number = 10, pos_filter = NULL, strict = TRUE) {
   with_ties = !strict
   if (strict == TRUE) {
-    message("Note:\n Terms with equal occurrence are presented in alphabetial order. \n By default, terms are presented in order to the `number` cutoff word. \n This means that equally-occurring later-alphabetically words beyond the cutoff will not be displayed. \n")
+    message("Note:\n Terms with equal occurrence are presented in alphabetial order. \n By default, terms are presented in order to the `number` cutoff word. \n This means that equally-occurring later-alphabetically words beyond the cutoff will not be displayed. \n\n")
   } else {
-    message("Note:\n Terms with equal occurrence are presented in alphabetial order. \n With `strict` = FALSE, words occurring equally often as the `number` cutoff word will be displayed. \n")
+    message("Note:\n Terms with equal occurrence are presented in alphabetial order. \n With `strict` = FALSE, words occurring equally often as the `number` cutoff word will be displayed. \n\n")
   }
   if (!is.null(pos_filter)) {
     data <- dplyr::filter(data, .data$upos %in% pos_filter)
@@ -202,9 +202,9 @@ fst_get_top_words <- function(data, number = 10, pos_filter = NULL, strict = TRU
 fst_get_top_ngrams <- function(data, number = 10, ngrams = 1, pos_filter = NULL, strict = TRUE){
   with_ties = !strict
   if (strict == TRUE) {
-    message("Note:\n Terms with equal occurrence are presented in alphabetial order. \n By default, terms are presented in order to the `number` cutoff word. \n This means that equally-occurring later-alphabetically words beyond the cutoff will not be displayed. \n")
+    message("Note:\n Terms with equal occurrence are presented in alphabetial order. \n By default, terms are presented in order to the `number` cutoff word. \n This means that equally-occurring later-alphabetically words beyond the cutoff will not be displayed. \n\n")
   } else {
-    message("Note:\n Terms with equal occurrence are presented in alphabetial order. \n With `strict` = FALSE, words occurring equally often as the `number` cutoff word will be displayed. \n")
+    message("Note:\n Terms with equal occurrence are presented in alphabetial order. \n With `strict` = FALSE, words occurring equally often as the `number` cutoff word will be displayed. \n\n")
   }
   if (!is.null(pos_filter)) {
     data <- dplyr::filter(data, .data$upos %in% pos_filter)
@@ -264,16 +264,16 @@ fst_get_top_ngrams2 <- function(data, number = 10, ngrams = 1, pos_filter = NULL
 #'
 #' @param table Output of `fst_get_top_words` or `fst_get_top_ngrams`
 #' @param number The number of n-grams, default is `10`.
-#' @param name An optional "name" for the plot, default is `NULL`
+#' @param name An optional "name" for the plot to add to title, default is `NULL`
 #'
-#' @return Plot of top n-grams with unique terms highlighted.
+#' @return Plot of top words.
 #' @export
 #'
 #' @examples
 #' fst_freq_plot(top_f, number = 15, name = 'Female')
 #' fst_freq_plot(top_m)
 #' fst_freq_plot(top_na, number = 15)
-fst_freq_plot <- function(table, number = NULL, name = NULL, pos_filter = NULL) {
+fst_freq_plot <- function(table, number = NULL, name = NULL) {
   table %>%
     ggplot2::ggplot(ggplot2::aes(n, words)) +
     ggplot2::geom_col() +
@@ -291,10 +291,10 @@ fst_freq_plot <- function(table, number = NULL, name = NULL, pos_filter = NULL) 
 #' @param table Output of `fst_get_top_words` or `fst_get_top_ngrams`
 #' @param number The number of n-grams for title, default is `NULL`.
 #' @param ngrams The type of n-grams, default is `1`.
-#' @param name An optional "name" for the plot, default is `NULL`
+#' @param name An optional "name" for the plot to add to title, default is `NULL`
 
 #'
-#' @return Plot of top n-grams with unique terms highlighted.
+#' @return Plot of top n-grams.
 #' @export
 #'
 #' @examples
@@ -302,7 +302,7 @@ fst_freq_plot <- function(table, number = NULL, name = NULL, pos_filter = NULL) 
 #' fst_ngrams_plot(top_f, ngrams = 1, number = 15)
 #' fst_ngrams_plot(topn_m, ngrams = 2, number = 15)
 #' fst_ngrams_plot(topn_na, ngrams = 2)
-fst_ngrams_plot <- function(table, number = NULL, ngrams = 1, name = NULL, pos_filter = NULL) {
+fst_ngrams_plot <- function(table, number = NULL, ngrams = 1, name = NULL) {
   if (ngrams == 1) {
     term = 'Words'
   } else if (ngrams == 2) {
@@ -329,9 +329,9 @@ fst_ngrams_plot <- function(table, number = NULL, ngrams = 1, name = NULL, pos_f
 #'  means all word types included
 #' @param strict Whether to strictly cut-off at `number` (ties are
 #'  alphabetically ordered), default is `TRUE`
-#' @param name An optional "name" for the plot, default is `NULL`
+#' @param name An optional "name" for the plot to add to title, default is `NULL`
 #'
-#' @return
+#' @return Plot of top words
 #' @export
 #'
 #' @examples
@@ -339,7 +339,7 @@ fst_ngrams_plot <- function(table, number = NULL, ngrams = 1, name = NULL, pos_f
 #' fst_freq(conllu_dev_q11_1_na, number = 15, name = "Not Spec")
 fst_freq <- function(data, number = 10, pos_filter = NULL, strict = TRUE, name = NULL){
   words <- fst_get_top_words(data = data, number = number, pos_filter = pos_filter, strict = strict)
-  fst_freq_plot(table = words, number = number, name = name, pos_filter = pos_filter)
+  fst_freq_plot(table = words, number = number, name = name)
 }
 
 #' Find and Plot Top N-grams
@@ -354,9 +354,9 @@ fst_freq <- function(data, number = 10, pos_filter = NULL, strict = TRUE, name =
 #'  means all word types included
 #' @param strict Whether to strictly cut-off at `number` (ties are
 #'  alphabetically ordered), default is `TRUE`
-#' @param name An optional "name" for the plot, default is `NULL`
+#' @param name An optional "name" for the plot to add to title, default is `NULL`
 #'
-#' @return
+#' @return Plot of top n-grams
 #' @export
 #'
 #' @examples
@@ -364,7 +364,7 @@ fst_freq <- function(data, number = 10, pos_filter = NULL, strict = TRUE, name =
 #' fst_ngrams(conllu_dev_q11_1_na, number = 15, ngrams = 3, name = "Not Spec")
 fst_ngrams <- function(data, number = 10, ngrams = 1, pos_filter = NULL, strict = TRUE, name = NULL){
   ngram_list <- fst_get_top_ngrams(data = data, number = number, ngrams = ngrams, pos_filter = pos_filter, strict = strict)
-  fst_ngrams_plot(table = ngram_list, number = number, ngrams = ngrams, name = name, pos_filter = pos_filter)
+  fst_ngrams_plot(table = ngram_list, number = number, ngrams = ngrams, name = name)
 }
 
 
@@ -375,6 +375,7 @@ fst_ngrams <- function(data, number = 10, ngrams = 1, pos_filter = NULL, strict 
 #' @param data A dataframe of text in CoNLL-U format.
 #' @param pos_filter List of UPOS tags for inclusion, default is `NULL` which
 #'  means all word types included.
+#' @param max The maximum number of words to display, default is `100`
 #'
 #' @return A wordcloud from the data
 #' @export
@@ -382,8 +383,8 @@ fst_ngrams <- function(data, number = 10, ngrams = 1, pos_filter = NULL, strict 
 #' @examples
 #' fst_wordcloud(conllu_bullying_iso)
 #' fst_wordcloud(conllu_bullying_iso, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
-#' fst_wordcloud(conllu_dev_q11_1_snow, pos_filter = "VERB")
-fst_wordcloud <- function(data, pos_filter = NULL){
+#' fst_wordcloud(conllu_dev_q11_1_snow, pos_filter = "VERB", max = 50)
+fst_wordcloud <- function(data, pos_filter = NULL, max = 100){
   if (!is.null(pos_filter)) {
     data <- dplyr::filter(data, upos %in% pos_filter)
   }
@@ -395,43 +396,11 @@ fst_wordcloud <- function(data, pos_filter = NULL){
   par(mar = rep(0, 4))
   wordcloud::wordcloud(words = wordcloud_data$lemma,
                        freq = wordcloud_data$n,
-                       max.words= 100,
+                       max.words= max,
                        random.order=FALSE,
                        rot.per=0.35,
                        colors=RColorBrewer::brewer.pal(8, "Dark2")
                        )
 }
 
-#' Perform Data Exploration
-#'
-#' This summary function runs all the data exploration functions -
-#' `fst_summarise`, `fst_pos`, `fst_freq`, `fst_ngrams`, and `fst_wordcloud`
-#' within one step. These can be viewed within the `plots´ pane of RStudio by
-#' using the left and right arrows to cycle between.
-#'
-#' @param data A dataframe of text in CoNLL-U format.
-#' @param freq_number The number of top words to return, default is `20`.
-#' @param ngram_number The number of top n-grams to return, default is `20`.
-#' @param ngrams The type of n-grams to return, default is `2`.
-#' @param pos_filter List of UPOS tags for inclusion, default is `NULL` which
-#'  means all word types included.
-#'
-#' @return All the plots from the data exploration functions in the plots pane
-#' @export
-#'
-#' @examples
-#' fst_discover(conllu_bullying_iso)
-#' fst_discover(conllu_dev_q11_1_nltk, freq_number = 10, ngram_number=8, ngrams = 3, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
-fst_discover <- function(data, freq_number = 20, ngram_number = 20,
-                         ngrams = 2, pos_filter = NULL){
-  plot.new()
-  x <- fst_summarise(data)
-  gridExtra::grid.table(x)
-  plot.new()
-  y <- fst_pos(data)
-  gridExtra::grid.table(y)
-  fst_wordcloud(data, pos_filter)
-  return(list(fst_freq(data, number = freq_number, pos_filter=pos_filter),
-              fst_ngrams(data, number = ngram_number, ngrams = ngrams)
-  ))
-}
+

@@ -1,5 +1,5 @@
 ---
-title: "Tutorial1-Prepare_CoNLL-U"
+title: "Tutorial1-Prepare CoNLL-U"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Tutorial1-Prepare_CoNLL-U}
@@ -16,6 +16,14 @@ knitr::opts_chunk$set(
 
 ## Introduction
 This tutorial demonstrates the process of preparing Finnish survey text data into the CoNLL-U format required for the `finnsurveytext` package functions using functions in r/0.1_prepare_conll-u.r.
+
+These functions are: 
+
+1. `fst_format_conllu`
+2. `fst_find_stopwords`
+3. `fst_rm_stop_punct`
+4. `fst_prepare_conllu`
+
 
 #### CoNLL-U Format Overview
 CoNLL-U is a popular annotation scheme often used in Natural Language Processing (NLP) tasks to tokenise and annotate text. In CoNLL-U format, the text is split into one line per word and ten features of each word are recorded including an ID,  part-of-speech tagging, the word itself (eg. 'likes'), and word lemma (eg. 'like'). 

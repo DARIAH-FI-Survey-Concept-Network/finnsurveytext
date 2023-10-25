@@ -1,32 +1,37 @@
-#' Concept Network - Search Textrank for Concepts
+#' Concept Network - Search textrank for concepts
 #'
 #' This function takes a string of terms (separated by commas) or a single term
 #' and, using `textrank_keywords` from `textrank` package, filters data based on
-#' `relevant_pos` and finds words connected to search terms.
+#' `pos_filter` and finds words connected to search terms.
 #'
 #' @param data A dataframe of text in CoNLL-U format.
 #' @param concepts String of terms to search for, separated by commas.
-#' @param relevant_pos List of UPOS tags for inclusion, default is c("NOUN",
-#' "VERB", "ADJ", "ADV").
+#' @param pos_filter List of UPOS tags for inclusion, default is `NULL` to
+#' include all UPOS tags.
 #'
 #' @return Dataframe of n-grams containing searched terms
 #' @export
 #'
 #' @examples
-#' q11_1_concepts <- fst_cn_search(conllu_dev_q11_1_nltk, "elintaso, köyhä, ihminen", relevant_pos = "NOUN")
-#' q11_2_concepts <- fst_cn_search(conllu_dev_q11_2_nltk, "kehitysmaa, auttaa, pyrkiä, maa, ihminen", relevant_pos = c("ADV", "ADJ"))
-#' q11_3_concepts <- fst_cn_search(conllu_dev_q11_3_nltk, "köyhyys, nälänhätä, sota, ilmastonmuutos, puute")
-#' bullying_concepts <- fst_cn_search(conllu_bullying_iso, 'kiusata, lyöminen, lyödä, potkia')
+#' q11_1_concepts <- fst_cn_search(conllu_dev_q11_1_nltk, "elintaso, köyhä, ihminen")
+#' q11_2_concepts <- fst_cn_search(conllu_dev_q11_2_nltk, "kehitysmaa, auttaa, pyrkiä", pos_filter = c("NOUN", "ADV", "ADJ"))
+#' q11_3_concepts <- fst_cn_search(conllu_dev_q11_3_nltk, "köyhyys, nälänhätä, sota, ilmastonmuutos, puute", pos_filter = "NOUN")
+#' bullying_concepts <- fst_cn_search(conllu_bullying_iso, 'kiusata, lyöminen, lyödä, potkia', pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
 fst_cn_search <- function(data,
                           concepts,
-                          relevant_pos = c("NOUN", "VERB", "ADJ", "ADV")) {
+                          pos_filter = NULL) {
+  if (is.null(pos_filter)){
+    pos_filter = c('ADJ', 'ADP', 'ADV', 'AUX', 'CCONJ', 'DET', 'INTJ', 'NOUN',
+                     'NUM', 'PART', 'PRON', 'PROPN', 'PUNCT', 'SCONJ', 'SYM',
+                     'VERB', 'X')
+  }
   if(stringr::str_detect(concepts, ",")){
     concepts <- stringr::str_extract_all(concepts, pattern = "\\w+") %>%
       unlist()
   }
   data <- dplyr::filter(data, token != 'na')
   data$lemma <- stringr::str_replace_all(data$lemma,'-','@')
-  x <- textrank::textrank_keywords(data$lemma, relevant=data$upos %in% relevant_pos)
+  x <- textrank::textrank_keywords(data$lemma, relevant=data$upos %in% pos_filter)
   keyword_data <- x$keywords %>%
     dplyr::filter(ngram > 1 & freq > 1) %>%
     dplyr::mutate(word2 = strsplit(keyword, "-")) %>%
@@ -46,7 +51,7 @@ fst_cn_search <- function(data,
   return(all_concepts)
 }
 
-#' Concept Network - Get Textrank Edges
+#' Concept Network - Get textrank edges
 #'
 #' This function takes a string of terms (separated by commas) or a single term
 #' and, using `fst_cn_search` find words conected to these searched terms. Then,
@@ -56,9 +61,9 @@ fst_cn_search <- function(data,
 #' @param data A dataframe of text in CoNLL-U format.
 #' @param concepts List of terms to search for, separated by commas.
 #' @param threshold A minimum number of occurrences threshold for 'edge' between
-#' searched term and other word, default is NULL.
-#' @param relevant_pos List of UPOS tags for inclusion, default is c("NOUN",
-#' "VERB", "ADJ", "ADV").
+#' searched term and other word, default is `NULL`.
+#' @param pos_filter List of UPOS tags for inclusion, default is `NULL` to
+#' include all UPOS tags.
 #'
 #' @return Dataframe of 'edges' between two connected words.
 #' @export
@@ -67,14 +72,14 @@ fst_cn_search <- function(data,
 #' q11_1_edges <- fst_cn_edges(conllu_dev_q11_1_nltk, 'elintaso, köyhä, ihminen', threshold = 3)
 #' q11_2_edges <- fst_cn_edges(conllu_dev_q11_2_nltk, "kehitysmaa, auttaa, pyrkiä, maa, ihminen", threshold = 5)
 #' q11_3_edges <- fst_cn_edges(conllu_dev_q11_3_nltk, "köyhyys, nälänhätä, sota, ilmastonmuutos, puute", threshold = 2)
-#' bullying_edges <-fst_cn_edges(conllu_bullying_iso, 'kiusata, lyöminen')
+#' bullying_edges <-fst_cn_edges(conllu_bullying_iso, 'kiusata, lyöminen', pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
 fst_cn_edges <- function(data,
                          concepts,
                          threshold = NULL,
-                         relevant_pos =  c("NOUN", "VERB", "ADJ", "ADV")) {
+                         pos_filter =  NULL) {
   data <- dplyr::filter(data, token != 'na')
   df <-  data %>%
-    fst_cn_search(concepts = concepts, relevant_pos = relevant_pos) %>%
+    fst_cn_search(concepts = concepts, pos_filter = pos_filter) %>%
     dplyr::select(word1, word2, freq) %>%
     dplyr::group_by(word1,word2) %>%
     dplyr::summarize(n = sum(freq), .groups = "drop") %>%
@@ -86,12 +91,12 @@ fst_cn_edges <- function(data,
   return(df)
 }
 
-#' Concept Network - Get Textrank Nodes
+#' Concept Network - Get textrank nodes
 #'
 #' @param data A dataframe of text in CoNLL-U format.
 #' @param edges Output of fst_cn_edges, dataframe of 'edges' connecting two words
-#' @param relevant_pos List of UPOS tags for inclusion, default is c("NOUN",
-#' "VERB", "ADJ", "ADV").
+#' @param pos_filter List of UPOS tags for inclusion, default is `NULL` to
+#' include all UPOS tags.
 #'
 #' @return A dataframe containing relevant lemmas and their associated pagerank
 #' @export
@@ -100,12 +105,17 @@ fst_cn_edges <- function(data,
 #' q11_1_nodes <- fst_cn_nodes(conllu_dev_q11_1_nltk, q11_1_edges)
 #' q11_2_nodes <- fst_cn_nodes(conllu_dev_q11_2_nltk, q11_2_edges)
 #' q11_3_nodes <- fst_cn_nodes(conllu_dev_q11_3_nltk, q11_3_edges)
-#' bullying_nodes <- fst_cn_nodes(conllu_bullying_iso, bullying_edges)
+#' bullying_nodes <- fst_cn_nodes(conllu_bullying_iso, bullying_edges, c("NOUN", "VERB", "ADJ", "ADV"))
 fst_cn_nodes <- function(data,
                          edges,
-                         relevant_pos = c("NOUN", "VERB", "ADJ", "ADV")) {
+                         pos_filter = NULL) {
+  if (is.null(pos_filter)){
+    pos_filter = c('ADJ', 'ADP', 'ADV', 'AUX', 'CCONJ', 'DET', 'INTJ', 'NOUN',
+                     'NUM', 'PART', 'PRON', 'PROPN', 'PUNCT', 'SCONJ', 'SYM',
+                     'VERB', 'X')
+  }
   data <- dplyr::filter(data, token != 'na')
-  keyw <- textrank::textrank_keywords(data$lemma, relevant=data$upos %in% relevant_pos)
+  keyw <- textrank::textrank_keywords(data$lemma, relevant=data$upos %in% pos_filter)
   textrank_data <- data.frame(pagerank = keyw$pagerank$vector) %>%
     tibble::rownames_to_column("lemma")
   keyword_vocab <- unique(c(edges$from, edges$to))
@@ -120,6 +130,8 @@ fst_cn_nodes <- function(data,
 #' @param edges Output of `fst_cn_edges`, dataframe of 'edges' connecting two words
 #' @param nodes Output of `fst_cn_nodes`, dataframe of relevant lemmas and their associated pagerank
 #' @param concepts List of terms which have been searched for, separated by commas.
+#' @param title Optional title for plot, default is `NULL` and a generic title
+#' ('Textrank extracted keyword occurrences) will be used.
 #'
 #' @return Plot of Concept Network
 #' @export
@@ -129,11 +141,14 @@ fst_cn_nodes <- function(data,
 #' fst_cn_plot(edges = q11_2_edges, nodes = q11_2_nodes, concepts = "kehitysmaa, auttaa, pyrkiä, maa, ihminen")
 #' fst_cn_plot(edges = q11_3_edges, nodes = q11_3_nodes, concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute")
 #' fst_cn_plot(edges = bullying_edges, nodes = bullying_nodes, concepts = 'kiusata, lyöminen')
-fst_cn_plot <- function(edges, nodes, concepts) {
+fst_cn_plot <- function(edges, nodes, concepts, title = NULL) {
   if(stringr::str_detect(concepts, ",")){
     concepts <- concepts  %>% lapply(tolower) %>%
       stringr::str_extract_all(pattern = "\\w+") %>%
       unlist()
+  }
+  if (is.null(title)){
+    title = "Textrank extracted keyword occurrences"
   }
   nodes <- nodes %>%
     dplyr::mutate(is_concept = factor(ifelse(lemma %in% concepts, 0, 1),
@@ -150,20 +165,22 @@ fst_cn_plot <- function(edges, nodes, concepts) {
     ggplot2::scale_color_manual("Word Type", values = c("Concept word" = "red", "Regular word" = "black")) +
     ggraph::theme_graph() +
     ggplot2::labs(
-      title = "Textrank extracted keyword occurrences") +
+      title = title) +
     ggplot2::theme(legend.position = "right")
 
   return(p)
 }
 
-#' Concept Network - Make Concept Network Plot
+#' Concept Network - Make Concept Network plot
 #'
 #' @param data A dataframe of text in CoNLL-U format.
-#' @param input_word List of terms to search for, separated by commas.
+#' @param concepts List of terms to search for, separated by commas.
 #' @param threshold A minimum number of occurrences threshold for 'edge' between
-#' searched term and other word, default is NULL.
-#' @param relevant_pos List of UPOS tags for inclusion, default is c("NOUN",
-#' "VERB", "ADJ", "ADV").
+#' searched term and other word, default is `NULL`.
+#' @param pos_filter List of UPOS tags for inclusion, default is `NULL` to
+#' include all UPOS tags.
+#' @param title Optional title for plot, default is `NULL` and a generic title
+#' ('Textrank extracted keyword occurences) will be used.
 #'
 #' @return Plot of concept network
 #' @export
@@ -172,16 +189,17 @@ fst_cn_plot <- function(edges, nodes, concepts) {
 #' fst_concept_network(conllu_dev_q11_3, concepts = "köyhyys, puute")
 #' fst_concept_network(conllu_dev_q11_3, concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute")
 #' fst_concept_network(conllu_dev_q11_3, concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute", threshold = 3)
-#' fst_concept_network(conllu_bullying_iso, concepts = 'kiusata, lyöminen')
+#' fst_concept_network(conllu_bullying_iso, concepts = 'kiusata, lyöminen', pos_filter = c("NOUN", "VERB", "ADJ", "ADV"), title = 'Bullying Concept Network')
 fst_concept_network <- function(data,
                                 concepts,
                                 threshold = NULL,
-                                relevant_pos = c("NOUN", "VERB", "ADJ", "ADV")) {
+                                pos_filter = NULL,
+                                title = NULL) {
   edges <- fst_cn_edges(data = data,
                         concepts = concepts,
                         threshold = threshold,
-                        relevant_pos = relevant_pos)
-  nodes <- fst_cn_nodes(data = data, edges, relevant_pos = relevant_pos)
-  fst_cn_plot(edges, nodes, concepts = concepts)
+                        pos_filter = pos_filter)
+  nodes <- fst_cn_nodes(data = data, edges, pos_filter = pos_filter)
+  fst_cn_plot(edges, nodes, concepts = concepts, title = title)
 }
 

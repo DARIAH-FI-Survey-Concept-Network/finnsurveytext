@@ -1,0 +1,175 @@
+---
+title: "Tutorial4-Further analysis and configuration of Concept Network functions"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Tutorial4-Further analysis and configuration of Concept Network functions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>", 
+  fig.width=6, fig.height=6
+)
+```
+
+```{r setup}
+#install.packages("finnsurveytext")
+#library(finnsurveytext)
+devtools::load_all() # TO-DO: remove this load_all() line and uncomment the library() line. 
+```
+## Introduction
+
+This tutorial goes into further details demonstrating the use of the package. It covers functions in r/02_data_exploration.R and r/02_data_exploration.R. The intention is to show how the settings for the concept network plot can be experimented with to make it as meaningful as possible.
+
+## The Data
+We're looking at FSD2821 Young People's Views on Development Cooperation 2012 (FSD2821 Nuorten ajatuksia kehitysyhteistyöstä 2012)
+
+There are 3 open-ended questions we look at within this data and we will set the `threshold` and other function arguments to be suit each question.
+
+### The open-ended questions
+* [q11_1] Jatka lausetta: Kehitysmaa on maa, jossa... (Avokysymys)
+  + [q11_1] Continue the sentence: A developing country is a country where... (Open question)
+* [q11_2] Jatka lausetta: Kehitysyhteistyö on toimintaa, jossa... (Avokysymys)
+  + [q11_2] Continue the sentence: Development cooperation is an activity in which... (Open question)
+* [q11_3] Jatka lausetta: Maailman kolme suurinta ongelmaa ovat... (Avokysymys)
+  + [q11_3] Continue the sentence: The world's three biggest problems are... (Open question)
+
+## Read in 
+First, we read in our data. 
+
+```{r}
+devdata <- dev_data
+
+q11_1 <- conllu_dev_q11_1_nltk
+q11_2 <- conllu_dev_q11_2_nltk
+q11_3 <- conllu_dev_q11_3_nltk
+```
+
+```{r}
+knitr::kable(head(dev_data, 5))
+
+knitr::kable(head(q11_1, 10))
+```
+
+
+
+## EDA
+
+The differences in the types of responses can be seen in the exploratory data analysis results below: 
+
+(For further details into these functions, see "Tutorial2-Data_Exploration")
+
+#### Summarise
+```{r}
+knitr::kable(
+  fst_summarise(q11_1)
+)
+knitr::kable(
+  fst_summarise(q11_2)
+)
+knitr::kable(
+  fst_summarise(q11_3)
+)
+```
+
+#### POS Summary
+```{r}
+knitr::kable(
+  fst_pos(q11_1)
+)
+knitr::kable(
+  fst_pos(q11_2)
+)
+knitr::kable(
+  fst_pos(q11_3)
+)
+```
+
+#### Length Summary
+```{r}
+knitr::kable(
+  fst_length_summary(q11_1)
+)
+knitr::kable(
+  fst_length_summary(q11_2)
+)
+knitr::kable(
+  fst_length_summary(q11_3)
+)
+```
+
+#### Top Words
+```{r}
+fst_freq(q11_1, 10, c("NOUN", "VERB", "ADJ", "ADV"), name = 'Q11_1')
+fst_freq(q11_2, 10, c("NOUN", "VERB", "ADJ", "ADV"), name = 'Q11_2')
+fst_freq(q11_3, 10, c("NOUN", "VERB", "ADJ", "ADV"), name = 'Q11_3')
+```
+
+#### Bi-grams and Trigrams 
+
+```{r}
+fst_ngrams(q11_1, number = 10, ngrams=2, name = 'Q11_1')
+fst_ngrams(q11_1, number = 10, ngrams=3, name = 'Q11_1')
+fst_ngrams(q11_2, number = 10, ngrams=2, name = 'Q11_2')
+fst_ngrams(q11_2, number = 10, ngrams=3, name = 'Q11_2')
+fst_ngrams(q11_3, number = 10, ngrams=2, name = 'Q11_3')
+fst_ngrams(q11_3, number = 10, ngrams=3, name = 'Q11_3')
+```
+
+#### Wordcloud
+```{r}
+fst_wordcloud(q11_1, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+fst_wordcloud(q11_2, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+fst_wordcloud(q11_3, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+```
+
+### Exploring some concept networks based on thematic frequently occuring words
+
+Based on the most frequently-occurring words, we have chosen some lists of "concepts" for each question and will create Concept Networks based on these. You can see below how the `threshold` can be used to make sure the concept network isn't too busy by removing less frequent connection words. Similarly, you can see how the length of the "concepts" list impacts the busyness of the plot. Often, the "concept" list and appropriate `threshold` will be the product of trial and error. 
+
+#### Q11_1
+* [q11_1] Jatka lausetta: Kehitysmaa on maa, jossa... (Avokysymys)
+  + [q11_1] Continue the sentence: A developing country is a country where... (Open question)
+* "elintaso, köyhä, ihminen"
+  + standard of living, poor, man
+```{r}
+fst_concept_network(q11_1, concepts = "elintaso, köyhä", title = "Q11_1 - No threshold")
+fst_concept_network(q11_1, concepts = "elintaso, köyhä", threshold = 3, title = "Q11_1 - Threshold = 3")
+fst_concept_network(q11_1, concepts = "elintaso, köyhä, ihminen",  title = "Q11_1 - No threshold")
+fst_concept_network(q11_1, concepts = "elintaso, köyhä, ihminen", threshold = 3, title = "Q11_1 - Threshold = 3")
+```
+
+#### Q11_2
+* [q11_2] Jatka lausetta: Kehitysyhteistyö on toimintaa, jossa... (Avokysymys)
+  + [q11_2] Continue the sentence: Development cooperation is an activity in which... (Open question)
+* "kehitysmaa, auttaa, pyrkiä, maa, ihminen"
+  + development, help, strive, country, man
+```{r}
+fst_concept_network(q11_2, concepts = "kehitysmaa, auttaa, pyrkiä, maa, ihminen", title = "Q11_2 - No threshold")
+fst_concept_network(q11_2, concepts = "kehitysmaa, auttaa, pyrkiä, maa, ihminen", threshold = 10, title = "Q11_2 - Threshold = 10")
+fst_concept_network(q11_2, concepts = "kehitysmaa, auttaa, pyrkiä, maa, ihminen", threshold = 5, title = "Q11_2 - Threshold = 5")
+
+fst_concept_network(q11_2, concepts = "kehitysmaa, auttaa, pyrkiä", title = "Q11_2 - No threshold")
+fst_concept_network(q11_2, concepts = "kehitysmaa, auttaa, pyrkiä", threshold = 5, title = "Q11_2 - Threshold = 5")
+
+```
+
+#### Q11_3
+* [q11_3] Jatka lausetta: Maailman kolme suurinta ongelmaa ovat... (Avokysymys)
+  + [q11_3] Continue the sentence: The world's three biggest problems are... (Open question)
+* "köyhyys, nälänhätä, sota, ilmastonmuutos, puute"
+  + poverty, famine, war, climate change, lack of
+```{r}
+fst_concept_network(q11_3, concepts = "köyhyys", title = "Q11_3 - köyhyys / No threshold")
+fst_concept_network(q11_3, concepts = "köyhyys, puute", title = "Q11_3 - köyhyys, puute / No threshold")
+fst_concept_network(q11_3, concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute", title = "Q11_3 - No threshold") 
+fst_concept_network(q11_3, concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute", threshold = 3, title = "Q11_3 - Threshold = 3")
+fst_concept_network(q11_3, concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute", threshold = 2, title = "Q11_3 - Threshold = 2")
+```
+
+## Citation
+
+Finnish Children and Youth Foundation: Young People's Views on Development Cooperation 2012 [dataset]. Version 2.0 (2019-01-22). Finnish Social Science Data Archive [distributor]. http://urn.fi/urn:nbn:fi:fsd:T-FSD2821

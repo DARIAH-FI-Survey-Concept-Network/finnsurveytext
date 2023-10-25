@@ -2,35 +2,39 @@
 % Please edit documentation in R/03_concept_network.R
 \name{fst_concept_network}
 \alias{fst_concept_network}
-\title{Concept Network - Make Concept Network Plot}
+\title{Concept Network - Make Concept Network plot}
 \usage{
 fst_concept_network(
   data,
   concepts,
   threshold = NULL,
-  relevant_pos = c("NOUN", "VERB", "ADJ", "ADV")
+  pos_filter = NULL,
+  title = NULL
 )
 }
 \arguments{
 \item{data}{A dataframe of text in CoNLL-U format.}
 
+\item{concepts}{List of terms to search for, separated by commas.}
+
 \item{threshold}{A minimum number of occurrences threshold for 'edge' between
-searched term and other word, default is NULL.}
+searched term and other word, default is `NULL`.}
 
-\item{relevant_pos}{List of UPOS tags for inclusion, default is c("NOUN",
-"VERB", "ADJ", "ADV").}
+\item{pos_filter}{List of UPOS tags for inclusion, default is `NULL` to
+include all UPOS tags.}
 
-\item{input_word}{List of terms to search for, separated by commas.}
+\item{title}{Optional title for plot, default is `NULL` and a generic title
+('Textrank extracted keyword occurences) will be used.}
 }
 \value{
 Plot of concept network
 }
 \description{
-Concept Network - Make Concept Network Plot
+Concept Network - Make Concept Network plot
 }
 \examples{
 fst_concept_network(conllu_dev_q11_3, concepts = "köyhyys, puute")
 fst_concept_network(conllu_dev_q11_3, concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute")
 fst_concept_network(conllu_dev_q11_3, concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute", threshold = 3)
-fst_concept_network(conllu_bullying_iso, concepts = 'kiusata, lyöminen')
+fst_concept_network(conllu_bullying_iso, concepts = 'kiusata, lyöminen', pos_filter = c("NOUN", "VERB", "ADJ", "ADV"), title = 'Bullying Concept Network')
 }

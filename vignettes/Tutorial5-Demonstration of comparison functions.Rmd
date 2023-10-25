@@ -1,0 +1,333 @@
+---
+title: "Tutorial5-Demonstration of comparison functions"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Tutorial5-Demonstration of Comparison Functions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>", 
+  fig.width=8, fig.height=6
+)
+```
+
+## Introduction
+This tutorial demonstrates functions within the package that can be used to compare the open-ended survey question responses between respondent type. In this case, we will look at whether responses vary based on respondent gender. 
+
+The new functions covered are defined in r/04_comparison_functions.R and r/05_comparison_concept_network.R
+
+The new functions are: 
+
+1. `fst_get_unique_ngrams`
+2. `fst_join_unique`
+3. `fst_ngrams_compare_plot`
+4. `fst_ngrams_compare_plot2`
+5. `fst_plot_multiple`
+6. `fst_freq_compare`
+7. `fst_ngrams_compare`
+8. `fst_pos_compare`
+9. `fst_summarise`
+10. `fst_summarise_compare`
+11. `fst_length_compare`
+12. `fst_comparisoncloud`
+13. `fst_cn_get_unique`
+14. `fst_cn_compare_plot`
+15. `fst_concept_network_compare`
+
+We will look at the following question: 
+* [q11_2] Jatka lausetta: Kehitysyhteistyö on toimintaa, jossa... (Avokysymys)
+  + [q11_2] Continue the sentence: Development cooperation is an activity in which... (Open question)
+
+First, install and load the `finnsurveytext` package as below:
+(Other required packages such as `dplyr` and `stringr` will also be installed if they are not currently installed in your environment.)
+
+```{r setup}
+#install.packages("finnsurveytext")
+#library(finnsurveytext)
+devtools::load_all() # TO-DO: remove this load_all() line and uncomment the library() line.
+```
+
+There are four sets of data files available within the package which are used in this tutorial
+
+### Development Cooperation Data Split by Gender
+* data/dev_data.rda
+* data/dev_data_m.rda
+* data/dev_data_f.rda
+* data/dev_data_na.rda
+
+We can prepare the data into CoNLL-U format using functions from `01_prepare_conllu-u.R` as follows:
+(We are preparing versions with and without stopwords removed because we have some functions which are better with/without the stopwords included.)
+
+```{r}
+all <- fst_prepare_conllu(data = dev_data, field = "q11_2", stopword_list = "none")
+all_nltk <- fst_prepare_conllu(data = dev_data, field = "q11_2", stopword_list = "nltk")
+female <- fst_prepare_conllu(data = dev_data_f, field = "q11_2", stopword_list = "none")
+female_nltk <- fst_prepare_conllu(data = dev_data_f, field = "q11_2", stopword_list = "nltk")
+male <- fst_prepare_conllu(data = dev_data_m, field = "q11_2", stopword_list = "none")
+male_nltk <- fst_prepare_conllu(data = dev_data_m, field = "q11_2", stopword_list = "nltk")
+na <- fst_prepare_conllu(data = dev_data_na, field = "q11_2", stopword_list = "none")
+na_nltk <- fst_prepare_conllu(data = dev_data_na, field = "q11_2", stopword_list = "nltk")
+
+knitr::kable(head(male_nltk))
+```
+
+Now that our data is ready, we can look at our data and compare the results. 
+
+First, we will look at some summary functions to compare the responses overall. (We are using the versions which *include* the stopwords here.) 
+
+#### Make Comparison Summary
+Consider the definition of `fst_summarise_compare`:
+```{r eval=FALSE}
+fst_summarise_compare <- function(data1, 
+                                  data2, 
+                                  data3 = NULL, 
+                                  data4 = NULL, 
+                                  desc1 = "Group 1", 
+                                  desc2 = "Group 2", 
+                                  desc3 = "Group 3", 
+                                  desc4 = "Group 4")
+```
+
+We can run this function for our data: 
+(we use `knitr::kable` function below to display results in a "prettier" table)
+```{r}
+knitr::kable(
+  fst_summarise_compare(data1 = all, name1 = 'All', 
+                      data2 = female, name2 = 'Female', 
+                      data3 = male, name3 = 'Male', 
+                      data4 = na, name4 = 'Unspecified')
+  )
+```
+
+We can already see that our data is quite unbalanced. There are a lot more female respondents than male or unspecified. The response (to this question) rate is high (97%) but slightly lower for the unspecified respondents. Unsurprisingly, since there are more female responses, the female responses to this question contain a larger variety of words. 
+
+Next, we will look at part-of-speech tags and lengths of responses. 
+
+Consider the definition of `fst_pos_compare` and `fst_length_compare`:
+```{r eval=FALSE}
+fst_pos_compare <- function(data1, 
+                            data2, 
+                            data3 = NULL, 
+                            data4 = NULL, 
+                            name1 = "Group 1", 
+                            name2 = "Group 2", 
+                            name3 = "Group 3", 
+                            name4 = "Group 4")
+
+fst_length_compare <- function(data1, 
+                               data2, 
+                               data3 = NULL, 
+                               data4 = NULL, 
+                               name1 = "Group 1", 
+                               name2 = "Group 2", 
+                               name3 = "Group 3", 
+                               name4 = "Group 4", 
+                               incl_sentences = TRUE) 
+```
+
+We run the functions to look further into the differences between the respondent types. 
+```{r}
+knitr::kable(
+  fst_pos_compare(data1 = all, name1 = 'All', 
+                      data2 = female, name2 = 'Female', 
+                      data3 = male, name3 = 'Male', 
+                      data4 = na, name4 = 'Unspecified')
+)
+
+knitr::kable(
+  fst_length_compare(data1 = all, name1 = 'All',
+                      data2 = female, name2 = 'Female',
+                      data3 = male, name3 = 'Male',
+                      data4 = na, name4 = 'Unspecified')
+)
+```
+
+In terms of POS tags, the differences are likely mostly due to the differences in the number of respondents between genders. We can also see that female responses are generally slightly longer (average of 6 words to 5 words) but that most respondents (across the genders) wrote only a single sentence.
+
+### Comparison Cloud
+
+Now that we've looked at the overview comparisons, we will create a comparison cloud between the responses, using the versions with stopwords removed so that only more meaningful words remain.
+
+Recall the definition of `fst_comparisoncloud`:
+```{r eval=FALSE}
+fst_comparisoncloud <- function(data1, 
+                                data2, 
+                                data3 = NULL, 
+                                data4 = NULL, 
+                                name1 = "Group 1", 
+                                name2 = "Group 2", 
+                                name3 = "Group 3", 
+                                name4 = "Group 4", 
+                                pos_filter = NULL, 
+                                max = 100)
+```
+
+```{r}
+fst_comparison_cloud(data1 = female, name1 = 'Female', 
+                    data2 = male, name2 = 'Male', 
+                    data3 = na, name3 = 'Unspecified', 
+                    max = 50)
+```
+
+This cloud shows words that occur more regularly in responses from a specific type of respondent. For more information about comparison clouds, you can read [this documentation](https://www.rdocumentation.org/packages/wordcloud/versions/2.6/topics/comparison.cloud) For instance, "ihminen" occurs frequently in all respondent types (slightly more common for unspecified respondents) whereas "kouloutus" and "kansalainen" are associated with female and male respondents respectively. 
+
+### Common Words and N-grams
+Now, we will look at common words occurring in the responses. 
+
+Consider first the definition of `fst_get_top_words` and `fst_get_top_ngrams`:
+
+```{r eval=FALSE}
+fst_get_top_words <- function(data, number = 10, pos_filter = NULL, strict = TRUE)
+  
+fst_get_top_ngrams <- function(data, number = 10, ngrams = 1, pos_filter = NULL, strict = TRUE)
+```
+
+
+First, we will consider all the responses for this question. 
+
+```{r}
+all_top10 <- fst_get_top_words(all_nltk, 
+                               number = 10, 
+                               pos_filter = NULL, 
+                               strict = FALSE)
+all_top10bigrams <- fst_get_top_ngrams(all_nltk, 
+                                       number = 10, 
+                                       ngrams = 2, 
+                                       pos_filter = NULL, 
+                                       strict = TRUE)
+
+knitr::kable(all_top10)
+knitr::kable(all_top10bigrams)
+```
+
+Now we will look at top words by gender: 
+```{r}
+female_top10 <- fst_get_top_words(female_nltk, 
+                               number = 10, 
+                               pos_filter = NULL, 
+                               strict = TRUE)
+knitr::kable(female_top10)
+
+male_top10 <- fst_get_top_words(male_nltk, 
+                               number = 10, 
+                               pos_filter = NULL, 
+                               strict = TRUE)
+knitr::kable(male_top10)
+
+na_top10 <- fst_get_top_words(na_nltk, 
+                               number = 10, 
+                               pos_filter = NULL, 
+                               strict = TRUE)
+knitr::kable(na_top10)
+```
+
+As you can see, the top words are very similar across all respondent types. 
+
+This is further shown in the plots. 
+```{r}
+fst_freq_compare(data1 = female_nltk, name1 = 'Female',
+                 data2 = male_nltk, name2 = 'Male', 
+                 data3 = na_nltk, name3 = 'Unspecified',
+                 number = 10, 
+                 pos_filter = NULL,
+                 unique_colour = 'indianred', 
+                 strict = TRUE)
+
+fst_ngrams_compare(data1 = female_nltk, name1 = 'Female',
+                 data2 = male_nltk, name2 = 'Male',
+                 data3 = na_nltk, name3 = 'Unspecified',
+                 number = 10,
+                 ngrams = 2,
+                 pos_filter = NULL,
+                 unique_colour = 'indianred', 
+                 strict = TRUE)
+```
+
+Now, I want to compare this to the overall results. Since, `fst_freq_compare` looks for unique words among all the sets, and I only want to look for unique words within the gender-specific sets, I will run it through the component functions. (Just for fun, I have also changed the colour of the unique words)
+
+```{r}
+unique <- fst_get_unique_ngrams(female_top10, male_top10, na_top10) 
+
+female_top10u <- fst_join_unique(female_top10, unique)
+male_top10u <- fst_join_unique(male_top10, unique)
+na_top10u <- fst_join_unique(na_top10, unique)
+
+plot_all <- fst_freq_plot(all_top10, number = 10, name = 'All')
+plot_f <- fst_ngrams_compare_plot(female_top10u, ngrams = 1, number = 10, override_title = 'Female', unique_colour = 'purple')
+plot_m <- fst_ngrams_compare_plot(male_top10u, ngrams = 1, number = 10, override_title = 'Male', unique_colour = 'magenta')
+plot_na <- fst_ngrams_compare_plot(na_top10u, ngrams = 1, number = 10, override_title = 'Unspecified', unique_colour = 'aquamarine')
+
+fst_plot_multiple(plot_all, plot_f, plot_m, plot_na, main_title = 'Top Words By Gender')
+
+```
+
+
+Since the top 3 words are 'kehitysmaa', 'auttaa', and 'pyrkiä', we will create concept networks based on these terms.
+
+```{r}
+fst_concept_network_compare(data1 = female_nltk, name1 = 'Female',
+                            data2 = male_nltk, name2 = 'Male', 
+                            data3 = na_nltk, name3 = 'Unspecified',  
+                            concepts = "kehitysmaa, auttaa, pyrkiä")
+```
+
+As you can see, this can result in a plot that is too busy (especially in the markdown format where we've limited the size of the plots). 
+
+Let's try again with just male and female data. 
+
+```{r}
+fst_concept_network_compare(data1 = female_nltk, name1 = 'Female',
+                            data2 = male_nltk, name2 = 'Male', 
+                            concepts = "kehitysmaa, auttaa, pyrkiä")
+```
+
+Below, we will run the female with stricter thresholds since there are more responses from females. 
+
+```{r}
+fst_concept_network(female_nltk,
+                    concepts = "kehitysmaa, auttaa, pyrkiä",
+                    threshold = NULL, 
+                    title = "No Threshold")
+
+fst_concept_network(female_nltk,
+                    concepts = "kehitysmaa, auttaa, pyrkiä",
+                    threshold = 5,
+                    title = "Threshold = 5")
+```
+
+
+Now let's manually do create the concept networks so that there is a requirement of at least 4 occurrences for words in the female network (there are ~3.7x as many females as males so I have chosen 4). These networks look more comparable now and we can see that the concept networks show different words used around our "concept" words of "kehitysmaa", "auttaa" and  "pyrkiä" by female respondents than male. 
+
+```{r}
+concepts <- "kehitysmaa, auttaa, pyrkiä"
+female_edges <- fst_cn_edges(female_nltk, concepts, threshold = 4)
+male_edges <- fst_cn_edges(male_nltk, concepts)
+
+female_nodes <- fst_cn_nodes(female_nltk, female_edges)
+male_nodes <- fst_cn_nodes(male_nltk, male_edges)
+
+unique2 <- fst_cn_get_unique(female_nodes, male_nodes)
+
+female_cn <- fst_cn_compare_plot(female_edges, female_nodes, concepts, 
+                    unique_lemmas = unique2, 
+                    name = "Female",
+                    concept_colour = "red", unique_colour = "purple")
+
+male_cn <- fst_cn_compare_plot(male_edges, male_nodes, concepts, 
+                    unique_lemmas = unique2, 
+                    name = "Male",
+                    concept_colour = "red", unique_colour = "blue")
+
+fst_plot_multiple(plot1 = female_cn, plot2 = male_cn, main_title = "Comparison Plot of Female and Male Respondences Q11_2")
+
+```
+
+This analysis could form the start of further work into the responses to question 11_2 by respondents based on their gender. 
+
+## Citation
+
+Finnish Children and Youth Foundation: Young People's Views on Development Cooperation 2012 [dataset]. Version 2.0 (2019-01-22). Finnish Social Science Data Archive [distributor]. http://urn.fi/urn:nbn:fi:fsd:T-FSD2821

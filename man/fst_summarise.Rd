@@ -4,20 +4,22 @@
 \alias{fst_summarise}
 \title{Make Summary Table}
 \usage{
-fst_summarise(data)
+fst_summarise(data, desc = "All respondents")
 }
 \arguments{
 \item{data}{A dataframe of text in CoNLL-U format.}
+
+\item{desc}{A string describing respondents, default is `All respondents`}
 }
 \value{
-A dataframe with summary info for the data.
+Summary table for data
 }
 \description{
-Creates a summary table for the input CoNLL-U data which provides the total
-number of words, the number of unique words, and the number of unique lemmas.
+Creates a summary table for the input CoNLL-U data which provides the
+response count and proportion, total number of words, the number of unique
+words, and the number of unique lemmas.
 }
 \examples{
-bullying_summary <- fst_summarise(conllu_bullying_iso)
-q11_1_summary <- fst_summarise(conllu_dev_q11_1_nltk)
-fst_summarise(conllu_dev_q11_2_nltk)
+fst_summarise(conllu_dev_q11_1)
+female <- fst_summarise(conllu_dev_q11_1_f, "Female respondents")
 }

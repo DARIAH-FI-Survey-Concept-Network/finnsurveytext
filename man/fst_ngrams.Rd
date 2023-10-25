@@ -2,26 +2,40 @@
 % Please edit documentation in R/02_data_exploration.R
 \name{fst_ngrams}
 \alias{fst_ngrams}
-\title{Make Top N-Grams Table}
+\title{Find and Plot Top N-grams}
 \usage{
-fst_ngrams(data, number = 20, ngrams = 2)
+fst_ngrams(
+  data,
+  number = 10,
+  ngrams = 1,
+  pos_filter = NULL,
+  strict = TRUE,
+  name = NULL
+)
 }
 \arguments{
 \item{data}{A dataframe of text in CoNLL-U format.}
 
-\item{number}{The number of top n-grams to return, default is `20`.}
+\item{number}{The number of top words to return, default is `10`.}
 
-\item{ngrams}{The type of n-grams to return, default is `2`.}
+\item{ngrams}{The type of n-grams, default is `1`.}
+
+\item{pos_filter}{List of UPOS tags for inclusion, default is `NULL` which
+means all word types included}
+
+\item{strict}{Whether to strictly cut-off at `number` (ties are
+alphabetically ordered), default is `TRUE`}
+
+\item{name}{An optional "name" for the plot to add to title, default is `NULL`}
 }
 \value{
-A table of the most frequent n-grams in the data
+Plot of top n-grams
 }
 \description{
-Creates a table of the most frequently-occurring sets of words (n-grams)
-within the data.
+Creates a plot of the most frequently-occurring n-grams within the
+data.
 }
 \examples{
-fst_ngrams(conllu_bullying_iso)
-fst_ngrams(conllu_dev_q11_2_nltk, number = 10, ngrams=3)
-fst_ngrams(conllu_dev_q11_3_nltk, ngrams = 4)
+fst_ngrams(conllu_dev_q11_1, number = 12, ngrams = 2, strict = FALSE, name = "All")
+fst_ngrams(conllu_dev_q11_1_na, number = 15, ngrams = 3, name = "Not Spec")
 }

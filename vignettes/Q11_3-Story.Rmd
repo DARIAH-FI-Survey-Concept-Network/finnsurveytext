@@ -1,0 +1,248 @@
+---
+title: "Q11_3-Story"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Q11_3-Story}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>", 
+  fig.width=6, fig.height=6
+)
+```
+
+```{r setup}
+#install.packages("finnsurveytext")
+#library(finnsurveytext)
+devtools::load_all() # TO-DO: remove this load_all() line and uncomment the library() line. 
+```
+
+Going searching for a 'story' in Q11_3. 
+
+### The question
+
+* [q11_3] Jatka lausetta: Maailman kolme suurinta ongelmaa ovat... (Avokysymys)
+  + [q11_3] Continue the sentence: The world's three biggest problems are... (Open question)
+
+Getting the data ready
+```{r}
+q11_3 <- conllu_dev_q11_3_nltk
+
+all <- fst_prepare_conllu(data = dev_data, field = "q11_3", stopword_list = "none")
+all_nltk <- fst_prepare_conllu(data = dev_data, field = "q11_3", stopword_list = "nltk")
+female <- fst_prepare_conllu(data = dev_data_f, field = "q11_3", stopword_list = "none")
+female_nltk <- fst_prepare_conllu(data = dev_data_f, field = "q11_3", stopword_list = "nltk")
+male <- fst_prepare_conllu(data = dev_data_m, field = "q11_3", stopword_list = "none")
+male_nltk <- fst_prepare_conllu(data = dev_data_m, field = "q11_3", stopword_list = "nltk")
+na <- fst_prepare_conllu(data = dev_data_na, field = "q11_3", stopword_list = "none")
+na_nltk <- fst_prepare_conllu(data = dev_data_na, field = "q11_3", stopword_list = "nltk")
+```
+
+So we'll look at the overall data for some ideas. 
+
+```{r}
+knitr::kable(
+  fst_summarise(q11_3)
+)
+
+knitr::kable(
+  fst_pos(q11_3)
+)
+
+knitr::kable(
+  fst_length_summary(q11_3)
+)
+```
+
+#### Things to look into
+
+* Do different genders all have similar response rate (97%) - probably since they did for the previous question
+* Mostly adjectives (10%), nouns (80%) and verbs (7%) - look into gender
+* Between 1 and 32 words, between 1 and 3 sentences. Mostly 1 sentence. Average of 4-5 words
+* 
+
+```{r}
+fst_wordcloud(q11_3)
+```
+
+#### Ideas
+
+* Top words seem to be 'nälänhätä', 'köyhyys', 'sota'
+* Next tier: 'vesi' 'puute', 'ihminen', 'ilmastonmuutos', 'ahneus', 'nälka', 'epätasa-arvo'
+
+##### Translations
+
+* 'köyhyys' poverty
+* 'nälänhätä' famine
+* 'sota' war
+* 'vesi' water
+* 'puute' lack of 
+* 'ihminen' human
+* 'ilmastonmuutos' climate change
+* 'ahneus' greed
+* 'nälka' hunger
+* 'epätasa-arvo' inequality
+
+```{r}
+fst_freq(q11_3, 10, strict = FALSE)
+fst_ngrams(q11_3, 10, ngrams = 2, strict = FALSE)
+fst_ngrams(q11_3, 10, ngrams = 3, strict = FALSE)
+```
+
+We get more context on 'vesi' here: 
+'puhdas vesi' clean water
+'vesi puute' lack of water
+
+Answers like 'nälänhätä sota' probably from listing different terms?
+
+Let's look at some concept networks before we look into gender
+Our concept network function can be used to visualise the words that occur around our words of interest
+
+```{r}
+fst_concept_network(q11_3, concepts = "köyhyys, nälänhätä, sota", title = "Q11_3 - No threshold") 
+fst_concept_network(q11_3, concepts = "köyhyys, nälänhätä, sota", threshold = 5, title = "Q11_3 - Threshold = 5") 
+fst_concept_network(q11_3, concepts = "köyhyys, nälänhätä, sota", threshold = 3, title = "Q11_3 - Threshold = 3") 
+```
+
+* 5 isn't good 
+* terms are very related, maybe we add more in?
+
+```{r}
+fst_concept_network(q11_3, concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute, ihminen, vesi, epätasa-arvo", title = "Q11_3 - Lots of words") 
+fst_concept_network(q11_3, concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute, ihminen, vesi, epätasa-arvo", title = "Q11_3 - Lots of words, threshold = 3", threshold = 5) 
+```
+
+* vesi puute 
+* top 3 written together a lot, there's a common
+
+What do people who talk about water tend to also say
+```{r}
+fst_concept_network(q11_3, concepts = "vesi", title = "Q11_3 - Vesi") 
+fst_concept_network(q11_3, concepts = "puute, puhdas, vesi", title = "Q11_3 - ") 
+```
+
+
+# Split by gender
+
+```{r}
+knitr::kable(
+  fst_summarise_compare(female_nltk, male_nltk, na_nltk, all_nltk, name1 = 'F', name2 = 'M', name3= 'NA', name4 = 'All')
+)
+
+knitr::kable(
+  fst_pos_compare(female_nltk, male_nltk, na_nltk, all_nltk, name1 = 'F', name2 = 'M', name3= 'NA', name4 = 'All')
+)
+
+knitr::kable(
+  fst_length_compare(female_nltk, male_nltk, na_nltk, all_nltk, name1 = 'F', name2 = 'M', name3= 'NA', name4 = 'All')
+)
+```
+
+
+* slightly higher (98%) response rate for female
+* - very consistent distribution across word type! - slightly less nouns (75%) in NA but much smaller sample
+* lengths similar
+
+Let's do comparison cloud and individual word clouds (second comp cloud in case nA data is too small)
+
+```{r}
+fst_comparison_cloud(data1 = female_nltk, name1 = 'Female', 
+                    data2 = male_nltk, name2 = 'Male', 
+                    data3 = na_nltk, name3 = 'NA', 
+                    max = 50)
+
+fst_comparison_cloud(data1 = female_nltk, name1 = 'Female', 
+                    data2 = male_nltk, name2 = 'Male', 
+                    max = 50)
+
+fst_wordcloud(female_nltk)
+fst_wordcloud(male_nltk)
+fst_wordcloud(na_nltk)
+```
+
+Based on comparison cloud, it looks like: 
+
+* top words ("köyhyys, nälänhätä, sota") common in all 3. 
+* 'epätasa-arvo' associated with female, 'ilmastonmuutos' associated with males 
+
+When we look at individuals, we see: 
+
+* 'ilmastonmuutos' in top 3 for males - possibly # 2, nälnhätä less common for males 
+* evident less data for NA
+
+```{r}
+fst_freq_compare(data1 = female_nltk, name1 = 'Female',
+                 data2 = male_nltk, name2 = 'Male', 
+                 data3 = na_nltk, name3 = 'NA',
+                 number = 3, 
+                 pos_filter = NULL,
+                 unique_colour = 'indianred', 
+                 strict = TRUE)
+
+fst_freq_compare(data1 = female_nltk, name1 = 'Female',
+                 data2 = male_nltk, name2 = 'Male', 
+                 number = 10, 
+                 pos_filter = NULL,
+                 unique_colour = 'indianred', 
+                 strict = TRUE)
+
+fst_freq_compare(data1 = female_nltk, name1 = 'Female',
+                 data2 = male_nltk, name2 = 'Male', 
+                 data3 = na_nltk, name3 = 'NA',
+                 number = 15, 
+                 pos_filter = NULL,
+                 unique_colour = 'indianred', 
+                 strict = TRUE)
+
+fst_ngrams_compare(data1 = female_nltk, name1 = 'Female',
+                 data2 = male_nltk, name2 = 'Male',
+                 data3 = na_nltk, name3 = 'NA',
+                 number = 10,
+                 ngrams = 2,
+                 pos_filter = NULL,
+                 unique_colour = 'indianred', 
+                 strict = TRUE)
+
+fst_ngrams_compare(data1 = female_nltk, name1 = 'Female',
+                 data2 = male_nltk, name2 = 'Male',
+                 number = 10,
+                 ngrams = 2,
+                 pos_filter = NULL,
+                 unique_colour = 'indianred', 
+                 strict = TRUE)
+```
+
+* females care about clean water and everyone cares about lack of water
+* males rate climate change higher 
+
+
+```{r}
+# fst_concept_network_compare(data1 = female_nltk, name1 = 'Female',
+#                             data2 = male_nltk, name2 = 'Male', 
+#                             data3 = na_nltk, name3 = 'NA', 
+#                             concepts = "vesi")
+# 
+# fst_concept_network_compare(data1 = female_nltk, name1 = 'Female',
+#                             data2 = male_nltk, name2 = 'Male', 
+#                             concepts = "ilmastonmuutos")
+```
+
+Interesting.... 'vesi' not turning up...
+
+```{r}
+fst_concept_network_compare(data1 = female_nltk, name1 = 'Female',
+                            data2 = male_nltk, name2 = 'Male', 
+                            concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos", threshold = 1)
+
+```
+
+I think there might be a bug...
+
+```{r}
+
+```
+

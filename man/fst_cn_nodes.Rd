@@ -2,27 +2,27 @@
 % Please edit documentation in R/03_concept_network.R
 \name{fst_cn_nodes}
 \alias{fst_cn_nodes}
-\title{Concept Network - Get Textrank Nodes}
+\title{Concept Network - Get textrank nodes}
 \usage{
-fst_cn_nodes(data, edges, relevant_pos = c("NOUN", "VERB", "ADJ", "ADV"))
+fst_cn_nodes(data, edges, pos_filter = NULL)
 }
 \arguments{
 \item{data}{A dataframe of text in CoNLL-U format.}
 
 \item{edges}{Output of fst_cn_edges, dataframe of 'edges' connecting two words}
 
-\item{relevant_pos}{List of UPOS tags for inclusion, default is c("NOUN",
-"VERB", "ADJ", "ADV").}
+\item{pos_filter}{List of UPOS tags for inclusion, default is `NULL` to
+include all UPOS tags.}
 }
 \value{
 A dataframe containing relevant lemmas and their associated pagerank
 }
 \description{
-Concept Network - Get Textrank Nodes
+Concept Network - Get textrank nodes
 }
 \examples{
 q11_1_nodes <- fst_cn_nodes(conllu_dev_q11_1_nltk, q11_1_edges)
 q11_2_nodes <- fst_cn_nodes(conllu_dev_q11_2_nltk, q11_2_edges)
 q11_3_nodes <- fst_cn_nodes(conllu_dev_q11_3_nltk, q11_3_edges)
-bullying_nodes <- fst_cn_nodes(conllu_bullying_iso, bullying_edges)
+bullying_nodes <- fst_cn_nodes(conllu_bullying_iso, bullying_edges, c("NOUN", "VERB", "ADJ", "ADV"))
 }

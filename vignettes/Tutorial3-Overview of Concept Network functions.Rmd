@@ -1,5 +1,5 @@
 ---
-title: "Tutorial3-Concept_Network"
+title: "Tutorial3-Overview of Concept Network functions"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Tutorial3-Concept_Network}
@@ -18,6 +18,13 @@ knitr::opts_chunk$set(
 ## Introduction
 This tutorial follows on from Tutorial 2 and guides you through creation of a concept network plot. 
 
+The functions covered in this tutorial are in r/02_data_exploration.R. These are: 
+
+1. `fst_cn_search`
+2. `fst_cn_edges`
+3. `fst_cn_nodes`
+4. `fst_cn_plot`
+5. `fst_concept_network`
 
 First, install and load the `finnsurveytext` package as below:
 (Other required packages such as `dplyr` and `stringr` will also be installed if they are not currently installed in your environment.)
@@ -70,6 +77,7 @@ This function goes through the following process:
 4. filters the pairs so that at least one of the pair is a searched term. 
 
 To run `fst_cn_search`, we provide the following arguments to the function:
+
 1. `data` which is output from data preparation, prepared data in CoNLL-U format, such as the output of `fst_prepare_connlu`. 
 2. `concept` is a string of concept terms to search for, separated by commas.
 3. `relevant_pos` is a list of UPOS tags for inclusion, default is c("NOUN", "VERB", "ADJ", "ADV").
@@ -80,7 +88,7 @@ bullying_concepts <- fst_cn_search(bullying,
                                    'kiusata, lyöminen, lyödä, potkia')
 q11_2_concepts <- fst_cn_search(conllu_dev_q11_2_nltk, 
                                 "kehitysmaa, auttaa, pyrkiä, maa, ihminen", 
-                                relevant_pos = c("ADV", "ADJ"))
+                                pos_filter = c("ADV", "ADJ"))
 q11_3_concepts <- fst_cn_search(conllu_dev_q11_3_nltk, 
                                 "köyhyys, nälänhätä, sota, ilmastonmuutos, puute")
 
@@ -94,23 +102,23 @@ knitr::kable(head(q11_3_concepts, n=10))
 ### Concept Network - Get Textrank Edges
 `fst_cn_edges`
 
-The Get Edges function runs the search function, `fst_cn_search` and then filters for edges (pairs of co-occurring words where one is a concept word) which are larger than the threshold (occurring enough times). The resulting dataframe is simplified in preparation for plotting. 
+The Get Edges function runs the search function, `fst_cn_search` and then filters for edges (pairs of co-occurring words where one is a concept word) which are larger than the threshold (occurring enough times). The resulting dataframe is simplified in preparation for plotting.
 
-The arguments are the same as for `fst_cn_search` plus the `threshold`. 
+The arguments are the same as for `fst_cn_search` plus the `threshold`.
 
-1. `data` which is output from data preparation, prepared data in CoNLL-U format, such as the output of `fst_prepare_connlu`. 
+1. `data` which is output from data preparation, prepared data in CoNLL-U format, such as the output of `fst_prepare_connlu`.
 2. `concept` is a string of concept terms to search for, separated by commas.
 3. `threshold` is the minimum number of occurrences threshold for 'edge' between a concept term and other word, default is NULL.
-3. `relevant_pos` is a list of UPOS tags for inclusion, default is c("NOUN", "VERB", "ADJ", "ADV").
+3. `pos_filter` is a list of UPOS tags for inclusion, default is `NULL`.
 
 ```{r}
-bullying_edges <-fst_cn_edges(bullying, 
+bullying_edges <-fst_cn_edges(bullying,
                               'kiusata, lyöminen, lyödä, potkia')
-q11_2_edges <- fst_cn_edges(conllu_dev_q11_2_nltk, 
-                            "kehitysmaa, auttaa, pyrkiä, maa, ihminen", 
+q11_2_edges <- fst_cn_edges(conllu_dev_q11_2_nltk,
+                            "kehitysmaa, auttaa, pyrkiä, maa, ihminen",
                             threshold = 5)
-q11_3_edges <- fst_cn_edges(conllu_dev_q11_3_nltk, 
-                            "köyhyys, nälänhätä, sota, ilmastonmuutos, puute", 
+q11_3_edges <- fst_cn_edges(conllu_dev_q11_3_nltk,
+                            "köyhyys, nälänhätä, sota, ilmastonmuutos, puute",
                             threshold = 2)
 ```
 
@@ -123,15 +131,15 @@ knitr::kable(head(q11_2_edges, n=10))
 ### Concept Network - Get Textrank Nodes
 `fst_cn_nodes`
 
-This function runs the `textrank_keywords` function which is part of the `textrank` package and returns a dataframe containing relevant lemmas and their associated pagerank. You can read more about the PageRank algorithm [here](https://www.sciencedirect.com/science/article/abs/pii/S016975529800110X). This is the same algorithm that Google uses to rank webpages. 
+This function runs the `textrank_keywords` function which is part of the `textrank` package and returns a dataframe containing relevant lemmas and their associated pagerank. You can read more about the PageRank algorithm [here](https://www.sciencedirect.com/science/article/abs/pii/S016975529800110X). This is the same algorithm that Google uses to rank webpages.
 
-`fst_cn_nodes` requires the following arguments: 
+`fst_cn_nodes` requires the following arguments:
 
-1. `data` which is output from data preparation, prepared data in CoNLL-U format, such as the output of `fst_prepare_connlu`. 
+1. `data` which is output from data preparation, prepared data in CoNLL-U format, such as the output of `fst_prepare_connlu`.
 2. `edges` is the output from `fst_cn_edges`.
-3. `relevant_pos` is a list of UPOS tags for inclusion, default is c("NOUN", "VERB", "ADJ", "ADV").
+3. `pos_filter` is a list of UPOS tags for inclusion, default is `NULL`.
 
-It is demonstrated as follows: 
+It is demonstrated as follows:
 ```{r}
 bullying_nodes <- fst_cn_nodes(conllu_bullying, bullying_edges)
 q11_2_nodes <- fst_cn_nodes(conllu_dev_q11_2_nltk, q11_2_edges)
@@ -145,64 +153,72 @@ knitr::kable(head(q11_2_nodes, n=10))
 ### Plot Concept Network
 `fst_cn_plot`
 
-This function takes the output of the previous functions and plots the concept network. Edges between words in the plot show the number of occurrences with thicker and more opaque edges showing more occurrences. Similarly, the size of the word circle indicates the pagerank with higher pagerank resulting in a larger circle. Concept words are coloured red and other terms are black. 
+This function takes the output of the previous functions and plots the concept network. Edges between words in the plot show the number of occurrences with thicker and more opaque edges showing more occurrences. Similarly, the size of the word circle indicates the pagerank with higher pagerank resulting in a larger circle. Concept words are coloured red and other terms are black.
 
-As `fst_cn_plot` uses results from the previous functions it requires 3 arguments: 
+As `fst_cn_plot` uses results from the previous functions it requires 3 arguments:
 
 1. `edges` is the output of `fst_cn_edges`.
 2. `nodes` is the output of `fst_cn_nodes`
 3. `concepts` is a list of terms which have been searched for, separated by commas.
+4. `title` is an optional title for plot, default is `NULL` and a generic title, ('Textrank extracted keyword occurrences) will be used.
 
 ```{r}
-fst_cn_plot(edges = bullying_edges, nodes = bullying_nodes, concepts = 'kiusata, lyöminen')
+fst_cn_plot(edges = bullying_edges, nodes = bullying_nodes, concepts = 'kiusata, lyöminen', title = 'Bullying Data CN')
 ```
 
 Recall that for `q11_2_edges` we have set the `threshold` as 5.
 ```{r}
-fst_cn_plot(edges = q11_2_edges, 
-            nodes = q11_2_nodes, 
+fst_cn_plot(edges = q11_2_edges,
+            nodes = q11_2_nodes,
             concepts = "kehitysmaa, auttaa, pyrkiä, maa, ihminen")
 ```
 
-Recall that for `q11_3_edges` we have set the `threshold` as 2. This is why there are fewer words included in the plot despite more words available (including stopwords) in this data. 
+Recall that for `q11_3_edges` we have set the `threshold` as 2. This is why there are fewer words included in the plot despite more words available (including stopwords) in this data.
 ```{r}
-fst_cn_plot(edges = q11_3_edges, 
-            nodes = q11_3_nodes, 
+fst_cn_plot(edges = q11_3_edges,
+            nodes = q11_3_nodes,
             concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute")
 ```
 
 ### Plot Concept Network
 `fst_concept_network`
 
-If you don't want to run all of the individual functions, `fst_cn_search`, `fst_cn_edges`, `fst_cn_nodes`, and `fst_cn_plot`, you can run them all within the one function `fst_concept_network`. 
+If you don't want to run all of the individual functions, `fst_cn_search`, `fst_cn_edges`, `fst_cn_nodes`, and `fst_cn_plot`, you can run them all within the one function `fst_concept_network`.
 
-The arguments are: 
-1. `data` which is output from data preparation, prepared data in CoNLL-U format, such as the output of `fst_prepare_connlu`. 
+The arguments are:
+1. `data` which is output from data preparation, prepared data in CoNLL-U format, such as the output of `fst_prepare_connlu`.
 2. `concept` is a string of concept terms to search for, separated by commas.
 3. `threshold` is the minimum number of occurrences threshold for 'edge' between a concept term and other word, default is NULL.
-3. `relevant_pos` is a list of UPOS tags for inclusion, default is c("NOUN", "VERB", "ADJ", "ADV").
+4. `pos_filter` is a list of UPOS tags for inclusion, default is `NULL`.
+5. `title` is an optional title for plot, default is `NULL` and a generic title, ('Textrank extracted keyword occurrences) will be used.
 
-This function is run as follows: 
+This function is run as follows:
 ```{r}
-fst_concept_network(q11_1, 
+fst_concept_network(q11_1,
                     concepts = "elintaso, köyhä, ihminen")
-fst_concept_network(q11_1, 
-                    concepts = "elintaso, köyhä, ihminen", 
+fst_concept_network(q11_1,
+                    concepts = "elintaso, köyhä, ihminen",
                     threshold = 3)
-fst_concept_network(q11_2, 
+fst_concept_network(q11_2,
                     concepts = "kehitysmaa, auttaa, pyrkiä, maa, ihminen")
-fst_concept_network(q11_2, 
-                    concepts = "kehitysmaa, auttaa, pyrkiä, maa, ihminen", 
+fst_concept_network(q11_2,
+                    concepts = "kehitysmaa, auttaa, pyrkiä, maa, ihminen",
                     threshold = 10)
-fst_concept_network(q11_2, 
-                    concepts = "kehitysmaa, auttaa, pyrkiä, maa, ihminen", 
+fst_concept_network(q11_2,
+                    concepts = "kehitysmaa, auttaa, pyrkiä, maa, ihminen",
                     threshold = 5)
-fst_concept_network(q11_3, 
-                    concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute") 
-fst_concept_network(q11_3, 
-                    concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute", 
+fst_concept_network(q11_3,
+                    concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute")
+fst_concept_network(q11_3,
+                    concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute",
                     threshold = 3)
-fst_concept_network(bullying, 
-                    concepts = 'kiusata, lyöminen')
+fst_concept_network(bullying,
+                    concepts = 'kiusata, lyöminen', 
+                    title = 'Concept Network of Bullying Data')
 ```
 
+## Citation
+
+The Office of Ombudsman for Children: Child Barometer 2016 [dataset]. Version 1.0 (2016-12-09). Finnish Social Science Data Archive [distributor]. http://urn.fi/urn:nbn:fi:fsd:T-FSD3134
+
+Finnish Children and Youth Foundation: Young People's Views on Development Cooperation 2012 [dataset]. Version 2.0 (2019-01-22). Finnish Social Science Data Archive [distributor]. http://urn.fi/urn:nbn:fi:fsd:T-FSD2821

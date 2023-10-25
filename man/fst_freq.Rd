@@ -2,28 +2,31 @@
 % Please edit documentation in R/02_data_exploration.R
 \name{fst_freq}
 \alias{fst_freq}
-\title{Make Top Words Table}
+\title{Find and Plot Top Words}
 \usage{
-fst_freq(data, number = 20, pos_filter = NULL)
+fst_freq(data, number = 10, pos_filter = NULL, strict = TRUE, name = NULL)
 }
 \arguments{
 \item{data}{A dataframe of text in CoNLL-U format.}
 
-\item{number}{The number of top words to return, default is `20`.}
+\item{number}{The number of top words to return, default is `10`.}
 
 \item{pos_filter}{List of UPOS tags for inclusion, default is `NULL` which
 means all word types included}
+
+\item{strict}{Whether to strictly cut-off at `number` (ties are
+alphabetically ordered), default is `TRUE`}
+
+\item{name}{An optional "name" for the plot to add to title, default is `NULL`}
 }
 \value{
-A table of the most frequent words (unigrams) in the data
+Plot of top words
 }
 \description{
-Creates a table of the most frequently-occurring words (unigrams) within the
+Creates a plot of the most frequently-occurring words (unigrams) within the
 data.
 }
 \examples{
-fst_freq(conllu_bullying_iso)
-fst_freq(conllu_bullying_iso, 10, c("NOUN", "VERB", "ADJ", "ADV"))
-fst_freq(conllu_dev_q11_1_nltk, 15, "NOUN")
-fst_freq(conllu_dev_q11_1_snow, 15, "ADV")
+fst_freq(conllu_dev_q11_1, number = 12, strict = FALSE, name = "All")
+fst_freq(conllu_dev_q11_1_na, number = 15, name = "Not Spec")
 }

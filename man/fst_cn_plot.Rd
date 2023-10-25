@@ -4,7 +4,7 @@
 \alias{fst_cn_plot}
 \title{Plot Concept Network}
 \usage{
-fst_cn_plot(edges, nodes, concepts)
+fst_cn_plot(edges, nodes, concepts, title = NULL)
 }
 \arguments{
 \item{edges}{Output of `fst_cn_edges`, dataframe of 'edges' connecting two words}
@@ -12,6 +12,9 @@ fst_cn_plot(edges, nodes, concepts)
 \item{nodes}{Output of `fst_cn_nodes`, dataframe of relevant lemmas and their associated pagerank}
 
 \item{concepts}{List of terms which have been searched for, separated by commas.}
+
+\item{title}{Optional title for plot, default is `NULL` and a generic title
+('Textrank extracted keyword occurences) will be used.}
 }
 \value{
 Plot of Concept Network
