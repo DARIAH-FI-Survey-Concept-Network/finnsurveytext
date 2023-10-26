@@ -157,12 +157,12 @@ fst_cn_plot <- function(edges, nodes, concepts, title = NULL) {
   p <- igraph::graph_from_data_frame(edges,
                                      directed = FALSE, vertices = nodes) %>%
     ggraph::ggraph(layout = "kk") +
-    ggraph::geom_edge_link( ggplot2::aes(width = n, alpha = n), colour = "lightblue") +
+    ggraph::geom_edge_link( ggplot2::aes(width = n, alpha = n), colour = "#6da5d3") +
     ggraph::scale_edge_width(range=c(1, 5))+
     ggraph::scale_edge_alpha(range = c(0.2, 1)) +
     ggraph::geom_node_point( ggplot2::aes(size = pagerank)) +
     ggraph::geom_node_text(ggplot2::aes(label = name, col = is_concept), check_overlap = TRUE, repel = TRUE) +
-    ggplot2::scale_color_manual("Word Type", values = c("Concept word" = "red", "Regular word" = "black")) +
+    ggplot2::scale_color_manual("Word Type", values = c("Concept word" = "#cd1719", "Regular word" = "black")) +
     ggraph::theme_graph() +
     ggplot2::labs(
       title = title) +

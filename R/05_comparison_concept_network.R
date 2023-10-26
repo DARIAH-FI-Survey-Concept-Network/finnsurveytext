@@ -45,7 +45,7 @@ fst_cn_get_unique <- function(table1, table2, ...) {
 #' fst_cn_compare_plot(edges = q11_1_edges, nodes = q11_1_nodes, concepts = 'elintaso, köyhä, ihminen', unique_lemma = unique_2, name = "Q11_1")
 #' fst_cn_compare_plot(q11_2_edges, q11_2_nodes, concepts = "kehitysmaa, auttaa, pyrkiä, maa, ihminen", unique_lemma = unique_2, unique_colour = 'purple' )
 fst_cn_compare_plot <- function(edges, nodes, concepts, unique_lemmas, name = NULL,
-                                concept_colour = "indianred", unique_colour = "darkgreen") {
+                                concept_colour = "#cd1719", unique_colour = "#4DAF4A") {
   if(stringr::str_detect(concepts, ",")){
     concepts <- concepts  %>% lapply(tolower) %>%
       stringr::str_extract_all(pattern = "\\w+") %>%
@@ -61,7 +61,7 @@ fst_cn_compare_plot <- function(edges, nodes, concepts, unique_lemmas, name = NU
   p <- igraph::graph_from_data_frame(edges,
                                      directed = FALSE, vertices = nodes) %>%
     ggraph::ggraph(layout = "kk") +
-    ggraph::geom_edge_link( ggplot2::aes(width = n, alpha = n), colour = "lightblue") +
+    ggraph::geom_edge_link( ggplot2::aes(width = n, alpha = n), colour = "#6da5d3") +
     ggraph::scale_edge_width(range=c(1, 5))+
     ggraph::scale_edge_alpha(range = c(0.2, 1)) +
     ggraph::geom_node_point( ggplot2::aes(size = pagerank)) +
