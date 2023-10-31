@@ -14,7 +14,7 @@ fst_cn_plot(edges, nodes, concepts, title = NULL)
 \item{concepts}{List of terms which have been searched for, separated by commas.}
 
 \item{title}{Optional title for plot, default is `NULL` and a generic title
-('Textrank extracted keyword occurences) will be used.}
+('Textrank extracted keyword occurrences) will be used.}
 }
 \value{
 Plot of Concept Network

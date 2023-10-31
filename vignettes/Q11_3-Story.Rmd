@@ -42,6 +42,11 @@ na <- fst_prepare_conllu(data = dev_data_na, field = "q11_3", stopword_list = "n
 na_nltk <- fst_prepare_conllu(data = dev_data_na, field = "q11_3", stopword_list = "nltk")
 ```
 
+```{r}
+knitr::kable(head(conllu_dev_q11_3_nltk, 10))
+```
+
+
 So we'll look at the overall data for some ideas. 
 
 ```{r}

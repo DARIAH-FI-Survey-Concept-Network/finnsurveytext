@@ -4,13 +4,15 @@
 \alias{fst_wordcloud}
 \title{Make Wordcloud}
 \usage{
-fst_wordcloud(data, pos_filter = NULL)
+fst_wordcloud(data, pos_filter = NULL, max = 100)
 }
 \arguments{
 \item{data}{A dataframe of text in CoNLL-U format.}
 
 \item{pos_filter}{List of UPOS tags for inclusion, default is `NULL` which
 means all word types included.}
+
+\item{max}{The maximum number of words to display, default is `100`}
 }
 \value{
 A wordcloud from the data
@@ -21,5 +23,5 @@ Creates a wordcloud from CoNLL-U data of frequently-occuring words.
 \examples{
 fst_wordcloud(conllu_bullying_iso)
 fst_wordcloud(conllu_bullying_iso, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
-fst_wordcloud(conllu_dev_q11_1_snow, pos_filter = "VERB")
+fst_wordcloud(conllu_dev_q11_1_snow, pos_filter = "VERB", max = 50)
 }

@@ -37,9 +37,7 @@ First, install and load the `finnsurveytext` package as below:
 (Other required packages such as `dplyr` and `stringr` will also be installed if they are not currently installed in your environment.)
 
 ```{r setup}
-#install.packages("finnsurveytext")
-#library(finnsurveytext)
-devtools::load_all() # TO-DO: remove this load_all() line and uncomment the library() line. 
+library(finnsurveytext)
 ```
 
 This tutorial uses two sources of data from the Finnish Social Science Data Archive: 

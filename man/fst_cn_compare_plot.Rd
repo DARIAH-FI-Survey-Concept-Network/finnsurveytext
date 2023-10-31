@@ -10,8 +10,8 @@ fst_cn_compare_plot(
   concepts,
   unique_lemmas,
   name = NULL,
-  concept_colour = "indianred",
-  unique_colour = "darkgreen"
+  concept_colour = "#cd1719",
+  unique_colour = "#4DAF4A"
 )
 }
 \arguments{
