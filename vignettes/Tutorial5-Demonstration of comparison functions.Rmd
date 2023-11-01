@@ -16,11 +16,11 @@ knitr::opts_chunk$set(
 ```
 
 ## Introduction
-This tutorial demonstrates functions within the package that can be used to compare the open-ended survey question responses between respondent type. In this case, we will look at whether responses vary based on respondent gender. 
+When analysing responses to open-ended questions, you may want to look into whether different groups of survey participants have, in general, responded differently to the prompt. `finnsurveytext` contains a number of comparison functions which are intended to be used to compare responses between groups. These comparison functions covered are defined in r/04_comparison_functions.R and r/05_comparison_concept_network.R.
 
-The new functions covered are defined in r/04_comparison_functions.R and r/05_comparison_concept_network.R
+To use these functions, we run the preparation functions which are in r/01_prepare_conll-u.R (and which are covered in detail in Tutorial1-Prepare CoNLL-U) for each group separately. It is expected that you may choose to split the data using a different question within the survey such as a categorical question (eg. gender or level of education) or an ordinal variable (such as aged or income). In this tutorial, we will look at comparing responses to a question based on gender. 
 
-The new functions are: 
+The comparison functions are: 
 
 1. `fst_get_unique_ngrams`
 2. `fst_join_unique`
@@ -46,9 +46,7 @@ First, install and load the `finnsurveytext` package as below:
 (Other required packages such as `dplyr` and `stringr` will also be installed if they are not currently installed in your environment.)
 
 ```{r setup}
-#install.packages("finnsurveytext")
-#library(finnsurveytext)
-devtools::load_all() # TO-DO: remove this load_all() line and uncomment the library() line.
+library(finnsurveytext)
 ```
 
 There are four sets of data files available within the package which are used in this tutorial
@@ -174,6 +172,7 @@ fst_comparison_cloud(data1 = female, name1 = 'Female',
 ```
 
 This cloud shows words that occur more regularly in responses from a specific type of respondent. For more information about comparison clouds, you can read [this documentation](https://www.rdocumentation.org/packages/wordcloud/versions/2.6/topics/comparison.cloud) For instance, "ihminen" occurs frequently in all respondent types (slightly more common for unspecified respondents) whereas "kouloutus" and "kansalainen" are associated with female and male respondents respectively. 
+#TO-DO, write setence here
 
 ### Common Words and N-grams
 Now, we will look at common words occurring in the responses. 
@@ -227,7 +226,7 @@ knitr::kable(na_top10)
 
 As you can see, the top words are very similar across all respondent types. 
 
-This is further shown in the plots. 
+This is further shown in the plots. (Note that words that are unique to a gender are highlighted in red. This is only comparing the top 10 words, so be aware this word likely still appears in the other genders, just less frequently!)
 ```{r}
 fst_freq_compare(data1 = female_nltk, name1 = 'Female',
                  data2 = male_nltk, name2 = 'Male', 
@@ -257,11 +256,27 @@ male_top10u <- fst_join_unique(male_top10, unique)
 na_top10u <- fst_join_unique(na_top10, unique)
 
 plot_all <- fst_freq_plot(all_top10, number = 10, name = 'All')
-plot_f <- fst_ngrams_compare_plot(female_top10u, ngrams = 1, number = 10, override_title = 'Female', unique_colour = 'purple')
-plot_m <- fst_ngrams_compare_plot(male_top10u, ngrams = 1, number = 10, override_title = 'Male', unique_colour = 'magenta')
-plot_na <- fst_ngrams_compare_plot(na_top10u, ngrams = 1, number = 10, override_title = 'Unspecified', unique_colour = 'aquamarine')
+plot_f <- fst_ngrams_compare_plot(female_top10u, 
+                                  ngrams = 1, 
+                                  number = 10, 
+                                  override_title = 'Female', 
+                                  unique_colour = 'purple')
+plot_m <- fst_ngrams_compare_plot(male_top10u, 
+                                  ngrams = 1, 
+                                  number = 10, 
+                                  override_title = 'Male', 
+                                  unique_colour = 'magenta')
+plot_na <- fst_ngrams_compare_plot(na_top10u, 
+                                   ngrams = 1, 
+                                   number = 10, 
+                                   override_title = 'Unspecified', 
+                                   unique_colour = 'aquamarine')
 
-fst_plot_multiple(plot_all, plot_f, plot_m, plot_na, main_title = 'Top Words By Gender')
+fst_plot_multiple(plot_all, 
+                  plot_f, 
+                  plot_m, 
+                  plot_na, 
+                  main_title = 'Top Words By Gender')
 
 ```
 

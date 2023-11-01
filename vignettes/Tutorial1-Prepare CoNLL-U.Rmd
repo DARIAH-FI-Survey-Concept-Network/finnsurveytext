@@ -18,8 +18,12 @@ knitr::opts_chunk$set(
 Many natural language processing (NLP) tasks require data which is systematically pre-processed into a format useful for analysis. Pre-processing commonly involves activities such as: 
 
 * tokenisation into words or sentences
+* conversion to lowercase
 * removing stopwords (common words like 'a', 'the', etc.)
 * stemming (removing common suffixes from words, eg. 'walking' and 'walked' becomes 'walk') or lemmatising (rewriting words in base form, eg. 'crying' and 'cried' become 'cry')
+  + `finnsurveytext` uses lemmatisation rather than stemming. 
+  + Stemming is a more straightforward process (As it just removes common suffixes such as 'ing') but can cause errors which change word meaning (eg. 'caring' is stemmed to 'car') 
+  + Lemmatisation is often considered superior but it is slower as it requires a dictionary of words.  
 * part-of-speech (POS) tagging
 
 The `finnsurveytext` package uses the CoNLL-U format. This tutorial demonstrates the process of preparing Finnish survey text data into this format using functions in r/01_prepare_conll-u.r.
@@ -173,11 +177,11 @@ knitr::kable(head(conllu_bullying_iso))
 
 Now that you have data in CoNLL-U format, this pre-processed data is ready for the analysis using `finnsurveytext` functions. For more information on these, please review the other vignettes in this package: 
 
-* `Tutorial2-Data exploration`
-* `Tutorial3-Overview of Concept Network functions`
-* `Tutorial4-Further analysis and configuration of Concept Network functions`
-* `Tutorial5-Demonstration of comparison functions`
-* `Tutorial6-Example of analysis of an open-ended survey question`
+* Tutorial2-Data exploration
+* Tutorial3-Overview of Concept Network functions
+* Tutorial4-Further analysis and configuration of Concept Network functions
+* Tutorial5-Demonstration of comparison functions
+* Tutorial6-Example of analysis of an open-ended survey question
 
 ## Citation
 

@@ -16,22 +16,22 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-#install.packages("finnsurveytext")
-#library(finnsurveytext)
-devtools::load_all() # TO-DO: remove this load_all() line and uncomment the library() line. 
+library(finnsurveytext)
 ```
 
-Going searching for a 'story' in Q11_3. 
+## Introduction
+
+This tutorial demonstrates the use of the package to analyse a survey question. It is intended to demonstrate the use of the package from start to finish in detail. In this example, we look at responces split by gender but it is expected that you might look at a variety of different splits of your data in analysis. 
 
 ### The question
+
+We will look at our Q11_3 data from the Development Cooperation 2012 survey data which is included as sample data with our package. The specific question we're looking at is as follows:
 
 * [q11_3] Jatka lausetta: Maailman kolme suurinta ongelmaa ovat... (Avokysymys)
   + [q11_3] Continue the sentence: The world's three biggest problems are... (Open question)
 
-Getting the data ready
+Below, we prepare the data. (For further explanation of these functions, see Tutorial1-Prepare CoNLL-U.)
 ```{r}
-q11_3 <- conllu_dev_q11_3_nltk
-
 all <- fst_prepare_conllu(data = dev_data, field = "q11_3", stopword_list = "none")
 all_nltk <- fst_prepare_conllu(data = dev_data, field = "q11_3", stopword_list = "nltk")
 female <- fst_prepare_conllu(data = dev_data_f, field = "q11_3", stopword_list = "none")
@@ -42,42 +42,42 @@ na <- fst_prepare_conllu(data = dev_data_na, field = "q11_3", stopword_list = "n
 na_nltk <- fst_prepare_conllu(data = dev_data_na, field = "q11_3", stopword_list = "nltk")
 ```
 
+The following is an excerpt from one of our prepared datasets:
 ```{r}
-knitr::kable(head(conllu_dev_q11_3_nltk, 10))
+knitr::kable(head(all_nltk, 10))
 ```
 
-
-So we'll look at the overall data for some ideas. 
+First, let's consider all the data to get some initial information about the responses to this question:
 
 ```{r}
 knitr::kable(
-  fst_summarise(q11_3)
+  fst_summarise(all_nltk)
 )
 
 knitr::kable(
-  fst_pos(q11_3)
+  fst_pos(all_nltk)
 )
 
 knitr::kable(
-  fst_length_summary(q11_3)
+  fst_length_summary(all_nltk)
 )
 ```
 
-#### Things to look into
+#### Remarks:
 
-* Do different genders all have similar response rate (97%) - probably since they did for the previous question
-* Mostly adjectives (10%), nouns (80%) and verbs (7%) - look into gender
-* Between 1 and 32 words, between 1 and 3 sentences. Mostly 1 sentence. Average of 4-5 words
-* 
+* We have an overall response rate of 97%. We might wonder, is this response rate consist across different types of survey participants?
+* Responses consist mostly of adjectives (10% of words in stopwords-removed responses), nouns (80%) and verbs (7%)
+* Responses to this question are between 1 and 32 words, and between 1 and 3 sentences. Mos responses seem to be 1 sentence with an average of 4-5 words
+
 
 ```{r}
-fst_wordcloud(q11_3)
+fst_wordcloud(all_nltk)
 ```
 
-#### Ideas
+#### Remarks:
 
 * Top words seem to be 'nälänhätä', 'köyhyys', 'sota'
-* Next tier: 'vesi' 'puute', 'ihminen', 'ilmastonmuutos', 'ahneus', 'nälka', 'epätasa-arvo'
+* Next tier of common words might be: 'vesi' 'puute', 'ihminen', 'ilmastonmuutos', 'ahneus', 'nälka', 'epätasa-arvo'
 
 ##### Translations
 
@@ -93,45 +93,68 @@ fst_wordcloud(q11_3)
 * 'epätasa-arvo' inequality
 
 ```{r}
-fst_freq(q11_3, 10, strict = FALSE)
-fst_ngrams(q11_3, 10, ngrams = 2, strict = FALSE)
-fst_ngrams(q11_3, 10, ngrams = 3, strict = FALSE)
+fst_freq(all_nltk, 10, strict = FALSE)
+fst_ngrams(all_nltk, 10, ngrams = 2, strict = FALSE)
+fst_ngrams(all_nltk, 10, ngrams = 3, strict = FALSE)
 ```
 
-We get more context on 'vesi' here: 
-'puhdas vesi' clean water
-'vesi puute' lack of water
+#### Remarks: 
 
-Answers like 'nälänhätä sota' probably from listing different terms?
+* We see the top words we identified previously
+* We get more context on 'vesi' here. This makes sense since 'water' alone doesn't describe a common international 'problem'.  
+  + 'puhdas vesi' clean water
+  + 'vesi puute' lack of water
+* We can assume that answers like 'nälänhätä sota' are probably from listing different terms in responses. So, some bigrams are more meaningful than others. 
 
-Let's look at some concept networks before we look into gender
+### A Concept Network
+
+Next, let's look at some concept networks before we look into gender.
 Our concept network function can be used to visualise the words that occur around our words of interest
 
 ```{r}
-fst_concept_network(q11_3, concepts = "köyhyys, nälänhätä, sota", title = "Q11_3 - No threshold") 
-fst_concept_network(q11_3, concepts = "köyhyys, nälänhätä, sota", threshold = 5, title = "Q11_3 - Threshold = 5") 
-fst_concept_network(q11_3, concepts = "köyhyys, nälänhätä, sota", threshold = 3, title = "Q11_3 - Threshold = 3") 
+fst_concept_network(all_nltk, 
+                    concepts = "köyhyys, nälänhätä, sota", 
+                    title = "Q11_3 - No threshold") 
+fst_concept_network(all_nltk, concepts = "köyhyys, nälänhätä, sota", 
+                    threshold = 5, 
+                    title = "Q11_3 - Threshold = 5") 
+fst_concept_network(all_nltk, 
+                    concepts = "köyhyys, nälänhätä, sota", 
+                    threshold = 3, 
+                    title = "Q11_3 - Threshold = 3") 
 ```
 
-* 5 isn't good 
-* terms are very related, maybe we add more in?
+#### Remarks: 
+* The 'no threshold' graph seems the most meaningful here. 
+* We can see that our top three words, in red, are highly related to each other in use. 
+* We can see the relationship between 'vesi' with 'puute' and 'puhdas' in this plot. 
+
+Now, let's add more words in:
 
 ```{r}
-fst_concept_network(q11_3, concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute, ihminen, vesi, epätasa-arvo", title = "Q11_3 - Lots of words") 
-fst_concept_network(q11_3, concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute, ihminen, vesi, epätasa-arvo", title = "Q11_3 - Lots of words, threshold = 3", threshold = 5) 
+fst_concept_network(all_nltk, 
+                    concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute, ihminen, vesi, epätasa-arvo", 
+                    title = "Q11_3 - Lots of words") 
+fst_concept_network(all_nltk, 
+                    concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute, ihminen, vesi, epätasa-arvo", 
+                    title = "Q11_3 - Lots of words, threshold = 3", threshold = 5) 
 ```
 
-* vesi puute 
-* top 3 written together a lot, there's a common
+#### Remarks:
+* The 'no-threshold' plot here is very busy. When we introduce a threshold, the plot splits in two which indicates that the two groups of words are only "connected" in a few responses. 
 
-What do people who talk about water tend to also say
+Now, let's see what do people who talk about water tend to also say in their responses: 
 ```{r}
-fst_concept_network(q11_3, concepts = "vesi", title = "Q11_3 - Vesi") 
-fst_concept_network(q11_3, concepts = "puute, puhdas, vesi", title = "Q11_3 - ") 
+fst_concept_network(all_nltk, concepts = "vesi", title = "Q11_3 - Vesi") 
+fst_concept_network(all_nltk, concepts = "puute, puhdas, vesi", title = "Q11_3 - ") 
 ```
 
+#### Remarks: 
+* Again, we see the strong relationship with 'puute' and 'puhdas' with some other, less-frequent words too. 
 
 # Split by gender
+
+Now we've looked at responses as a whole, we consider whether gender impacts word choice. 
 
 ```{r}
 knitr::kable(
@@ -147,12 +170,12 @@ knitr::kable(
 )
 ```
 
+#### Remarks: 
+* Relatively consistent response rate, slightly higher (98%) response rate for females
+* Very consistent distribution across word type! - slightly less nouns (75%) in NA but this is a much smaller sample
+* Lengths of responses are similar across cohorts
 
-* slightly higher (98%) response rate for female
-* - very consistent distribution across word type! - slightly less nouns (75%) in NA but much smaller sample
-* lengths similar
-
-Let's do comparison cloud and individual word clouds (second comp cloud in case nA data is too small)
+Let's do comparison cloud and individual word clouds (second comp cloud in case NA data is too small)
 
 ```{r}
 fst_comparison_cloud(data1 = female_nltk, name1 = 'Female', 
@@ -179,11 +202,14 @@ When we look at individuals, we see:
 * 'ilmastonmuutos' in top 3 for males - possibly # 2, nälnhätä less common for males 
 * evident less data for NA
 
+#### N-grams and top words
+
+Here, we will exclude the responses with 'NA' for gender as we go on, as there are very few of these. 
 ```{r}
 fst_freq_compare(data1 = female_nltk, name1 = 'Female',
                  data2 = male_nltk, name2 = 'Male', 
                  data3 = na_nltk, name3 = 'NA',
-                 number = 3, 
+                 number = 5, 
                  pos_filter = NULL,
                  unique_colour = 'indianred', 
                  strict = TRUE)
@@ -195,22 +221,6 @@ fst_freq_compare(data1 = female_nltk, name1 = 'Female',
                  unique_colour = 'indianred', 
                  strict = TRUE)
 
-fst_freq_compare(data1 = female_nltk, name1 = 'Female',
-                 data2 = male_nltk, name2 = 'Male', 
-                 data3 = na_nltk, name3 = 'NA',
-                 number = 15, 
-                 pos_filter = NULL,
-                 unique_colour = 'indianred', 
-                 strict = TRUE)
-
-fst_ngrams_compare(data1 = female_nltk, name1 = 'Female',
-                 data2 = male_nltk, name2 = 'Male',
-                 data3 = na_nltk, name3 = 'NA',
-                 number = 10,
-                 ngrams = 2,
-                 pos_filter = NULL,
-                 unique_colour = 'indianred', 
-                 strict = TRUE)
 
 fst_ngrams_compare(data1 = female_nltk, name1 = 'Female',
                  data2 = male_nltk, name2 = 'Male',
@@ -219,24 +229,19 @@ fst_ngrams_compare(data1 = female_nltk, name1 = 'Female',
                  pos_filter = NULL,
                  unique_colour = 'indianred', 
                  strict = TRUE)
+
 ```
 
-* females care about clean water and everyone cares about lack of water
-* males rate climate change higher 
+Here we see that male and female respondents have the same top 4 words, but that 'nälänhätä' is more frequent for females than males, and 'ilmastonmuutos' conversely. This may prompt further research into whether male survey participants show more concern about climate change than females in the remainder of the survey,
 
+For the bigrams, we can identify that
+* both genders frequently list lack of water but it is mostly females who mention *clean* water.
+* males respondents rate climate change higher 
 
-```{r}
-# fst_concept_network_compare(data1 = female_nltk, name1 = 'Female',
-#                             data2 = male_nltk, name2 = 'Male', 
-#                             data3 = na_nltk, name3 = 'NA', 
-#                             concepts = "vesi")
-# 
-# fst_concept_network_compare(data1 = female_nltk, name1 = 'Female',
-#                             data2 = male_nltk, name2 = 'Male', 
-#                             concepts = "ilmastonmuutos")
-```
+#### Concept network of top 4 words
 
-Interesting.... 'vesi' not turning up...
+Now, we'll look at the concept network for the 4 top words in female and male responses. 
+These words are 'sota', 'köyhyys', nälänhätä', and 'ilmastonmuutos'.
 
 ```{r}
 fst_concept_network_compare(data1 = female_nltk, name1 = 'Female',
@@ -245,9 +250,17 @@ fst_concept_network_compare(data1 = female_nltk, name1 = 'Female',
 
 ```
 
-I think there might be a bug...
+Interestingly, our concept network plots of these top 4 words show that there is a much larger variety of terms used by female respondents who mention these 4 common responses.
 
-```{r}
+Only part of this is explained by the fact that we have nearly 4 times as many responses from female participants since each of these plots have their vertex weights determined from only their cohort’s responses. Therefore, there may be other subgroups within the male respondents who discuss independent themes to these.
 
-```
+## Conclusion 
+
+This tutorial demonstrates the use of `finnsurveytext` to look at a single question and then consider whether gender impacts response. Gender is just one of many ways you could split the data and is used as an example in this context. It is likely an analyst would want to split the data in other ways also such as age, education level, etc. 
+
+Following the use of `finnsurveytext`, we have a number of hypotheses, such as "Male survey respondents are more concerned about climate change than females", which could inform further analysis of the survey as a whole. 
+
+## Citation
+
+Finnish Children and Youth Foundation: Young People's Views on Development Cooperation 2012 [dataset]. Version 2.0 (2019-01-22). Finnish Social Science Data Archive [distributor]. http://urn.fi/urn:nbn:fi:fsd:T-FSD2821
 
