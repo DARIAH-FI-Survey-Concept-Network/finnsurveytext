@@ -16,7 +16,10 @@ knitr::opts_chunk$set(
 ```
 
 ## Introduction
-This tutorial follows on from Tutorial 1 and guides you through an Exploratory Data Analysis (EDA) of data which has been prepared into CoNLL-U format. The EDA functions are contained in r/02_data_exploration.R.
+
+Exploratory Data Analysis (EDA) is a common activity once data has been cleaned and prepared EDA commonly involves running functions which allow you to better understand the responses and begin to formulate initial hypotheses based on the data. 
+
+This tutorial follows on from Tutorial 1 and guides you through an EDA of data which has been prepared into CoNLL-U format. These EDA functions are contained in r/02_data_exploration.R.
 
 The included functions are: 
 
@@ -37,12 +40,10 @@ First, install and load the `finnsurveytext` package as below:
 (Other required packages such as `dplyr` and `stringr` will also be installed if they are not currently installed in your environment.)
 
 ```{r setup}
-#install.packages("finnsurveytext")
-#library(finnsurveytext)
-devtools::load_all() # TO-DO: remove this load_all() line and uncomment the library() line. 
+library(finnsurveytext)
 ```
 
-There are two sets of data files available within the package which could be used in this tutorial. These files have been created following the process demonstrated in Tutorial 1. 
+There are two sets of data files available within the package which could be used in this tutorial. These files have been created following the process demonstrated in Tutorial 1. The suffixes 'iso', 'nltk' and 'snow' refer to the stopword list used within the preparation activities. 
 
 ### 1. Bullying Data
 * data/conllu_bullying.rda
@@ -124,12 +125,12 @@ knitr::kable(q11_1_length_table)
 
 ## Top Words and N-grams Tables
 
-Next we will demonstrate some functions which are used to create plots of most frequent words and n-grams occurring in the data. 
+Next we will demonstrate some functions which are used to create plots of most frequent words and n-grams occurring in the data. An n-gram is a set of n successive words in the data. 
 
 ### Make Top Words/N-grams Tables
 `fst_get_top_words` and `fst_get_top_ngrams`
 
-These functions creates a table of the most frequently occurring words/n-grams in the data (noting that "stopwords" may have been removed in previous data preparation steps.) Optionally, you can indicate which POS tags to include. (`fst_get_top_words` and `fst_get_top_ngrams` print a message. There is a third function `fst_get_top_ngrams2` which doesn't print a message. This function is used within the comparison functions in "04_comparison_functions.R")
+These functions creates a table of the most frequently occurring words/n-grams in the data (noting that "stopwords" may have been removed in previous data preparation steps.) Optionally, you can indicate which POS tags to include. (`fst_get_top_words` and `fst_get_top_ngrams` print a message. There is a third function `fst_get_top_ngrams2` which doesn't print a message. This function is used within the comparison functions in `04_comparison_functions.R`)
 
 We run the functions as follows:
 

@@ -1,5 +1,5 @@
 ---
-title: "Q11_3-Story"
+title: "Tutorial6-Example of analysis of an open-ended survey question"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Q11_3-Story}

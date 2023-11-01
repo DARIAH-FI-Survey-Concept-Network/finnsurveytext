@@ -15,7 +15,14 @@ knitr::opts_chunk$set(
 ```
 
 ## Introduction
-This tutorial demonstrates the process of preparing Finnish survey text data into the CoNLL-U format required for the `finnsurveytext` package functions using functions in r/0.1_prepare_conll-u.r.
+Many natural language processing (NLP) tasks require data which is systematically pre-processed into a format useful for analysis. Pre-processing commonly involves activities such as: 
+
+* tokenisation into words or sentences
+* removing stopwords (common words like 'a', 'the', etc.)
+* stemming (removing common suffixes from words, eg. 'walking' and 'walked' becomes 'walk') or lemmatising (rewriting words in base form, eg. 'crying' and 'cried' become 'cry')
+* part-of-speech (POS) tagging
+
+The `finnsurveytext` package uses the CoNLL-U format. This tutorial demonstrates the process of preparing Finnish survey text data into this format using functions in r/01_prepare_conll-u.r.
 
 These functions are: 
 
@@ -55,7 +62,7 @@ This tutorial uses two sources of data from the Finnish Social Science Data Arch
 * Link to Data: https://urn.fi/urn:nbn:fi:fsd:T-FSD2821 
 
 
-Both of these will be demonstrated below but either can be used to complete the tutorial. If you would prefer to use your own data, you can read in this data through `read.csv` or similar so that you have a dataframe ready in your R environment.
+Both of these will be demonstrated below but either can be used to complete the tutorial. If you would prefer to use your own data, you can read in this data through `read.csv` or similar so that you have a 'raw' dataframe ready in your R environment.
 
 ## The Whole Story
 A single function, `fst_prepare_connlu` (which calls all the data preparation functions within the package) can be used to prepare the data into the required CoNNL-U format. 
@@ -88,8 +95,8 @@ prepd_lonely <- fst_prepare_conllu(dev_data,
                                    model = "tdt")
 ```
 
-* `data` is the dataframe of interest. In this case, we are using data that comes with the pacakge called 'lonely_data'. Otherwise, if you read in a csv containing a dataframe, such as through `read.csv` in base R for use in this tutorial.
-* The `field` is the name of the column in your data which contains the open-ended survey question. In this example, the responses about loneliness are in question 9. 
+* `data` is the dataframe of interest. In this case, we are using data that comes with the pacakge called 'dev_data'. Otherwise, if you read in a csv containing a dataframe, such as through `read.csv` in base R for use in this tutorial.
+* The `field` is the name of the column in your data which contains the open-ended survey question. In this example, the responses are in question 11_2. 
 * We have chosen *not* to remove stopwords and punctuation in this example. 
 * The function also requires a Finnish language model available for [udpipe], in this case we are using the Turku Dependency Treebank, "tdt". 
 * The results in CoNLL-U format are stored in the local environment as "prepd_lonely". 
@@ -101,7 +108,7 @@ To better understand the `fst_prepare_connlu` function, we will go through each 
 * `fst_rm_stopwords_punct`
 
 Additionally, the `fst_find_stopwords` function can be used to find currently available lists of Finnish stopwords for exclusion from the data. The "name" column can be used to choose a list for the `stopword_list` variable above. 
-Stopword lists are lists of common words (like "and", "the",  and "is", or in Finnish "olla", "ollet", "ollen", and "on"...) which are often filtered out of the data, leaving less frequently-occurring, and thus more more meaningful, words remaining. 
+Stopword lists are lists of common words (eg. "and", "the",  and "is", or in Finnish "olla", "ollet", "ollen", and "on"...) which are often filtered out of the data, leaving less frequently-occurring, and thus more more meaningful, words remaining. 
 
 ```{r}
 stopwords <- fst_find_stopwords()
@@ -161,6 +168,16 @@ The top 5 rows of the "conllu_bullying_iso" table are shown below:
 ```{r echo= FALSE}
 knitr::kable(head(conllu_bullying_iso))
 ```
+
+## Conclusion
+
+Now that you have data in CoNLL-U format, this pre-processed data is ready for the analysis using `finnsurveytext` functions. For more information on these, please review the other vignettes in this package: 
+
+* `Tutorial2-Data exploration`
+* `Tutorial3-Overview of Concept Network functions`
+* `Tutorial4-Further analysis and configuration of Concept Network functions`
+* `Tutorial5-Demonstration of comparison functions`
+* `Tutorial6-Example of analysis of an open-ended survey question`
 
 ## Citation
 

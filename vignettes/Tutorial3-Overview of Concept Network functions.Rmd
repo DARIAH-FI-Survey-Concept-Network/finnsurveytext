@@ -16,9 +16,13 @@ knitr::opts_chunk$set(
 ```
 
 ## Introduction
-This tutorial follows on from Tutorial 2 and guides you through creation of a concept network plot. 
+This tutorial follows on from Tutorial 2 and guides you through creation of a concept network plot. A concept network is a good way to visualise the data which allows for interpretation.
 
-The functions covered in this tutorial are in r/02_data_exploration.R. These are: 
+Our concept network function uses the Textrank algorithm which is a graph-based ranking model for text processing. Vertices represent words and co-occurrence between words is shown through edges. Word importance is determined recursively (through the unsupervised learning Textrank algorithm) where words get more weight based on how many words co-occur and the weight of these co-occurring words. 
+
+To utilise the Textrank algorithm in `finnsurveytext`, we use the `textrank` package. For further information on the package, please see [this documentation](https://cran.r-project.org/web/packages/textrank/vignettes/textrank.html) This package implements the Textrank and Pagerank algorithms. (Pagerank is the same algorithm that Google uses to rank webpages.) You can read about the underlying Textrank algorithm [here](https://web.eecs.umich.edu/~mihalcea/papers/mihalcea.emnlp04.pdf) and about the PageRank algorithm [here](https://www.sciencedirect.com/science/article/abs/pii/S016975529800110X).  
+
+The functions covered in this tutorial are in r/03_concept_network.R. These are: 
 
 1. `fst_cn_search`
 2. `fst_cn_edges`
@@ -30,12 +34,10 @@ First, install and load the `finnsurveytext` package as below:
 (Other required packages such as `dplyr` and `stringr` will also be installed if they are not currently installed in your environment.)
 
 ```{r setup}
-#install.packages("finnsurveytext")
-#library(finnsurveytext)
-devtools::load_all() # TO-DO: remove this load_all() line and uncomment the library() line. 
+library(finnsurveytext)
 ```
 
-There are two sets of data files available within the package which could be used in this tutorial. These files have been created following the process demonstrated in Tutorial 1. 
+There are two sets of data files available within the package which could be used in this tutorial. These files have been created following the process demonstrated in Tutorial 1. The suffixes 'iso', 'nltk' and 'snow' refer to the stopword list used within the preparation activities. 
 
 ### 1. Bullying Data
 * data/conllu_bullying.rda
@@ -64,10 +66,7 @@ knitr::kable(head(bullying))
 ### Concept Network - Search Textrank for Concepts
 `fst_cn_search`
 
-This function is used to find words which are related to a list of provided terms. It utilises the `textrank_keywords` function which is part of the `textrank` package. For further information on the package, please see [this documentation](https://cran.r-project.org/web/packages/textrank/vignettes/textrank.html) and you can read about the underlying algorithm [here](https://web.eecs.umich.edu/~mihalcea/papers/mihalcea.emnlp04.pdf). 
-
-Importantly, in this package, keywords from the text are found and assigned weighting based not on frequency but on an unsupervised learning algorithm, TextRank. 
-
+This function is used to find words which are related to a list of provided terms. It utilises the `textrank_keywords` function which is part of the `textrank` package.
 
 This function goes through the following process: 
 
@@ -131,7 +130,7 @@ knitr::kable(head(q11_2_edges, n=10))
 ### Concept Network - Get Textrank Nodes
 `fst_cn_nodes`
 
-This function runs the `textrank_keywords` function which is part of the `textrank` package and returns a dataframe containing relevant lemmas and their associated pagerank. You can read more about the PageRank algorithm [here](https://www.sciencedirect.com/science/article/abs/pii/S016975529800110X). This is the same algorithm that Google uses to rank webpages.
+This function runs the `textrank_keywords` function which is part of the `textrank` package and returns a dataframe containing relevant lemmas and their associated pagerank. 
 
 `fst_cn_nodes` requires the following arguments:
 
