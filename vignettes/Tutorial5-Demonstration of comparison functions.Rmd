@@ -39,6 +39,7 @@ The comparison functions are:
 15. `fst_concept_network_compare`
 
 We will look at the following question: 
+
 * [q11_2] Jatka lausetta: Kehitysyhteistyö on toimintaa, jossa... (Avokysymys)
   + [q11_2] Continue the sentence: Development cooperation is an activity in which... (Open question)
 
@@ -46,7 +47,8 @@ First, install and load the `finnsurveytext` package as below:
 (Other required packages such as `dplyr` and `stringr` will also be installed if they are not currently installed in your environment.)
 
 ```{r setup}
-library(finnsurveytext)
+# library(finnsurveytext)
+devtools::load_all()
 ```
 
 There are four sets of data files available within the package which are used in this tutorial
@@ -150,7 +152,7 @@ In terms of POS tags, the differences are likely mostly due to the differences i
 
 Now that we've looked at the overview comparisons, we will create a comparison cloud between the responses, using the versions with stopwords removed so that only more meaningful words remain.
 
-Recall the definition of `fst_comparisoncloud`:
+Consider the definition of `fst_comparisoncloud`:
 ```{r eval=FALSE}
 fst_comparisoncloud <- function(data1, 
                                 data2, 
@@ -164,6 +166,7 @@ fst_comparisoncloud <- function(data1,
                                 max = 100)
 ```
 
+We create our comparison cloud as follows: 
 ```{r}
 fst_comparison_cloud(data1 = female, name1 = 'Female', 
                     data2 = male, name2 = 'Male', 
@@ -171,8 +174,7 @@ fst_comparison_cloud(data1 = female, name1 = 'Female',
                     max = 50)
 ```
 
-This cloud shows words that occur more regularly in responses from a specific type of respondent. For more information about comparison clouds, you can read [this documentation](https://www.rdocumentation.org/packages/wordcloud/versions/2.6/topics/comparison.cloud) For instance, "ihminen" occurs frequently in all respondent types (slightly more common for unspecified respondents) whereas "kouloutus" and "kansalainen" are associated with female and male respondents respectively. 
-#TO-DO, write setence here
+A comparison cloud compares the relative frequency with which a term is used in two or more documents. This cloud shows words that occur more regularly in responses from a specific type of respondent. For more information about comparison clouds, you can read [this documentation](https://cran.r-project.org/web/packages/wordcloud/wordcloud.pdf) Our data is quite unbalanced (there are a lot more female respondents and fewer 'NA' so this may skew responses) but it seems that a higher proportion of these 'NA' respondents use 'ihminen' and 'auttaa' in their responses. Similarly, 'raha' and 'yrittää' are associated with males and females respectively.  
 
 ### Common Words and N-grams
 Now, we will look at common words occurring in the responses. 
@@ -180,9 +182,9 @@ Now, we will look at common words occurring in the responses.
 Consider first the definition of `fst_get_top_words` and `fst_get_top_ngrams`:
 
 ```{r eval=FALSE}
-fst_get_top_words <- function(data, number = 10, pos_filter = NULL, strict = TRUE)
+fst_get_top_words <- function(data, number = 10, norm = 'number_words', pos_filter = NULL, strict = TRUE)
   
-fst_get_top_ngrams <- function(data, number = 10, ngrams = 1, pos_filter = NULL, strict = TRUE)
+fst_get_top_ngrams <- function(data, number = 10, ngrams = 1, norm = 'number_words', pos_filter = NULL, strict = TRUE)
 ```
 
 
@@ -191,11 +193,13 @@ First, we will consider all the responses for this question.
 ```{r}
 all_top10 <- fst_get_top_words(all_nltk, 
                                number = 10, 
+                               norm = 'number_words',
                                pos_filter = NULL, 
                                strict = FALSE)
 all_top10bigrams <- fst_get_top_ngrams(all_nltk, 
                                        number = 10, 
                                        ngrams = 2, 
+                                       norm = 'number_words',
                                        pos_filter = NULL, 
                                        strict = TRUE)
 
@@ -206,21 +210,24 @@ knitr::kable(all_top10bigrams)
 Now we will look at top words by gender: 
 ```{r}
 female_top10 <- fst_get_top_words(female_nltk, 
-                               number = 10, 
-                               pos_filter = NULL, 
-                               strict = TRUE)
+                                  number = 10, 
+                                  norm = 'number_words',
+                                  pos_filter = NULL, 
+                                  strict = TRUE)
 knitr::kable(female_top10)
 
 male_top10 <- fst_get_top_words(male_nltk, 
                                number = 10, 
+                               norm = 'number_words',
                                pos_filter = NULL, 
                                strict = TRUE)
 knitr::kable(male_top10)
 
 na_top10 <- fst_get_top_words(na_nltk, 
-                               number = 10, 
-                               pos_filter = NULL, 
-                               strict = TRUE)
+                              number = 10, 
+                              norm = 'number_words',
+                              pos_filter = NULL, 
+                              strict = TRUE)
 knitr::kable(na_top10)
 ```
 
@@ -232,6 +239,7 @@ fst_freq_compare(data1 = female_nltk, name1 = 'Female',
                  data2 = male_nltk, name2 = 'Male', 
                  data3 = na_nltk, name3 = 'Unspecified',
                  number = 10, 
+                 norm = 'number_words',
                  pos_filter = NULL,
                  unique_colour = 'indianred', 
                  strict = TRUE)
@@ -241,12 +249,13 @@ fst_ngrams_compare(data1 = female_nltk, name1 = 'Female',
                  data3 = na_nltk, name3 = 'Unspecified',
                  number = 10,
                  ngrams = 2,
+                 norm = 'number_words',
                  pos_filter = NULL,
                  unique_colour = 'indianred', 
                  strict = TRUE)
 ```
 
-Now, I want to compare this to the overall results. Since, `fst_freq_compare` looks for unique words among all the sets, and I only want to look for unique words within the gender-specific sets, I will run it through the component functions. (Just for fun, I have also changed the colour of the unique words)
+Now, we might want to compare this to the overall results. Since, `fst_freq_compare` looks for unique words among all the sets provided, and we only want to look for unique words within the gender-specific sets, we need to run this activity through the component functions. (Just for fun, let's also changed the colour of the unique words.)
 
 ```{r}
 unique <- fst_get_unique_ngrams(female_top10, male_top10, na_top10) 
@@ -300,7 +309,7 @@ fst_concept_network_compare(data1 = female_nltk, name1 = 'Female',
                             concepts = "kehitysmaa, auttaa, pyrkiä")
 ```
 
-Below, we will run the female with stricter thresholds since there are more responses from females. 
+Each of these Concept Networks are created separately, which means that the weights of words are based only on the responses within that gender. Despite this, we have many more words in the female plot (partly due to there being more responses in this data.) Below, we will run the female with stricter thresholds.
 
 ```{r}
 fst_concept_network(female_nltk,
@@ -341,7 +350,8 @@ fst_plot_multiple(plot1 = female_cn, plot2 = male_cn, main_title = "Comparison P
 
 ```
 
-This analysis could form the start of further work into the responses to question 11_2 by respondents based on their gender. 
+## Conclusion
+As demonstrated in this tutorial, `finnsurveytext` contains a number of functions which can be used to compare responses between groups. This analysis could form the start of further work into the responses to question 11_2 by respondents based on their gender, or as just one of many different splits used to investigate the responses. 
 
 ## Citation
 

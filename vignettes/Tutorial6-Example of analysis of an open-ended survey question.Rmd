@@ -16,12 +16,13 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-library(finnsurveytext)
+# library(finnsurveytext)
+devtools::load_all()
 ```
 
 ## Introduction
 
-This tutorial demonstrates the use of the package to analyse a survey question. It is intended to demonstrate the use of the package from start to finish in detail. In this example, we look at responces split by gender but it is expected that you might look at a variety of different splits of your data in analysis. 
+This tutorial demonstrates the use of the package to analyse a survey question. It is intended to demonstrate the use of the package from start to finish in detail. In this example, we look at responses split by gender but it is expected that you might look at a variety of different splits of your data in analysis. 
 
 ### The question
 
@@ -67,7 +68,7 @@ knitr::kable(
 
 * We have an overall response rate of 97%. We might wonder, is this response rate consist across different types of survey participants?
 * Responses consist mostly of adjectives (10% of words in stopwords-removed responses), nouns (80%) and verbs (7%)
-* Responses to this question are between 1 and 32 words, and between 1 and 3 sentences. Mos responses seem to be 1 sentence with an average of 4-5 words
+* Responses to this question are between 1 and 32 words, and between 1 and 3 sentences. Most responses seem to be 1 sentence with an average of 4-5 words.
 
 
 ```{r}
@@ -81,47 +82,56 @@ fst_wordcloud(all_nltk)
 
 ##### Translations
 
-* 'köyhyys' poverty
-* 'nälänhätä' famine
-* 'sota' war
-* 'vesi' water
-* 'puute' lack of 
-* 'ihminen' human
-* 'ilmastonmuutos' climate change
-* 'ahneus' greed
-* 'nälka' hunger
-* 'epätasa-arvo' inequality
+* 'köyhyys' = poverty
+* 'nälänhätä' = famine
+* 'sota' = war
+* 'vesi' = water
+* 'puute' = lack of 
+* 'ihminen' = human
+* 'ilmastonmuutos' = climate change
+* 'ahneus' = greed
+* 'nälka' = hunger
+* 'epätasa-arvo' = inequality
 
 ```{r}
-fst_freq(all_nltk, 10, strict = FALSE)
-fst_ngrams(all_nltk, 10, ngrams = 2, strict = FALSE)
-fst_ngrams(all_nltk, 10, ngrams = 3, strict = FALSE)
+fst_freq(all_nltk, 10, strict = FALSE, norm = 'number_resp')
+fst_ngrams(all_nltk, 10, ngrams = 2, strict = FALSE, norm = 'number_resp')
+fst_ngrams(all_nltk, 10, ngrams = 3, strict = FALSE, norm = 'number_resp')
 ```
 
 #### Remarks: 
 
+* **Note here that we have set** `norm = 'number_resp'` **as we're interested in the proportion of responses that list as specific word.**
+  + Leaving `norm = 'number_words` (the default) would still be comparible between the genders, but in this case the norm we've chosen is more interpretable (and we don't expect many words to be repeated in responses). 
 * We see the top words we identified previously
-* We get more context on 'vesi' here. This makes sense since 'water' alone doesn't describe a common international 'problem'.  
-  + 'puhdas vesi' clean water
-  + 'vesi puute' lack of water
+  + Around 1/4 of respondents list each of 'nälänhätä', 'köyhyys', 'sota'
+* We get more context on 'vesi' here in the bigrams. This makes sense since 'water' alone doesn't describe a common international 'problem'.
+  + 'puhdas vesi' = clean water
+  + 'vesi puute' = lack of water
+  + 'puhdas vesi puute' is the most common trigram. 
 * We can assume that answers like 'nälänhätä sota' are probably from listing different terms in responses. So, some bigrams are more meaningful than others. 
 
 ### A Concept Network
 
 Next, let's look at some concept networks before we look into gender.
-Our concept network function can be used to visualise the words that occur around our words of interest
+Our concept network function can be used to visualise the words that occur around our words of interest. 
+
+Again, we will set `norm = 'number_resp'`.
 
 ```{r}
 fst_concept_network(all_nltk, 
                     concepts = "köyhyys, nälänhätä, sota", 
-                    title = "Q11_3 - No threshold") 
+                    title = "Q11_3 - No threshold", 
+                    norm = 'number_resp') 
 fst_concept_network(all_nltk, concepts = "köyhyys, nälänhätä, sota", 
                     threshold = 5, 
-                    title = "Q11_3 - Threshold = 5") 
+                    title = "Q11_3 - Threshold = 5", 
+                    norm = 'number_resp') 
 fst_concept_network(all_nltk, 
                     concepts = "köyhyys, nälänhätä, sota", 
                     threshold = 3, 
-                    title = "Q11_3 - Threshold = 3") 
+                    title = "Q11_3 - Threshold = 3", 
+                    norm = 'number_resp') 
 ```
 
 #### Remarks: 
@@ -134,10 +144,12 @@ Now, let's add more words in:
 ```{r}
 fst_concept_network(all_nltk, 
                     concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute, ihminen, vesi, epätasa-arvo", 
-                    title = "Q11_3 - Lots of words") 
+                    title = "Q11_3 - Lots of words", 
+                    norm = 'number_words') 
 fst_concept_network(all_nltk, 
                     concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute, ihminen, vesi, epätasa-arvo", 
-                    title = "Q11_3 - Lots of words, threshold = 3", threshold = 5) 
+                    title = "Q11_3 - Lots of words, threshold = 3", threshold = 5, 
+                    norm = 'number_resp') 
 ```
 
 #### Remarks:
@@ -175,7 +187,7 @@ knitr::kable(
 * Very consistent distribution across word type! - slightly less nouns (75%) in NA but this is a much smaller sample
 * Lengths of responses are similar across cohorts
 
-Let's do comparison cloud and individual word clouds (second comp cloud in case NA data is too small)
+Let's do comparison cloud and individual word clouds (we run a second comparison cloud without NA since this sample is so small)
 
 ```{r}
 fst_comparison_cloud(data1 = female_nltk, name1 = 'Female', 
@@ -194,13 +206,14 @@ fst_wordcloud(na_nltk)
 
 Based on comparison cloud, it looks like: 
 
-* top words ("köyhyys, nälänhätä, sota") common in all 3. 
-* 'epätasa-arvo' associated with female, 'ilmastonmuutos' associated with males 
+* 'sota' associated with those that didn't provide a gender in their survey
+* 'epätasa-arvo' 'köyhyys', and 'nälänhätä associated with females
+* 'ilmastonmuutos' associated with males 
 
 When we look at individuals, we see: 
 
 * 'ilmastonmuutos' in top 3 for males - possibly # 2, nälnhätä less common for males 
-* evident less data for NA
+* it's evident we have less data for NA. Their wordcloud is quite sparse!
 
 #### N-grams and top words
 
@@ -210,13 +223,15 @@ fst_freq_compare(data1 = female_nltk, name1 = 'Female',
                  data2 = male_nltk, name2 = 'Male', 
                  data3 = na_nltk, name3 = 'NA',
                  number = 5, 
+                 norm = 'number_resp',
                  pos_filter = NULL,
                  unique_colour = 'indianred', 
                  strict = TRUE)
 
 fst_freq_compare(data1 = female_nltk, name1 = 'Female',
                  data2 = male_nltk, name2 = 'Male', 
-                 number = 10, 
+                 number = 10,  
+                 norm = 'number_resp',
                  pos_filter = NULL,
                  unique_colour = 'indianred', 
                  strict = TRUE)
@@ -224,7 +239,8 @@ fst_freq_compare(data1 = female_nltk, name1 = 'Female',
 
 fst_ngrams_compare(data1 = female_nltk, name1 = 'Female',
                  data2 = male_nltk, name2 = 'Male',
-                 number = 10,
+                 number = 10, 
+                 norm = 'number_resp',
                  ngrams = 2,
                  pos_filter = NULL,
                  unique_colour = 'indianred', 
@@ -232,7 +248,9 @@ fst_ngrams_compare(data1 = female_nltk, name1 = 'Female',
 
 ```
 
-Here we see that male and female respondents have the same top 4 words, but that 'nälänhätä' is more frequent for females than males, and 'ilmastonmuutos' conversely. This may prompt further research into whether male survey participants show more concern about climate change than females in the remainder of the survey,
+Here we see that male and female respondents have the same top 4 words, but that 'nälänhätä' is more frequent for females than males, and 'ilmastonmuutos' conversely. This may prompt further research into whether male survey participants show more concern about climate change than females in the remainder of the survey.
+
+Also, we note that the most frequent words by female respondents occur in nearly 30% of responses whereas for the males it's just over 20%. Perhaps there is less consistency in what males are mentioning?
 
 For the bigrams, we can identify that
 * both genders frequently list lack of water but it is mostly females who mention *clean* water.

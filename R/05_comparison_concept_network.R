@@ -44,8 +44,13 @@ fst_cn_get_unique <- function(table1, table2, ...) {
 #' @examples
 #' fst_cn_compare_plot(edges = q11_1_edges, nodes = q11_1_nodes, concepts = 'elintaso, köyhä, ihminen', unique_lemma = unique_2, name = "Q11_1")
 #' fst_cn_compare_plot(q11_2_edges, q11_2_nodes, concepts = "kehitysmaa, auttaa, pyrkiä, maa, ihminen", unique_lemma = unique_2, unique_colour = 'purple' )
-fst_cn_compare_plot <- function(edges, nodes, concepts, unique_lemmas, name = NULL,
-                                concept_colour = "#cd1719", unique_colour = "#4DAF4A") {
+fst_cn_compare_plot <- function(edges,
+                                nodes,
+                                concepts,
+                                unique_lemmas,
+                                name = NULL,
+                                concept_colour = "#cd1719",
+                                unique_colour = "#4DAF4A") {
   if(stringr::str_detect(concepts, ",")){
     concepts <- concepts  %>% lapply(tolower) %>%
       stringr::str_extract_all(pattern = "\\w+") %>%
@@ -61,7 +66,7 @@ fst_cn_compare_plot <- function(edges, nodes, concepts, unique_lemmas, name = NU
   p <- igraph::graph_from_data_frame(edges,
                                      directed = FALSE, vertices = nodes) %>%
     ggraph::ggraph(layout = "kk") +
-    ggraph::geom_edge_link( ggplot2::aes(width = n, alpha = n), colour = "#6da5d3") +
+    ggraph::geom_edge_link( ggplot2::aes(width = co_occurrence, alpha = co_occurrence), colour = "#6da5d3") +
     ggraph::scale_edge_width(range=c(1, 5))+
     ggraph::scale_edge_alpha(range = c(0.2, 1)) +
     ggraph::geom_node_point( ggplot2::aes(size = pagerank)) +
@@ -93,6 +98,9 @@ fst_cn_compare_plot <- function(edges, nodes, concepts, unique_lemmas, name = NU
 #' @param name3 A string describing data3, default is `Group 3`
 #' @param name4 A string describing data4, default is `Group 4`
 #' @param concepts List of terms to search for, separated by commas.
+#' @param norm The method for normalising the data. Valid settings are
+#'  `'number_words'` (the number of words in the responses, default),
+#'  `'number_resp'` (the number of responses), or `NULL` (raw count returned).
 #' @param threshold A minimum number of occurrences threshold for 'edge' between
 #' searched term and other word, default is `NULL`.
 #'
@@ -104,28 +112,28 @@ fst_cn_compare_plot <- function(edges, nodes, concepts, unique_lemmas, name = NU
 #' fst_concept_network_compare(conllu_dev_q11_1_nltk, conllu_dev_q11_2_nltk, concepts = 'elintaso, köyhä, ihminen', name1 = 'Q1', name2 = 'Q2', pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
 #' fst_concept_network_compare(conllu_dev_q11_1_nltk, conllu_dev_q11_2_nltk, conllu_dev_q11_3_nltk, concepts = 'elintaso, köyhä, ihminen', name1 = 'Q1', name2 = 'Q2', name3 = 'Q3', pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
 #' fst_concept_network_compare(conllu_dev_q11_1_f, conllu_dev_q11_1_m, concepts = 'elintaso, köyhä, ihminen', pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
-fst_concept_network_compare <- function(data1, data2, data3 = NULL, data4 = NULL, pos_filter = NULL, name1 = "Group 1", name2 = "Group 2", name3 = "Group 3", name4 = "Group 4", concepts, threshold = NULL) {
+fst_concept_network_compare <- function(data1, data2, data3 = NULL, data4 = NULL, pos_filter = NULL, name1 = "Group 1", name2 = "Group 2", name3 = "Group 3", name4 = "Group 4", concepts, norm = 'number_words', threshold = NULL) {
   if (!is.null(data3)){
     if (!is.null(data4)){
-      edges4 <- fst_cn_edges(data = data4, concepts = concepts, threshold = threshold, pos_filter = pos_filter)
-      edges3 <- fst_cn_edges(data = data3, concepts = concepts, threshold = threshold, pos_filter = pos_filter)
-      edges2 <- fst_cn_edges(data = data2, concepts = concepts, threshold = threshold, pos_filter = pos_filter)
-      edges1 <- fst_cn_edges(data = data1, concepts = concepts, threshold = threshold, pos_filter = pos_filter)
+      edges4 <- fst_cn_edges(data = data4, concepts = concepts, norm = norm, threshold = threshold, pos_filter = pos_filter)
+      edges3 <- fst_cn_edges(data = data3, concepts = concepts, norm = norm, threshold = threshold, pos_filter = pos_filter)
+      edges2 <- fst_cn_edges(data = data2, concepts = concepts, norm = norm, threshold = threshold, pos_filter = pos_filter)
+      edges1 <- fst_cn_edges(data = data1, concepts = concepts, norm = norm, threshold = threshold, pos_filter = pos_filter)
       nodes4 <- fst_cn_nodes(data = data4, edges4, pos_filter = pos_filter)
       nodes3 <- fst_cn_nodes(data = data3, edges3, pos_filter = pos_filter)
       nodes2 <- fst_cn_nodes(data = data2, edges2, pos_filter = pos_filter)
       nodes1 <- fst_cn_nodes(data = data1, edges1, pos_filter = pos_filter)
     } else {
-      edges3 <- fst_cn_edges(data = data3, concepts = concepts, threshold = threshold, pos_filter = pos_filter)
-      edges2 <- fst_cn_edges(data = data2, concepts = concepts, threshold = threshold, pos_filter = pos_filter)
-      edges1 <- fst_cn_edges(data = data1, concepts = concepts, threshold = threshold, pos_filter = pos_filter)
+      edges3 <- fst_cn_edges(data = data3, concepts = concepts, norm = norm, threshold = threshold, pos_filter = pos_filter)
+      edges2 <- fst_cn_edges(data = data2, concepts = concepts, norm = norm, threshold = threshold, pos_filter = pos_filter)
+      edges1 <- fst_cn_edges(data = data1, concepts = concepts, norm = norm, threshold = threshold, pos_filter = pos_filter)
       nodes3 <- fst_cn_nodes(data = data3, edges3, pos_filter = pos_filter)
       nodes2 <- fst_cn_nodes(data = data2, edges2, pos_filter = pos_filter)
       nodes1 <- fst_cn_nodes(data = data1, edges1, pos_filter = pos_filter)
     }
   } else {
-    edges2 <- fst_cn_edges(data = data2, concepts = concepts, threshold = threshold, pos_filter = pos_filter)
-    edges1 <- fst_cn_edges(data = data1, concepts = concepts, threshold = threshold, pos_filter = pos_filter)
+    edges2 <- fst_cn_edges(data = data2, concepts = concepts, norm = norm, threshold = threshold, pos_filter = pos_filter)
+    edges1 <- fst_cn_edges(data = data1, concepts = concepts, norm = norm, threshold = threshold, pos_filter = pos_filter)
     nodes2 <- fst_cn_nodes(data = data2, edges2, pos_filter = pos_filter)
     nodes1 <- fst_cn_nodes(data = data1, edges1, pos_filter = pos_filter)
   }

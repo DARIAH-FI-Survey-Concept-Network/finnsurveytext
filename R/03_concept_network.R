@@ -22,7 +22,7 @@ fst_cn_search <- function(data,
                           pos_filter = NULL) {
   if (is.null(pos_filter)){
     pos_filter = c('ADJ', 'ADP', 'ADV', 'AUX', 'CCONJ', 'DET', 'INTJ', 'NOUN',
-                     'NUM', 'PART', 'PRON', 'PROPN', 'PUNCT', 'SCONJ', 'SYM',
+                     'NUM', 'PART', 'PRON', 'PROPN', 'SCONJ', 'SYM',
                      'VERB', 'X')
   }
   if(stringr::str_detect(concepts, ",")){
@@ -31,7 +31,8 @@ fst_cn_search <- function(data,
   }
   data <- dplyr::filter(data, token != 'na')
   data$lemma <- stringr::str_replace_all(data$lemma,'-','@')
-  x <- textrank::textrank_keywords(data$lemma, relevant=data$upos %in% pos_filter)
+  x <- textrank::textrank_keywords(data$lemma,
+                                   relevant=data$upos %in% pos_filter)
   keyword_data <- x$keywords %>%
     dplyr::filter(ngram > 1 & freq > 1) %>%
     dplyr::mutate(word2 = strsplit(keyword, "-")) %>%
@@ -61,7 +62,11 @@ fst_cn_search <- function(data,
 #' @param data A dataframe of text in CoNLL-U format.
 #' @param concepts List of terms to search for, separated by commas.
 #' @param threshold A minimum number of occurrences threshold for 'edge' between
-#' searched term and other word, default is `NULL`.
+#'  searched term and other word, default is `NULL`. Note, the threshold is
+#'  applied before normalisation.
+#' @param norm The method for normalising the data. Valid settings are
+#'  `'number_words'` (the number of words in the responses, default),
+#'  `'number_resp'` (the number of responses), or `NULL` (raw count returned).
 #' @param pos_filter List of UPOS tags for inclusion, default is `NULL` to
 #' include all UPOS tags.
 #'
@@ -76,8 +81,28 @@ fst_cn_search <- function(data,
 fst_cn_edges <- function(data,
                          concepts,
                          threshold = NULL,
+                         norm = 'number_words',
                          pos_filter =  NULL) {
   data <- dplyr::filter(data, token != 'na')
+  if (is.null(norm)) {
+    denom = 1
+  } else if (norm == 'number_words'){
+    data %>%
+      dplyr::filter(.data$dep_rel != "punct") %>%
+      dplyr::filter(!is.na(lemma)) %>%
+      dplyr::filter(lemma != 'na')
+    denom = nrow(data)
+  } else if (norm == 'number_resp'){
+    denom = dplyr::n_distinct(data$doc_id)
+  } else {
+    message("NOTE: A recognised normalisation method has not been provided. \n
+            Function has defaulted to normalisation method 'number_of_words'")
+    data %>%
+      dplyr::filter(.data$dep_rel != "punct") %>%
+      dplyr::filter(!is.na(lemma)) %>%
+      dplyr::filter(lemma != 'na')
+    denom = nrow(data)
+  }
   df <-  data %>%
     fst_cn_search(concepts = concepts, pos_filter = pos_filter) %>%
     dplyr::select(word1, word2, freq) %>%
@@ -88,6 +113,9 @@ fst_cn_edges <- function(data,
   if(!is.null(threshold)) {
     df <- df %>% dplyr::filter(n >= threshold)
   }
+  df <- df %>%
+    dplyr::mutate(n = n/denom) %>%
+    dplyr::rename(co_occurrence = n)
   return(df)
 }
 
@@ -111,11 +139,12 @@ fst_cn_nodes <- function(data,
                          pos_filter = NULL) {
   if (is.null(pos_filter)){
     pos_filter = c('ADJ', 'ADP', 'ADV', 'AUX', 'CCONJ', 'DET', 'INTJ', 'NOUN',
-                     'NUM', 'PART', 'PRON', 'PROPN', 'PUNCT', 'SCONJ', 'SYM',
+                     'NUM', 'PART', 'PRON', 'PROPN', 'SCONJ', 'SYM',
                      'VERB', 'X')
   }
   data <- dplyr::filter(data, token != 'na')
-  keyw <- textrank::textrank_keywords(data$lemma, relevant=data$upos %in% pos_filter)
+  keyw <- textrank::textrank_keywords(data$lemma,
+                                      relevant=data$upos %in% pos_filter)
   textrank_data <- data.frame(pagerank = keyw$pagerank$vector) %>%
     tibble::rownames_to_column("lemma")
   keyword_vocab <- unique(c(edges$from, edges$to))
@@ -127,11 +156,14 @@ fst_cn_nodes <- function(data,
 
 #' Plot Concept Network
 #'
-#' @param edges Output of `fst_cn_edges`, dataframe of 'edges' connecting two words
-#' @param nodes Output of `fst_cn_nodes`, dataframe of relevant lemmas and their associated pagerank
-#' @param concepts List of terms which have been searched for, separated by commas.
+#' @param edges Output of `fst_cn_edges`, dataframe of 'edges' connecting two
+#'  words
+#' @param nodes Output of `fst_cn_nodes`, dataframe of relevant lemmas and their
+#'  associated pagerank
+#' @param concepts List of terms which have been searched for, separated by
+#'  commas.
 #' @param title Optional title for plot, default is `NULL` and a generic title
-#' ('Textrank extracted keyword occurrences) will be used.
+#'  ('Textrank extracted keyword occurrences) will be used.
 #'
 #' @return Plot of Concept Network
 #' @export
@@ -153,16 +185,23 @@ fst_cn_plot <- function(edges, nodes, concepts, title = NULL) {
   nodes <- nodes %>%
     dplyr::mutate(is_concept = factor(ifelse(lemma %in% concepts, 0, 1),
                                       levels = 0:1,
-                                      labels = c("Concept word", "Regular word")))
+                                      labels = c("Concept word",
+                                                 "Regular word")))
   p <- igraph::graph_from_data_frame(edges,
-                                     directed = FALSE, vertices = nodes) %>%
+                                     directed = FALSE,
+                                     vertices = nodes) %>%
     ggraph::ggraph(layout = "kk") +
-    ggraph::geom_edge_link( ggplot2::aes(width = n, alpha = n), colour = "#6da5d3") +
+    ggraph::geom_edge_link( ggplot2::aes(width = co_occurrence,
+                                         alpha = co_occurrence),
+                            colour = "#6da5d3") +
     ggraph::scale_edge_width(range=c(1, 5))+
     ggraph::scale_edge_alpha(range = c(0.2, 1)) +
     ggraph::geom_node_point( ggplot2::aes(size = pagerank)) +
-    ggraph::geom_node_text(ggplot2::aes(label = name, col = is_concept), check_overlap = TRUE, repel = TRUE) +
-    ggplot2::scale_color_manual("Word Type", values = c("Concept word" = "#cd1719", "Regular word" = "black")) +
+    ggraph::geom_node_text(ggplot2::aes(label = name, col = is_concept),
+                           check_overlap = TRUE, repel = TRUE) +
+    ggplot2::scale_color_manual("Word Type",
+                                values = c("Concept word" = "#cd1719",
+                                           "Regular word" = "black")) +
     ggraph::theme_graph() +
     ggplot2::labs(
       title = title) +
@@ -176,11 +215,15 @@ fst_cn_plot <- function(edges, nodes, concepts, title = NULL) {
 #' @param data A dataframe of text in CoNLL-U format.
 #' @param concepts List of terms to search for, separated by commas.
 #' @param threshold A minimum number of occurrences threshold for 'edge' between
-#' searched term and other word, default is `NULL`.
+#'  searched term and other word, default is `NULL`. Note, the threshold is
+#'  applied before normalisation.
+#' @param norm The method for normalising the data. Valid settings are
+#'  `'number_words'` (the number of words in the responses, default),
+#'  `'number_resp'` (the number of responses), or `NULL` (raw count returned).
 #' @param pos_filter List of UPOS tags for inclusion, default is `NULL` to
-#' include all UPOS tags.
+#'  include all UPOS tags.
 #' @param title Optional title for plot, default is `NULL` and a generic title
-#' ('Textrank extracted keyword occurences) will be used.
+#'  ('Textrank extracted keyword occurences) will be used.
 #'
 #' @return Plot of concept network
 #' @export
@@ -193,11 +236,13 @@ fst_cn_plot <- function(edges, nodes, concepts, title = NULL) {
 fst_concept_network <- function(data,
                                 concepts,
                                 threshold = NULL,
+                                norm = 'number_words',
                                 pos_filter = NULL,
                                 title = NULL) {
   edges <- fst_cn_edges(data = data,
                         concepts = concepts,
                         threshold = threshold,
+                        norm = norm,
                         pos_filter = pos_filter)
   nodes <- fst_cn_nodes(data = data, edges, pos_filter = pos_filter)
   fst_cn_plot(edges, nodes, concepts = concepts, title = title)

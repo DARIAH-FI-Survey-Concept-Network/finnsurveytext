@@ -83,13 +83,13 @@ fst_ngrams_compare_plot <- function(table, number = 10, ngrams = 1, unique_colou
   }
   if (is.null(override_title)){
     table %>%
-      ggplot2::ggplot(ggplot2::aes(n, words, fill = unique_word)) +
+      ggplot2::ggplot(ggplot2::aes(occurrence, words, fill = unique_word)) +
       ggplot2::geom_col() +
       ggplot2::scale_fill_manual(values = colours, guide = "none") +
       ggplot2::labs(y = NULL, title = paste(name, as.character(number),"Most Common", term))
   } else {
     table %>%
-      ggplot2::ggplot(ggplot2::aes(n, words, fill = unique_word)) +
+      ggplot2::ggplot(ggplot2::aes(occurrence, words, fill = unique_word)) +
       ggplot2::geom_col() +
       ggplot2::scale_fill_manual(values = colours, guide = "none") +
       ggplot2::labs(y = NULL, title = override_title)
@@ -515,9 +515,14 @@ fst_length_compare <- function(data1, data2, data3 = NULL, data4 = NULL, name1 =
 #' fst_comparison_cloud(conllu_dev_q11_1_f_nltk, conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_na_nltk, name1 = 'Female', name2 = 'Male', name3 = 'NA', max = 400)
 #' fst_comparison_cloud(conllu_dev_q11_1_f_nltk, conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_na_nltk, name1 = 'Female', name2 = 'Male', name3 = 'NA', max = 200)
 fst_comparison_cloud <- function(data1, data2, data3 = NULL, data4 = NULL, name1 = "Group 1", name2 = "Group 2", name3 = "Group 3", name4 = "Group 4", pos_filter = NULL, max = 100){
-  cat("Notes on use of fst_comparison_cloud: \n If `max` is large, you may receive \"warnings\" indicating any words which are not plotted due to space constraints.\n\n")
+  message("Notes on use of fst_comparison_cloud: \n If `max` is large, you may receive \"warnings\" indicating any words which are not plotted due to space constraints.\n\n")
+  num1 <- dplyr::n_distinct(data1$doc_id)
+  num2 <- dplyr::n_distinct(data2$doc_id)
   if (!is.null(data3)) {
-    if (!is.null(data4)) {
+    num3 <- dplyr::n_distinct(data3$doc_id)
+    if (!is.null(data4)){
+      num4 <- dplyr::n_distinct(data4$doc_id)
+      message(paste0("Note: \n Consider whether your data is balanced between groups being compared and whether each group contains enough data for analysis. \n The number of responded in each group (including \'NAs\') are listed below: \n\t", name1, "=", num1, ", ", name2, "=", num2, ", ", name3, "=", num3, ", ", name4, "=", num4, "\n\n"))
       if (!is.null(pos_filter)) {
         data1 <- dplyr::filter(data1, upos %in% pos_filter)
         data2 <- dplyr::filter(data2, upos %in% pos_filter)
@@ -552,6 +557,7 @@ fst_comparison_cloud <- function(data1, data2, data3 = NULL, data4 = NULL, name1
         dplyr::full_join(data3, by ='lemma') %>%
         dplyr::full_join(data4, by ='lemma')
     } else {
+      message(paste0("Note: \n Consider whether your data is balanced between groups being compared and whether each group contains enough data for analysis. \n The number of responded in each group (including \'NAs\') are listed below: \n\t", name1, "=", num1, ", ", name2, "=", num2, ", ", name3, "=", num3, "\n\n"))
       if (!is.null(pos_filter)) {
         data1 <- dplyr::filter(data1, upos %in% pos_filter)
         data2 <- dplyr::filter(data2, upos %in% pos_filter)
@@ -579,6 +585,7 @@ fst_comparison_cloud <- function(data1, data2, data3 = NULL, data4 = NULL, name1
       compcloud_data <- dplyr::full_join(compcloud_data, data3, by ='lemma')
     }
   } else {
+    message(paste0("Note: \n Consider whether your data is balanced between groups being compared and whether each group contains enough data for analysis. \n The number of responded in each group (including \'NAs\') are listed below: \n\t", name1, "=", num1, ", ", name2, "=", num2, "\n\n"))
     if (!is.null(pos_filter)) {
       data1 <- dplyr::filter(data1, upos %in% pos_filter)
       data2 <- dplyr::filter(data2, upos %in% pos_filter)

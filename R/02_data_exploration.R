@@ -41,7 +41,9 @@ fst_summarise <- function(data, desc = 'All respondents') {
     dplyr::summarize('Description' = desc,
                      'Respondents' = dplyr::n_distinct(doc_id),
                      'No Response' = no_resp_count,
-                     'Proportion' = round(dplyr::n_distinct(doc_id) / (no_resp_count + dplyr::n_distinct(doc_id)), 2),
+                     'Proportion' = round(dplyr::n_distinct(doc_id) /
+                                            (no_resp_count +
+                                               dplyr::n_distinct(doc_id)), 2),
                      'Total Words' = dplyr::n(),
                      'Unique Words' = length(unique(token)),
                      'Unique Lemmas' = length(unique(lemma)))
@@ -89,7 +91,8 @@ fst_pos <- function(data) {
 #'
 #' @param dataA dataframe of text in CoNLL-U format.
 #' @param desc An optional string describing respondents, default is `NULL`
-#' @param incl_sentences Whether to include sentence data in table, default is `TRUE`
+#' @param incl_sentences Whether to include sentence data in table, default is
+#'  `TRUE`
 #'
 #' @return Table summarising distribution of lengths of responses
 #' @export
@@ -106,7 +109,8 @@ fst_length_summary <- function(data, desc = NULL, incl_sentences = TRUE) {
     dplyr::filter(sentence != 'NA')
   data <- data[!duplicated(data), ] %>%
     dplyr::group_by(doc_id) %>%
-    dplyr::summarise(number_sentences = dplyr::n(), number_of_words = sum(length))
+    dplyr::summarise(number_sentences = dplyr::n(),
+                     number_of_words = sum(length))
   word_df <- data %>%
     dplyr::summarize('Description' = paste0(desc, '- Words'),
                      'Respondents' = dplyr::n_distinct(doc_id),
@@ -156,10 +160,14 @@ fst_length_summary <- function(data, desc = NULL, incl_sentences = TRUE) {
 #' fst_get_top_words(conllu_dev_q11_1_nltk, number = 15, norm = NULL)
 #' fst_get_top_words(conllu_dev_q11_1_nltk, number = 15, strict = FALSE)
 #' top_bullying_words <- fst_get_top_words(conllu_bullying, number = 5, norm = 'number_resp', pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
-fst_get_top_words <- function(data, number = 10, norm = 'number_words', pos_filter = NULL, strict = TRUE) {
+fst_get_top_words <- function(data,
+                              number = 10,
+                              norm = 'number_words',
+                              pos_filter = NULL,
+                              strict = TRUE) {
   with_ties = !strict
   if (strict == TRUE) {
-    message("Note:\n Terms with equal occurrence are presented in alphabetial order. \n By default, terms are presented in order to the `number` cutoff word. \n This means that equally-occurring later-alphabetically words beyond the cutoff will not be displayed. \n\n")
+    message("Note:\n Terms with equal occurrence are presented in alphabetial order. \n By default, terms are presented in order to the `number` cutoff word. \n This means that equally-occurring later-alphabetically words beyond the cutoff will not be displayed.\n\n")
   } else {
     message("Note:\n Terms with equal occurrence are presented in alphabetial order. \n With `strict` = FALSE, words occurring equally often as the `number` cutoff word will be displayed. \n\n")
   }
@@ -192,7 +200,7 @@ fst_get_top_words <- function(data, number = 10, norm = 'number_words', pos_filt
     dplyr::mutate(n = round(n/denom, 3)) %>%
     dplyr::slice_max(n, n = number, with_ties = with_ties) %>%
     dplyr::mutate(lemma = reorder(lemma, n)) %>%
-    dplyr::rename(words = lemma)
+    dplyr::rename(words = lemma, occurrence = n)
 }
 
 #' Make Top N-grams Table
@@ -256,7 +264,8 @@ fst_get_top_ngrams <- function(data, number = 10, ngrams = 1, norm = 'number_wor
     dplyr::slice_max(n, n = number, with_ties = with_ties) %>%
     dplyr::mutate(words = reorder(words, n)) %>%
     dplyr::filter(!is.na(words)) %>%
-    dplyr::filter(words != 'na')
+    dplyr::filter(words != 'na') %>%
+    dplyr::rename(occurrence = n)
   }
 
 #' Make Top N-grams Table 2
@@ -281,7 +290,12 @@ fst_get_top_ngrams <- function(data, number = 10, ngrams = 1, norm = 'number_wor
 #' @examples
 #' fst_get_top_ngrams2(conllu_dev_q11_1_nltk)
 #' fst_get_top_ngrams2(conllu_dev_q11_1_nltk, number = 10, ngrams = 1)
-fst_get_top_ngrams2 <- function(data, number = 10, ngrams = 1, norm = 'number_words', pos_filter = NULL, strict = TRUE){
+fst_get_top_ngrams2 <- function(data,
+                                number = 10,
+                                ngrams = 1,
+                                norm = 'number_words',
+                                pos_filter = NULL,
+                                strict = TRUE){
   with_ties = !strict
   if (is.null(norm)) {
     denom = 1
@@ -314,7 +328,8 @@ fst_get_top_ngrams2 <- function(data, number = 10, ngrams = 1, norm = 'number_wo
     dplyr::slice_max(n, n = number, with_ties = with_ties) %>%
     dplyr::mutate(words = reorder(words, n)) %>%
     dplyr::filter(!is.na(words)) %>%
-    dplyr::filter(words != 'na')
+    dplyr::filter(words != 'na') %>%
+    dplyr::rename(occurrence = n)
 }
 
 
@@ -334,10 +349,11 @@ fst_get_top_ngrams2 <- function(data, number = 10, ngrams = 1, norm = 'number_wo
 #' fst_freq_plot(q11_1_ngrams)
 fst_freq_plot <- function(table, number = NULL, name = NULL) {
   table %>%
-    ggplot2::ggplot(ggplot2::aes(n, words)) +
+    ggplot2::ggplot(ggplot2::aes(occurrence, words)) +
     ggplot2::geom_col() +
     ggplot2::scale_fill_manual(values = colours, guide = "none") +
-    ggplot2::labs(y = NULL, title = paste(name, as.character(number),"Most Common Words"))
+    ggplot2::labs(y = NULL,
+                  title = paste(name, as.character(number),"Most Common Words"))
 
 }
 
@@ -370,10 +386,11 @@ fst_ngrams_plot <- function(table, number = NULL, ngrams = 1, name = NULL) {
     term = paste0(as.character(ngrams), "-grams")
   }
   table %>%
-    ggplot2::ggplot(ggplot2::aes(n, words)) +
+    ggplot2::ggplot(ggplot2::aes(occurrence, words)) +
     ggplot2::geom_col() +
     ggplot2::scale_fill_manual(values = colours, guide = "none") +
-    ggplot2::labs(y = NULL, title = paste(name, as.character(number),"Most Common", term))
+    ggplot2::labs(y = NULL,
+                  title = paste(name, as.character(number),"Most Common", term))
 }
 
 
@@ -399,8 +416,17 @@ fst_ngrams_plot <- function(table, number = NULL, ngrams = 1, name = NULL) {
 #' @examples
 #' fst_freq(conllu_dev_q11_1, number = 12, norm = 'number_resp', strict = FALSE, name = "All")
 #' fst_freq(conllu_dev_q11_1_na, number = 15, name = "Not Spec")
-fst_freq <- function(data, number = 10, norm = 'number_words', pos_filter = NULL, strict = TRUE, name = NULL){
-  words <- fst_get_top_words(data = data, number = number, norm = norm, pos_filter = pos_filter, strict = strict)
+fst_freq <- function(data,
+                     number = 10,
+                     norm = 'number_words',
+                     pos_filter = NULL,
+                     strict = TRUE,
+                     name = NULL){
+  words <- fst_get_top_words(data = data,
+                             number = number,
+                             norm = norm,
+                             pos_filter = pos_filter,
+                             strict = strict)
   fst_freq_plot(table = words, number = number, name = name)
 }
 
@@ -427,9 +453,23 @@ fst_freq <- function(data, number = 10, norm = 'number_words', pos_filter = NULL
 #' @examples
 #' fst_ngrams(conllu_dev_q11_1, number = 12, ngrams = 2, norm = NULL, strict = FALSE, name = "All")
 #' fst_ngrams(conllu_dev_q11_1_na, number = 15, ngrams = 3, name = "Not Spec")
-fst_ngrams <- function(data, number = 10, ngrams = 1, norm = 'number_words', pos_filter = NULL, strict = TRUE, name = NULL){
-  ngram_list <- fst_get_top_ngrams(data = data, number = number, ngrams = ngrams, norm = norm, pos_filter = pos_filter, strict = strict)
-  fst_ngrams_plot(table = ngram_list, number = number, ngrams = ngrams, name = name)
+fst_ngrams <- function(data,
+                       number = 10,
+                       ngrams = 1,
+                       norm = 'number_words',
+                       pos_filter = NULL,
+                       strict = TRUE,
+                       name = NULL){
+  ngram_list <- fst_get_top_ngrams(data = data,
+                                   number = number,
+                                   ngrams = ngrams,
+                                   norm = norm,
+                                   pos_filter = pos_filter,
+                                   strict = strict)
+  fst_ngrams_plot(table = ngram_list,
+                  number = number,
+                  ngrams = ngrams,
+                  name = name)
 }
 
 
