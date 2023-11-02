@@ -34,7 +34,7 @@ fst_summarise_short <- function(data) {
 #'
 #' @examples
 #' fst_summarise(conllu_dev_q11_1)
-#' female <- fst_summarise(conllu_dev_q11_1_f, "Female respondents")
+#' q11_2 <- fst_summarise(conllu_dev_q11_2_nltk, "Q11_2")
 fst_summarise <- function(data, desc = 'All respondents') {
   no_resp_count <- length(which(data$sentence %in% c("NA", "na")))
   df <- data %>%
@@ -141,6 +141,9 @@ fst_length_summary <- function(data, desc = NULL, incl_sentences = TRUE) {
 #'
 #' @param data A dataframe of text in CoNLL-U format.
 #' @param number The number of top words to return, default is `10`.
+#' @param norm The method for normalising the data. Valid settings are
+#'  `'number_words'` (the number of words in the responses, default),
+#'  `'number_resp'` (the number of responses), or `NULL` (raw count returned).
 #' @param pos_filter List of UPOS tags for inclusion, default is `NULL` which
 #'  means all word types included
 #' @param strict Whether to strictly cut-off at `number` (ties are
@@ -150,18 +153,33 @@ fst_length_summary <- function(data, desc = NULL, incl_sentences = TRUE) {
 #' @export
 #'
 #' @examples
-#' fst_get_top_words(conllu_dev_q11_1_nltk, number = 15)
+#' fst_get_top_words(conllu_dev_q11_1_nltk, number = 15, norm = NULL)
 #' fst_get_top_words(conllu_dev_q11_1_nltk, number = 15, strict = FALSE)
-#' top_bullying_words <- fst_get_top_words(conllu_bullying, number = 15, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
-#' top_f <- fst_get_top_words(conllu_f_nltk, number = 15)
-#' top_m <- fst_get_top_words(conllu_m_nltk, number = 15)
-#' top_na <- fst_get_top_words(conllu_na_nltk, number = 15)
-fst_get_top_words <- function(data, number = 10, pos_filter = NULL, strict = TRUE) {
+#' top_bullying_words <- fst_get_top_words(conllu_bullying, number = 5, norm = 'number_resp', pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+fst_get_top_words <- function(data, number = 10, norm = 'number_words', pos_filter = NULL, strict = TRUE) {
   with_ties = !strict
   if (strict == TRUE) {
     message("Note:\n Terms with equal occurrence are presented in alphabetial order. \n By default, terms are presented in order to the `number` cutoff word. \n This means that equally-occurring later-alphabetically words beyond the cutoff will not be displayed. \n\n")
   } else {
     message("Note:\n Terms with equal occurrence are presented in alphabetial order. \n With `strict` = FALSE, words occurring equally often as the `number` cutoff word will be displayed. \n\n")
+  }
+  if (is.null(norm)) {
+    denom = 1
+  } else if (norm == 'number_words'){
+    data %>%
+      dplyr::filter(.data$dep_rel != "punct") %>%
+      dplyr::filter(!is.na(lemma)) %>%
+      dplyr::filter(lemma != 'na')
+    denom = nrow(data)
+  } else if (norm == 'number_resp'){
+    denom = dplyr::n_distinct(data$doc_id)
+  } else {
+    message("NOTE: A recognised normalisation method has not been provided. \n Function has defaulted to normalisation method 'number_of_words'")
+    data %>%
+      dplyr::filter(.data$dep_rel != "punct") %>%
+      dplyr::filter(!is.na(lemma)) %>%
+      dplyr::filter(lemma != 'na')
+    denom = nrow(data)
   }
   if (!is.null(pos_filter)) {
     data <- dplyr::filter(data, .data$upos %in% pos_filter)
@@ -171,6 +189,7 @@ fst_get_top_words <- function(data, number = 10, pos_filter = NULL, strict = TRU
     dplyr::filter(!is.na(lemma)) %>%
     dplyr::filter(lemma != 'na') %>%
     dplyr::count(lemma, sort = TRUE) %>%
+    dplyr::mutate(n = round(n/denom, 3)) %>%
     dplyr::slice_max(n, n = number, with_ties = with_ties) %>%
     dplyr::mutate(lemma = reorder(lemma, n)) %>%
     dplyr::rename(words = lemma)
@@ -184,6 +203,9 @@ fst_get_top_words <- function(data, number = 10, pos_filter = NULL, strict = TRU
 #' @param data A dataframe of text in CoNLL-U format.
 #' @param number The number of n-grams to return, default is `10`.
 #' @param ngrams The type of n-grams to return, default is `1`.
+#' @param norm The method for normalising the data. Valid settings are
+#'  `'number_words'` (the number of words in the responses, default),
+#'  `'number_resp'` (the number of responses), or `NULL` (raw count returned).
 #' @param pos_filter List of UPOS tags for inclusion, default is `NULL` which
 #'  means all word types included
 #' @param strict Whether to strictly cut-off at `number` (ties are
@@ -193,18 +215,33 @@ fst_get_top_words <- function(data, number = 10, pos_filter = NULL, strict = TRU
 #' @export
 #'
 #' @examples
-#' fst_get_top_ngrams(conllu_dev_q11_1_nltk)
-#' fst_get_top_ngrams(conllu_dev_q11_1_nltk, number = 10, ngrams = 1)
+#' q11_1_ngrams <- fst_get_top_ngrams(conllu_dev_q11_1_nltk, norm = NULL)
+#' fst_get_top_ngrams(conllu_dev_q11_1_nltk, number = 10, ngrams = 1, norm = 'number_resp')
 #' top_bullying_ngrams <- fst_get_top_ngrams(conllu_bullying, number = 15, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
-#' topn_f <- fst_get_top_ngrams(conllu_f_nltk, number = 15, ngrams = 2)
-#' topn_m <- fst_get_top_ngrams(conllu_m_nltk, number = 15, ngrams = 2)
-#' topn_na <- fst_get_top_ngrams(conllu_na_nltk, number = 15, ngrams = 2)
-fst_get_top_ngrams <- function(data, number = 10, ngrams = 1, pos_filter = NULL, strict = TRUE){
+fst_get_top_ngrams <- function(data, number = 10, ngrams = 1, norm = 'number_words', pos_filter = NULL, strict = TRUE){
   with_ties = !strict
   if (strict == TRUE) {
     message("Note:\n Terms with equal occurrence are presented in alphabetial order. \n By default, terms are presented in order to the `number` cutoff word. \n This means that equally-occurring later-alphabetically words beyond the cutoff will not be displayed. \n\n")
   } else {
     message("Note:\n Terms with equal occurrence are presented in alphabetial order. \n With `strict` = FALSE, words occurring equally often as the `number` cutoff word will be displayed. \n\n")
+  }
+  if (is.null(norm)) {
+    denom = 1
+  } else if (norm == 'number_words'){
+    data %>%
+      dplyr::filter(.data$dep_rel != "punct") %>%
+      dplyr::filter(!is.na(lemma)) %>%
+      dplyr::filter(lemma != 'na')
+    denom = nrow(data)
+  } else if (norm == 'number_resp'){
+    denom = dplyr::n_distinct(data$doc_id)
+  } else {
+    message("NOTE: A recognised normalisation method has not been provided. \n Function has defaulted to normalisation method 'number_of_words'")
+    data %>%
+      dplyr::filter(.data$dep_rel != "punct") %>%
+      dplyr::filter(!is.na(lemma)) %>%
+      dplyr::filter(lemma != 'na')
+    denom = nrow(data)
   }
   if (!is.null(pos_filter)) {
     data <- dplyr::filter(data, .data$upos %in% pos_filter)
@@ -215,6 +252,7 @@ fst_get_top_ngrams <- function(data, number = 10, ngrams = 1, pos_filter = NULL,
     dplyr::filter(lemma != 'na') %>%
     dplyr::mutate(words = udpipe::txt_nextgram(lemma, n = ngrams)) %>%
     dplyr::count(words, sort = TRUE) %>%
+    dplyr::mutate(n = round(n/denom, 3)) %>%
     dplyr::slice_max(n, n = number, with_ties = with_ties) %>%
     dplyr::mutate(words = reorder(words, n)) %>%
     dplyr::filter(!is.na(words)) %>%
@@ -229,6 +267,9 @@ fst_get_top_ngrams <- function(data, number = 10, ngrams = 1, pos_filter = NULL,
 #' @param data A dataframe of text in CoNLL-U format.
 #' @param number The number of n-grams to return, default is `10`.
 #' @param ngrams The type of n-grams to return, default is `1`.
+#' @param norm The method for normalising the data. Valid settings are
+#'  `'number_words'` (the number of words in the responses, default),
+#'  `'number_resp'` (the number of responses), or `NULL` (raw count returned).
 #' @param pos_filter List of UPOS tags for inclusion, default is `NULL` which
 #'  means all word types included
 #' @param strict Whether to strictly cut-off at `number` (ties are
@@ -240,8 +281,26 @@ fst_get_top_ngrams <- function(data, number = 10, ngrams = 1, pos_filter = NULL,
 #' @examples
 #' fst_get_top_ngrams2(conllu_dev_q11_1_nltk)
 #' fst_get_top_ngrams2(conllu_dev_q11_1_nltk, number = 10, ngrams = 1)
-fst_get_top_ngrams2 <- function(data, number = 10, ngrams = 1, pos_filter = NULL, strict = TRUE){
+fst_get_top_ngrams2 <- function(data, number = 10, ngrams = 1, norm = 'number_words', pos_filter = NULL, strict = TRUE){
   with_ties = !strict
+  if (is.null(norm)) {
+    denom = 1
+  } else if (norm == 'number_words'){
+    data %>%
+      dplyr::filter(.data$dep_rel != "punct") %>%
+      dplyr::filter(!is.na(lemma)) %>%
+      dplyr::filter(lemma != 'na')
+    denom = nrow(data)
+  } else if (norm == 'number_resp'){
+    denom = dplyr::n_distinct(data$doc_id)
+  } else {
+    message("NOTE: A recognised normalisation method has not been provided. \n Function has defaulted to normalisation method 'number_of_words'")
+    data %>%
+      dplyr::filter(.data$dep_rel != "punct") %>%
+      dplyr::filter(!is.na(lemma)) %>%
+      dplyr::filter(lemma != 'na')
+    denom = nrow(data)
+  }
   if (!is.null(pos_filter)) {
     data <- dplyr::filter(data, .data$upos %in% pos_filter)
   }
@@ -251,6 +310,7 @@ fst_get_top_ngrams2 <- function(data, number = 10, ngrams = 1, pos_filter = NULL
     dplyr::filter(lemma != 'na') %>%
     dplyr::mutate(words = udpipe::txt_nextgram(lemma, n = ngrams)) %>%
     dplyr::count(words, sort = TRUE) %>%
+    dplyr::mutate(n = round(n/denom, 3)) %>%
     dplyr::slice_max(n, n = number, with_ties = with_ties) %>%
     dplyr::mutate(words = reorder(words, n)) %>%
     dplyr::filter(!is.na(words)) %>%
@@ -263,16 +323,15 @@ fst_get_top_ngrams2 <- function(data, number = 10, ngrams = 1, pos_filter = NULL
 #' Plots most common words.
 #'
 #' @param table Output of `fst_get_top_words` or `fst_get_top_ngrams`
-#' @param number The number of n-grams, default is `10`.
+#' @param number Optional number of n-grams for the title, default is `NULL`.
 #' @param name An optional "name" for the plot to add to title, default is `NULL`
 #'
 #' @return Plot of top words.
 #' @export
 #'
 #' @examples
-#' fst_freq_plot(top_f, number = 15, name = 'Female')
-#' fst_freq_plot(top_m)
-#' fst_freq_plot(top_na, number = 15)
+#' fst_freq_plot(top_bullying_words, number = 5, name = 'Bullying')
+#' fst_freq_plot(q11_1_ngrams)
 fst_freq_plot <- function(table, number = NULL, name = NULL) {
   table %>%
     ggplot2::ggplot(ggplot2::aes(n, words)) +
@@ -289,7 +348,7 @@ fst_freq_plot <- function(table, number = NULL, name = NULL) {
 #' Plots frequency n-grams.
 #'
 #' @param table Output of `fst_get_top_words` or `fst_get_top_ngrams`
-#' @param number The number of n-grams for title, default is `NULL`.
+#' @param number Optional number of n-grams for title, default is `NULL`.
 #' @param ngrams The type of n-grams, default is `1`.
 #' @param name An optional "name" for the plot to add to title, default is `NULL`
 
@@ -325,6 +384,9 @@ fst_ngrams_plot <- function(table, number = NULL, ngrams = 1, name = NULL) {
 #'
 #' @param data A dataframe of text in CoNLL-U format.
 #' @param number The number of top words to return, default is `10`.
+#' @param norm The method for normalising the data. Valid settings are
+#'  `'number_words'` (the number of words in the responses, default),
+#'  `'number_resp'` (the number of responses), or `NULL` (raw count returned).
 #' @param pos_filter List of UPOS tags for inclusion, default is `NULL` which
 #'  means all word types included
 #' @param strict Whether to strictly cut-off at `number` (ties are
@@ -335,10 +397,10 @@ fst_ngrams_plot <- function(table, number = NULL, ngrams = 1, name = NULL) {
 #' @export
 #'
 #' @examples
-#' fst_freq(conllu_dev_q11_1, number = 12, strict = FALSE, name = "All")
+#' fst_freq(conllu_dev_q11_1, number = 12, norm = 'number_resp', strict = FALSE, name = "All")
 #' fst_freq(conllu_dev_q11_1_na, number = 15, name = "Not Spec")
-fst_freq <- function(data, number = 10, pos_filter = NULL, strict = TRUE, name = NULL){
-  words <- fst_get_top_words(data = data, number = number, pos_filter = pos_filter, strict = strict)
+fst_freq <- function(data, number = 10, norm = 'number_words', pos_filter = NULL, strict = TRUE, name = NULL){
+  words <- fst_get_top_words(data = data, number = number, norm = norm, pos_filter = pos_filter, strict = strict)
   fst_freq_plot(table = words, number = number, name = name)
 }
 
@@ -350,6 +412,9 @@ fst_freq <- function(data, number = 10, pos_filter = NULL, strict = TRUE, name =
 #' @param data A dataframe of text in CoNLL-U format.
 #' @param number The number of top words to return, default is `10`.
 #' @param ngrams The type of n-grams, default is `1`.
+#' @param norm The method for normalising the data. Valid settings are
+#'  `'number_words'` (the number of words in the responses, default),
+#'  `'number_resp'` (the number of responses), or `NULL` (raw count returned).
 #' @param pos_filter List of UPOS tags for inclusion, default is `NULL` which
 #'  means all word types included
 #' @param strict Whether to strictly cut-off at `number` (ties are
@@ -360,10 +425,10 @@ fst_freq <- function(data, number = 10, pos_filter = NULL, strict = TRUE, name =
 #' @export
 #'
 #' @examples
-#' fst_ngrams(conllu_dev_q11_1, number = 12, ngrams = 2, strict = FALSE, name = "All")
+#' fst_ngrams(conllu_dev_q11_1, number = 12, ngrams = 2, norm = NULL, strict = FALSE, name = "All")
 #' fst_ngrams(conllu_dev_q11_1_na, number = 15, ngrams = 3, name = "Not Spec")
-fst_ngrams <- function(data, number = 10, ngrams = 1, pos_filter = NULL, strict = TRUE, name = NULL){
-  ngram_list <- fst_get_top_ngrams(data = data, number = number, ngrams = ngrams, pos_filter = pos_filter, strict = strict)
+fst_ngrams <- function(data, number = 10, ngrams = 1, norm = 'number_words', pos_filter = NULL, strict = TRUE, name = NULL){
+  ngram_list <- fst_get_top_ngrams(data = data, number = number, ngrams = ngrams, norm = norm, pos_filter = pos_filter, strict = strict)
   fst_ngrams_plot(table = ngram_list, number = number, ngrams = ngrams, name = name)
 }
 
