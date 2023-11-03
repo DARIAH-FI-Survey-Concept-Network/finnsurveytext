@@ -114,7 +114,7 @@ fst_cn_edges <- function(data,
     df <- df %>% dplyr::filter(n >= threshold)
   }
   df <- df %>%
-    dplyr::mutate(n = n/denom) %>%
+    dplyr::mutate(n = signif(n/denom, 3)) %>%
     dplyr::rename(co_occurrence = n)
   return(df)
 }

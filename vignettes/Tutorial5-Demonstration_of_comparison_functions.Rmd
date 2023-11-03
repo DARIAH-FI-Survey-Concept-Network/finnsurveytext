@@ -1,8 +1,8 @@
 ---
-title: "Tutorial5-Demonstration of comparison functions"
+title: "Tutorial5-Demonstration_of_comparison_functions"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Tutorial5-Demonstration of Comparison Functions}
+  %\VignetteIndexEntry{Tutorial5-Demonstration_of_comparison_functions}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -16,9 +16,9 @@ knitr::opts_chunk$set(
 ```
 
 ## Introduction
-When analysing responses to open-ended questions, you may want to look into whether different groups of survey participants have, in general, responded differently to the prompt. `finnsurveytext` contains a number of comparison functions which are intended to be used to compare responses between groups. These comparison functions covered are defined in r/04_comparison_functions.R and r/05_comparison_concept_network.R.
+When analysing responses to open-ended questions, you may want to look into whether different groups of survey participants have, in general, responded differently to the prompt. `finnsurveytext` contains a number of comparison functions which are intended to be used to compare responses between groups. These comparison functions covered are defined in `r/04_comparison_functions.R` and `r/05_comparison_concept_network.R`.
 
-To use these functions, we run the preparation functions which are in r/01_prepare_conll-u.R (and which are covered in detail in Tutorial1-Prepare CoNLL-U) for each group separately. It is expected that you may choose to split the data using a different question within the survey such as a categorical question (eg. gender or level of education) or an ordinal variable (such as aged or income). In this tutorial, we will look at comparing responses to a question based on gender. 
+One way to split the data is using a different question within the survey such as a categorical question (eg. gender or level of education) or an ordinal variable (such as aged or income). In this tutorial, we will look at comparing responses to a question based on gender. Before using the comparison functions, we run the preparation functions which are in `r/01_prepare_conll-u.R` (and which are covered in detail in 'Tutorial1-Prepare CoNLL-U') for each group separately.  
 
 The comparison functions are: 
 
@@ -41,23 +41,22 @@ The comparison functions are:
 We will look at the following question: 
 
 * [q11_2] Jatka lausetta: Kehitysyhteistyö on toimintaa, jossa... (Avokysymys)
-  + [q11_2] Continue the sentence: Development cooperation is an activity in which... (Open question)
+  + (In English) [q11_2] Continue the sentence: Development cooperation is an activity in which... (Open question)
 
 First, install and load the `finnsurveytext` package as below:
 (Other required packages such as `dplyr` and `stringr` will also be installed if they are not currently installed in your environment.)
 
 ```{r setup}
-# library(finnsurveytext)
-devtools::load_all()
+library(finnsurveytext)
 ```
 
 There are four sets of data files available within the package which are used in this tutorial
 
 ### Development Cooperation Data Split by Gender
-* data/dev_data.rda
-* data/dev_data_m.rda
-* data/dev_data_f.rda
-* data/dev_data_na.rda
+* data/dev_data.rda - All responses to the survey
+* data/dev_data_m.rda - Responses to the survey by participants who have listed their gender as male 
+* data/dev_data_f.rda - Responses to the survey by participants who have listed their gender as female 
+* data/dev_data_na.rda - Responses to the survey by participants who have not responded to the gender question 
 
 We can prepare the data into CoNLL-U format using functions from `01_prepare_conllu-u.R` as follows:
 (We are preparing versions with and without stopwords removed because we have some functions which are better with/without the stopwords included.)
@@ -77,7 +76,7 @@ knitr::kable(head(male_nltk))
 
 Now that our data is ready, we can look at our data and compare the results. 
 
-First, we will look at some summary functions to compare the responses overall. (We are using the versions which *include* the stopwords here.) 
+First, we will look at some summary functions to compare the responses overall. (We are using the versions which **include** the stopwords here.) 
 
 #### Make Comparison Summary
 Consider the definition of `fst_summarise_compare`:
@@ -146,7 +145,7 @@ knitr::kable(
 )
 ```
 
-In terms of POS tags, the differences are likely mostly due to the differences in the number of respondents between genders. We can also see that female responses are generally slightly longer (average of 6 words to 5 words) but that most respondents (across the genders) wrote only a single sentence.
+In terms of POS tags, the scale differences are likely mostly due to the differences in the number of respondents between genders. We can also see that female responses are generally slightly longer (average of 6 words to 5 words) but that most respondents (across the genders) wrote only a single sentence.
 
 ### Comparison Cloud
 
@@ -174,7 +173,9 @@ fst_comparison_cloud(data1 = female, name1 = 'Female',
                     max = 50)
 ```
 
-A comparison cloud compares the relative frequency with which a term is used in two or more documents. This cloud shows words that occur more regularly in responses from a specific type of respondent. For more information about comparison clouds, you can read [this documentation](https://cran.r-project.org/web/packages/wordcloud/wordcloud.pdf) Our data is quite unbalanced (there are a lot more female respondents and fewer 'NA' so this may skew responses) but it seems that a higher proportion of these 'NA' respondents use 'ihminen' and 'auttaa' in their responses. Similarly, 'raha' and 'yrittää' are associated with males and females respectively.  
+A comparison cloud compares the relative frequency with which a term is used in two or more documents. This cloud shows words that occur more regularly in responses from a specific type of respondent. For more information about comparison clouds, you can read [this documentation](https://cran.r-project.org/web/packages/wordcloud/wordcloud.pdf). 
+
+Our data is quite unbalanced (there are a lot more female respondents and fewer 'NA' so this may skew responses) but it seems that a higher proportion of these 'NA' respondents use 'ihminen' and 'auttaa' in their responses. Similarly, 'raha' and 'yrittää' are associated with males and females respectively.  
 
 ### Common Words and N-grams
 Now, we will look at common words occurring in the responses. 
@@ -182,13 +183,21 @@ Now, we will look at common words occurring in the responses.
 Consider first the definition of `fst_get_top_words` and `fst_get_top_ngrams`:
 
 ```{r eval=FALSE}
-fst_get_top_words <- function(data, number = 10, norm = 'number_words', pos_filter = NULL, strict = TRUE)
+fst_get_top_words <- function(data, 
+                              number = 10, 
+                              norm = 'number_words', 
+                              pos_filter = NULL, 
+                              strict = TRUE)
   
-fst_get_top_ngrams <- function(data, number = 10, ngrams = 1, norm = 'number_words', pos_filter = NULL, strict = TRUE)
+fst_get_top_ngrams <- function(data, 
+                               number = 10, 
+                               ngrams = 1, 
+                               norm = 'number_words', 
+                               pos_filter = NULL, strict = TRUE)
 ```
 
 
-First, we will consider all the responses for this question. 
+First, we will consider all the responses for this question. We are not filtering the data based on POS tag, and will leave the default of `strict = TRUE` which will cut-off the list at 10 words (see the warning note about this). We also use the default for the norm which means we are standardising between groups by dividing count of a word by the total number of words in the responses. 
 
 ```{r}
 all_top10 <- fst_get_top_words(all_nltk, 
@@ -292,6 +301,24 @@ fst_plot_multiple(plot_all,
 
 Since the top 3 words are 'kehitysmaa', 'auttaa', and 'pyrkiä', we will create concept networks based on these terms.
 
+The comparison concept network function is defined as follows: 
+
+```{r eval=FALSE}
+fst_concept_network_compare <- function(data1, 
+                                        data2, 
+                                        data3 = NULL, 
+                                        data4 = NULL, 
+                                        pos_filter = NULL, 
+                                        name1 = "Group 1", 
+                                        name2 = "Group 2", 
+                                        name3 = "Group 3", 
+                                        name4 = "Group 4", 
+                                        concepts, 
+                                        norm = 'number_words', 
+                                        threshold = NULL)
+```
+
+We run it as below. Again, we're keeping the default norm. 
 ```{r}
 fst_concept_network_compare(data1 = female_nltk, name1 = 'Female',
                             data2 = male_nltk, name2 = 'Male', 
@@ -309,7 +336,7 @@ fst_concept_network_compare(data1 = female_nltk, name1 = 'Female',
                             concepts = "kehitysmaa, auttaa, pyrkiä")
 ```
 
-Each of these Concept Networks are created separately, which means that the weights of words are based only on the responses within that gender. Despite this, we have many more words in the female plot (partly due to there being more responses in this data.) Below, we will run the female with stricter thresholds.
+Each of these Concept Networks are created separately, which means that the weights of words are based only on the responses within that gender. Despite this, we have many more words in the female plot (possibly due to there being more responses in this data leading to increased variation). Below, we will run the female with stricter thresholds. (Note, the threshold works on the RAW count of co-occurences between words, not on the normalised co-occurrence value). 
 
 ```{r}
 fst_concept_network(female_nltk,
@@ -324,7 +351,7 @@ fst_concept_network(female_nltk,
 ```
 
 
-Now let's manually do create the concept networks so that there is a requirement of at least 4 occurrences for words in the female network (there are ~3.7x as many females as males so I have chosen 4). These networks look more comparable now and we can see that the concept networks show different words used around our "concept" words of "kehitysmaa", "auttaa" and  "pyrkiä" by female respondents than male. 
+Now let's manually create the concept networks so that there is a requirement of at least 4 occurrences for words in the female network (there are ~3.7x as many females as males so I have chosen 4). These networks look more comparable now and we can see that the concept networks show different words used around our "concept" words of "kehitysmaa", "auttaa" and  "pyrkiä" by female respondents than male. 
 
 ```{r}
 concepts <- "kehitysmaa, auttaa, pyrkiä"

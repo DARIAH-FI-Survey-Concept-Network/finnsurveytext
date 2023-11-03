@@ -1,8 +1,8 @@
 ---
-title: "Tutorial6-Example of analysis of an open-ended survey question"
+title: "Tutorial6-Example_of_analysis_of_an_open-ended_survey_question"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Q11_3-Story}
+  %\VignetteIndexEntry{Tutorial6-Example_of_analysis_of_an_open-ended_survey_question}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -16,8 +16,7 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-# library(finnsurveytext)
-devtools::load_all()
+library(finnsurveytext)
 ```
 
 ## Introduction

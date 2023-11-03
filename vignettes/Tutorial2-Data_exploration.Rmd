@@ -1,8 +1,8 @@
 ---
-title: "Tutorial2-Data exploration"
+title: "Tutorial2-Data_exploration"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Tutorial2-Data_Exploration}
+  %\VignetteIndexEntry{Tutorial2-Data_exploration}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -17,9 +17,9 @@ knitr::opts_chunk$set(
 
 ## Introduction
 
-Exploratory Data Analysis (EDA) is a common activity once data has been cleaned and prepared EDA commonly involves running functions which allow you to better understand the responses and begin to formulate initial hypotheses based on the data. 
+Exploratory Data Analysis (EDA) is a common activity once data has been cleaned and prepared. EDA involves running functions which allow you to better understand the responses and begin to formulate initial hypotheses based on the data. 
 
-This tutorial follows on from Tutorial 1 and guides you through an EDA of data which has been prepared into CoNLL-U format. These EDA functions are contained in r/02_data_exploration.R.
+This tutorial follows on from Tutorial 1 and guides you through an EDA of data which has been prepared into CoNLL-U format. These EDA functions are contained in `r/02_data_exploration.R`.
 
 The included functions are: 
 
@@ -130,26 +130,36 @@ Next we will demonstrate some functions which are used to create plots of most f
 ### Make Top Words/N-grams Tables
 `fst_get_top_words` and `fst_get_top_ngrams`
 
-These functions creates a table of the most frequently occurring words/n-grams in the data (noting that "stopwords" may have been removed in previous data preparation steps.) Optionally, you can indicate which POS tags to include. (`fst_get_top_words` and `fst_get_top_ngrams` print a message. There is a third function `fst_get_top_ngrams2` which doesn't print a message. This function is used within the comparison functions in `04_comparison_functions.R`)
+These functions creates a table of the most frequently occurring words/n-grams in the data (noting that "stopwords" may have been removed in previous data preparation steps.) 
+
+The top words/n-grams tables are able have the word/n-grams normalised if you choose. The variable `norm` is the method for normalising the data. Valid settings are `'number_words'` (the number of words in the responses, default), `'number_resp'` (the number of responses), or `NULL` (raw count returned).
+
+Optionally, you can indicate which POS tags to include. (`fst_get_top_words` and `fst_get_top_ngrams` print a message. There is a third function `fst_get_top_ngrams2` which doesn't print a message. This function is used within the comparison functions in `04_comparison_functions.R`)
 
 We run the functions as follows:
 
 ```{r}
 fst_get_top_words(bullying)
+
 fst_get_top_words(data = bullying,
          number = 15,
-         pos_filter = c("NOUN", "VERB", "ADJ", "ADV"), 
+         norm = NULL,
+         pos_filter = c("NOUN", "VERB", "ADJ", "ADV"),
          strict = FALSE)
+
 table1 <- fst_get_top_words(q11_1, 5)
 knitr::kable(table1)
-table2 <- fst_get_top_words(q11_1, 5, c("NOUN", "VERB"), strict = FALSE)
+
+table2 <- fst_get_top_words(q11_1, 5, 'number_resp', c("NOUN", "VERB"), strict = FALSE)
 knitr::kable(table2)
 
 fst_get_top_ngrams(bullying, ngrams = 2)
-fst_get_top_ngrams(bullying, ngrams = 2, strict = FALSE)
+
+fst_get_top_ngrams(bullying, ngrams = 2, norm = 'number_words', strict = FALSE)
 
 table3 <- fst_get_top_ngrams(q11_1, 15, ngrams = 3)
 knitr::kable(table3)
+
 table4 <- fst_get_top_ngrams(q11_1, 15, ngrams = 2, pos_filter = c("NOUN", "VERB"), strict = FALSE)
 knitr::kable(table4)
 
@@ -159,8 +169,9 @@ knitr::kable(table4)
 
 1. `data` is output from data preparation, prepared data in CoNLL-U format, such as the output of `fst_prepare_connlu`.
 2. `number` is the number of top words/n+grams to return, default is `10`.
-3. `pos_filter` is an optional list of which POS tags to include such as c("NOUN", "VERB", "ADJ", "ADV"). The default is NULL, in which case all words in data are considered.
-4. `strict` is a boolean that determines how the function will deal with 'ties'. If `strict = TRUE`, the table will cut-off at the exact `number`(words are presented in alphabetical order so later-alphabetically, equally occurring words to the word at `number` will not be shown.) If `strict = FALSE`, the table will show any words that occur equally frequently as the number cutoff word. 
+3. `norm` is the method for normalising the data. Valid settings are `'number_words'` (the number of words in the responses, default), `'number_resp'` (the number of responses), or `NULL` (raw count returned).
+4. `pos_filter` is an optional list of which POS tags to include such as `'c("NOUN", "VERB", "ADJ", "ADV")'`. The default is `NULL`, in which case all words in the data are considered.
+5. `strict` is a boolean that determines how the function will deal with 'ties'. If `strict = TRUE`, the table will cut-off at the exact `number`(words are presented in alphabetical order so later-alphabetically, equally occurring words to the word at `number` will not be shown.) If `strict = FALSE`, the table will show any words that occur equally frequently as the number cutoff word. 
 
 `fst_get_top_ngrams` has an additional argument: 
 
@@ -180,13 +191,14 @@ fst_ngrams_plot(table4, number = 15, ngrams = 2, 'Bigrams')
 ```
 
 The arguments are: 
+
 1. `table` is the output of `fst_get_top_words` or `fst_get_top_ngrams`
 2. `number` The number of words/n-grams, default is `10`.
 3. `name` is an optional "name" for the plot, default is `NULL`
 
 Again, `fst_get_top_ngrams` has an additional argument: 
 
-5. `ngrams` is the type of n-grams. As you can see above, you can plot top words using ngrams = 1
+5. `ngrams` is the type of n-grams. As you can see above, you can plot top words using `ngrams = 1`.
 
 ### Find and Plot Top Words/N-grams
 `fst_freq` and `fst_ngrams`
@@ -203,9 +215,10 @@ The arguments are as defined in the above functions:
 1. `data`
 2. `number`
 3. (`ngrams`)
-4. `pos_filter`
-5. `strict`
-6. `name`
+4. `norm`
+5. `pos_filter`
+6. `strict`
+7. `name`
 
 
 ### Make Wordcloud
@@ -225,6 +238,9 @@ fst_wordcloud(q11_1,
 1. `data` is output from data preparation, prepared data in CoNLL-U format, such as the output of `fst_prepare_connlu`.
 2. `pos_filter` is an optional list of POS tags for inclusion in the wordcloud. The defaul is `NULL`.
 3. `max` is the maximum number of words to display, the default is `100`. 
+
+## Conclusion
+EDA of open-ended survey questions can be conducted using functions in `r/02_data_exploration.R` such as finding most frequent words and n-grams, summarising the length of responses and words used, and visualising responses in word clouds. The results of this EDA can help researchers better understand their data, create hypotheses based on this initial insights, and inform future analysis of the surveys. 
 
 ## Citation
 

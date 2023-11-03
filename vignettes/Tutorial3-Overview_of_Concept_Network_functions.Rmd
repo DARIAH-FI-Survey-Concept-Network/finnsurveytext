@@ -1,8 +1,8 @@
 ---
-title: "Tutorial3-Overview of Concept Network functions"
+title: "Tutorial3-Overview_of_Concept_Network_functions"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Tutorial3-Concept_Network}
+  %\VignetteIndexEntry{Tutorial3-Overview_of_Concept_Network_functions}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -108,14 +108,16 @@ The arguments are the same as for `fst_cn_search` plus the `threshold`.
 1. `data` which is output from data preparation, prepared data in CoNLL-U format, such as the output of `fst_prepare_connlu`.
 2. `concept` is a string of concept terms to search for, separated by commas.
 3. `threshold` is the minimum number of occurrences threshold for 'edge' between a concept term and other word, default is NULL.
-3. `pos_filter` is a list of UPOS tags for inclusion, default is `NULL`.
+4. `norm` is the method for normalising the data. Valid settings are `'number_words'` (the number of words in the responses, default), `'number_resp'` (the number of responses), or `NULL` (raw count returned). Normalisation occurs **after** the threshold (if it exists) is applied. 
+5. `pos_filter` is a list of UPOS tags for inclusion, default is `NULL`.
 
 ```{r}
 bullying_edges <-fst_cn_edges(bullying,
                               'kiusata, lyöminen, lyödä, potkia')
 q11_2_edges <- fst_cn_edges(conllu_dev_q11_2_nltk,
                             "kehitysmaa, auttaa, pyrkiä, maa, ihminen",
-                            threshold = 5)
+                            threshold = 5, 
+                            norm = 'number_resp')
 q11_3_edges <- fst_cn_edges(conllu_dev_q11_3_nltk,
                             "köyhyys, nälänhätä, sota, ilmastonmuutos, puute",
                             threshold = 2)
@@ -185,9 +187,11 @@ fst_cn_plot(edges = q11_3_edges,
 If you don't want to run all of the individual functions, `fst_cn_search`, `fst_cn_edges`, `fst_cn_nodes`, and `fst_cn_plot`, you can run them all within the one function `fst_concept_network`.
 
 The arguments are:
+
 1. `data` which is output from data preparation, prepared data in CoNLL-U format, such as the output of `fst_prepare_connlu`.
 2. `concept` is a string of concept terms to search for, separated by commas.
 3. `threshold` is the minimum number of occurrences threshold for 'edge' between a concept term and other word, default is NULL.
+4. `norm` is the method for normalising the data. Valid settings are `'number_words'` (the number of words in the responses, default), `'number_resp'` (the number of responses), or `NULL` (raw count returned). Normalisation occurs **after** the threshold (if it exists) is applied. 
 4. `pos_filter` is a list of UPOS tags for inclusion, default is `NULL`.
 5. `title` is an optional title for plot, default is `NULL` and a generic title, ('Textrank extracted keyword occurrences) will be used.
 
@@ -215,6 +219,10 @@ fst_concept_network(bullying,
                     concepts = 'kiusata, lyöminen', 
                     title = 'Concept Network of Bullying Data')
 ```
+
+## Conclusion
+
+This tutorial ran you through the Concept Network functions included in `finnsurveytext`. A concept network visualises word importance and co-occurence between words. 
 
 ## Citation
 

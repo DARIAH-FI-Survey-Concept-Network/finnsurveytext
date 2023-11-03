@@ -1,8 +1,8 @@
 ---
-title: "Tutorial4-Further analysis and configuration of Concept Network functions"
+title: "Tutorial4-Further_analysis_and_configuration_of_Concept_Network_functions"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Tutorial4-Further analysis and configuration of Concept Network functions}
+  %\VignetteIndexEntry{Tutorial4-Further_analysis_and_configuration_of_Concept_Network_functions}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -20,7 +20,7 @@ library(finnsurveytext)
 ```
 ## Introduction
 
-This tutorial goes into further details demonstrating the use of the package. It covers functions in r/02_data_exploration.R and r/02_data_exploration.R. The intention is to show how the settings for functions (especially the concept network plot) can be experimented with to make it as meaningful as possible.
+This tutorial goes into further details demonstrating the use of the package. It covers functions in `r/02_data_exploration.R` and `r/02_data_exploration.R`. The intention is to show how the settings for functions (especially the concept network plot) can be experimented with to make it as meaningful as possible.
 
 ## The Data
 We're looking at FSD2821 Young People's Views on Development Cooperation 2012 (FSD2821 Nuorten ajatuksia kehitysyhteistyöstä 2012)
@@ -120,10 +120,12 @@ Remarks:
 
 #### Top Words
 ```{r}
-fst_freq(q11_1, 10, c("NOUN", "VERB", "ADJ", "ADV"), name = 'Q11_1')
-fst_freq(q11_2, 10, c("NOUN", "VERB", "ADJ", "ADV"), name = 'Q11_2')
-fst_freq(q11_3, 10, c("NOUN", "VERB", "ADJ", "ADV"), name = 'Q11_3')
+fst_freq(q11_1, 10, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"), name = 'Q11_1')
+fst_freq(q11_2, 10, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"), name = 'Q11_2')
+fst_freq(q11_3, 10, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"), name = 'Q11_3')
 ```
+
+(We leave the default for `norm` her so "occurence" is based on the number of words in the set of responses for each question.)
 
 Here we can see that there is a clear 'top' set of words in each question: 
 

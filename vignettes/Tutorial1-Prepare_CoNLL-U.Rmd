@@ -1,5 +1,5 @@
 ---
-title: "Tutorial1-Prepare CoNLL-U"
+title: "Tutorial1-Prepare_CoNLL-U"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Tutorial1-Prepare_CoNLL-U}
