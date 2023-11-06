@@ -1,24 +1,24 @@
-#' Bullying response data
+#' Child Barometer 2016 response data
 #'
 #' This data contains the responses to q7 "Kertoisitko, mitä sinun mielestäsi
 #' kiusaaminen on? (Avokysymys)" in the FSD3134 Lapsibarometri 2016 dataset.
 #'
-#' @format ## `bullying_data`
+#' @format ## `child_barometer_data`
 #' A dataframe with 414 rows and 2 columns:
 #' \describe{
 #'   \item{fsd_id}{FSD case id}
 #'   \item{q7}{response text}
 #' }
 #' @source <https://urn.fi/urn:nbn:fi:fsd:T-FSD3134>
-"bullying_data"
+"child_barometer_data"
 
-#' Bullying response data in CoNLL-U format
+#' Child Barometer 2016 Bullying response data in CoNLL-U format
 #'
 #' This data contains the responses to q7 "Kertoisitko, mitä sinun mielestäsi
 #' kiusaaminen on? (Avokysymys)" in the FSD3134 Lapsibarometri 2016 dataset
 #' in CoNLL-U format using `finnish-tdt` model from [udpipe] package.
 #'
-#' @format ## `conllu_bullying`
+#' @format ## `conllu_cb_bullying`
 #' A dataframe with 2722 rows and 14 columns:
 #' \describe{
 #'   \item{doc_id}{the identifier of the document}
@@ -39,13 +39,13 @@
 #' @source <https://urn.fi/urn:nbn:fi:fsd:T-FSD3134>
 "conllu_bullying"
 
-#' Bullying response data in CoNLL-U format with ISO stopwords removed
+#' Child Barometer 2016 Bullying response data in CoNLL-U format with ISO stopwords removed
 #'
 #' This data contains the responses to q7 "Kertoisitko, mitä sinun mielestäsi
 #' kiusaaminen on? (Avokysymys)" in the FSD3134 Lapsibarometri 2016 dataset
 #' in CoNLL-U format with ISO stopwords and punctuation removed.
 #'
-#' @format ## `conllu_bullying_iso`
+#' @format ## `conllu_cb_bullying_iso`
 #' A dataframe with 1240 rows and 14 columns:
 #' \describe{
 #'   \item{doc_id}{the identifier of the document}
@@ -66,7 +66,7 @@
 #' @source <https://urn.fi/urn:nbn:fi:fsd:T-FSD3134>
 "conllu_bullying_iso"
 
-#' Development Cooperation response data
+#' Young People's Views on Development Cooperation 2012 response data
 #'
 #' This data contains the responses to q11_1 'Jatka lausetta: Kehitysmaa on maa,
 #' jossa... (Avokysymys)', q11_2 'Jatka lausetta: Kehitysyhteistyö on toimintaa,
@@ -85,7 +85,7 @@
 #' @source <https://urn.fi/urn:nbn:fi:fsd:T-FSD2821>
 "dev_data"
 
-#' Development Cooperation q11_1 response data in CoNLL-U format
+#' Young People's Views on Development Cooperation 2012 q11_1 response data in CoNLL-U format
 #'
 #' This data contains the responses to q11_1 'Jatka lausetta: Kehitysmaa on maa,
 #' jossa... (Avokysymys)' in CoNLL-U format using `finnish-ftb` model from
@@ -112,7 +112,7 @@
 #' @source <https://urn.fi/urn:nbn:fi:fsd:T-FSD2821>
 "conllu_dev_q11_1"
 
-#' Development Cooperation q11_2 response data in CoNLL-U format
+#' Young People's Views on Development Cooperation 2012 q11_2 response data in CoNLL-U format
 #'
 #' This data contains the responses to q11_2 'Jatka lausetta: Kehitysyhteistyö
 #' on toimintaa, jossa... (Avokysymys)' in CoNLL-U format using `finnish-ftb`
@@ -139,7 +139,7 @@
 #' @source <https://urn.fi/urn:nbn:fi:fsd:T-FSD2821>
 "conllu_dev_q11_2"
 
-#' Development Cooperation q11_3 response data in CoNLL-U format
+#' Young People's Views on Development Cooperation 2012 q11_3 response data in CoNLL-U format
 #'
 #' This data contains the responses to , q11_3' Jatka lausetta: Maailman kolme
 #' suurinta ongelmaa ovat... (Avokysymys)' in CoNLL-U format using `finnish-ftb`
@@ -166,7 +166,7 @@
 #' @source <https://urn.fi/urn:nbn:fi:fsd:T-FSD2821>
 "conllu_dev_q11_3"
 
-#' Development Cooperation q11_1 response data in CoNLL-U format with NTLK stopwords removed
+#' Young People's Views on Development Cooperation 2012 q11_1 response data in CoNLL-U format with NTLK stopwords removed
 #'
 #' This data contains the responses to Development Cooperation q11_1 dataset
 #' in CoNLL-U format with ISO stopwords and punctuation removed.
@@ -192,7 +192,7 @@
 #' @source <https://urn.fi/urn:nbn:fi:fsd:T-FSD2821>
 "conllu_dev_q11_1_nltk"
 
-#' Development Cooperation q11_2 response data in CoNLL-U format with NTLK stopwords removed
+#' Young People's Views on Development Cooperation 2012 q11_2 response data in CoNLL-U format with NTLK stopwords removed
 #'
 #' This data contains the responses to Development Cooperation q11_2 dataset
 #' in CoNLL-U format with ISO stopwords and punctuation removed.
@@ -218,7 +218,7 @@
 #' @source <https://urn.fi/urn:nbn:fi:fsd:T-FSD2821>
 "conllu_dev_q11_2_nltk"
 
-#' Development Cooperation q11_3 response data in CoNLL-U format with NTLK stopwords removed
+#' Young People's Views on Development Cooperation 2012 q11_3 response data in CoNLL-U format with NTLK stopwords removed
 #'
 #' This data contains the responses to Development Cooperation q11_3 dataset
 #' in CoNLL-U format with ISO stopwords and punctuation removed.
@@ -244,7 +244,7 @@
 #' @source <https://urn.fi/urn:nbn:fi:fsd:T-FSD2821>
 "conllu_dev_q11_3_nltk"
 
-#' Development Cooperation q11_1 response data in CoNLL-U format with snowball stopwords removed
+#' Young People's Views on Development Cooperation 2012 q11_1 response data in CoNLL-U format with snowball stopwords removed
 #'
 #' This data contains the responses to Development Cooperation q11_1 dataset
 #' in CoNLL-U format with ISO stopwords and punctuation removed.
