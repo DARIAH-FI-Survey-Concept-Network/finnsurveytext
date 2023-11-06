@@ -10,8 +10,8 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>", 
-  fig.width=6, fig.height=6
+  comment = "#>",
+  fig.width = 6, fig.height = 6
 )
 ```
 
@@ -83,19 +83,23 @@ To run `fst_cn_search`, we provide the following arguments to the function:
 
 The function `fst_cn_search` is demonstrated below.
 ```{r}
-bullying_concepts <- fst_cn_search(bullying, 
-                                   'kiusata, lyöminen, lyödä, potkia')
-q11_2_concepts <- fst_cn_search(conllu_dev_q11_2_nltk, 
-                                "kehitysmaa, auttaa, pyrkiä, maa, ihminen", 
-                                pos_filter = c("ADV", "ADJ"))
-q11_3_concepts <- fst_cn_search(conllu_dev_q11_3_nltk, 
-                                "köyhyys, nälänhätä, sota, ilmastonmuutos, puute")
-
+bullying_concepts <- fst_cn_search(
+  bullying,
+  "kiusata, lyöminen, lyödä, potkia"
+)
+q11_2_concepts <- fst_cn_search(conllu_dev_q11_2_nltk,
+  "kehitysmaa, auttaa, pyrkiä, maa, ihminen",
+  pos_filter = c("ADV", "ADJ")
+)
+q11_3_concepts <- fst_cn_search(
+  conllu_dev_q11_3_nltk,
+  "köyhyys, nälänhätä, sota, ilmastonmuutos, puute"
+)
 ```
 
 The resulting dataframe is formatted as below:
 ```{r}
-knitr::kable(head(q11_3_concepts, n=10))
+knitr::kable(head(q11_3_concepts, n = 10))
 ```
 
 ### Concept Network - Get Textrank Edges
@@ -112,21 +116,25 @@ The arguments are the same as for `fst_cn_search` plus the `threshold`.
 5. `pos_filter` is a list of UPOS tags for inclusion, default is `NULL`.
 
 ```{r}
-bullying_edges <-fst_cn_edges(bullying,
-                              'kiusata, lyöminen, lyödä, potkia')
+bullying_edges <- fst_cn_edges(
+  bullying,
+  "kiusata, lyöminen, lyödä, potkia"
+)
 q11_2_edges <- fst_cn_edges(conllu_dev_q11_2_nltk,
-                            "kehitysmaa, auttaa, pyrkiä, maa, ihminen",
-                            threshold = 5, 
-                            norm = 'number_resp')
+  "kehitysmaa, auttaa, pyrkiä, maa, ihminen",
+  threshold = 5,
+  norm = "number_resp"
+)
 q11_3_edges <- fst_cn_edges(conllu_dev_q11_3_nltk,
-                            "köyhyys, nälänhätä, sota, ilmastonmuutos, puute",
-                            threshold = 2)
+  "köyhyys, nälänhätä, sota, ilmastonmuutos, puute",
+  threshold = 2
+)
 ```
 
 The dataframe has a simplified format from the `fst_cn_search` results, with only columns "to", "from" and "n" which indicates the number of occurences.
 
 ```{r}
-knitr::kable(head(q11_2_edges, n=10))
+knitr::kable(head(q11_2_edges, n = 10))
 ```
 
 ### Concept Network - Get Textrank Nodes
@@ -148,7 +156,7 @@ q11_3_nodes <- fst_cn_nodes(conllu_dev_q11_3_nltk, q11_3_edges)
 ```
 
 ```{r}
-knitr::kable(head(q11_2_nodes, n=10))
+knitr::kable(head(q11_2_nodes, n = 10))
 ```
 
 ### Plot Concept Network
@@ -164,21 +172,25 @@ As `fst_cn_plot` uses results from the previous functions it requires 3 argument
 4. `title` is an optional title for plot, default is `NULL` and a generic title, ('Textrank extracted keyword occurrences) will be used.
 
 ```{r}
-fst_cn_plot(edges = bullying_edges, nodes = bullying_nodes, concepts = 'kiusata, lyöminen', title = 'Bullying Data CN')
+fst_cn_plot(edges = bullying_edges, nodes = bullying_nodes, concepts = "kiusata, lyöminen", title = "Bullying Data CN")
 ```
 
 Recall that for `q11_2_edges` we have set the `threshold` as 5.
 ```{r}
-fst_cn_plot(edges = q11_2_edges,
-            nodes = q11_2_nodes,
-            concepts = "kehitysmaa, auttaa, pyrkiä, maa, ihminen")
+fst_cn_plot(
+  edges = q11_2_edges,
+  nodes = q11_2_nodes,
+  concepts = "kehitysmaa, auttaa, pyrkiä, maa, ihminen"
+)
 ```
 
 Recall that for `q11_3_edges` we have set the `threshold` as 2. This is why there are fewer words included in the plot despite more words available (including stopwords) in this data.
 ```{r}
-fst_cn_plot(edges = q11_3_edges,
-            nodes = q11_3_nodes,
-            concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute")
+fst_cn_plot(
+  edges = q11_3_edges,
+  nodes = q11_3_nodes,
+  concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute"
+)
 ```
 
 ### Plot Concept Network
@@ -198,26 +210,34 @@ The arguments are:
 This function is run as follows:
 ```{r}
 fst_concept_network(q11_1,
-                    concepts = "elintaso, köyhä, ihminen")
+  concepts = "elintaso, köyhä, ihminen"
+)
 fst_concept_network(q11_1,
-                    concepts = "elintaso, köyhä, ihminen",
-                    threshold = 3)
+  concepts = "elintaso, köyhä, ihminen",
+  threshold = 3
+)
 fst_concept_network(q11_2,
-                    concepts = "kehitysmaa, auttaa, pyrkiä, maa, ihminen")
+  concepts = "kehitysmaa, auttaa, pyrkiä, maa, ihminen"
+)
 fst_concept_network(q11_2,
-                    concepts = "kehitysmaa, auttaa, pyrkiä, maa, ihminen",
-                    threshold = 10)
+  concepts = "kehitysmaa, auttaa, pyrkiä, maa, ihminen",
+  threshold = 10
+)
 fst_concept_network(q11_2,
-                    concepts = "kehitysmaa, auttaa, pyrkiä, maa, ihminen",
-                    threshold = 5)
+  concepts = "kehitysmaa, auttaa, pyrkiä, maa, ihminen",
+  threshold = 5
+)
 fst_concept_network(q11_3,
-                    concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute")
+  concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute"
+)
 fst_concept_network(q11_3,
-                    concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute",
-                    threshold = 3)
+  concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute",
+  threshold = 3
+)
 fst_concept_network(bullying,
-                    concepts = 'kiusata, lyöminen', 
-                    title = 'Concept Network of Bullying Data')
+  concepts = "kiusata, lyöminen",
+  title = "Concept Network of Bullying Data"
+)
 ```
 
 ## Conclusion

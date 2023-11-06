@@ -10,8 +10,8 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>", 
-  fig.width=6, fig.height=6
+  comment = "#>",
+  fig.width = 6, fig.height = 6
 )
 ```
 
@@ -76,7 +76,7 @@ The second function adds information about the number and proportion of survey r
 ```{r}
 fst_summarise_short(bullying)
 
-q11_1_summary_table <- fst_summarise(q11_1, 'All')
+q11_1_summary_table <- fst_summarise(q11_1, "All")
 knitr::kable(q11_1_summary_table)
 ```
 
@@ -111,7 +111,7 @@ knitr::kable(q11_1_pos_table)
 This function creates a table which summarises the distribution of lengths in the responses. Again, you can either view the table in the console, or define a variable which will contain this table.
 
 ```{r}
-fst_length_summary(bullying, desc = 'All Bullying Respondents')
+fst_length_summary(bullying, desc = "All Bullying Respondents")
 
 q11_1_length_table <- fst_length_summary(q11_1, incl_sentences = FALSE)
 knitr::kable(q11_1_length_table)
@@ -141,28 +141,29 @@ We run the functions as follows:
 ```{r}
 fst_get_top_words(bullying)
 
-fst_get_top_words(data = bullying,
-         number = 15,
-         norm = NULL,
-         pos_filter = c("NOUN", "VERB", "ADJ", "ADV"),
-         strict = FALSE)
+fst_get_top_words(
+  data = bullying,
+  number = 15,
+  norm = NULL,
+  pos_filter = c("NOUN", "VERB", "ADJ", "ADV"),
+  strict = FALSE
+)
 
 table1 <- fst_get_top_words(q11_1, 5)
 knitr::kable(table1)
 
-table2 <- fst_get_top_words(q11_1, 5, 'number_resp', c("NOUN", "VERB"), strict = FALSE)
+table2 <- fst_get_top_words(q11_1, 5, "number_resp", c("NOUN", "VERB"), strict = FALSE)
 knitr::kable(table2)
 
 fst_get_top_ngrams(bullying, ngrams = 2)
 
-fst_get_top_ngrams(bullying, ngrams = 2, norm = 'number_words', strict = FALSE)
+fst_get_top_ngrams(bullying, ngrams = 2, norm = "number_words", strict = FALSE)
 
 table3 <- fst_get_top_ngrams(q11_1, 15, ngrams = 3)
 knitr::kable(table3)
 
 table4 <- fst_get_top_ngrams(q11_1, 15, ngrams = 2, pos_filter = c("NOUN", "VERB"), strict = FALSE)
 knitr::kable(table4)
-
 ```
 
 `fst_get_top_words` takes 4 arguments:
@@ -183,11 +184,11 @@ knitr::kable(table4)
 These functions plot the results of `fst_get_top_words` and `fst_get_top_ngrams`.
 
 ```{r}
-fst_freq_plot(table1, number = 5, name = 'Table 1')
-fst_ngrams_plot(table1, number = 5, ngrams = 1, 'Table 1 with N-grams Plot Function')
+fst_freq_plot(table1, number = 5, name = "Table 1")
+fst_ngrams_plot(table1, number = 5, ngrams = 1, "Table 1 with N-grams Plot Function")
 
-fst_ngrams_plot(table3, number = 15, ngrams = 3, 'Trigrams')
-fst_ngrams_plot(table4, number = 15, ngrams = 2, 'Bigrams')
+fst_ngrams_plot(table3, number = 15, ngrams = 3, "Trigrams")
+fst_ngrams_plot(table4, number = 15, ngrams = 2, "Bigrams")
 ```
 
 The arguments are: 
@@ -229,8 +230,9 @@ This function will create a wordcloud plot for the data. There is an option to s
 ```{r}
 fst_wordcloud(bullying)
 fst_wordcloud(q11_1,
-              pos_filter = c("NOUN", "VERB", "ADJ", "ADV"), 
-              max = 150)
+  pos_filter = c("NOUN", "VERB", "ADJ", "ADV"),
+  max = 150
+)
 ```
 
 `fst_wordclouds` takes 3 arguments:

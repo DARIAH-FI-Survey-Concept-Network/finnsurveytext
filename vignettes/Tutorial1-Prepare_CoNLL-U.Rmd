@@ -75,9 +75,11 @@ A single function, `fst_prepare_connlu` (which calls all the data preparation fu
 Using our Child Barometer bullying data, we can call this function as follows: 
 
 ```{r eval = FALSE}
-prepd_bullying <- fst_prepare_conllu(data = child_barometer_data, 
-                                     field = "q7", 
-                                     stopword_list = "nltk")
+prepd_bullying <- fst_prepare_conllu(
+  data = child_barometer_data,
+  field = "q7",
+  stopword_list = "nltk"
+)
 ```
 
 Summary of components
@@ -93,10 +95,11 @@ Summary of components
 As an example, the development cooperation q11_2 data could be prepared using this function call: 
 
 ```{r eval = FALSE}
-prepd_lonely <- fst_prepare_conllu(dev_data, 
-                                   field = "q11_2", 
-                                   stopword_list = "none", 
-                                   model = "tdt")
+prepd_lonely <- fst_prepare_conllu(dev_data,
+  field = "q11_2",
+  stopword_list = "none",
+  model = "tdt"
+)
 ```
 
 * `data` is the dataframe of interest. In this case, we are using data that comes with the pacakge called 'dev_data'. Otherwise, if you read in a csv containing a dataframe, such as through `read.csv` in base R for use in this tutorial.
@@ -137,8 +140,8 @@ Our package works for two of the Finnish language models available, [Turku Depen
 The `fst_format_conllu` function utilises the `udpipe` [package](https://cran.r-project.org/web/packages/udpipe/vignettes/udpipe-annotation.html) and can be run as follows: 
 
 ```{r}
-conllu_dev_q11_1 <- fst_format_conllu(data = dev_data, field = 'q11_1')
-conllu_cb_bullying <- fst_format_conllu(data = child_barometer_data, field = 'q7', model = 'tdt')
+conllu_dev_q11_1 <- fst_format_conllu(data = dev_data, field = "q11_1")
+conllu_cb_bullying <- fst_format_conllu(data = child_barometer_data, field = "q7", model = "tdt")
 ```
 *Note: the first time you run this function, it will download the relevant treebank from udpipe for use in the annotations.*
 
@@ -165,7 +168,7 @@ This (optional) function will remove stopwords and punctuation from the CoNLL-U 
 
 ```{r}
 conllu_dev_q11_1_nltk <- fst_rm_stop_punct(data = conllu_dev_q11_1)
-conllu_cb_bullying_iso <- fst_rm_stop_punct(conllu_cb_bullying, 'stopwords-iso')
+conllu_cb_bullying_iso <- fst_rm_stop_punct(conllu_cb_bullying, "stopwords-iso")
 ```
 
 The top 5 rows of the "conllu_bullying_iso" table are shown below: 
