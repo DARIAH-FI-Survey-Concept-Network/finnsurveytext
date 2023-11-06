@@ -16,7 +16,7 @@
 #' q11_1_concepts <- fst_cn_search(conllu_dev_q11_1_nltk, "elintaso, köyhä, ihminen")
 #' q11_2_concepts <- fst_cn_search(conllu_dev_q11_2_nltk, "kehitysmaa, auttaa, pyrkiä", pos_filter = c("NOUN", "ADV", "ADJ"))
 #' q11_3_concepts <- fst_cn_search(conllu_dev_q11_3_nltk, "köyhyys, nälänhätä, sota, ilmastonmuutos, puute", pos_filter = "NOUN")
-#' bullying_concepts <- fst_cn_search(conllu_bullying_iso, 'kiusata, lyöminen, lyödä, potkia', pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+#' bullying_concepts <- fst_cn_search(conllu_cb_bullying_iso, 'kiusata, lyöminen, lyödä, potkia', pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
 fst_cn_search <- function(data,
                           concepts,
                           pos_filter = NULL) {
@@ -77,7 +77,7 @@ fst_cn_search <- function(data,
 #' q11_1_edges <- fst_cn_edges(conllu_dev_q11_1_nltk, 'elintaso, köyhä, ihminen', threshold = 3)
 #' q11_2_edges <- fst_cn_edges(conllu_dev_q11_2_nltk, "kehitysmaa, auttaa, pyrkiä, maa, ihminen", threshold = 5)
 #' q11_3_edges <- fst_cn_edges(conllu_dev_q11_3_nltk, "köyhyys, nälänhätä, sota, ilmastonmuutos, puute", threshold = 2)
-#' bullying_edges <-fst_cn_edges(conllu_bullying_iso, 'kiusata, lyöminen', pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+#' bullying_edges <-fst_cn_edges(conllu_cb_bullying_iso, 'kiusata, lyöminen', pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
 fst_cn_edges <- function(data,
                          concepts,
                          threshold = NULL,
@@ -133,7 +133,7 @@ fst_cn_edges <- function(data,
 #' q11_1_nodes <- fst_cn_nodes(conllu_dev_q11_1_nltk, q11_1_edges)
 #' q11_2_nodes <- fst_cn_nodes(conllu_dev_q11_2_nltk, q11_2_edges)
 #' q11_3_nodes <- fst_cn_nodes(conllu_dev_q11_3_nltk, q11_3_edges)
-#' bullying_nodes <- fst_cn_nodes(conllu_bullying_iso, bullying_edges, c("NOUN", "VERB", "ADJ", "ADV"))
+#' bullying_nodes <- fst_cn_nodes(conllu_cb_bullying_iso, bullying_edges, c("NOUN", "VERB", "ADJ", "ADV"))
 fst_cn_nodes <- function(data,
                          edges,
                          pos_filter = NULL) {
@@ -232,7 +232,7 @@ fst_cn_plot <- function(edges, nodes, concepts, title = NULL) {
 #' fst_concept_network(conllu_dev_q11_3, concepts = "köyhyys, puute")
 #' fst_concept_network(conllu_dev_q11_3, concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute")
 #' fst_concept_network(conllu_dev_q11_3, concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute", threshold = 3)
-#' fst_concept_network(conllu_bullying_iso, concepts = 'kiusata, lyöminen', pos_filter = c("NOUN", "VERB", "ADJ", "ADV"), title = 'Bullying Concept Network')
+#' fst_concept_network(conllu_cb_bullying_iso, concepts = 'kiusata, lyöminen', pos_filter = c("NOUN", "VERB", "ADJ", "ADV"), title = 'Bullying Concept Network')
 fst_concept_network <- function(data,
                                 concepts,
                                 threshold = NULL,

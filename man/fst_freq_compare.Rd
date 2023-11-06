@@ -10,6 +10,7 @@ fst_freq_compare(
   data3 = NULL,
   data4 = NULL,
   number = 10,
+  norm = "number_words",
   pos_filter = NULL,
   name1 = "Group 1",
   name2 = "Group 2",
@@ -31,6 +32,10 @@ plot, default is `NULL`}
 plot, default is `NULL`}
 
 \item{number}{The number of top words to return, default is `10`.}
+
+\item{norm}{The method for normalising the data. Valid settings are
+`'number_words'` (the number of words in the responses, default),
+`'number_resp'` (the number of responses), or `NULL` (raw count returned).}
 
 \item{pos_filter}{List of UPOS tags for inclusion, default is `NULL` which
 means all word types included}
@@ -59,7 +64,7 @@ a single row, if there are 4 plots, they will be in 2 rows of 2.
 }
 \examples{
 fst_freq_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, number = 10)
-fst_freq_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, conllu_dev_q11_1_na_nltk, number = 5)
+fst_freq_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, conllu_dev_q11_1_na_nltk, number = 5, norm = 'number_resp')
 fst_freq_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, conllu_dev_q11_1_na_nltk,number = 15, unique_colour = 'pink', pos_filter = c("NOUN", "VERB", "ADJ", "ADV"), name1 = 'Male', name2 = 'Female', name3 = 'Not Specified')
 fst_freq_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, conllu_dev_q11_1_na_nltk, number = 10, name1 = 'Female', name2 = 'Male', name3 = 'Gender Not Specified')
 fst_freq_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, conllu_dev_q11_1_na_nltk, number = 10, name1 = 'Female', name2 = 'Male', name3 = 'Gender Not Specified', strict = FALSE)

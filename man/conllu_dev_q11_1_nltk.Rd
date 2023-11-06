@@ -3,7 +3,7 @@
 \docType{data}
 \name{conllu_dev_q11_1_nltk}
 \alias{conllu_dev_q11_1_nltk}
-\title{Development Cooperation q11_1 response data in CoNLL-U format with NTLK stopwords removed}
+\title{Young People's Views on Development Cooperation 2012 q11_1 response data in CoNLL-U format with NTLK stopwords removed}
 \format{
 ## `conllu_dev_q11_1_nltk`
 A dataframe with 4257 rows and 14 columns:

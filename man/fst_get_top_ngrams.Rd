@@ -8,6 +8,7 @@ fst_get_top_ngrams(
   data,
   number = 10,
   ngrams = 1,
+  norm = "number_words",
   pos_filter = NULL,
   strict = TRUE
 )
@@ -18,6 +19,10 @@ fst_get_top_ngrams(
 \item{number}{The number of n-grams to return, default is `10`.}
 
 \item{ngrams}{The type of n-grams to return, default is `1`.}
+
+\item{norm}{The method for normalising the data. Valid settings are
+`'number_words'` (the number of words in the responses, default),
+`'number_resp'` (the number of responses), or `NULL` (raw count returned).}
 
 \item{pos_filter}{List of UPOS tags for inclusion, default is `NULL` which
 means all word types included}
@@ -33,10 +38,7 @@ Creates a table of the most frequently-occurring ngrams within the
 data.
 }
 \examples{
-fst_get_top_ngrams(conllu_dev_q11_1_nltk)
-fst_get_top_ngrams(conllu_dev_q11_1_nltk, number = 10, ngrams = 1)
-top_bullying_ngrams <- fst_get_top_ngrams(conllu_bullying, number = 15, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
-topn_f <- fst_get_top_ngrams(conllu_f_nltk, number = 15, ngrams = 2)
-topn_m <- fst_get_top_ngrams(conllu_m_nltk, number = 15, ngrams = 2)
-topn_na <- fst_get_top_ngrams(conllu_na_nltk, number = 15, ngrams = 2)
+q11_1_ngrams <- fst_get_top_ngrams(conllu_dev_q11_1_nltk, norm = NULL)
+fst_get_top_ngrams(conllu_dev_q11_1_nltk, number = 10, ngrams = 1, norm = 'number_resp')
+top_bullying_ngrams <- fst_get_top_ngrams(conllu_cb_bullying, number = 15, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
 }

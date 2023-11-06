@@ -11,6 +11,7 @@ fst_ngrams_compare(
   data4 = NULL,
   number = 10,
   ngrams = 1,
+  norm = "number_words",
   pos_filter = NULL,
   name1 = "Group 1",
   name2 = "Group 2",
@@ -34,6 +35,10 @@ plot, default is `NULL`}
 \item{number}{The number of n-grams to return, default is `10`.}
 
 \item{ngrams}{The type of n-grams to return, default is `1`.}
+
+\item{norm}{The method for normalising the data. Valid settings are
+`'number_words'` (the number of words in the responses, default),
+`'number_resp'` (the number of responses), or `NULL` (raw count returned).}
 
 \item{pos_filter}{List of UPOS tags for inclusion, default is `NULL` which
 means all word types included}
@@ -62,7 +67,7 @@ a single row, if there are 4 plots, they will be in 2 rows of 2.
 }
 \examples{
 fst_ngrams_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, number = 10, strict = FALSE)
-fst_ngrams_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, ngrams = 2, number = 10, strict = TRUE)
+fst_ngrams_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, ngrams = 2, number = 10, strict = TRUE, norm = 'number_resp')
 fst_ngrams_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, ngrams = 2, number = 10, strict = FALSE)
 fst_ngrams_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, number = 5, ngrams = 3, unique_colour = "black", name1 = 'Male', name2 = 'Female')
 fst_ngrams_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, conllu_dev_q11_1_na_nltk, conllu_dev_q11_1_m, number = 20, unique_colour = 'slateblue', pos_filter = c("NOUN", "VERB", "ADJ", "ADV"), name1 = 'Male', name2 = 'Female', name3 = 'Not Spec', name4 = 'Male2')

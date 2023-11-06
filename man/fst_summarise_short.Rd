@@ -17,7 +17,7 @@ Creates a summary table for the input CoNLL-U data which provides the total
 number of words, the number of unique words, and the number of unique lemmas.
 }
 \examples{
-bullying_summary <- fst_summarise_short(conllu_bullying_iso)
+bullying_summary <- fst_summarise_short(conllu_cb_bullying_iso)
 q11_1_summary <- fst_summarise_short(conllu_dev_q11_1_nltk)
 fst_summarise_short(conllu_dev_q11_2_nltk)
 }

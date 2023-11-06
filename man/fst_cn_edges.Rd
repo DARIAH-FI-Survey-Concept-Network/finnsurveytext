@@ -4,7 +4,13 @@
 \alias{fst_cn_edges}
 \title{Concept Network - Get textrank edges}
 \usage{
-fst_cn_edges(data, concepts, threshold = NULL, pos_filter = NULL)
+fst_cn_edges(
+  data,
+  concepts,
+  threshold = NULL,
+  norm = "number_words",
+  pos_filter = NULL
+)
 }
 \arguments{
 \item{data}{A dataframe of text in CoNLL-U format.}
@@ -12,7 +18,12 @@ fst_cn_edges(data, concepts, threshold = NULL, pos_filter = NULL)
 \item{concepts}{List of terms to search for, separated by commas.}
 
 \item{threshold}{A minimum number of occurrences threshold for 'edge' between
-searched term and other word, default is `NULL`.}
+searched term and other word, default is `NULL`. Note, the threshold is
+applied before normalisation.}
+
+\item{norm}{The method for normalising the data. Valid settings are
+`'number_words'` (the number of words in the responses, default),
+`'number_resp'` (the number of responses), or `NULL` (raw count returned).}
 
 \item{pos_filter}{List of UPOS tags for inclusion, default is `NULL` to
 include all UPOS tags.}
@@ -30,5 +41,5 @@ together in an frequently-occurring n-gram containing a concept term
 q11_1_edges <- fst_cn_edges(conllu_dev_q11_1_nltk, 'elintaso, köyhä, ihminen', threshold = 3)
 q11_2_edges <- fst_cn_edges(conllu_dev_q11_2_nltk, "kehitysmaa, auttaa, pyrkiä, maa, ihminen", threshold = 5)
 q11_3_edges <- fst_cn_edges(conllu_dev_q11_3_nltk, "köyhyys, nälänhätä, sota, ilmastonmuutos, puute", threshold = 2)
-bullying_edges <-fst_cn_edges(conllu_bullying_iso, 'kiusata, lyöminen', pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+bullying_edges <-fst_cn_edges(conllu_cb_bullying_iso, 'kiusata, lyöminen', pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
 }

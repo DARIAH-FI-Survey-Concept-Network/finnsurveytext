@@ -3,10 +3,10 @@ Package: finnsurveytext
 Title: Analyse Open-ended Survey Responses in Finnish
 Version: 0.1.0
 Authors@R: c(
-    person("Adeline", "Clarke", , "adelinepclarke@gmail.com", role = c("cre", "aut")),
-    person("Maria", "Valaste", , "maria.valaste@helsinki.fi", role = "ctb"),
-    person("Matti", "Nelimarkka", , "matti.nelimarkka@helsinki.fi", role = "ctb"),
-    person("Joni", "Oksanen", "joni.oksanen@helsinki.fi", role = "aut")
+    person("Adeline", "Clarke", , email = "adelinepclarke@gmail.com", role = c("cre", "aut")),
+    person("Maria", "Valaste", , email = "maria.valaste@helsinki.fi", role = "ctb"),
+    person("Matti", "Nelimarkka", , email = "matti.nelimarkka@helsinki.fi", role = "ctb"),
+    person("Joni", "Oksanen", , email = "joni.oksanen@helsinki.fi", role = "aut")
   )
 Description: Annotates Finnish textual survey responses into CoNLL-U
     format and analyses data using n-gram plots, wordclouds,

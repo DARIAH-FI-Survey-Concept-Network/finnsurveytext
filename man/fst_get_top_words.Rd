@@ -4,12 +4,22 @@
 \alias{fst_get_top_words}
 \title{Make Top Words Table}
 \usage{
-fst_get_top_words(data, number = 10, pos_filter = NULL, strict = TRUE)
+fst_get_top_words(
+  data,
+  number = 10,
+  norm = "number_words",
+  pos_filter = NULL,
+  strict = TRUE
+)
 }
 \arguments{
 \item{data}{A dataframe of text in CoNLL-U format.}
 
 \item{number}{The number of top words to return, default is `10`.}
+
+\item{norm}{The method for normalising the data. Valid settings are
+`'number_words'` (the number of words in the responses, default),
+`'number_resp'` (the number of responses), or `NULL` (raw count returned).}
 
 \item{pos_filter}{List of UPOS tags for inclusion, default is `NULL` which
 means all word types included}
@@ -25,10 +35,7 @@ Creates a table of the most frequently-occurring words (unigrams) within the
 data.
 }
 \examples{
-fst_get_top_words(conllu_dev_q11_1_nltk, number = 15)
+fst_get_top_words(conllu_dev_q11_1_nltk, number = 15, norm = NULL)
 fst_get_top_words(conllu_dev_q11_1_nltk, number = 15, strict = FALSE)
-top_bullying_words <- fst_get_top_words(conllu_bullying, number = 15, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
-top_f <- fst_get_top_words(conllu_f_nltk, number = 15)
-top_m <- fst_get_top_words(conllu_m_nltk, number = 15)
-top_na <- fst_get_top_words(conllu_na_nltk, number = 15)
+top_bullying_words <- fst_get_top_words(conllu_cb_bullying, number = 5, norm = 'number_resp', pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
 }

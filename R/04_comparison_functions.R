@@ -511,7 +511,7 @@ fst_length_compare <- function(data1, data2, data3 = NULL, data4 = NULL, name1 =
 #'
 #' @examples
 #' fst_comparison_cloud(conllu_dev_q11_1_nltk, conllu_dev_q11_2_nltk, conllu_dev_q11_3_nltk, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
-#' fst_comparison_cloud(conllu_bullying_iso, conllu_dev_q11_1_nltk, conllu_dev_q11_2_nltk, conllu_dev_q11_3_nltk,max = 400)
+#' fst_comparison_cloud(conllu_cb_bullying_iso, conllu_dev_q11_1_nltk, conllu_dev_q11_2_nltk, conllu_dev_q11_3_nltk,max = 400)
 #' fst_comparison_cloud(conllu_dev_q11_1_f_nltk, conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_na_nltk, name1 = 'Female', name2 = 'Male', name3 = 'NA', max = 400)
 #' fst_comparison_cloud(conllu_dev_q11_1_f_nltk, conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_na_nltk, name1 = 'Female', name2 = 'Male', name3 = 'NA', max = 200)
 fst_comparison_cloud <- function(data1, data2, data3 = NULL, data4 = NULL, name1 = "Group 1", name2 = "Group 2", name3 = "Group 3", name4 = "Group 4", pos_filter = NULL, max = 100){

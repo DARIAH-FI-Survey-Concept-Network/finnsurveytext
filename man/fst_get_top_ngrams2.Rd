@@ -8,6 +8,7 @@ fst_get_top_ngrams2(
   data,
   number = 10,
   ngrams = 1,
+  norm = "number_words",
   pos_filter = NULL,
   strict = TRUE
 )
@@ -18,6 +19,10 @@ fst_get_top_ngrams2(
 \item{number}{The number of n-grams to return, default is `10`.}
 
 \item{ngrams}{The type of n-grams to return, default is `1`.}
+
+\item{norm}{The method for normalising the data. Valid settings are
+`'number_words'` (the number of words in the responses, default),
+`'number_resp'` (the number of responses), or `NULL` (raw count returned).}
 
 \item{pos_filter}{List of UPOS tags for inclusion, default is `NULL` which
 means all word types included}

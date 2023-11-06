@@ -9,7 +9,7 @@
 #' @export
 #'
 #' @examples
-#' bullying_summary <- fst_summarise_short(conllu_bullying_iso)
+#' bullying_summary <- fst_summarise_short(conllu_cb_bullying_iso)
 #' q11_1_summary <- fst_summarise_short(conllu_dev_q11_1_nltk)
 #' fst_summarise_short(conllu_dev_q11_2_nltk)
 fst_summarise_short <- function(data) {
@@ -62,7 +62,7 @@ fst_summarise <- function(data, desc = 'All respondents') {
 #' @export
 #'
 #' @examples
-#' bullying_pos_table <- fst_pos(conllu_bullying_iso)
+#' bullying_pos_table <- fst_pos(conllu_cb_bullying_iso)
 #' q11_3_pos_table <- fst_pos(conllu_dev_q11_3_nltk)
 #' fst_pos(conllu_dev_q11_1_snow)
 fst_pos <- function(data) {
@@ -159,7 +159,7 @@ fst_length_summary <- function(data, desc = NULL, incl_sentences = TRUE) {
 #' @examples
 #' fst_get_top_words(conllu_dev_q11_1_nltk, number = 15, norm = NULL)
 #' fst_get_top_words(conllu_dev_q11_1_nltk, number = 15, strict = FALSE)
-#' top_bullying_words <- fst_get_top_words(conllu_bullying, number = 5, norm = 'number_resp', pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+#' top_bullying_words <- fst_get_top_words(conllu_cb_bullying, number = 5, norm = 'number_resp', pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
 fst_get_top_words <- function(data,
                               number = 10,
                               norm = 'number_words',
@@ -225,7 +225,7 @@ fst_get_top_words <- function(data,
 #' @examples
 #' q11_1_ngrams <- fst_get_top_ngrams(conllu_dev_q11_1_nltk, norm = NULL)
 #' fst_get_top_ngrams(conllu_dev_q11_1_nltk, number = 10, ngrams = 1, norm = 'number_resp')
-#' top_bullying_ngrams <- fst_get_top_ngrams(conllu_bullying, number = 15, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+#' top_bullying_ngrams <- fst_get_top_ngrams(conllu_cb_bullying, number = 15, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
 fst_get_top_ngrams <- function(data, number = 10, ngrams = 1, norm = 'number_words', pos_filter = NULL, strict = TRUE){
   with_ties = !strict
   if (strict == TRUE) {
@@ -486,8 +486,8 @@ fst_ngrams <- function(data,
 #' @export
 #'
 #' @examples
-#' fst_wordcloud(conllu_bullying_iso)
-#' fst_wordcloud(conllu_bullying_iso, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+#' fst_wordcloud(conllu_cb_bullying_iso)
+#' fst_wordcloud(conllu_cb_bullying_iso, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
 #' fst_wordcloud(conllu_dev_q11_1_snow, pos_filter = "VERB", max = 50)
 fst_wordcloud <- function(data, pos_filter = NULL, max = 100){
   if (!is.null(pos_filter)) {

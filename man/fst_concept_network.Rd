@@ -8,6 +8,7 @@ fst_concept_network(
   data,
   concepts,
   threshold = NULL,
+  norm = "number_words",
   pos_filter = NULL,
   title = NULL
 )
@@ -18,7 +19,12 @@ fst_concept_network(
 \item{concepts}{List of terms to search for, separated by commas.}
 
 \item{threshold}{A minimum number of occurrences threshold for 'edge' between
-searched term and other word, default is `NULL`.}
+searched term and other word, default is `NULL`. Note, the threshold is
+applied before normalisation.}
+
+\item{norm}{The method for normalising the data. Valid settings are
+`'number_words'` (the number of words in the responses, default),
+`'number_resp'` (the number of responses), or `NULL` (raw count returned).}
 
 \item{pos_filter}{List of UPOS tags for inclusion, default is `NULL` to
 include all UPOS tags.}
@@ -36,5 +42,5 @@ Concept Network - Make Concept Network plot
 fst_concept_network(conllu_dev_q11_3, concepts = "köyhyys, puute")
 fst_concept_network(conllu_dev_q11_3, concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute")
 fst_concept_network(conllu_dev_q11_3, concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute", threshold = 3)
-fst_concept_network(conllu_bullying_iso, concepts = 'kiusata, lyöminen', pos_filter = c("NOUN", "VERB", "ADJ", "ADV"), title = 'Bullying Concept Network')
+fst_concept_network(conllu_cb_bullying_iso, concepts = 'kiusata, lyöminen', pos_filter = c("NOUN", "VERB", "ADJ", "ADV"), title = 'Bullying Concept Network')
 }

@@ -3,7 +3,7 @@
 \docType{data}
 \name{dev_data}
 \alias{dev_data}
-\title{Development Cooperation response data}
+\title{Young People's Views on Development Cooperation 2012 response data}
 \format{
 ## `dev_data`
 A dataframe with 925 rows and 4 columns:

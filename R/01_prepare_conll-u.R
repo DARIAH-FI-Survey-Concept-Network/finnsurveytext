@@ -15,7 +15,7 @@
 #' conllu_dev_q11_1 <- fst_format_conllu(data = dev_data, field = "q11_1")
 #' conllu_dev_q11_2 <- fst_format_conllu(data = dev_data, field = "q11_2")
 #' conllu_dev_q11_3 <- fst_format_conllu(data = dev_data, field = "q11_3")
-#' conllu_bullying <- fst_format_conllu(data = bullying_data, field = "q7", model = "tdt")
+#' conllu_cb_bullying <- fst_format_conllu(data = child_barometer_data, field = "q7", model = "tdt")
 fst_format_conllu <- function(data, field, model = "ftb") {
   data <- data %>%
     dplyr::mutate(new_col = trimws(.data[[field]])) %>%
@@ -79,7 +79,7 @@ fst_find_stopwords <- function() {
 #' conllu_dev_q11_2_nltk <- fst_rm_stop_punct(conllu_dev_q11_2)
 #' conllu_dev_q11_3_nltk <- fst_rm_stop_punct(conllu_dev_q11_3)
 #' conllu_dev_q11_1_snow <- fst_rm_stop_punct(conllu_dev_q11_1, stopword_list = 'snowball')
-#' conllu_bullying_iso <- fst_rm_stop_punct(conllu_bullying, 'stopwords-iso')
+#' conllu_cb_bullying_iso <- fst_rm_stop_punct(conllu_cb_bullying, 'stopwords-iso')
 fst_rm_stop_punct <- function(data, stopword_list = "nltk") {
   swords <- stopwords::stopwords("fi", stopword_list)
   output <- data %>%
@@ -106,7 +106,7 @@ fst_rm_stop_punct <- function(data, stopword_list = "nltk") {
 #' @export
 #'
 #' @examples
-#' prepd_bullying_iso <- fst_prepare_conllu(data = bullying_data, field = "q7", stopword_list = "stopwords-iso")
+#' prepd_bullying_iso <- fst_prepare_conllu(data = child_barometer_data, field = "q7", stopword_list = "stopwords-iso")
 #' prepd_dev_q11_2_snow <- fst_prepare_conllu(data = dev_data, field = "q11_2", stopword_list = "snowball")
 #' conllu_dev_q11_1_f_nltk <- fst_prepare_conllu(data = dev_data_f, field = "q11_1", stopword_list = "nltk")
 fst_prepare_conllu <- function(data,

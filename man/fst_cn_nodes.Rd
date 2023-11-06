@@ -24,5 +24,5 @@ Concept Network - Get textrank nodes
 q11_1_nodes <- fst_cn_nodes(conllu_dev_q11_1_nltk, q11_1_edges)
 q11_2_nodes <- fst_cn_nodes(conllu_dev_q11_2_nltk, q11_2_edges)
 q11_3_nodes <- fst_cn_nodes(conllu_dev_q11_3_nltk, q11_3_edges)
-bullying_nodes <- fst_cn_nodes(conllu_bullying_iso, bullying_edges, c("NOUN", "VERB", "ADJ", "ADV"))
+bullying_nodes <- fst_cn_nodes(conllu_cb_bullying_iso, bullying_edges, c("NOUN", "VERB", "ADJ", "ADV"))
 }

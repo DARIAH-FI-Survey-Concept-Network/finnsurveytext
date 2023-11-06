@@ -4,12 +4,23 @@
 \alias{fst_freq}
 \title{Find and Plot Top Words}
 \usage{
-fst_freq(data, number = 10, pos_filter = NULL, strict = TRUE, name = NULL)
+fst_freq(
+  data,
+  number = 10,
+  norm = "number_words",
+  pos_filter = NULL,
+  strict = TRUE,
+  name = NULL
+)
 }
 \arguments{
 \item{data}{A dataframe of text in CoNLL-U format.}
 
 \item{number}{The number of top words to return, default is `10`.}
+
+\item{norm}{The method for normalising the data. Valid settings are
+`'number_words'` (the number of words in the responses, default),
+`'number_resp'` (the number of responses), or `NULL` (raw count returned).}
 
 \item{pos_filter}{List of UPOS tags for inclusion, default is `NULL` which
 means all word types included}
@@ -27,6 +38,6 @@ Creates a plot of the most frequently-occurring words (unigrams) within the
 data.
 }
 \examples{
-fst_freq(conllu_dev_q11_1, number = 12, strict = FALSE, name = "All")
+fst_freq(conllu_dev_q11_1, number = 12, norm = 'number_resp', strict = FALSE, name = "All")
 fst_freq(conllu_dev_q11_1_na, number = 15, name = "Not Spec")
 }

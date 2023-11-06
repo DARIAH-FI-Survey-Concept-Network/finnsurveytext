@@ -45,9 +45,9 @@ library(finnsurveytext)
 
 There are two sets of data files available within the package which could be used in this tutorial. These files have been created following the process demonstrated in Tutorial 1. The suffixes 'iso', 'nltk' and 'snow' refer to the stopword list used within the preparation activities. 
 
-### 1. Bullying Data
-* data/conllu_bullying.rda
-* data/conllu_bullying_iso.rda
+### 1. Child Barometer Data
+* data/conllu_cb_bullying.rda
+* data/conllu_cb_bullying_iso.rda
 
 ### 2. Development Cooperation Data
 * data/conllu_dev_q11_1.rda
@@ -61,7 +61,7 @@ There are two sets of data files available within the package which could be use
 You can read these in as follows: 
 
 ```{r}
-bullying <- conllu_bullying_iso
+bullying <- conllu_cb_bullying_iso
 knitr::kable(head(bullying))
 q11_1 <- conllu_dev_q11_1_nltk
 ```

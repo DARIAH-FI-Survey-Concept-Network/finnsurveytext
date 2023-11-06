@@ -9,7 +9,8 @@ fst_length_summary(data, desc = NULL, incl_sentences = TRUE)
 \arguments{
 \item{desc}{An optional string describing respondents, default is `NULL`}
 
-\item{incl_sentences}{Whether to include sentence data in table, default is `TRUE`}
+\item{incl_sentences}{Whether to include sentence data in table, default is
+`TRUE`}
 
 \item{dataA}{dataframe of text in CoNLL-U format.}
 }

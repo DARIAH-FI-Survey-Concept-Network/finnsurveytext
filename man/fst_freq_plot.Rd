@@ -9,7 +9,7 @@ fst_freq_plot(table, number = NULL, name = NULL)
 \arguments{
 \item{table}{Output of `fst_get_top_words` or `fst_get_top_ngrams`}
 
-\item{number}{The number of n-grams, default is `10`.}
+\item{number}{Optional number of n-grams for the title, default is `NULL`.}
 
 \item{name}{An optional "name" for the plot to add to title, default is `NULL`}
 }
@@ -20,7 +20,6 @@ Plot of top words.
 Plots most common words.
 }
 \examples{
-fst_freq_plot(top_f, number = 15, name = 'Female')
-fst_freq_plot(top_m)
-fst_freq_plot(top_na, number = 15)
+fst_freq_plot(top_bullying_words, number = 5, name = 'Bullying')
+fst_freq_plot(q11_1_ngrams)
 }

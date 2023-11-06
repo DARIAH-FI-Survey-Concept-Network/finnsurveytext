@@ -37,7 +37,7 @@
 #'   \item{misc}{Any other annotation.}
 #' }
 #' @source <https://urn.fi/urn:nbn:fi:fsd:T-FSD3134>
-"conllu_bullying"
+"conllu_cb_bullying"
 
 #' Child Barometer 2016 Bullying response data in CoNLL-U format with ISO stopwords removed
 #'
@@ -64,7 +64,7 @@
 #'   \item{misc}{Any other annotation.}
 #' }
 #' @source <https://urn.fi/urn:nbn:fi:fsd:T-FSD3134>
-"conllu_bullying_iso"
+"conllu_cb_bullying_iso"
 
 #' Young People's Views on Development Cooperation 2012 response data
 #'

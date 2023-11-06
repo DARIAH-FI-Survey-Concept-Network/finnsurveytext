@@ -26,5 +26,5 @@ and, using `textrank_keywords` from `textrank` package, filters data based on
 q11_1_concepts <- fst_cn_search(conllu_dev_q11_1_nltk, "elintaso, köyhä, ihminen")
 q11_2_concepts <- fst_cn_search(conllu_dev_q11_2_nltk, "kehitysmaa, auttaa, pyrkiä", pos_filter = c("NOUN", "ADV", "ADJ"))
 q11_3_concepts <- fst_cn_search(conllu_dev_q11_3_nltk, "köyhyys, nälänhätä, sota, ilmastonmuutos, puute", pos_filter = "NOUN")
-bullying_concepts <- fst_cn_search(conllu_bullying_iso, 'kiusata, lyöminen, lyödä, potkia', pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+bullying_concepts <- fst_cn_search(conllu_cb_bullying_iso, 'kiusata, lyöminen, lyödä, potkia', pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
 }

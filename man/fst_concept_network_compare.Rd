@@ -15,6 +15,7 @@ fst_concept_network_compare(
   name3 = "Group 3",
   name4 = "Group 4",
   concepts,
+  norm = "number_words",
   threshold = NULL
 )
 }
@@ -43,6 +44,10 @@ means all word types included}
 \item{name4}{A string describing data4, default is `Group 4`}
 
 \item{concepts}{List of terms to search for, separated by commas.}
+
+\item{norm}{The method for normalising the data. Valid settings are
+`'number_words'` (the number of words in the responses, default),
+`'number_resp'` (the number of responses), or `NULL` (raw count returned).}
 
 \item{threshold}{A minimum number of occurrences threshold for 'edge' between
 searched term and other word, default is `NULL`.}

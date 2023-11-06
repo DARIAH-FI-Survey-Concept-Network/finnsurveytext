@@ -2,7 +2,7 @@
 % Please edit documentation in R/04_comparison_functions.R
 \name{fst_join_unique}
 \alias{fst_join_unique}
-\title{Merge Nn-grams table with unique words}
+\title{Merge N-grams table with unique words}
 \usage{
 fst_join_unique(table, unique_table)
 }

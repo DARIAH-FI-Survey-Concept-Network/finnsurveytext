@@ -25,5 +25,5 @@ using the [udpipe] package and a Finnish language model
 conllu_dev_q11_1 <- fst_format_conllu(data = dev_data, field = "q11_1")
 conllu_dev_q11_2 <- fst_format_conllu(data = dev_data, field = "q11_2")
 conllu_dev_q11_3 <- fst_format_conllu(data = dev_data, field = "q11_3")
-conllu_bullying <- fst_format_conllu(data = bullying_data, field = "q7", model = "tdt")
+conllu_cb_bullying <- fst_format_conllu(data = child_barometer_data, field = "q7", model = "tdt")
 }

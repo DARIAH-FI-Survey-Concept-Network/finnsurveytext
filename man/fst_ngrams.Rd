@@ -8,6 +8,7 @@ fst_ngrams(
   data,
   number = 10,
   ngrams = 1,
+  norm = "number_words",
   pos_filter = NULL,
   strict = TRUE,
   name = NULL
@@ -19,6 +20,10 @@ fst_ngrams(
 \item{number}{The number of top words to return, default is `10`.}
 
 \item{ngrams}{The type of n-grams, default is `1`.}
+
+\item{norm}{The method for normalising the data. Valid settings are
+`'number_words'` (the number of words in the responses, default),
+`'number_resp'` (the number of responses), or `NULL` (raw count returned).}
 
 \item{pos_filter}{List of UPOS tags for inclusion, default is `NULL` which
 means all word types included}
@@ -36,6 +41,6 @@ Creates a plot of the most frequently-occurring n-grams within the
 data.
 }
 \examples{
-fst_ngrams(conllu_dev_q11_1, number = 12, ngrams = 2, strict = FALSE, name = "All")
+fst_ngrams(conllu_dev_q11_1, number = 12, ngrams = 2, norm = NULL, strict = FALSE, name = "All")
 fst_ngrams(conllu_dev_q11_1_na, number = 15, ngrams = 3, name = "Not Spec")
 }
