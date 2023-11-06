@@ -10,8 +10,8 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>", 
-  fig.width=8, fig.height=6
+  comment = "#>",
+  fig.width = 8, fig.height = 6
 )
 ```
 
@@ -81,25 +81,27 @@ First, we will look at some summary functions to compare the responses overall. 
 #### Make Comparison Summary
 Consider the definition of `fst_summarise_compare`:
 ```{r eval=FALSE}
-fst_summarise_compare <- function(data1, 
-                                  data2, 
-                                  data3 = NULL, 
-                                  data4 = NULL, 
-                                  desc1 = "Group 1", 
-                                  desc2 = "Group 2", 
-                                  desc3 = "Group 3", 
-                                  desc4 = "Group 4")
+# fst_summarise_compare <- function(data1,
+#                                   data2,
+#                                   data3 = NULL,
+#                                   data4 = NULL,
+#                                   desc1 = "Group 1",
+#                                   desc2 = "Group 2",
+#                                   desc3 = "Group 3",
+#                                   desc4 = "Group 4")
 ```
 
 We can run this function for our data: 
 (we use `knitr::kable` function below to display results in a "prettier" table)
 ```{r}
 knitr::kable(
-  fst_summarise_compare(data1 = all, name1 = 'All', 
-                      data2 = female, name2 = 'Female', 
-                      data3 = male, name3 = 'Male', 
-                      data4 = na, name4 = 'Unspecified')
+  fst_summarise_compare(
+    data1 = all, name1 = "All",
+    data2 = female, name2 = "Female",
+    data3 = male, name3 = "Male",
+    data4 = na, name4 = "Unspecified"
   )
+)
 ```
 
 We can already see that our data is quite unbalanced. There are a lot more female respondents than male or unspecified. The response (to this question) rate is high (97%) but slightly lower for the unspecified respondents. Unsurprisingly, since there are more female responses, the female responses to this question contain a larger variety of words. 
@@ -108,40 +110,44 @@ Next, we will look at part-of-speech tags and lengths of responses.
 
 Consider the definition of `fst_pos_compare` and `fst_length_compare`:
 ```{r eval=FALSE}
-fst_pos_compare <- function(data1, 
-                            data2, 
-                            data3 = NULL, 
-                            data4 = NULL, 
-                            name1 = "Group 1", 
-                            name2 = "Group 2", 
-                            name3 = "Group 3", 
-                            name4 = "Group 4")
-
-fst_length_compare <- function(data1, 
-                               data2, 
-                               data3 = NULL, 
-                               data4 = NULL, 
-                               name1 = "Group 1", 
-                               name2 = "Group 2", 
-                               name3 = "Group 3", 
-                               name4 = "Group 4", 
-                               incl_sentences = TRUE) 
+# fst_pos_compare <- function(data1,
+#                             data2,
+#                             data3 = NULL,
+#                             data4 = NULL,
+#                             name1 = "Group 1",
+#                             name2 = "Group 2",
+#                             name3 = "Group 3",
+#                             name4 = "Group 4")
+#
+# fst_length_compare <- function(data1,
+#                                data2,
+#                                data3 = NULL,
+#                                data4 = NULL,
+#                                name1 = "Group 1",
+#                                name2 = "Group 2",
+#                                name3 = "Group 3",
+#                                name4 = "Group 4",
+#                                incl_sentences = TRUE)
 ```
 
 We run the functions to look further into the differences between the respondent types. 
 ```{r}
 knitr::kable(
-  fst_pos_compare(data1 = all, name1 = 'All', 
-                      data2 = female, name2 = 'Female', 
-                      data3 = male, name3 = 'Male', 
-                      data4 = na, name4 = 'Unspecified')
+  fst_pos_compare(
+    data1 = all, name1 = "All",
+    data2 = female, name2 = "Female",
+    data3 = male, name3 = "Male",
+    data4 = na, name4 = "Unspecified"
+  )
 )
 
 knitr::kable(
-  fst_length_compare(data1 = all, name1 = 'All',
-                      data2 = female, name2 = 'Female',
-                      data3 = male, name3 = 'Male',
-                      data4 = na, name4 = 'Unspecified')
+  fst_length_compare(
+    data1 = all, name1 = "All",
+    data2 = female, name2 = "Female",
+    data3 = male, name3 = "Male",
+    data4 = na, name4 = "Unspecified"
+  )
 )
 ```
 
@@ -153,24 +159,26 @@ Now that we've looked at the overview comparisons, we will create a comparison c
 
 Consider the definition of `fst_comparisoncloud`:
 ```{r eval=FALSE}
-fst_comparisoncloud <- function(data1, 
-                                data2, 
-                                data3 = NULL, 
-                                data4 = NULL, 
-                                name1 = "Group 1", 
-                                name2 = "Group 2", 
-                                name3 = "Group 3", 
-                                name4 = "Group 4", 
-                                pos_filter = NULL, 
-                                max = 100)
+# fst_comparisoncloud(data1,
+#                     data2,
+#                     data3 = NULL,
+#                     data4 = NULL,
+#                     name1 = "Group 1",
+#                     name2 = "Group 2",
+#                     name3 = "Group 3",
+#                     name4 = "Group 4",
+#                     pos_filter = NULL,
+#                     max = 100)
 ```
 
 We create our comparison cloud as follows: 
 ```{r}
-fst_comparison_cloud(data1 = female, name1 = 'Female', 
-                    data2 = male, name2 = 'Male', 
-                    data3 = na, name3 = 'Unspecified', 
-                    max = 50)
+fst_comparison_cloud(
+  data1 = female, name1 = "Female",
+  data2 = male, name2 = "Male",
+  data3 = na, name3 = "Unspecified",
+  max = 50
+)
 ```
 
 A comparison cloud compares the relative frequency with which a term is used in two or more documents. This cloud shows words that occur more regularly in responses from a specific type of respondent. For more information about comparison clouds, you can read [this documentation](https://cran.r-project.org/web/packages/wordcloud/wordcloud.pdf). 
@@ -183,34 +191,36 @@ Now, we will look at common words occurring in the responses.
 Consider first the definition of `fst_get_top_words` and `fst_get_top_ngrams`:
 
 ```{r eval=FALSE}
-fst_get_top_words <- function(data, 
-                              number = 10, 
-                              norm = 'number_words', 
-                              pos_filter = NULL, 
-                              strict = TRUE)
-  
-fst_get_top_ngrams <- function(data, 
-                               number = 10, 
-                               ngrams = 1, 
-                               norm = 'number_words', 
-                               pos_filter = NULL, strict = TRUE)
+# fst_get_top_words <- function(data,
+#                               number = 10,
+#                               norm = 'number_words',
+#                               pos_filter = NULL,
+#                               strict = TRUE)
+#
+# fst_get_top_ngrams <- function(data,
+#                                number = 10,
+#                                ngrams = 1,
+#                                norm = 'number_words',
+#                                pos_filter = NULL, strict = TRUE)
 ```
 
 
 First, we will consider all the responses for this question. We are not filtering the data based on POS tag, and will leave the default of `strict = TRUE` which will cut-off the list at 10 words (see the warning note about this). We also use the default for the norm which means we are standardising between groups by dividing count of a word by the total number of words in the responses. 
 
 ```{r}
-all_top10 <- fst_get_top_words(all_nltk, 
-                               number = 10, 
-                               norm = 'number_words',
-                               pos_filter = NULL, 
-                               strict = FALSE)
-all_top10bigrams <- fst_get_top_ngrams(all_nltk, 
-                                       number = 10, 
-                                       ngrams = 2, 
-                                       norm = 'number_words',
-                                       pos_filter = NULL, 
-                                       strict = TRUE)
+all_top10 <- fst_get_top_words(all_nltk,
+  number = 10,
+  norm = "number_words",
+  pos_filter = NULL,
+  strict = FALSE
+)
+all_top10bigrams <- fst_get_top_ngrams(all_nltk,
+  number = 10,
+  ngrams = 2,
+  norm = "number_words",
+  pos_filter = NULL,
+  strict = TRUE
+)
 
 knitr::kable(all_top10)
 knitr::kable(all_top10bigrams)
@@ -218,25 +228,28 @@ knitr::kable(all_top10bigrams)
 
 Now we will look at top words by gender: 
 ```{r}
-female_top10 <- fst_get_top_words(female_nltk, 
-                                  number = 10, 
-                                  norm = 'number_words',
-                                  pos_filter = NULL, 
-                                  strict = TRUE)
+female_top10 <- fst_get_top_words(female_nltk,
+  number = 10,
+  norm = "number_words",
+  pos_filter = NULL,
+  strict = TRUE
+)
 knitr::kable(female_top10)
 
-male_top10 <- fst_get_top_words(male_nltk, 
-                               number = 10, 
-                               norm = 'number_words',
-                               pos_filter = NULL, 
-                               strict = TRUE)
+male_top10 <- fst_get_top_words(male_nltk,
+  number = 10,
+  norm = "number_words",
+  pos_filter = NULL,
+  strict = TRUE
+)
 knitr::kable(male_top10)
 
-na_top10 <- fst_get_top_words(na_nltk, 
-                              number = 10, 
-                              norm = 'number_words',
-                              pos_filter = NULL, 
-                              strict = TRUE)
+na_top10 <- fst_get_top_words(na_nltk,
+  number = 10,
+  norm = "number_words",
+  pos_filter = NULL,
+  strict = TRUE
+)
 knitr::kable(na_top10)
 ```
 
@@ -244,58 +257,65 @@ As you can see, the top words are very similar across all respondent types.
 
 This is further shown in the plots. (Note that words that are unique to a gender are highlighted in red. This is only comparing the top 10 words, so be aware this word likely still appears in the other genders, just less frequently!)
 ```{r}
-fst_freq_compare(data1 = female_nltk, name1 = 'Female',
-                 data2 = male_nltk, name2 = 'Male', 
-                 data3 = na_nltk, name3 = 'Unspecified',
-                 number = 10, 
-                 norm = 'number_words',
-                 pos_filter = NULL,
-                 unique_colour = 'indianred', 
-                 strict = TRUE)
+fst_freq_compare(
+  data1 = female_nltk, name1 = "Female",
+  data2 = male_nltk, name2 = "Male",
+  data3 = na_nltk, name3 = "Unspecified",
+  number = 10,
+  norm = "number_words",
+  pos_filter = NULL,
+  unique_colour = "indianred",
+  strict = TRUE
+)
 
-fst_ngrams_compare(data1 = female_nltk, name1 = 'Female',
-                 data2 = male_nltk, name2 = 'Male',
-                 data3 = na_nltk, name3 = 'Unspecified',
-                 number = 10,
-                 ngrams = 2,
-                 norm = 'number_words',
-                 pos_filter = NULL,
-                 unique_colour = 'indianred', 
-                 strict = TRUE)
+fst_ngrams_compare(
+  data1 = female_nltk, name1 = "Female",
+  data2 = male_nltk, name2 = "Male",
+  data3 = na_nltk, name3 = "Unspecified",
+  number = 10,
+  ngrams = 2,
+  norm = "number_words",
+  pos_filter = NULL,
+  unique_colour = "indianred",
+  strict = TRUE
+)
 ```
 
 Now, we might want to compare this to the overall results. Since, `fst_freq_compare` looks for unique words among all the sets provided, and we only want to look for unique words within the gender-specific sets, we need to run this activity through the component functions. (Just for fun, let's also changed the colour of the unique words.)
 
 ```{r}
-unique <- fst_get_unique_ngrams(female_top10, male_top10, na_top10) 
+unique <- fst_get_unique_ngrams(female_top10, male_top10, na_top10)
 
 female_top10u <- fst_join_unique(female_top10, unique)
 male_top10u <- fst_join_unique(male_top10, unique)
 na_top10u <- fst_join_unique(na_top10, unique)
 
-plot_all <- fst_freq_plot(all_top10, number = 10, name = 'All')
-plot_f <- fst_ngrams_compare_plot(female_top10u, 
-                                  ngrams = 1, 
-                                  number = 10, 
-                                  override_title = 'Female', 
-                                  unique_colour = 'purple')
-plot_m <- fst_ngrams_compare_plot(male_top10u, 
-                                  ngrams = 1, 
-                                  number = 10, 
-                                  override_title = 'Male', 
-                                  unique_colour = 'magenta')
-plot_na <- fst_ngrams_compare_plot(na_top10u, 
-                                   ngrams = 1, 
-                                   number = 10, 
-                                   override_title = 'Unspecified', 
-                                   unique_colour = 'aquamarine')
+plot_all <- fst_freq_plot(all_top10, number = 10, name = "All")
+plot_f <- fst_ngrams_compare_plot(female_top10u,
+  ngrams = 1,
+  number = 10,
+  override_title = "Female",
+  unique_colour = "purple"
+)
+plot_m <- fst_ngrams_compare_plot(male_top10u,
+  ngrams = 1,
+  number = 10,
+  override_title = "Male",
+  unique_colour = "magenta"
+)
+plot_na <- fst_ngrams_compare_plot(na_top10u,
+  ngrams = 1,
+  number = 10,
+  override_title = "Unspecified",
+  unique_colour = "aquamarine"
+)
 
-fst_plot_multiple(plot_all, 
-                  plot_f, 
-                  plot_m, 
-                  plot_na, 
-                  main_title = 'Top Words By Gender')
-
+fst_plot_multiple(plot_all,
+  plot_f,
+  plot_m,
+  plot_na,
+  main_title = "Top Words By Gender"
+)
 ```
 
 
@@ -304,26 +324,28 @@ Since the top 3 words are 'kehitysmaa', 'auttaa', and 'pyrkiä', we will create 
 The comparison concept network function is defined as follows: 
 
 ```{r eval=FALSE}
-fst_concept_network_compare <- function(data1, 
-                                        data2, 
-                                        data3 = NULL, 
-                                        data4 = NULL, 
-                                        pos_filter = NULL, 
-                                        name1 = "Group 1", 
-                                        name2 = "Group 2", 
-                                        name3 = "Group 3", 
-                                        name4 = "Group 4", 
-                                        concepts, 
-                                        norm = 'number_words', 
-                                        threshold = NULL)
+# fst_concept_network_compare <- function(data1,
+#                                         data2,
+#                                         data3 = NULL,
+#                                         data4 = NULL,
+#                                         pos_filter = NULL,
+#                                         name1 = "Group 1",
+#                                         name2 = "Group 2",
+#                                         name3 = "Group 3",
+#                                         name4 = "Group 4",
+#                                         concepts,
+#                                         norm = 'number_words',
+#                                         threshold = NULL)
 ```
 
 We run it as below. Again, we're keeping the default norm. 
 ```{r}
-fst_concept_network_compare(data1 = female_nltk, name1 = 'Female',
-                            data2 = male_nltk, name2 = 'Male', 
-                            data3 = na_nltk, name3 = 'Unspecified',  
-                            concepts = "kehitysmaa, auttaa, pyrkiä")
+fst_concept_network_compare(
+  data1 = female_nltk, name1 = "Female",
+  data2 = male_nltk, name2 = "Male",
+  data3 = na_nltk, name3 = "Unspecified",
+  concepts = "kehitysmaa, auttaa, pyrkiä"
+)
 ```
 
 As you can see, this can result in a plot that is too busy (especially in the markdown format where we've limited the size of the plots). 
@@ -331,23 +353,27 @@ As you can see, this can result in a plot that is too busy (especially in the ma
 Let's try again with just male and female data. 
 
 ```{r}
-fst_concept_network_compare(data1 = female_nltk, name1 = 'Female',
-                            data2 = male_nltk, name2 = 'Male', 
-                            concepts = "kehitysmaa, auttaa, pyrkiä")
+fst_concept_network_compare(
+  data1 = female_nltk, name1 = "Female",
+  data2 = male_nltk, name2 = "Male",
+  concepts = "kehitysmaa, auttaa, pyrkiä"
+)
 ```
 
 Each of these Concept Networks are created separately, which means that the weights of words are based only on the responses within that gender. Despite this, we have many more words in the female plot (possibly due to there being more responses in this data leading to increased variation). Below, we will run the female with stricter thresholds. (Note, the threshold works on the RAW count of co-occurences between words, not on the normalised co-occurrence value). 
 
 ```{r}
 fst_concept_network(female_nltk,
-                    concepts = "kehitysmaa, auttaa, pyrkiä",
-                    threshold = NULL, 
-                    title = "No Threshold")
+  concepts = "kehitysmaa, auttaa, pyrkiä",
+  threshold = NULL,
+  title = "No Threshold"
+)
 
 fst_concept_network(female_nltk,
-                    concepts = "kehitysmaa, auttaa, pyrkiä",
-                    threshold = 5,
-                    title = "Threshold = 5")
+  concepts = "kehitysmaa, auttaa, pyrkiä",
+  threshold = 5,
+  title = "Threshold = 5"
+)
 ```
 
 
@@ -363,18 +389,19 @@ male_nodes <- fst_cn_nodes(male_nltk, male_edges)
 
 unique2 <- fst_cn_get_unique(female_nodes, male_nodes)
 
-female_cn <- fst_cn_compare_plot(female_edges, female_nodes, concepts, 
-                    unique_lemmas = unique2, 
-                    name = "Female",
-                    concept_colour = "red", unique_colour = "purple")
+female_cn <- fst_cn_compare_plot(female_edges, female_nodes, concepts,
+  unique_lemmas = unique2,
+  name = "Female",
+  concept_colour = "red", unique_colour = "purple"
+)
 
-male_cn <- fst_cn_compare_plot(male_edges, male_nodes, concepts, 
-                    unique_lemmas = unique2, 
-                    name = "Male",
-                    concept_colour = "red", unique_colour = "blue")
+male_cn <- fst_cn_compare_plot(male_edges, male_nodes, concepts,
+  unique_lemmas = unique2,
+  name = "Male",
+  concept_colour = "red", unique_colour = "blue"
+)
 
 fst_plot_multiple(plot1 = female_cn, plot2 = male_cn, main_title = "Comparison Plot of Female and Male Respondences Q11_2")
-
 ```
 
 ## Conclusion

@@ -42,8 +42,8 @@ fst_cn_get_unique <- function(table1, table2, ...) {
 #' @export
 #'
 #' @examples
-#' fst_cn_compare_plot(edges = q11_1_edges, nodes = q11_1_nodes, concepts = 'elintaso, köyhä, ihminen', unique_lemma = unique_2, name = "Q11_1")
-#' fst_cn_compare_plot(q11_2_edges, q11_2_nodes, concepts = "kehitysmaa, auttaa, pyrkiä, maa, ihminen", unique_lemma = unique_2, unique_colour = 'purple' )
+#' fst_cn_compare_plot(edges = q11_1_edges, nodes = q11_1_nodes, concepts = "elintaso, köyhä, ihminen", unique_lemma = unique_2, name = "Q11_1")
+#' fst_cn_compare_plot(q11_2_edges, q11_2_nodes, concepts = "kehitysmaa, auttaa, pyrkiä, maa, ihminen", unique_lemma = unique_2, unique_colour = "purple")
 fst_cn_compare_plot <- function(edges,
                                 nodes,
                                 concepts,
@@ -51,30 +51,34 @@ fst_cn_compare_plot <- function(edges,
                                 name = NULL,
                                 concept_colour = "#cd1719",
                                 unique_colour = "#4DAF4A") {
-  if(stringr::str_detect(concepts, ",")){
-    concepts <- concepts  %>% lapply(tolower) %>%
+  if (stringr::str_detect(concepts, ",")) {
+    concepts <- concepts %>%
+      lapply(tolower) %>%
       stringr::str_extract_all(pattern = "\\w+") %>%
       unlist()
   }
-  if (is.null(name)){
-    name = "Textrank extracted keyword occurences"
+  if (is.null(name)) {
+    name <- "Textrank extracted keyword occurences"
   }
   nodes <- nodes %>%
     dplyr::mutate(is_concept = factor(ifelse(lemma %in% concepts, 0, ifelse(lemma %in% unique_lemmas, 1, 2)),
-                                      levels = c(0,1,2),
-                                      labels = c("Concept word", "Unique Word", "Common word")))
+      levels = c(0, 1, 2),
+      labels = c("Concept word", "Unique Word", "Common word")
+    ))
   p <- igraph::graph_from_data_frame(edges,
-                                     directed = FALSE, vertices = nodes) %>%
+    directed = FALSE, vertices = nodes
+  ) %>%
     ggraph::ggraph(layout = "kk") +
-    ggraph::geom_edge_link( ggplot2::aes(width = co_occurrence, alpha = co_occurrence), colour = "#6da5d3") +
-    ggraph::scale_edge_width(range=c(1, 5))+
+    ggraph::geom_edge_link(ggplot2::aes(width = co_occurrence, alpha = co_occurrence), colour = "#6da5d3") +
+    ggraph::scale_edge_width(range = c(1, 5)) +
     ggraph::scale_edge_alpha(range = c(0.2, 1)) +
-    ggraph::geom_node_point( ggplot2::aes(size = pagerank)) +
+    ggraph::geom_node_point(ggplot2::aes(size = pagerank)) +
     ggraph::geom_node_text(ggplot2::aes(label = name, col = is_concept), check_overlap = TRUE, repel = TRUE) +
     ggplot2::scale_color_manual("Word Type", values = c("Concept word" = concept_colour, "Unique Word" = unique_colour, "Common word" = "black")) +
     ggraph::theme_graph() +
     ggplot2::labs(
-      title = name) +
+      title = name
+    ) +
     ggplot2::theme(legend.position = "right")
   return(p)
 }
@@ -109,12 +113,12 @@ fst_cn_compare_plot <- function(edges,
 #' @export
 #'
 #' @examples
-#' fst_concept_network_compare(conllu_dev_q11_1_nltk, conllu_dev_q11_2_nltk, concepts = 'elintaso, köyhä, ihminen', name1 = 'Q1', name2 = 'Q2', pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
-#' fst_concept_network_compare(conllu_dev_q11_1_nltk, conllu_dev_q11_2_nltk, conllu_dev_q11_3_nltk, concepts = 'elintaso, köyhä, ihminen', name1 = 'Q1', name2 = 'Q2', name3 = 'Q3', pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
-#' fst_concept_network_compare(conllu_dev_q11_1_f, conllu_dev_q11_1_m, concepts = 'elintaso, köyhä, ihminen', pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
-fst_concept_network_compare <- function(data1, data2, data3 = NULL, data4 = NULL, pos_filter = NULL, name1 = "Group 1", name2 = "Group 2", name3 = "Group 3", name4 = "Group 4", concepts, norm = 'number_words', threshold = NULL) {
-  if (!is.null(data3)){
-    if (!is.null(data4)){
+#' fst_concept_network_compare(conllu_dev_q11_1_nltk, conllu_dev_q11_2_nltk, concepts = "elintaso, köyhä, ihminen", name1 = "Q1", name2 = "Q2", pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+#' fst_concept_network_compare(conllu_dev_q11_1_nltk, conllu_dev_q11_2_nltk, conllu_dev_q11_3_nltk, concepts = "elintaso, köyhä, ihminen", name1 = "Q1", name2 = "Q2", name3 = "Q3", pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+#' fst_concept_network_compare(conllu_dev_q11_1_f, conllu_dev_q11_1_m, concepts = "elintaso, köyhä, ihminen", pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+fst_concept_network_compare <- function(data1, data2, data3 = NULL, data4 = NULL, pos_filter = NULL, name1 = "Group 1", name2 = "Group 2", name3 = "Group 3", name4 = "Group 4", concepts, norm = "number_words", threshold = NULL) {
+  if (!is.null(data3)) {
+    if (!is.null(data4)) {
       edges4 <- fst_cn_edges(data = data4, concepts = concepts, norm = norm, threshold = threshold, pos_filter = pos_filter)
       edges3 <- fst_cn_edges(data = data3, concepts = concepts, norm = norm, threshold = threshold, pos_filter = pos_filter)
       edges2 <- fst_cn_edges(data = data2, concepts = concepts, norm = norm, threshold = threshold, pos_filter = pos_filter)
@@ -139,9 +143,9 @@ fst_concept_network_compare <- function(data1, data2, data3 = NULL, data4 = NULL
   }
   num1 <- dplyr::n_distinct(data1$doc_id)
   num2 <- dplyr::n_distinct(data2$doc_id)
-  if (!is.null(data3)){
+  if (!is.null(data3)) {
     num3 <- dplyr::n_distinct(data3$doc_id)
-    if (!is.null(data4)){
+    if (!is.null(data4)) {
       num4 <- dplyr::n_distinct(data4$doc_id)
       message(paste0("Note: \n Consider whether your data is balanced between groups being compared and whether each group contains enough data for analysis. \n The number of responses in each group (including \'NAs\') are listed below: \n\t", name1, "=", num1, ", ", name2, "=", num2, ", ", name3, "=", num3, ", ", name4, "=", num4, "\n\n"))
       unique <- fst_cn_get_unique(nodes1, nodes2, nodes3, nodes4)

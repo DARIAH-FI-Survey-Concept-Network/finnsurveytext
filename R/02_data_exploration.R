@@ -14,10 +14,12 @@
 #' fst_summarise_short(conllu_dev_q11_2_nltk)
 fst_summarise_short <- function(data) {
   data %>%
-    dplyr::summarize(Respondents = dplyr::n_distinct(doc_id),
-              'Total Words' = dplyr::n(),
-              'Unique Words' = length(unique(token)),
-              'Unique Lemmas' = length(unique(lemma)))
+    dplyr::summarize(
+      Respondents = dplyr::n_distinct(doc_id),
+      "Total Words" = dplyr::n(),
+      "Unique Words" = length(unique(token)),
+      "Unique Lemmas" = length(unique(lemma))
+    )
 }
 
 #' Make Summary Table
@@ -35,18 +37,20 @@ fst_summarise_short <- function(data) {
 #' @examples
 #' fst_summarise(conllu_dev_q11_1)
 #' q11_2 <- fst_summarise(conllu_dev_q11_2_nltk, "Q11_2")
-fst_summarise <- function(data, desc = 'All respondents') {
+fst_summarise <- function(data, desc = "All respondents") {
   no_resp_count <- length(which(data$sentence %in% c("NA", "na")))
   df <- data %>%
-    dplyr::summarize('Description' = desc,
-                     'Respondents' = dplyr::n_distinct(doc_id),
-                     'No Response' = no_resp_count,
-                     'Proportion' = round(dplyr::n_distinct(doc_id) /
-                                            (no_resp_count +
-                                               dplyr::n_distinct(doc_id)), 2),
-                     'Total Words' = dplyr::n(),
-                     'Unique Words' = length(unique(token)),
-                     'Unique Lemmas' = length(unique(lemma)))
+    dplyr::summarize(
+      "Description" = desc,
+      "Respondents" = dplyr::n_distinct(doc_id),
+      "No Response" = no_resp_count,
+      "Proportion" = round(dplyr::n_distinct(doc_id) /
+        (no_resp_count +
+          dplyr::n_distinct(doc_id)), 2),
+      "Total Words" = dplyr::n(),
+      "Unique Words" = length(unique(token)),
+      "Unique Lemmas" = length(unique(lemma))
+    )
   df
 }
 
@@ -68,19 +72,25 @@ fst_summarise <- function(data, desc = 'All respondents') {
 fst_pos <- function(data) {
   pos_table <- data %>%
     dplyr::count(upos, sort = TRUE)
-  pos_lookup <- data.frame('upos' =c('ADJ', 'ADP', 'ADV', 'AUX', 'CCONJ', 'DET',
-                                     'INTJ', 'NOUN', 'NUM', 'PART', 'PRON',
-                                     'PROPN', 'PUNCT', 'SCONJ', 'SYM', 'VERB',
-                                     'X'),
-                           'upos name' = c(' adjective', ' adposition',
-                                           ' adverb', ' auxiliary',
-                                           ' coordinating conjunction',
-                                           ' determiner', ' interjection',
-                                           ' noun', ' numeral', ' particle',
-                                           ' pronoun', ' proper noun',
-                                           ' punctuation',
-                                           ' subordinating conjunction',
-                                           ' symbol', ' verb', ' other'))
+  pos_lookup <- data.frame(
+    "upos" = c(
+      "ADJ", "ADP", "ADV", "AUX", "CCONJ", "DET",
+      "INTJ", "NOUN", "NUM", "PART", "PRON",
+      "PROPN", "PUNCT", "SCONJ", "SYM", "VERB",
+      "X"
+    ),
+    "upos name" = c(
+      " adjective", " adposition",
+      " adverb", " auxiliary",
+      " coordinating conjunction",
+      " determiner", " interjection",
+      " noun", " numeral", " particle",
+      " pronoun", " proper noun",
+      " punctuation",
+      " subordinating conjunction",
+      " symbol", " verb", " other"
+    )
+  )
   df <- merge(x = pos_lookup, y = pos_table, by = "upos")
   df
 }
@@ -99,38 +109,42 @@ fst_pos <- function(data) {
 #'
 #' @examples
 #' fst_length_summary(conllu_dev_q11_1, incl_sentences = FALSE)
-#' fem <- fst_length_summary(conllu_dev_q11_1, desc = 'Female')
+#' fem <- fst_length_summary(conllu_dev_q11_1, desc = "Female")
 fst_length_summary <- function(data, desc = NULL, incl_sentences = TRUE) {
   no_resp_count <- length(which(data$sentence %in% c("NA", "na")))
   data <- dplyr::select(data, doc_id, sentence) %>%
-    dplyr::mutate(length = stringr::str_count(sentence, '\\w+')) %>%
+    dplyr::mutate(length = stringr::str_count(sentence, "\\w+")) %>%
     dplyr::filter(!is.na(sentence)) %>%
-    dplyr::filter(sentence != 'na') %>%
-    dplyr::filter(sentence != 'NA')
+    dplyr::filter(sentence != "na") %>%
+    dplyr::filter(sentence != "NA")
   data <- data[!duplicated(data), ] %>%
     dplyr::group_by(doc_id) %>%
-    dplyr::summarise(number_sentences = dplyr::n(),
-                     number_of_words = sum(length))
+    dplyr::summarise(
+      number_sentences = dplyr::n(),
+      number_of_words = sum(length)
+    )
   word_df <- data %>%
-    dplyr::summarize('Description' = paste0(desc, '- Words'),
-                     'Respondents' = dplyr::n_distinct(doc_id),
-                     'Mean' = mean(data$number_of_words),
-                     'Minimum' =  min(data$number_of_words),
-                     'Q1' = quantile(data$number_of_words, 0.25),
-                     'Median' = median(data$number_of_words),
-                     'Q3' = quantile(data$number_of_words, 0.75),
-                     'Maximum' = max(data$number_of_words)
+    dplyr::summarize(
+      "Description" = paste0(desc, "- Words"),
+      "Respondents" = dplyr::n_distinct(doc_id),
+      "Mean" = mean(data$number_of_words),
+      "Minimum" = min(data$number_of_words),
+      "Q1" = quantile(data$number_of_words, 0.25),
+      "Median" = median(data$number_of_words),
+      "Q3" = quantile(data$number_of_words, 0.75),
+      "Maximum" = max(data$number_of_words)
     )
   if (incl_sentences == TRUE) {
     sentence_df <- data %>%
-      dplyr::summarize('Description' = paste0(desc, '- Sentences'),
-                       'Respondents' = dplyr::n_distinct(doc_id),
-                       'Mean' = mean(data$number_sentences),
-                       'Minimum' =  min(data$number_sentences),
-                       'Q1' = quantile(data$number_sentences, 0.25),
-                       'Median' = median(data$number_sentences),
-                       'Q3' = quantile(data$number_sentences, 0.75),
-                       'Maximum' = max(data$number_sentences)
+      dplyr::summarize(
+        "Description" = paste0(desc, "- Sentences"),
+        "Respondents" = dplyr::n_distinct(doc_id),
+        "Mean" = mean(data$number_sentences),
+        "Minimum" = min(data$number_sentences),
+        "Q1" = quantile(data$number_sentences, 0.25),
+        "Median" = median(data$number_sentences),
+        "Q3" = quantile(data$number_sentences, 0.75),
+        "Maximum" = max(data$number_sentences)
       )
     word_df <- rbind(word_df, sentence_df)
   }
@@ -159,35 +173,35 @@ fst_length_summary <- function(data, desc = NULL, incl_sentences = TRUE) {
 #' @examples
 #' fst_get_top_words(conllu_dev_q11_1_nltk, number = 15, norm = NULL)
 #' fst_get_top_words(conllu_dev_q11_1_nltk, number = 15, strict = FALSE)
-#' top_bullying_words <- fst_get_top_words(conllu_cb_bullying, number = 5, norm = 'number_resp', pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+#' top_bullying_words <- fst_get_top_words(conllu_cb_bullying, number = 5, norm = "number_resp", pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
 fst_get_top_words <- function(data,
                               number = 10,
-                              norm = 'number_words',
+                              norm = "number_words",
                               pos_filter = NULL,
                               strict = TRUE) {
-  with_ties = !strict
+  with_ties <- !strict
   if (strict == TRUE) {
     message("Note:\n Terms with equal occurrence are presented in alphabetial order. \n By default, terms are presented in order to the `number` cutoff word. \n This means that equally-occurring later-alphabetically words beyond the cutoff will not be displayed.\n\n")
   } else {
     message("Note:\n Terms with equal occurrence are presented in alphabetial order. \n With `strict` = FALSE, words occurring equally often as the `number` cutoff word will be displayed. \n\n")
   }
   if (is.null(norm)) {
-    denom = 1
-  } else if (norm == 'number_words'){
+    denom <- 1
+  } else if (norm == "number_words") {
     data %>%
       dplyr::filter(.data$dep_rel != "punct") %>%
       dplyr::filter(!is.na(lemma)) %>%
-      dplyr::filter(lemma != 'na')
-    denom = nrow(data)
-  } else if (norm == 'number_resp'){
-    denom = dplyr::n_distinct(data$doc_id)
+      dplyr::filter(lemma != "na")
+    denom <- nrow(data)
+  } else if (norm == "number_resp") {
+    denom <- dplyr::n_distinct(data$doc_id)
   } else {
     message("NOTE: A recognised normalisation method has not been provided. \n Function has defaulted to normalisation method 'number_of_words'")
     data %>%
       dplyr::filter(.data$dep_rel != "punct") %>%
       dplyr::filter(!is.na(lemma)) %>%
-      dplyr::filter(lemma != 'na')
-    denom = nrow(data)
+      dplyr::filter(lemma != "na")
+    denom <- nrow(data)
   }
   if (!is.null(pos_filter)) {
     data <- dplyr::filter(data, .data$upos %in% pos_filter)
@@ -195,9 +209,9 @@ fst_get_top_words <- function(data,
   data %>%
     dplyr::filter(.data$dep_rel != "punct") %>%
     dplyr::filter(!is.na(lemma)) %>%
-    dplyr::filter(lemma != 'na') %>%
+    dplyr::filter(lemma != "na") %>%
     dplyr::count(lemma, sort = TRUE) %>%
-    dplyr::mutate(n = round(n/denom, 3)) %>%
+    dplyr::mutate(n = round(n / denom, 3)) %>%
     dplyr::slice_max(n, n = number, with_ties = with_ties) %>%
     dplyr::mutate(lemma = reorder(lemma, n)) %>%
     dplyr::rename(words = lemma, occurrence = n)
@@ -224,32 +238,32 @@ fst_get_top_words <- function(data,
 #'
 #' @examples
 #' q11_1_ngrams <- fst_get_top_ngrams(conllu_dev_q11_1_nltk, norm = NULL)
-#' fst_get_top_ngrams(conllu_dev_q11_1_nltk, number = 10, ngrams = 1, norm = 'number_resp')
+#' fst_get_top_ngrams(conllu_dev_q11_1_nltk, number = 10, ngrams = 1, norm = "number_resp")
 #' top_bullying_ngrams <- fst_get_top_ngrams(conllu_cb_bullying, number = 15, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
-fst_get_top_ngrams <- function(data, number = 10, ngrams = 1, norm = 'number_words', pos_filter = NULL, strict = TRUE){
-  with_ties = !strict
+fst_get_top_ngrams <- function(data, number = 10, ngrams = 1, norm = "number_words", pos_filter = NULL, strict = TRUE) {
+  with_ties <- !strict
   if (strict == TRUE) {
     message("Note:\n Terms with equal occurrence are presented in alphabetial order. \n By default, terms are presented in order to the `number` cutoff word. \n This means that equally-occurring later-alphabetically words beyond the cutoff will not be displayed. \n\n")
   } else {
     message("Note:\n Terms with equal occurrence are presented in alphabetial order. \n With `strict` = FALSE, words occurring equally often as the `number` cutoff word will be displayed. \n\n")
   }
   if (is.null(norm)) {
-    denom = 1
-  } else if (norm == 'number_words'){
+    denom <- 1
+  } else if (norm == "number_words") {
     data %>%
       dplyr::filter(.data$dep_rel != "punct") %>%
       dplyr::filter(!is.na(lemma)) %>%
-      dplyr::filter(lemma != 'na')
-    denom = nrow(data)
-  } else if (norm == 'number_resp'){
-    denom = dplyr::n_distinct(data$doc_id)
+      dplyr::filter(lemma != "na")
+    denom <- nrow(data)
+  } else if (norm == "number_resp") {
+    denom <- dplyr::n_distinct(data$doc_id)
   } else {
     message("NOTE: A recognised normalisation method has not been provided. \n Function has defaulted to normalisation method 'number_of_words'")
     data %>%
       dplyr::filter(.data$dep_rel != "punct") %>%
       dplyr::filter(!is.na(lemma)) %>%
-      dplyr::filter(lemma != 'na')
-    denom = nrow(data)
+      dplyr::filter(lemma != "na")
+    denom <- nrow(data)
   }
   if (!is.null(pos_filter)) {
     data <- dplyr::filter(data, .data$upos %in% pos_filter)
@@ -257,16 +271,16 @@ fst_get_top_ngrams <- function(data, number = 10, ngrams = 1, norm = 'number_wor
   data %>%
     dplyr::filter(.data$dep_rel != "punct") %>%
     dplyr::filter(!is.na(lemma)) %>%
-    dplyr::filter(lemma != 'na') %>%
+    dplyr::filter(lemma != "na") %>%
     dplyr::mutate(words = udpipe::txt_nextgram(lemma, n = ngrams)) %>%
     dplyr::count(words, sort = TRUE) %>%
-    dplyr::mutate(n = round(n/denom, 3)) %>%
+    dplyr::mutate(n = round(n / denom, 3)) %>%
     dplyr::slice_max(n, n = number, with_ties = with_ties) %>%
     dplyr::mutate(words = reorder(words, n)) %>%
     dplyr::filter(!is.na(words)) %>%
-    dplyr::filter(words != 'na') %>%
+    dplyr::filter(words != "na") %>%
     dplyr::rename(occurrence = n)
-  }
+}
 
 #' Make Top N-grams Table 2
 #'
@@ -293,27 +307,27 @@ fst_get_top_ngrams <- function(data, number = 10, ngrams = 1, norm = 'number_wor
 fst_get_top_ngrams2 <- function(data,
                                 number = 10,
                                 ngrams = 1,
-                                norm = 'number_words',
+                                norm = "number_words",
                                 pos_filter = NULL,
-                                strict = TRUE){
-  with_ties = !strict
+                                strict = TRUE) {
+  with_ties <- !strict
   if (is.null(norm)) {
-    denom = 1
-  } else if (norm == 'number_words'){
+    denom <- 1
+  } else if (norm == "number_words") {
     data %>%
       dplyr::filter(.data$dep_rel != "punct") %>%
       dplyr::filter(!is.na(lemma)) %>%
-      dplyr::filter(lemma != 'na')
-    denom = nrow(data)
-  } else if (norm == 'number_resp'){
-    denom = dplyr::n_distinct(data$doc_id)
+      dplyr::filter(lemma != "na")
+    denom <- nrow(data)
+  } else if (norm == "number_resp") {
+    denom <- dplyr::n_distinct(data$doc_id)
   } else {
     message("NOTE: A recognised normalisation method has not been provided. \n Function has defaulted to normalisation method 'number_of_words'")
     data %>%
       dplyr::filter(.data$dep_rel != "punct") %>%
       dplyr::filter(!is.na(lemma)) %>%
-      dplyr::filter(lemma != 'na')
-    denom = nrow(data)
+      dplyr::filter(lemma != "na")
+    denom <- nrow(data)
   }
   if (!is.null(pos_filter)) {
     data <- dplyr::filter(data, .data$upos %in% pos_filter)
@@ -321,14 +335,14 @@ fst_get_top_ngrams2 <- function(data,
   data %>%
     dplyr::filter(.data$dep_rel != "punct") %>%
     dplyr::filter(!is.na(lemma)) %>%
-    dplyr::filter(lemma != 'na') %>%
+    dplyr::filter(lemma != "na") %>%
     dplyr::mutate(words = udpipe::txt_nextgram(lemma, n = ngrams)) %>%
     dplyr::count(words, sort = TRUE) %>%
-    dplyr::mutate(n = round(n/denom, 3)) %>%
+    dplyr::mutate(n = round(n / denom, 3)) %>%
     dplyr::slice_max(n, n = number, with_ties = with_ties) %>%
     dplyr::mutate(words = reorder(words, n)) %>%
     dplyr::filter(!is.na(words)) %>%
-    dplyr::filter(words != 'na') %>%
+    dplyr::filter(words != "na") %>%
     dplyr::rename(occurrence = n)
 }
 
@@ -345,16 +359,17 @@ fst_get_top_ngrams2 <- function(data,
 #' @export
 #'
 #' @examples
-#' fst_freq_plot(top_bullying_words, number = 5, name = 'Bullying')
+#' fst_freq_plot(top_bullying_words, number = 5, name = "Bullying")
 #' fst_freq_plot(q11_1_ngrams)
 fst_freq_plot <- function(table, number = NULL, name = NULL) {
   table %>%
     ggplot2::ggplot(ggplot2::aes(occurrence, words)) +
     ggplot2::geom_col() +
     ggplot2::scale_fill_manual(values = colours, guide = "none") +
-    ggplot2::labs(y = NULL,
-                  title = paste(name, as.character(number),"Most Common Words"))
-
+    ggplot2::labs(
+      y = NULL,
+      title = paste(name, as.character(number), "Most Common Words")
+    )
 }
 
 
@@ -373,24 +388,26 @@ fst_freq_plot <- function(table, number = NULL, name = NULL) {
 #' @export
 #'
 #' @examples
-#' fst_ngrams_plot(topn_f, ngrams = 2, name = 'Female')
+#' fst_ngrams_plot(topn_f, ngrams = 2, name = "Female")
 #' fst_ngrams_plot(top_f, ngrams = 1, number = 15)
 #' fst_ngrams_plot(topn_m, ngrams = 2, number = 15)
 #' fst_ngrams_plot(topn_na, ngrams = 2)
 fst_ngrams_plot <- function(table, number = NULL, ngrams = 1, name = NULL) {
   if (ngrams == 1) {
-    term = 'Words'
+    term <- "Words"
   } else if (ngrams == 2) {
-    term = 'Bigrams'
+    term <- "Bigrams"
   } else {
-    term = paste0(as.character(ngrams), "-grams")
+    term <- paste0(as.character(ngrams), "-grams")
   }
   table %>%
     ggplot2::ggplot(ggplot2::aes(occurrence, words)) +
     ggplot2::geom_col() +
     ggplot2::scale_fill_manual(values = colours, guide = "none") +
-    ggplot2::labs(y = NULL,
-                  title = paste(name, as.character(number),"Most Common", term))
+    ggplot2::labs(
+      y = NULL,
+      title = paste(name, as.character(number), "Most Common", term)
+    )
 }
 
 
@@ -414,19 +431,21 @@ fst_ngrams_plot <- function(table, number = NULL, ngrams = 1, name = NULL) {
 #' @export
 #'
 #' @examples
-#' fst_freq(conllu_dev_q11_1, number = 12, norm = 'number_resp', strict = FALSE, name = "All")
+#' fst_freq(conllu_dev_q11_1, number = 12, norm = "number_resp", strict = FALSE, name = "All")
 #' fst_freq(conllu_dev_q11_1_na, number = 15, name = "Not Spec")
 fst_freq <- function(data,
                      number = 10,
-                     norm = 'number_words',
+                     norm = "number_words",
                      pos_filter = NULL,
                      strict = TRUE,
-                     name = NULL){
-  words <- fst_get_top_words(data = data,
-                             number = number,
-                             norm = norm,
-                             pos_filter = pos_filter,
-                             strict = strict)
+                     name = NULL) {
+  words <- fst_get_top_words(
+    data = data,
+    number = number,
+    norm = norm,
+    pos_filter = pos_filter,
+    strict = strict
+  )
   fst_freq_plot(table = words, number = number, name = name)
 }
 
@@ -456,20 +475,24 @@ fst_freq <- function(data,
 fst_ngrams <- function(data,
                        number = 10,
                        ngrams = 1,
-                       norm = 'number_words',
+                       norm = "number_words",
                        pos_filter = NULL,
                        strict = TRUE,
-                       name = NULL){
-  ngram_list <- fst_get_top_ngrams(data = data,
-                                   number = number,
-                                   ngrams = ngrams,
-                                   norm = norm,
-                                   pos_filter = pos_filter,
-                                   strict = strict)
-  fst_ngrams_plot(table = ngram_list,
-                  number = number,
-                  ngrams = ngrams,
-                  name = name)
+                       name = NULL) {
+  ngram_list <- fst_get_top_ngrams(
+    data = data,
+    number = number,
+    ngrams = ngrams,
+    norm = norm,
+    pos_filter = pos_filter,
+    strict = strict
+  )
+  fst_ngrams_plot(
+    table = ngram_list,
+    number = number,
+    ngrams = ngrams,
+    name = name
+  )
 }
 
 
@@ -489,23 +512,22 @@ fst_ngrams <- function(data,
 #' fst_wordcloud(conllu_cb_bullying_iso)
 #' fst_wordcloud(conllu_cb_bullying_iso, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
 #' fst_wordcloud(conllu_dev_q11_1_snow, pos_filter = "VERB", max = 50)
-fst_wordcloud <- function(data, pos_filter = NULL, max = 100){
+fst_wordcloud <- function(data, pos_filter = NULL, max = 100) {
   if (!is.null(pos_filter)) {
     data <- dplyr::filter(data, upos %in% pos_filter)
   }
   wordcloud_data <- data %>%
     dplyr::filter(.data$dep_rel != "punct") %>%
     dplyr::filter(!is.na(lemma)) %>%
-    dplyr::filter(lemma != 'na') %>%
+    dplyr::filter(lemma != "na") %>%
     dplyr::count(lemma, sort = TRUE)
   par(mar = rep(0, 4))
-  wordcloud::wordcloud(words = wordcloud_data$lemma,
-                       freq = wordcloud_data$n,
-                       max.words= max,
-                       random.order=FALSE,
-                       rot.per=0.35,
-                       colors=RColorBrewer::brewer.pal(8, "Dark2")
-                       )
+  wordcloud::wordcloud(
+    words = wordcloud_data$lemma,
+    freq = wordcloud_data$n,
+    max.words = max,
+    random.order = FALSE,
+    rot.per = 0.35,
+    colors = RColorBrewer::brewer.pal(8, "Dark2")
+  )
 }
-
-

@@ -78,14 +78,14 @@ fst_find_stopwords <- function() {
 #' conllu_dev_q11_1_nltk <- fst_rm_stop_punct(conllu_dev_q11_1)
 #' conllu_dev_q11_2_nltk <- fst_rm_stop_punct(conllu_dev_q11_2)
 #' conllu_dev_q11_3_nltk <- fst_rm_stop_punct(conllu_dev_q11_3)
-#' conllu_dev_q11_1_snow <- fst_rm_stop_punct(conllu_dev_q11_1, stopword_list = 'snowball')
-#' conllu_cb_bullying_iso <- fst_rm_stop_punct(conllu_cb_bullying, 'stopwords-iso')
+#' conllu_dev_q11_1_snow <- fst_rm_stop_punct(conllu_dev_q11_1, stopword_list = "snowball")
+#' conllu_cb_bullying_iso <- fst_rm_stop_punct(conllu_cb_bullying, "stopwords-iso")
 fst_rm_stop_punct <- function(data, stopword_list = "nltk") {
   swords <- stopwords::stopwords("fi", stopword_list)
   output <- data %>%
     dplyr::mutate(lemma = stringr::str_replace(.data$lemma, "#", "")) %>%
     dplyr::filter(!.data$lemma %in% swords) %>%
-    dplyr::filter(.data$upos != 'PUNCT')
+    dplyr::filter(.data$upos != "PUNCT")
   output
 }
 

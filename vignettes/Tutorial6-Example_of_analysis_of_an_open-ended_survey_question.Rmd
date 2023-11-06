@@ -10,8 +10,8 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>", 
-  fig.width=6, fig.height=6
+  comment = "#>",
+  fig.width = 6, fig.height = 6
 )
 ```
 
@@ -93,9 +93,9 @@ fst_wordcloud(all_nltk)
 * 'epätasa-arvo' = inequality
 
 ```{r}
-fst_freq(all_nltk, 10, strict = FALSE, norm = 'number_resp')
-fst_ngrams(all_nltk, 10, ngrams = 2, strict = FALSE, norm = 'number_resp')
-fst_ngrams(all_nltk, 10, ngrams = 3, strict = FALSE, norm = 'number_resp')
+fst_freq(all_nltk, 10, strict = FALSE, norm = "number_resp")
+fst_ngrams(all_nltk, 10, ngrams = 2, strict = FALSE, norm = "number_resp")
+fst_ngrams(all_nltk, 10, ngrams = 3, strict = FALSE, norm = "number_resp")
 ```
 
 #### Remarks: 
@@ -118,19 +118,23 @@ Our concept network function can be used to visualise the words that occur aroun
 Again, we will set `norm = 'number_resp'`.
 
 ```{r}
-fst_concept_network(all_nltk, 
-                    concepts = "köyhyys, nälänhätä, sota", 
-                    title = "Q11_3 - No threshold", 
-                    norm = 'number_resp') 
-fst_concept_network(all_nltk, concepts = "köyhyys, nälänhätä, sota", 
-                    threshold = 5, 
-                    title = "Q11_3 - Threshold = 5", 
-                    norm = 'number_resp') 
-fst_concept_network(all_nltk, 
-                    concepts = "köyhyys, nälänhätä, sota", 
-                    threshold = 3, 
-                    title = "Q11_3 - Threshold = 3", 
-                    norm = 'number_resp') 
+fst_concept_network(all_nltk,
+  concepts = "köyhyys, nälänhätä, sota",
+  title = "Q11_3 - No threshold",
+  norm = "number_resp"
+)
+fst_concept_network(all_nltk,
+  concepts = "köyhyys, nälänhätä, sota",
+  threshold = 5,
+  title = "Q11_3 - Threshold = 5",
+  norm = "number_resp"
+)
+fst_concept_network(all_nltk,
+  concepts = "köyhyys, nälänhätä, sota",
+  threshold = 3,
+  title = "Q11_3 - Threshold = 3",
+  norm = "number_resp"
+)
 ```
 
 #### Remarks: 
@@ -141,14 +145,16 @@ fst_concept_network(all_nltk,
 Now, let's add more words in:
 
 ```{r}
-fst_concept_network(all_nltk, 
-                    concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute, ihminen, vesi, epätasa-arvo", 
-                    title = "Q11_3 - Lots of words", 
-                    norm = 'number_words') 
-fst_concept_network(all_nltk, 
-                    concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute, ihminen, vesi, epätasa-arvo", 
-                    title = "Q11_3 - Lots of words, threshold = 3", threshold = 5, 
-                    norm = 'number_resp') 
+fst_concept_network(all_nltk,
+  concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute, ihminen, vesi, epätasa-arvo",
+  title = "Q11_3 - Lots of words",
+  norm = "number_words"
+)
+fst_concept_network(all_nltk,
+  concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute, ihminen, vesi, epätasa-arvo",
+  title = "Q11_3 - Lots of words, threshold = 3", threshold = 5,
+  norm = "number_resp"
+)
 ```
 
 #### Remarks:
@@ -156,8 +162,8 @@ fst_concept_network(all_nltk,
 
 Now, let's see what do people who talk about water tend to also say in their responses: 
 ```{r}
-fst_concept_network(all_nltk, concepts = "vesi", title = "Q11_3 - Vesi") 
-fst_concept_network(all_nltk, concepts = "puute, puhdas, vesi", title = "Q11_3 - ") 
+fst_concept_network(all_nltk, concepts = "vesi", title = "Q11_3 - Vesi")
+fst_concept_network(all_nltk, concepts = "puute, puhdas, vesi", title = "Q11_3 - ")
 ```
 
 #### Remarks: 
@@ -169,15 +175,15 @@ Now we've looked at responses as a whole, we consider whether gender impacts wor
 
 ```{r}
 knitr::kable(
-  fst_summarise_compare(female_nltk, male_nltk, na_nltk, all_nltk, name1 = 'F', name2 = 'M', name3= 'NA', name4 = 'All')
+  fst_summarise_compare(female_nltk, male_nltk, na_nltk, all_nltk, name1 = "F", name2 = "M", name3 = "NA", name4 = "All")
 )
 
 knitr::kable(
-  fst_pos_compare(female_nltk, male_nltk, na_nltk, all_nltk, name1 = 'F', name2 = 'M', name3= 'NA', name4 = 'All')
+  fst_pos_compare(female_nltk, male_nltk, na_nltk, all_nltk, name1 = "F", name2 = "M", name3 = "NA", name4 = "All")
 )
 
 knitr::kable(
-  fst_length_compare(female_nltk, male_nltk, na_nltk, all_nltk, name1 = 'F', name2 = 'M', name3= 'NA', name4 = 'All')
+  fst_length_compare(female_nltk, male_nltk, na_nltk, all_nltk, name1 = "F", name2 = "M", name3 = "NA", name4 = "All")
 )
 ```
 
@@ -189,14 +195,18 @@ knitr::kable(
 Let's do comparison cloud and individual word clouds (we run a second comparison cloud without NA since this sample is so small)
 
 ```{r}
-fst_comparison_cloud(data1 = female_nltk, name1 = 'Female', 
-                    data2 = male_nltk, name2 = 'Male', 
-                    data3 = na_nltk, name3 = 'NA', 
-                    max = 50)
+fst_comparison_cloud(
+  data1 = female_nltk, name1 = "Female",
+  data2 = male_nltk, name2 = "Male",
+  data3 = na_nltk, name3 = "NA",
+  max = 50
+)
 
-fst_comparison_cloud(data1 = female_nltk, name1 = 'Female', 
-                    data2 = male_nltk, name2 = 'Male', 
-                    max = 50)
+fst_comparison_cloud(
+  data1 = female_nltk, name1 = "Female",
+  data2 = male_nltk, name2 = "Male",
+  max = 50
+)
 
 fst_wordcloud(female_nltk)
 fst_wordcloud(male_nltk)
@@ -218,33 +228,38 @@ When we look at individuals, we see:
 
 Here, we will exclude the responses with 'NA' for gender as we go on, as there are very few of these. 
 ```{r}
-fst_freq_compare(data1 = female_nltk, name1 = 'Female',
-                 data2 = male_nltk, name2 = 'Male', 
-                 data3 = na_nltk, name3 = 'NA',
-                 number = 5, 
-                 norm = 'number_resp',
-                 pos_filter = NULL,
-                 unique_colour = 'indianred', 
-                 strict = TRUE)
+fst_freq_compare(
+  data1 = female_nltk, name1 = "Female",
+  data2 = male_nltk, name2 = "Male",
+  data3 = na_nltk, name3 = "NA",
+  number = 5,
+  norm = "number_resp",
+  pos_filter = NULL,
+  unique_colour = "indianred",
+  strict = TRUE
+)
 
-fst_freq_compare(data1 = female_nltk, name1 = 'Female',
-                 data2 = male_nltk, name2 = 'Male', 
-                 number = 10,  
-                 norm = 'number_resp',
-                 pos_filter = NULL,
-                 unique_colour = 'indianred', 
-                 strict = TRUE)
+fst_freq_compare(
+  data1 = female_nltk, name1 = "Female",
+  data2 = male_nltk, name2 = "Male",
+  number = 10,
+  norm = "number_resp",
+  pos_filter = NULL,
+  unique_colour = "indianred",
+  strict = TRUE
+)
 
 
-fst_ngrams_compare(data1 = female_nltk, name1 = 'Female',
-                 data2 = male_nltk, name2 = 'Male',
-                 number = 10, 
-                 norm = 'number_resp',
-                 ngrams = 2,
-                 pos_filter = NULL,
-                 unique_colour = 'indianred', 
-                 strict = TRUE)
-
+fst_ngrams_compare(
+  data1 = female_nltk, name1 = "Female",
+  data2 = male_nltk, name2 = "Male",
+  number = 10,
+  norm = "number_resp",
+  ngrams = 2,
+  pos_filter = NULL,
+  unique_colour = "indianred",
+  strict = TRUE
+)
 ```
 
 Here we see that male and female respondents have the same top 4 words, but that 'nälänhätä' is more frequent for females than males, and 'ilmastonmuutos' conversely. This may prompt further research into whether male survey participants show more concern about climate change than females in the remainder of the survey.
@@ -261,10 +276,11 @@ Now, we'll look at the concept network for the 4 top words in female and male re
 These words are 'sota', 'köyhyys', nälänhätä', and 'ilmastonmuutos'.
 
 ```{r}
-fst_concept_network_compare(data1 = female_nltk, name1 = 'Female',
-                            data2 = male_nltk, name2 = 'Male', 
-                            concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos", threshold = 1)
-
+fst_concept_network_compare(
+  data1 = female_nltk, name1 = "Female",
+  data2 = male_nltk, name2 = "Male",
+  concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos", threshold = 1
+)
 ```
 
 Interestingly, our concept network plots of these top 4 words show that there is a much larger variety of terms used by female respondents who mention these 4 common responses.
