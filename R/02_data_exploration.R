@@ -61,8 +61,8 @@ fst_summarise <- function(data, desc = "All respondents") {
 #'
 #' @param data A dataframe of text in CoNLL-U format.
 #'
-#' @return A dataframe with a count of each UPOS tag in the data and the full
-#'  name of the tag
+#' @return A dataframe with a count and proportion of each UPOS tag in the data
+#'  and the full name of the tag
 #' @export
 #'
 #' @examples
@@ -70,6 +70,7 @@ fst_summarise <- function(data, desc = "All respondents") {
 #' q11_3_pos_table <- fst_pos(conllu_dev_q11_3_nltk)
 #' fst_pos(conllu_dev_q11_1_snow)
 fst_pos <- function(data) {
+  denom = nrow(data)
   pos_table <- data %>%
     dplyr::count(upos, sort = TRUE)
   pos_lookup <- data.frame(
@@ -92,7 +93,9 @@ fst_pos <- function(data) {
     )
   )
   df <- merge(x = pos_lookup, y = pos_table, by = "upos")
-  df
+  df %>%
+    dplyr::rename(count = n) %>%
+    dplyr::mutate(proportion = round(count / denom, 3))
 }
 
 #' Make Length Summary Table

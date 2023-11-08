@@ -22,5 +22,5 @@ Create table summarising length of responses
 }
 \examples{
 fst_length_summary(conllu_dev_q11_1, incl_sentences = FALSE)
-fem <- fst_length_summary(conllu_dev_q11_1, desc = 'Female')
+fem <- fst_length_summary(conllu_dev_q11_1, desc = "Female")
 }

@@ -43,5 +43,5 @@ Compare text responses for between 2 and 4 sets of prepared data.
 \examples{
 fst_summarise_compare(conllu_m, conllu_f, conllu_s, conllu_dev_q11_1_nltk, "Male", "Female", "No Gender Specified", "All")
 summary <- fst_summarise_compare(conllu_m, conllu_f)
-fst_summarise_compare(conllu_dev_q11_1_m , conllu_dev_q11_1_f,  name1 = "Male", name2 = "Female")
+fst_summarise_compare(conllu_dev_q11_1_m, conllu_dev_q11_1_f, name1 = "Male", name2 = "Female")
 }

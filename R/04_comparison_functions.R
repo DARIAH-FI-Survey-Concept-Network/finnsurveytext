@@ -374,43 +374,79 @@ fst_pos_compare <- function(data1, data2, data3 = NULL, data4 = NULL, name1 = "G
   )
   if (!is.null(data3)) {
     if (!is.null(data4)) {
+      denom4 <- nrow(data4)
+      name4_2 <- paste(name4, 'count')
+      name4_3 <- paste(name4, 'prop')
       pos_table4 <- data4 %>%
         dplyr::count(upos, sort = TRUE) %>%
-        dplyr::rename(!!name4 := n)
+        dplyr::mutate(!!name4_3 := round(n/denom4, 3)) %>%
+        dplyr::rename(!!name4_2 := n)
+      denom3 <- nrow(data3)
+      name3_2 <- paste(name3, 'count')
+      name3_3 <- paste(name3, 'prop')
       pos_table3 <- data3 %>%
         dplyr::count(upos, sort = TRUE) %>%
-        dplyr::rename(!!name3 := n)
+        dplyr::mutate(!!name3_3 := round(n/denom3, 3)) %>%
+        dplyr::rename(!!name3_2 := n)
+      denom2 <- nrow(data2)
+      name2_2 <- paste(name2, 'count')
+      name2_3 <- paste(name2, 'prop')
       pos_table2 <- data2 %>%
         dplyr::count(upos, sort = TRUE) %>%
-        dplyr::rename(!!name2 := n)
+        dplyr::mutate(!!name2_3 := round(n/denom2, 3)) %>%
+        dplyr::rename(!!name2_2 := n)
+      denom1 <- nrow(data1)
+      name1_2 <- paste(name1, 'count')
+      name1_3 <- paste(name1, 'prop')
       pos_table1 <- data1 %>%
         dplyr::count(upos, sort = TRUE) %>%
-        dplyr::rename(!!name1 := n)
+        dplyr::mutate(!!name1_3 := round(n/denom1, 3)) %>%
+        dplyr::rename(!!name1_2 := n)
       df <- merge(x = pos_lookup, y = pos_table1, by = "upos") %>%
         merge(pos_table2, by = "upos") %>%
         merge(pos_table3, by = "upos") %>%
         merge(pos_table4, by = "upos")
     } else {
+      denom3 <- nrow(data3)
+      name3_2 <- paste(name3, 'count')
+      name3_3 <- paste(name3, 'prop')
       pos_table3 <- data3 %>%
         dplyr::count(upos, sort = TRUE) %>%
+        dplyr::mutate(!!name3_3 := round(n/denom3, 3)) %>%
         dplyr::rename(!!name3 := n)
+      denom2 <- nrow(data2)
+      name2_2 <- paste(name2, 'count')
+      name2_3 <- paste(name2, 'prop')
       pos_table2 <- data2 %>%
         dplyr::count(upos, sort = TRUE) %>%
-        dplyr::rename(!!name2 := n)
+        dplyr::mutate(!!name2_3 := round(n/denom2, 3)) %>%
+        dplyr::rename(!!name2_2 := n)
+      denom1 <- nrow(data1)
+      name1_2 <- paste(name1, 'count')
+      name1_3 <- paste(name1, 'prop')
       pos_table1 <- data1 %>%
         dplyr::count(upos, sort = TRUE) %>%
-        dplyr::rename(!!name1 := n)
+        dplyr::mutate(!!name1_3 := round(n/denom1, 3)) %>%
+        dplyr::rename(!!name1_2 := n)
       df <- merge(x = pos_lookup, y = pos_table1, by = "upos") %>%
         merge(pos_table2, by = "upos") %>%
         merge(pos_table3, by = "upos")
     }
   } else {
+    denom2 <- nrow(data2)
+    name2_2 <- paste(name2, 'count')
+    name2_3 <- paste(name2, 'prop')
     pos_table2 <- data2 %>%
       dplyr::count(upos, sort = TRUE) %>%
-      dplyr::rename(!!name2 := n)
+      dplyr::mutate(!!name2_3 := round(n/denom2, 3)) %>%
+      dplyr::rename(!!name2_2 := n)
+    denom1 <- nrow(data1)
+    name1_2 <- paste(name1, 'count')
+    name1_3 <- paste(name1, 'prop')
     pos_table1 <- data1 %>%
       dplyr::count(upos, sort = TRUE) %>%
-      dplyr::rename(!!name1 := n)
+      dplyr::mutate(!!name1_3 := round(n/denom1, 3)) %>%
+      dplyr::rename(!!name1_2 := n)
     df <- merge(x = pos_lookup, y = pos_table1, by = "upos") %>%
       merge(pos_table2, by = "upos")
   }

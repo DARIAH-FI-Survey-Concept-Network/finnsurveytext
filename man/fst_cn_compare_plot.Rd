@@ -37,6 +37,6 @@ Plot of concept network with concept and unique words (nodes) highlighted
 Concept Network- Plot comparison Concept Network
 }
 \examples{
-fst_cn_compare_plot(edges = q11_1_edges, nodes = q11_1_nodes, concepts = 'elintaso, köyhä, ihminen', unique_lemma = unique_2, name = "Q11_1")
-fst_cn_compare_plot(q11_2_edges, q11_2_nodes, concepts = "kehitysmaa, auttaa, pyrkiä, maa, ihminen", unique_lemma = unique_2, unique_colour = 'purple' )
+fst_cn_compare_plot(edges = q11_1_edges, nodes = q11_1_nodes, concepts = "elintaso, köyhä, ihminen", unique_lemma = unique_2, name = "Q11_1")
+fst_cn_compare_plot(q11_2_edges, q11_2_nodes, concepts = "kehitysmaa, auttaa, pyrkiä, maa, ihminen", unique_lemma = unique_2, unique_colour = "purple")
 }

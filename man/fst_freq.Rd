@@ -38,6 +38,6 @@ Creates a plot of the most frequently-occurring words (unigrams) within the
 data.
 }
 \examples{
-fst_freq(conllu_dev_q11_1, number = 12, norm = 'number_resp', strict = FALSE, name = "All")
+fst_freq(conllu_dev_q11_1, number = 12, norm = "number_resp", strict = FALSE, name = "All")
 fst_freq(conllu_dev_q11_1_na, number = 15, name = "Not Spec")
 }

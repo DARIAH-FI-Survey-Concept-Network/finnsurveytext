@@ -31,12 +31,12 @@ Plot of top n-grams with unique terms highlighted.
 Plots frequency n-grams with unique n-grams highlighted.
 }
 \examples{
-fst_ngrams_compare_plot(top_fu, ngrams = 1, name = 'Female')
-plot_top_fu <- fst_ngrams_compare_plot(top_fu, ngrams = 1, number = 8, override_title = 'Female')
-plot_top_mu <- fst_ngrams_compare_plot(top_mu, ngrams = 1, override_title = 'Male')
-plot_top_nau <- fst_ngrams_compare_plot(top_nau, ngrams = 1, override_title = 'No Gender Specified')
-plot_topn_fu <- fst_ngrams_compare_plot(topn_fu, ngrams = 2, name = 'Female')
-plot_topn_mu <- fst_ngrams_compare_plot(topn_mu, ngrams = 2, name = 'Male')
+fst_ngrams_compare_plot(top_fu, ngrams = 1, name = "Female")
+plot_top_fu <- fst_ngrams_compare_plot(top_fu, ngrams = 1, number = 8, override_title = "Female")
+plot_top_mu <- fst_ngrams_compare_plot(top_mu, ngrams = 1, override_title = "Male")
+plot_top_nau <- fst_ngrams_compare_plot(top_nau, ngrams = 1, override_title = "No Gender Specified")
+plot_topn_fu <- fst_ngrams_compare_plot(topn_fu, ngrams = 2, name = "Female")
+plot_topn_mu <- fst_ngrams_compare_plot(topn_mu, ngrams = 2, name = "Male")
 plot_top_mu + ggplot2::ggtitle("Plot of Top Male Words") + ggplot2::xlab("Count") + ggplot2::ylab("Top Words") # How to overwrite
-plot_topn_nau <- fst_ngrams_compare_plot(topn_nau, ngrams = 2, name = 'No Gender Specified')
+plot_topn_nau <- fst_ngrams_compare_plot(topn_nau, ngrams = 2, name = "No Gender Specified")
 }

@@ -20,6 +20,6 @@ Plot of top words.
 Plots most common words.
 }
 \examples{
-fst_freq_plot(top_bullying_words, number = 5, name = 'Bullying')
+fst_freq_plot(top_bullying_words, number = 5, name = "Bullying")
 fst_freq_plot(q11_1_ngrams)
 }

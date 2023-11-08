@@ -50,7 +50,7 @@ each group.
 }
 \examples{
 fst_comparison_cloud(conllu_dev_q11_1_nltk, conllu_dev_q11_2_nltk, conllu_dev_q11_3_nltk, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
-fst_comparison_cloud(conllu_cb_bullying_iso, conllu_dev_q11_1_nltk, conllu_dev_q11_2_nltk, conllu_dev_q11_3_nltk,max = 400)
-fst_comparison_cloud(conllu_dev_q11_1_f_nltk, conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_na_nltk, name1 = 'Female', name2 = 'Male', name3 = 'NA', max = 400)
-fst_comparison_cloud(conllu_dev_q11_1_f_nltk, conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_na_nltk, name1 = 'Female', name2 = 'Male', name3 = 'NA', max = 200)
+fst_comparison_cloud(conllu_cb_bullying_iso, conllu_dev_q11_1_nltk, conllu_dev_q11_2_nltk, conllu_dev_q11_3_nltk, max = 400)
+fst_comparison_cloud(conllu_dev_q11_1_f_nltk, conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_na_nltk, name1 = "Female", name2 = "Male", name3 = "NA", max = 400)
+fst_comparison_cloud(conllu_dev_q11_1_f_nltk, conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_na_nltk, name1 = "Female", name2 = "Male", name3 = "NA", max = 200)
 }

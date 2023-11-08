@@ -39,6 +39,6 @@ data.
 }
 \examples{
 q11_1_ngrams <- fst_get_top_ngrams(conllu_dev_q11_1_nltk, norm = NULL)
-fst_get_top_ngrams(conllu_dev_q11_1_nltk, number = 10, ngrams = 1, norm = 'number_resp')
+fst_get_top_ngrams(conllu_dev_q11_1_nltk, number = 10, ngrams = 1, norm = "number_resp")
 top_bullying_ngrams <- fst_get_top_ngrams(conllu_cb_bullying, number = 15, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
 }

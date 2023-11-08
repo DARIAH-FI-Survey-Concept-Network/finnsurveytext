@@ -37,5 +37,5 @@ data.
 \examples{
 fst_get_top_words(conllu_dev_q11_1_nltk, number = 15, norm = NULL)
 fst_get_top_words(conllu_dev_q11_1_nltk, number = 15, strict = FALSE)
-top_bullying_words <- fst_get_top_words(conllu_cb_bullying, number = 5, norm = 'number_resp', pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+top_bullying_words <- fst_get_top_words(conllu_cb_bullying, number = 5, norm = "number_resp", pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
 }

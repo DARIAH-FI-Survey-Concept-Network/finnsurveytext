@@ -42,5 +42,5 @@ Concept Network - Make Concept Network plot
 fst_concept_network(conllu_dev_q11_3, concepts = "köyhyys, puute")
 fst_concept_network(conllu_dev_q11_3, concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute")
 fst_concept_network(conllu_dev_q11_3, concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute", threshold = 3)
-fst_concept_network(conllu_cb_bullying_iso, concepts = 'kiusata, lyöminen', pos_filter = c("NOUN", "VERB", "ADJ", "ADV"), title = 'Bullying Concept Network')
+fst_concept_network(conllu_cb_bullying_iso, concepts = "kiusata, lyöminen", pos_filter = c("NOUN", "VERB", "ADJ", "ADV"), title = "Bullying Concept Network")
 }

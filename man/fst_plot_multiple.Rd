@@ -23,7 +23,7 @@ Display between 2 and 4 plots within the plots pane. If 2 or 3 plots, they
 will be in a single row, if there are 4 plots, they will be in 2 rows of 2.
 }
 \examples{
-fst_plot_multiple(plot_top_fu, plot_top_mu, plot_top_nau, main_title = 'Comparison Plots')
+fst_plot_multiple(plot_top_fu, plot_top_mu, plot_top_nau, main_title = "Comparison Plots")
 fst_plot_multiple(plot_topn_fu, plot_topn_mu, plot_topn_nau, plot_topn_nau)
-fst_plot_multiple(plot_topn_fu, plot_topn_mu, main_title = 'Comparison Plots')
+fst_plot_multiple(plot_topn_fu, plot_topn_mu, main_title = "Comparison Plots")
 }

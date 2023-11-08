@@ -60,7 +60,7 @@ highlighted.
 Concept Network- Compare and plot Concept Network
 }
 \examples{
-fst_concept_network_compare(conllu_dev_q11_1_nltk, conllu_dev_q11_2_nltk, concepts = 'elintaso, köyhä, ihminen', name1 = 'Q1', name2 = 'Q2', pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
-fst_concept_network_compare(conllu_dev_q11_1_nltk, conllu_dev_q11_2_nltk, conllu_dev_q11_3_nltk, concepts = 'elintaso, köyhä, ihminen', name1 = 'Q1', name2 = 'Q2', name3 = 'Q3', pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
-fst_concept_network_compare(conllu_dev_q11_1_f, conllu_dev_q11_1_m, concepts = 'elintaso, köyhä, ihminen', pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+fst_concept_network_compare(conllu_dev_q11_1_nltk, conllu_dev_q11_2_nltk, concepts = "elintaso, köyhä, ihminen", name1 = "Q1", name2 = "Q2", pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+fst_concept_network_compare(conllu_dev_q11_1_nltk, conllu_dev_q11_2_nltk, conllu_dev_q11_3_nltk, concepts = "elintaso, köyhä, ihminen", name1 = "Q1", name2 = "Q2", name3 = "Q3", pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+fst_concept_network_compare(conllu_dev_q11_1_f, conllu_dev_q11_1_m, concepts = "elintaso, köyhä, ihminen", pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
 }

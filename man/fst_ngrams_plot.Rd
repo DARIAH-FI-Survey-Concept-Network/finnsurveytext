@@ -22,7 +22,7 @@ Plot of top n-grams.
 Plots frequency n-grams.
 }
 \examples{
-fst_ngrams_plot(topn_f, ngrams = 2, name = 'Female')
+fst_ngrams_plot(topn_f, ngrams = 2, name = "Female")
 fst_ngrams_plot(top_f, ngrams = 1, number = 15)
 fst_ngrams_plot(topn_m, ngrams = 2, number = 15)
 fst_ngrams_plot(topn_na, ngrams = 2)
