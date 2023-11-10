@@ -103,7 +103,8 @@ fst_pos <- function(data) {
 #' Create table summarising length of responses
 #'
 #' @param dataA dataframe of text in CoNLL-U format.
-#' @param desc An optional string describing respondents, default is `NULL`
+#' @param desc An optional string describing respondents, default is
+#'  `All respondents`
 #' @param incl_sentences Whether to include sentence data in table, default is
 #'  `TRUE`
 #'
@@ -113,7 +114,9 @@ fst_pos <- function(data) {
 #' @examples
 #' fst_length_summary(conllu_dev_q11_1, incl_sentences = FALSE)
 #' fem <- fst_length_summary(conllu_dev_q11_1, desc = "Female")
-fst_length_summary <- function(data, desc = NULL, incl_sentences = TRUE) {
+fst_length_summary <- function(data,
+                               desc = 'All respondents',
+                               incl_sentences = TRUE) {
   no_resp_count <- length(which(data$sentence %in% c("NA", "na")))
   data <- dplyr::select(data, doc_id, sentence) %>%
     dplyr::mutate(length = stringr::str_count(sentence, "\\w+")) %>%

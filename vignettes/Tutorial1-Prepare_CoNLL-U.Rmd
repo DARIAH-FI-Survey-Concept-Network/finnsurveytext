@@ -78,7 +78,8 @@ Using our Child Barometer bullying data, we can call this function as follows:
 prepd_bullying <- fst_prepare_conllu(
   data = child_barometer_data,
   field = "q7",
-  stopword_list = "nltk"
+  stopword_list = "nltk", 
+  model = "ftb"
 )
 ```
 
@@ -86,8 +87,8 @@ Summary of components
 
 * `data` is the dataframe of interest. In this case, we are using data that comes with the package called 'child_barometer'. Otherwise, if you read in a csv containing a dataframe, such as through `read.csv` in base R for use in this tutorial.
 * The `field` is the name of the column in your data which contains the open-ended survey question. In this example, the responses about bullying are in question 7. 
-* We have chosen to remove stopwords from the "nltk" stopword list in this example. To find the relevant lists of Finnish stopwords, you can run the `fst_rm_stopwords_punct` function which is outlined below. Punctuation is also removed from the data.
-* The function also requires a Finnish language model available for `udpipe`, in this case we are using the default Finnish Treebank, "ftb". 
+* We have chosen to remove stopwords from the "nltk" stopword list in this example. To find the relevant lists of Finnish stopwords, you can run the `fst_rm_stopwords_punct` function which is outlined below. Punctuation is also removed from the data whenever stopwords are removed.
+* The function also requires a Finnish language model available for `udpipe`, in this case we are using the default Finnish Treebank, `model = "ftb"`. (There are two options for Finnish langage model; the other option is the Turku Dependency Treebank. For further detail on the treebanks, see the **Format as CoNLL-U** section below.
 * The results in CoNLL-U format are stored in the local environment as "prepd_bullying". 
 
 ### 2. Development Cooperation Data
@@ -95,7 +96,8 @@ Summary of components
 As an example, the development cooperation q11_2 data could be prepared using this function call: 
 
 ```{r eval = FALSE}
-prepd_lonely <- fst_prepare_conllu(dev_data,
+prepd_lonely <- fst_prepare_conllu(
+  dev_data,
   field = "q11_2",
   stopword_list = "none",
   model = "tdt"
@@ -104,8 +106,8 @@ prepd_lonely <- fst_prepare_conllu(dev_data,
 
 * `data` is the dataframe of interest. In this case, we are using data that comes with the pacakge called 'dev_data'. Otherwise, if you read in a csv containing a dataframe, such as through `read.csv` in base R for use in this tutorial.
 * The `field` is the name of the column in your data which contains the open-ended survey question. In this example, the responses are in question 11_2. 
-* We have chosen *not* to remove stopwords and punctuation in this example. 
-* The function also requires a Finnish language model available for [udpipe], in this case we are using the Turku Dependency Treebank, "tdt". 
+* We have chosen *not* to remove stopwords and punctuation in this example. (`stopword_list = NULL`)
+* The function also requires a Finnish language model available for [udpipe], in this case we are using the Turku Dependency Treebank, `model = "tdt"`.
 * The results in CoNLL-U format are stored in the local environment as "prepd_lonely". 
 
 ## In greater detail

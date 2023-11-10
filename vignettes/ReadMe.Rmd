@@ -35,14 +35,15 @@ This package aims to provide a useful and user friendly set of tools for social 
 ## Components ##
 There are 5 sets of functions included in the finnsurveytext package. These are: 
  
-* Preparation functions (R/01_prepare_conll-u.R)
+1. Preparation functions (R/01_prepare_conll-u.R)
     * These are functions to annotate survey data into a useful format (CoNLL-U) for analysis. There is a 'main' function within this set, `fst_prepare_conllu` which combines the other preparation functions and can be run as a single function to prepare data for analysis. 
-* Data exploration functions (R/02_data_exploration.R)
+2. Data exploration functions (R/02_data_exploration.R)
     * This file contains a number of functions which can be used for exploratory data analysis such as summary tables, plotting frequently occurring words and phrases, and creating wordclouds. 
+3. Concept Network functions (R/03_concept_network.R)
     *	All our concept network functions for a single network are in this file. Our concept network is one way of visualising the data that allows for interpretation. Our concept network function uses the textrank algorithm which is a graph-based ranking model for text processing. Vertices represent words and co-occurrence between words is shown through edges. Word importance is determined recursively where words get more weight based on how many words co-occur and the weight of these co-occurring words. 
-* Comparison functions (R/04_comparison_functions.R)
+4. Comparison functions (R/04_comparison_functions.R)
     * We have created  partner functions for all the data exploration functions which compare different sets of data. These comparison functions can be used to compare different cohorts of survey respondents based on responses to closed questions such as gender, education level, location, age, etc. 
-*	Comparison concept network functions (R/05_comparison_concept_network.R)
+5.	Comparison concept network functions (R/05_comparison_concept_network.R)
     * Similarly, in this script we have functions for comparing respondent cohort responses in concept networks.
  
  
