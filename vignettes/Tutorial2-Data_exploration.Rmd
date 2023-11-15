@@ -21,7 +21,18 @@ Exploratory Data Analysis (EDA) is a common activity once data has been cleaned 
 
 This tutorial follows on from Tutorial 1 and guides you through an EDA of data which has been prepared into CoNLL-U format. These EDA functions are contained in `r/02_data_exploration.R`.
 
-The included functions are: 
+### Installation of package.
+
+First, install and load the `finnsurveytext` package as below:
+(Other required packages such as `dplyr` and `stringr` will also be installed if they are not currently installed in your environment.)
+
+```{r setup}
+library(finnsurveytext)
+```
+
+### Overview of Functions 
+
+The functions covered in this tutorial are: 
 
 1. `fst_summarise_short`
 2. `fst_summarise`
@@ -36,20 +47,15 @@ The included functions are:
 12. `fst_freq`
 13. `fst_ngrams`
 
-First, install and load the `finnsurveytext` package as below:
-(Other required packages such as `dplyr` and `stringr` will also be installed if they are not currently installed in your environment.)
 
-```{r setup}
-library(finnsurveytext)
-```
-
+### Data
 There are two sets of data files available within the package which could be used in this tutorial. These files have been created following the process demonstrated in Tutorial 1. The suffixes 'iso', 'nltk' and 'snow' refer to the stopword list used within the preparation activities. 
 
-### 1. Child Barometer Data
+##### 1. Child Barometer Data
 * data/conllu_cb_bullying.rda
 * data/conllu_cb_bullying_iso.rda
 
-### 2. Development Cooperation Data
+##### 2. Development Cooperation Data
 * data/conllu_dev_q11_1.rda
 * data/conllu_dev_q11_1_nltk.rda
 * data/conllu_dev_q11_1_snow.rda
@@ -66,7 +72,9 @@ knitr::kable(head(bullying))
 q11_1 <- conllu_dev_q11_1_nltk
 ```
 
-### Get Summary Table
+## FUNCTIONS
+
+### Get Summary Table functions
 `fst_summarise_short` and `fst_summarise`
 
 This first function creates a simple summary table for the data that shows the total number of word, number of unique words, and number of unique lemmas in the data. You can either view the table in the console, or define a variable which will contain this table. 
@@ -74,9 +82,9 @@ This first function creates a simple summary table for the data that shows the t
 The second function adds information about the number and proportion of survey respondents which answered this question
 
 ```{r}
-fst_summarise_short(bullying)
+fst_summarise_short(data = bullying)
 
-q11_1_summary_table <- fst_summarise(q11_1, "All")
+q11_1_summary_table <- fst_summarise(data = q11_1, desc = "All")
 knitr::kable(q11_1_summary_table)
 ```
 
@@ -86,17 +94,17 @@ knitr::kable(q11_1_summary_table)
 
 `fst_summarise` takes an optional second argument:
 
-2. `desc` is an optional string describing respondents. If not defined, it will default to 'All respondents'.  
+2. `desc` is an optional string describing respondents. This description is included in the table in the first column. If not defined, it will default to 'All respondents'.  
 
-### Get Part-Of-Speech Summary Table
+### Get Part-Of-Speech Summary Table function
 `fst_pos`
 
-This function creates a table which counts the number of words of each part-of-speech (POS) tag within the data. Again, you can either view the table in the console, or define a variable which will contain this table.
+This function creates a table which counts the number and proportion of words of each part-of-speech (POS) tag within the data. Again, you can either view the table in the console, or define a variable which will contain this table.
 
 ```{r}
-fst_pos(bullying)
+fst_pos(data = bullying)
 
-q11_1_pos_table <- fst_pos(q11_1)
+q11_1_pos_table <- fst_pos(data = q11_1)
 knitr::kable(q11_1_pos_table)
 ```
 
@@ -105,41 +113,44 @@ knitr::kable(q11_1_pos_table)
 1. `data` is output from data preparation, prepared data in CoNLL-U format, such as the output of `fst_prepare_connlu`.
 
 
-### Get Length Summary Table
+### Get Length Summary Table function
 `fst_length_summary`
 
 This function creates a table which summarises the distribution of lengths in the responses. Again, you can either view the table in the console, or define a variable which will contain this table.
 
 ```{r}
-fst_length_summary(bullying, desc = "All Bullying Respondents")
+fst_length_summary(data = bullying, desc = "All Bullying Respondents")
 
-q11_1_length_table <- fst_length_summary(q11_1, incl_sentences = FALSE)
+q11_1_length_table <- fst_length_summary(data = q11_1, incl_sentences = FALSE)
 knitr::kable(q11_1_length_table)
 ```
 
-`fst_length_summary` takes 3 argument:
+`fst_length_summary` takes 3 arguments:
 
 1. `data` is output from data preparation, prepared data in CoNLL-U format, such as the output of `fst_prepare_connlu`.
-2. `desc` is an optional string describing respondents. If not defined, it will remain blank in the table.  
-3. `incl_sentences` is a boolean of whether to include sentence data in table, default is `TRUE`
+2. `desc` is an optional string describing respondents. If not defined, it will remain blank in the table meaning that the 'Description' column will only show whether the row is showing data for words or sentences.  
+3. `incl_sentences` is a boolean of whether to include sentence data in table, default is `TRUE`. If `incl_sentences = TRUE`, the table will also provide length information for the number of sentences within responses. If `incl_sentences = FALSE`, the table will show only show results for the number of words in responses. 
 
 ## Top Words and N-grams Tables
 
 Next we will demonstrate some functions which are used to create plots of most frequent words and n-grams occurring in the data. An n-gram is a set of n successive words in the data. 
 
-### Make Top Words/N-grams Tables
-`fst_get_top_words` and `fst_get_top_ngrams`
+### Make Top Words Table function
+`fst_get_top_words` 
 
-These functions creates a table of the most frequently occurring words/n-grams in the data (noting that "stopwords" may have been removed in previous data preparation steps.) 
+This functions creates a table of the most frequently occurring words in the data (noting that "stopwords" may have been removed in previous data preparation steps.) 
 
-The top words/n-grams tables are able have the word/n-grams normalised if you choose. The variable `norm` is the method for normalising the data. Valid settings are `'number_words'` (the number of words in the responses, default), `'number_resp'` (the number of responses), or `NULL` (raw count returned).
+The top words tables is able have the words normalised if you choose. The variable `norm` is the method for normalising the data. Valid settings are `'number_words'` (the number of words in the responses, default), `'number_resp'` (the number of responses), or `NULL` (raw count returned).
 
-Optionally, you can indicate which POS tags to include. (`fst_get_top_words` and `fst_get_top_ngrams` print a message. There is a third function `fst_get_top_ngrams2` which doesn't print a message. This function is used within the comparison functions in `04_comparison_functions.R`)
+Optionally, you can indicate which POS tags to include. 
+
+In this function, you must determine what you want to do in the case of ties with the variable `strict`. Words with equal occurrence are presented in alphabetial order. By default, words are presented in order to the `number` cutoff word. This means that equally-occurring later-alphabetically words beyond the cutoff word **will not** be displayed. Alternatively, you can decide that the cutoff is not strict, in which case words occurring equally often as the `number` cutoff words **will** be displayed.
+(`fst_get_top_words` will print a message regarding this decision.)
 
 We run the functions as follows:
 
 ```{r}
-fst_get_top_words(bullying)
+fst_get_top_words(data = bullying)
 
 fst_get_top_words(
   data = bullying,
@@ -149,46 +160,65 @@ fst_get_top_words(
   strict = FALSE
 )
 
-table1 <- fst_get_top_words(q11_1, 5)
+table1 <- fst_get_top_words(data = q11_1, number = 5)
 knitr::kable(table1)
 
-table2 <- fst_get_top_words(q11_1, 5, "number_resp", c("NOUN", "VERB"), strict = FALSE)
+table2 <- fst_get_top_words(data = q11_1, number = 5, norm = "number_resp", pos_filter = c("NOUN", "VERB"), strict = FALSE)
 knitr::kable(table2)
 
-fst_get_top_ngrams(bullying, ngrams = 2)
-
-fst_get_top_ngrams(bullying, ngrams = 2, norm = "number_words", strict = FALSE)
-
-table3 <- fst_get_top_ngrams(q11_1, 15, ngrams = 3)
-knitr::kable(table3)
-
-table4 <- fst_get_top_ngrams(q11_1, 15, ngrams = 2, pos_filter = c("NOUN", "VERB"), strict = FALSE)
-knitr::kable(table4)
 ```
 
 `fst_get_top_words` takes 4 arguments:
 
 1. `data` is output from data preparation, prepared data in CoNLL-U format, such as the output of `fst_prepare_connlu`.
-2. `number` is the number of top words/n+grams to return, default is `10`.
+2. `number` is the number of top words/n-grams to return, default is `10` which means that the top 10 words will be returned.
 3. `norm` is the method for normalising the data. Valid settings are `'number_words'` (the number of words in the responses, default), `'number_resp'` (the number of responses), or `NULL` (raw count returned).
 4. `pos_filter` is an optional list of which POS tags to include such as `'c("NOUN", "VERB", "ADJ", "ADV")'`. The default is `NULL`, in which case all words in the data are considered.
 5. `strict` is a boolean that determines how the function will deal with 'ties'. If `strict = TRUE`, the table will cut-off at the exact `number`(words are presented in alphabetical order so later-alphabetically, equally occurring words to the word at `number` will not be shown.) If `strict = FALSE`, the table will show any words that occur equally frequently as the number cutoff word. 
 
-`fst_get_top_ngrams` has an additional argument: 
+### Make Top N-Grams Table function
+`fst_get_top_ngrams`
 
-5. `ngrams` is the type of n-grams. The default is "1" (so top words). Set `ngrams = 2` to get bigrams and `n = 3` to get trigrams etc. 
+Similar to `fst_get_top_words`, this functions creates a table of the most frequently occurring n-grams in the data (noting that "stopwords" may have been removed in previous data preparation steps.) 
 
-### Make Top Words/N-grams Tables
-`fst_freq_plot` and `fst_ngrams_plot`
+The top n-grams tables are able have the n-grams normalised if you choose. The variable `norm` is the method for normalising the data. Valid settings are `'number_words'` (the number of words in the responses, default), `'number_resp'` (the number of responses), or `NULL` (raw count returned).
 
-These functions plot the results of `fst_get_top_words` and `fst_get_top_ngrams`.
+Optionally, you can indicate which POS tags to include. 
+
+In this function, you must determine what you want to do in the case of ties with the variable `strict`. N-grams with equal occurrence are presented in alphabetial order. By default, n-grams are presented in order to the `number` cutoff n-gram. This means that equally-occurring later-alphabetically n-grams beyond the cutoff n-gram **will not** be displayed. Alternatively, you can decide that the cutoff is not strict, in which case n-grams occurring equally often as the `number` cutoff n-gram **will** be displayed.
+(`fst_get_top_ngrams` will print a message regarding this decision. There is another function `fst_get_top_ngrams2` which doesn't print a message. This function is used within the comparison functions in `04_comparison_functions.R`)
+
+We run the functions as follows:
 
 ```{r}
-fst_freq_plot(table1, number = 5, name = "Table 1")
-fst_ngrams_plot(table1, number = 5, ngrams = 1, "Table 1 with N-grams Plot Function")
+fst_get_top_ngrams(data = bullying, ngrams = 2)
 
-fst_ngrams_plot(table3, number = 15, ngrams = 3, "Trigrams")
-fst_ngrams_plot(table4, number = 15, ngrams = 2, "Bigrams")
+fst_get_top_ngrams(data = bullying, ngrams = 2, norm = "number_words", strict = FALSE)
+
+table3 <- fst_get_top_ngrams(data = q11_1, number = 15, ngrams = 3)
+knitr::kable(table3)
+
+table4 <- fst_get_top_ngrams(data = q11_1, number = 15, ngrams = 2, pos_filter = c("NOUN", "VERB"), strict = FALSE)
+knitr::kable(table4)
+```
+
+`fst_get_top_ngrams` has the same setup as `fst_get_top_words` plus an additional argument `ngrams`: 
+
+1. `data` is output from data preparation, prepared data in CoNLL-U format, such as the output of `fst_prepare_connlu`.
+2. `number` is the number of top words/n-grams to return, default is `10` which means that the top 10 n-grams will be returned.
+3. `ngrams` is the type of n-grams. The default is "1" (so top words). Set `ngrams = 2` to get bigrams and `n = 3` to get trigrams etc. 
+4. `norm` is the method for normalising the data. Valid settings are `'number_words'` (the number of words in the responses, default), `'number_resp'` (the number of responses), or `NULL` (raw count returned).
+5. `pos_filter` is an optional list of which POS tags to include such as `'c("NOUN", "VERB", "ADJ", "ADV")'`. The default is `NULL`, in which case all words in the data are considered.
+6. `strict` is a boolean that determines how the function will deal with 'ties'. If `strict = TRUE`, the table will cut-off at the exact `number`(n-grams are presented in alphabetical order so later-alphabetically, equally occurring n-grams to the n-gram at `number` will not be shown.) If `strict = FALSE`, the table will show any n-grams that occur equally frequently as the number cutoff n-gram. 
+
+### Make Top Words/N-grams Tables functions
+`fst_freq_plot` 
+
+This functions plots the results of `fst_get_top_words`.
+
+```{r}
+fst_freq_plot(table = table1, number = 5, name = "Table 1")
+fst_freq_plot(table = table1, number = 5, name = "Table 1 with N-grams Plot Function")
 ```
 
 The arguments are: 
@@ -197,39 +227,69 @@ The arguments are:
 2. `number` The number of words/n-grams, default is `10`.
 3. `name` is an optional "name" for the plot, default is `NULL`
 
-Again, `fst_get_top_ngrams` has an additional argument: 
+### Make Top N-grams Tables functions
+`fst_ngrams_plot`
 
-5. `ngrams` is the type of n-grams. As you can see above, you can plot top words using `ngrams = 1`.
-
-### Find and Plot Top Words/N-grams
-`fst_freq` and `fst_ngrams`
-
-These functions run `fst_get_top_words`/`fst_get_top_ngrams` and `fst_freq_plot`/`fst_ngrams_plot` within one function:
+This functions plotw the results of `fst_get_top_ngrams`.
 
 ```{r}
-fst_freq(q11_1, number = 12, strict = FALSE, name = "Q11_1")
-fst_ngrams(bullying, number = 12, ngrams = 2)
+fst_ngrams_plot(table = table3, number = 15, ngrams = 3, "Trigrams")
+fst_ngrams_plot(table = table4, number = 15, ngrams = 2, "Bigrams")
 ```
 
-The arguments are as defined in the above functions: 
+The arguments are: 
 
-1. `data`
-2. `number`
-3. (`ngrams`)
-4. `norm`
-5. `pos_filter`
-6. `strict`
-7. `name`
+1. `table` is the output of `fst_get_top_words` or `fst_get_top_ngrams`
+2. `number` The number of words/n-grams, default is `10`.
+3. `name` is an optional "name" for the plot, default is `NULL`
+4. `ngrams` is the type of n-grams. As you can see above, you can plot top words using `ngrams = 1`.
+
+### Find and Plot Top Words function
+`fst_freq`
+
+This functions runs `fst_get_top_words` and `fst_freq_plot` within one function:
+
+```{r}
+fst_freq(data = q11_1, number = 12, strict = FALSE, name = "Q11_1")
+```
+
+The arguments are as defined in the component functions: 
+
+1. `data` is output from data preparation, prepared data in CoNLL-U format, such as the output of `fst_prepare_connlu`.
+2. `number` is the number of top words/n+grams to return, default is `10`.
+3. `norm` is the method for normalising the data. Valid settings are `'number_words'` (the number of words in the responses, default), `'number_resp'` (the number of responses), or `NULL` (raw count returned).
+4. `pos_filter` is an optional list of which POS tags to include such as `'c("NOUN", "VERB", "ADJ", "ADV")'`. The default is `NULL`, in which case all words in the data are considered.
+5. `strict` is a boolean that determines how the function will deal with 'ties'. If `strict = TRUE`, the table will cut-off at the exact `number`(words are presented in alphabetical order so later-alphabetically, equally occurring words to the word at `number` will not be shown.) If `strict = FALSE`, the table will show any words that occur equally frequently as the number cutoff word. 
+6. `name` is an optional "name" for the plot, default is `NULL`
 
 
-### Make Wordcloud
+### Find and Plot Top N-Grams function
+`fst_ngrams`
+
+This functions runs `fst_get_top_ngrams` and `fst_ngrams_plot` within one function:
+
+```{r}
+fst_ngrams(data = bullying, number = 12, ngrams = 2)
+```
+
+The arguments are as defined in the commponent  functions: 
+
+1. `data` is output from data preparation, prepared data in CoNLL-U format, such as the output of `fst_prepare_connlu`.
+2. `number` is the number of top words/n+grams to return, default is `10`.
+3. `ngrams` is the type of n-grams. The default is "1" (so top words). Set `ngrams = 2` to get bigrams and `n = 3` to get trigrams etc. 
+4. `norm` is the method for normalising the data. Valid settings are `'number_words'` (the number of words in the responses, default), `'number_resp'` (the number of responses), or `NULL` (raw count returned).
+5. `pos_filter` is an optional list of which POS tags to include such as `'c("NOUN", "VERB", "ADJ", "ADV")'`. The default is `NULL`, in which case all words in the data are considered.
+6. `strict` is a boolean that determines how the function will deal with 'ties'. If `strict = TRUE`, the table will cut-off at the exact `number`(n-grams are presented in alphabetical order so later-alphabetically, equally occurring n-grams to the n-gram at `number` will not be shown.) If `strict = FALSE`, the table will show any n-grams that occur equally frequently as the number cutoff word. 
+
+### Make Wordcloud function
 `fst_wordcloud`
 
 This function will create a wordcloud plot for the data. There is an option to select only specific word types (POS tag).
 
 ```{r}
-fst_wordcloud(bullying)
-fst_wordcloud(q11_1,
+fst_wordcloud(data = bullying)
+fst_wordcloud(
+  data = q11_1,
   pos_filter = c("NOUN", "VERB", "ADJ", "ADV"),
   max = 150
 )

@@ -387,18 +387,33 @@ male_edges <- fst_cn_edges(male_nltk, concepts)
 female_nodes <- fst_cn_nodes(female_nltk, female_edges)
 male_nodes <- fst_cn_nodes(male_nltk, male_edges)
 
+min_edge <- min(min(female_edges$co_occurrence), min(male_edges$co_occurrence))
+max_edge <- max(max(female_edges$co_occurrence), max(male_edges$co_occurrence))
+min_node <- min(min(female_nodes$pagerank), min(male_nodes$pagerank))
+max_node <- max(max(female_nodes$pagerank), max(male_nodes$pagerank))
+
 unique2 <- fst_cn_get_unique(female_nodes, male_nodes)
 
 female_cn <- fst_cn_compare_plot(female_edges, female_nodes, concepts,
   unique_lemmas = unique2,
   name = "Female",
-  concept_colour = "red", unique_colour = "purple"
+  concept_colour = "red", 
+  unique_colour = "purple", 
+  min_edge = min_edge, 
+  max_edge = max_edge, 
+  min_node = min_node, 
+  max_node = max_node
 )
 
 male_cn <- fst_cn_compare_plot(male_edges, male_nodes, concepts,
   unique_lemmas = unique2,
   name = "Male",
-  concept_colour = "red", unique_colour = "blue"
+  concept_colour = "red", 
+  unique_colour = "blue", 
+  min_edge = min_edge, 
+  max_edge = max_edge, 
+  min_node = min_node, 
+  max_node = max_node
 )
 
 fst_plot_multiple(plot1 = female_cn, plot2 = male_cn, main_title = "Comparison Plot of Female and Male Respondences Q11_2")

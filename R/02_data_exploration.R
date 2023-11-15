@@ -72,15 +72,16 @@ fst_summarise <- function(data, desc = "All respondents") {
 fst_pos <- function(data) {
   denom = nrow(data)
   pos_table <- data %>%
-    dplyr::count(upos, sort = TRUE)
+    dplyr::count(upos, sort = TRUE) %>%
+    dplyr::rename(UPOS = upos)
   pos_lookup <- data.frame(
-    "upos" = c(
+    "UPOS" = c(
       "ADJ", "ADP", "ADV", "AUX", "CCONJ", "DET",
       "INTJ", "NOUN", "NUM", "PART", "PRON",
       "PROPN", "PUNCT", "SCONJ", "SYM", "VERB",
       "X"
     ),
-    "upos name" = c(
+    "UPOS_Name" = c(
       " adjective", " adposition",
       " adverb", " auxiliary",
       " coordinating conjunction",
@@ -92,10 +93,10 @@ fst_pos <- function(data) {
       " symbol", " verb", " other"
     )
   )
-  df <- merge(x = pos_lookup, y = pos_table, by = "upos")
+  df <- merge(x = pos_lookup, y = pos_table, by = "UPOS")
   df %>%
-    dplyr::rename(count = n) %>%
-    dplyr::mutate(proportion = round(count / denom, 3))
+    dplyr::rename(Count = n) %>%
+    dplyr::mutate(Proportion = round(Count / denom, 3))
 }
 
 #' Make Length Summary Table
@@ -187,9 +188,9 @@ fst_get_top_words <- function(data,
                               strict = TRUE) {
   with_ties <- !strict
   if (strict == TRUE) {
-    message("Note:\n Terms with equal occurrence are presented in alphabetial order. \n By default, terms are presented in order to the `number` cutoff word. \n This means that equally-occurring later-alphabetically words beyond the cutoff will not be displayed.\n\n")
+    message("Note:\n Words with equal occurrence are presented in alphabetial order. \n By default, words are presented in order to the `number` cutoff word. \n This means that equally-occurring later-alphabetically words beyond the cutoff word will not be displayed.\n\n")
   } else {
-    message("Note:\n Terms with equal occurrence are presented in alphabetial order. \n With `strict` = FALSE, words occurring equally often as the `number` cutoff word will be displayed. \n\n")
+    message("Note:\n Words with equal occurrence are presented in alphabetial order. \n With `strict` = FALSE, words occurring equally often as the `number` cutoff word will be displayed. \n\n")
   }
   if (is.null(norm)) {
     denom <- 1
@@ -249,9 +250,9 @@ fst_get_top_words <- function(data,
 fst_get_top_ngrams <- function(data, number = 10, ngrams = 1, norm = "number_words", pos_filter = NULL, strict = TRUE) {
   with_ties <- !strict
   if (strict == TRUE) {
-    message("Note:\n Terms with equal occurrence are presented in alphabetial order. \n By default, terms are presented in order to the `number` cutoff word. \n This means that equally-occurring later-alphabetically words beyond the cutoff will not be displayed. \n\n")
+    message("Note:\n N-grams with equal occurrence are presented in alphabetial order. \n By default, n-grams are presented in order to the `number` cutoff n-gram. \n This means that equally-occurring later-alphabetically n-grams beyond the cutoff n-gram will not be displayed. \n\n")
   } else {
-    message("Note:\n Terms with equal occurrence are presented in alphabetial order. \n With `strict` = FALSE, words occurring equally often as the `number` cutoff word will be displayed. \n\n")
+    message("Note:\n N-grams with equal occurrence are presented in alphabetial order. \n With `strict` = FALSE, n-grams occurring equally often as the `number` cutoff n-gram will be displayed. \n\n")
   }
   if (is.null(norm)) {
     denom <- 1

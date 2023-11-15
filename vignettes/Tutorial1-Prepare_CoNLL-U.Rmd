@@ -26,23 +26,7 @@ Many natural language processing (NLP) tasks require data which is systematicall
   + Lemmatisation is often considered superior but it is slower as it requires a dictionary of words.  
 * part-of-speech (POS) tagging
 
-The `finnsurveytext` package uses the CoNLL-U format. This tutorial demonstrates the process of preparing Finnish survey text data into this format using functions in r/01_prepare_conll-u.r.
-
-These functions are: 
-
-1. `fst_format_conllu`
-2. `fst_find_stopwords`
-3. `fst_rm_stop_punct`
-4. `fst_prepare_conllu`
-
-
-#### CoNLL-U Format Overview
-CoNLL-U is a popular annotation scheme often used in Natural Language Processing (NLP) tasks to tokenise and annotate text. In CoNLL-U format, the text is split into one line per word and ten features of each word are recorded including an ID,  part-of-speech tagging, the word itself (eg. 'likes'), and word lemma (eg. 'like'). 
-CoNLL stands for the Conference of Natural Language Learning and CoNLL-U format was introduced in 2014. 
-
-More information on CoNLL-U format can be found in the Universal Dependencies Project, https://universaldependencies.org/format.html. 
-
-## Installation of package.
+### Installation of package.
 
 First, install and load the `finnsurveytext` package as below:
 (Other required packages such as `dplyr` and `stringr` will also be installed if they are not currently installed in your environment.)
@@ -51,15 +35,25 @@ First, install and load the `finnsurveytext` package as below:
 library(finnsurveytext)
 ```
 
+### Overview of Functions 
+
+The functions covered in this tutorial are: 
+
+1. `fst_format_conllu`
+2. `fst_find_stopwords`
+3. `fst_rm_stop_punct`
+4. `fst_prepare_conllu`
+
+### Data
 This tutorial uses two sources of data from the Finnish Social Science Data Archive: 
 
-### 1. Child Barometer Data
+#### 1. Child Barometer Data
 * Source: FSD3134 Lapsibarometri 2016
 * Question: q7 'Kertoisitko, mitä sinun mielestäsi kiusaaminen on? (Avokysymys)'
 * Licence: (A) openly available for all users without registration (CC BY 4.0).
 * Link to Data: https://urn.fi/urn:nbn:fi:fsd:T-FSD3134
 
-### 2. Development Cooperation Data
+#### 2. Development Cooperation Data
 * Source: FSD2821 Nuorten ajatuksia kehitysyhteistyöstä 2012
 * Questions: q11_1 'Jatka lausetta: Kehitysmaa on maa, jossa... (Avokysymys)', q11_2 'Jatka lausetta: Kehitysyhteistyö on toimintaa, jossa... (Avokysymys)', q11_3' Jatka lausetta: Maailman kolme suurinta ongelmaa ovat... (Avokysymys)'
 * Licence: (A) openly available for all users without registration (CC BY 4.0).
@@ -67,6 +61,14 @@ This tutorial uses two sources of data from the Finnish Social Science Data Arch
 
 
 Both of these will be demonstrated below but either can be used to complete the tutorial. If you would prefer to use your own data, you can read in this data through `read.csv` or similar so that you have a 'raw' dataframe ready in your R environment.
+
+#### CoNLL-U Format Overview
+The `finnsurveytext` package uses the CoNLL-U format. This tutorial demonstrates the process of preparing Finnish survey text data into this format using functions in r/01_prepare_conll-u.r.
+
+CoNLL-U is a popular annotation scheme often used in Natural Language Processing (NLP) tasks to tokenise and annotate text. In CoNLL-U format, the text is split into one line per word and ten features of each word are recorded including an ID,  part-of-speech tagging, the word itself (eg. 'likes'), and word lemma (eg. 'like'). 
+CoNLL stands for the Conference of Natural Language Learning and CoNLL-U format was introduced in 2014. 
+
+More information on CoNLL-U format can be found in the Universal Dependencies Project, https://universaldependencies.org/format.html. 
 
 ## The Whole Story
 A single function, `fst_prepare_connlu` (which calls all the data preparation functions within the package) can be used to prepare the data into the required CoNNL-U format. 

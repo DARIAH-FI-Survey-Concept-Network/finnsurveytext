@@ -267,8 +267,9 @@ Here we see that male and female respondents have the same top 4 words, but that
 Also, we note that the most frequent words by female respondents occur in nearly 30% of responses whereas for the males it's just over 20%. Perhaps there is less consistency in what males are mentioning?
 
 For the bigrams, we can identify that
+
 * both genders frequently list lack of water but it is mostly females who mention *clean* water.
-* males respondents rate climate change higher 
+
 
 #### Concept network of top 4 words
 

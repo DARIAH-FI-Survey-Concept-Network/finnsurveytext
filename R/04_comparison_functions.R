@@ -218,9 +218,9 @@ fst_freq_compare <- function(data1, data2, data3 = NULL, data4 = NULL, number = 
     fst_plot_multiple(plot1 = plot1, plot2 = plot2, main_title = paste("Comparison Plot of", as.character(number), "Most Common Words"))
   }
   if (strict == TRUE) {
-    message("Note:\n Terms with equal occurrence are presented in alphabetial order. \n By default, terms are presented in order to the `number` cutoff word. \n This means that equally-occurring later-alphabetically words beyond the cutoff will not be displayed. \n\n")
+    message("Note:\n Words with equal occurrence are presented in alphabetial order. \n By default, words are presented in order to the `number` cutoff word. \n This means that equally-occurring later-alphabetically words beyond the cutoff will not be displayed. \n\n")
   } else {
-    message("Note:\n Terms with equal occurrence are presented in alphabetial order. \n With `strict` = FALSE, words occurring equally often as the `number` cutoff word will be displayed. \n\n")
+    message("Note:\n Words with equal occurrence are presented in alphabetial order. \n With `strict` = FALSE, words occurring equally often as the `number` cutoff word will be displayed. \n\n")
   }
 }
 
@@ -322,9 +322,9 @@ fst_ngrams_compare <- function(data1, data2, data3 = NULL, data4 = NULL, number 
     fst_plot_multiple(plot1 = plot1, plot2 = plot2, main_title = paste("Comparison Plot of", as.character(number), "Most Common", term))
   }
   if (strict == TRUE) {
-    message("Note:\n Terms with equal occurrence are presented in alphabetial order. \n By default, terms are presented in order to the `number` cutoff word. \n This means that equally-occurring later-alphabetically words beyond the cutoff will not be displayed. \n\n")
+    message("Note:\n N-grams with equal occurrence are presented in alphabetial order. \n By default, n-grams are presented in order to the `number` cutoff n-gram \n This means that equally-occurring later-alphabetically n-grams beyond the cutoff n-gram will not be displayed. \n\n")
   } else {
-    message("Note:\n Terms with equal occurrence are presented in alphabetial order. \n With `strict` = FALSE, words occurring equally often as the `number` cutoff word will be displayed. \n\n")
+    message("Note:\n N-grams with equal occurrence are presented in alphabetial order. \n With `strict` = FALSE, n-grams occurring equally often as the `number` cutoff n-gram will be displayed. \n\n")
   }
 }
 
@@ -354,13 +354,13 @@ fst_ngrams_compare <- function(data1, data2, data3 = NULL, data4 = NULL, number 
 #' pos_table <- fst_pos_compare(data1 = conllu_dev_q11_1, name1 = "All", data2 = conllu_dev_q11_1_m, name2 = "Male", data3 = conllu_dev_q11_1_f, name3 = "Female", data4 = conllu_dev_q11_1_na, name4 = "Not Spec")
 fst_pos_compare <- function(data1, data2, data3 = NULL, data4 = NULL, name1 = "Group 1", name2 = "Group 2", name3 = "Group 3", name4 = "Group 4") {
   pos_lookup <- data.frame(
-    "upos" = c(
+    "UPOS" = c(
       "ADJ", "ADP", "ADV", "AUX", "CCONJ", "DET",
       "INTJ", "NOUN", "NUM", "PART", "PRON",
       "PROPN", "PUNCT", "SCONJ", "SYM", "VERB",
       "X"
     ),
-    "Part-of-Speech Name" = c(
+    "Part_of_Speech_Name" = c(
       " adjective", " adposition",
       " adverb", " auxiliary",
       " coordinating conjunction",
@@ -375,83 +375,93 @@ fst_pos_compare <- function(data1, data2, data3 = NULL, data4 = NULL, name1 = "G
   if (!is.null(data3)) {
     if (!is.null(data4)) {
       denom4 <- nrow(data4)
-      name4_2 <- paste(name4, 'count')
-      name4_3 <- paste(name4, 'prop')
+      name4_2 <- paste(name4, 'Count')
+      name4_3 <- paste(name4, 'Prop')
       pos_table4 <- data4 %>%
         dplyr::count(upos, sort = TRUE) %>%
         dplyr::mutate(!!name4_3 := round(n/denom4, 3)) %>%
-        dplyr::rename(!!name4_2 := n)
+        dplyr::rename(!!name4_2 := n) %>%
+        dplyr::rename(UPOS = upos)
       denom3 <- nrow(data3)
-      name3_2 <- paste(name3, 'count')
-      name3_3 <- paste(name3, 'prop')
+      name3_2 <- paste(name3, 'Count')
+      name3_3 <- paste(name3, 'Prop')
       pos_table3 <- data3 %>%
         dplyr::count(upos, sort = TRUE) %>%
         dplyr::mutate(!!name3_3 := round(n/denom3, 3)) %>%
-        dplyr::rename(!!name3_2 := n)
+        dplyr::rename(!!name3_2 := n) %>%
+        dplyr::rename(UPOS = upos)
       denom2 <- nrow(data2)
-      name2_2 <- paste(name2, 'count')
-      name2_3 <- paste(name2, 'prop')
+      name2_2 <- paste(name2, 'Count')
+      name2_3 <- paste(name2, 'Prop')
       pos_table2 <- data2 %>%
         dplyr::count(upos, sort = TRUE) %>%
         dplyr::mutate(!!name2_3 := round(n/denom2, 3)) %>%
-        dplyr::rename(!!name2_2 := n)
+        dplyr::rename(!!name2_2 := n) %>%
+        dplyr::rename(UPOS = upos)
       denom1 <- nrow(data1)
-      name1_2 <- paste(name1, 'count')
-      name1_3 <- paste(name1, 'prop')
+      name1_2 <- paste(name1, 'Count')
+      name1_3 <- paste(name1, 'Prop')
       pos_table1 <- data1 %>%
         dplyr::count(upos, sort = TRUE) %>%
         dplyr::mutate(!!name1_3 := round(n/denom1, 3)) %>%
-        dplyr::rename(!!name1_2 := n)
-      df <- merge(x = pos_lookup, y = pos_table1, by = "upos") %>%
-        merge(pos_table2, by = "upos") %>%
-        merge(pos_table3, by = "upos") %>%
-        merge(pos_table4, by = "upos")
+        dplyr::rename(!!name1_2 := n) %>%
+        dplyr::rename(UPOS = upos)
+      df <- merge(x = pos_lookup, y = pos_table1, by = "UPOS") %>%
+        merge(pos_table2, by = "UPOS") %>%
+        merge(pos_table3, by = "UPOS") %>%
+        merge(pos_table4, by = "UPOS")
     } else {
       denom3 <- nrow(data3)
-      name3_2 <- paste(name3, 'count')
-      name3_3 <- paste(name3, 'prop')
+      name3_2 <- paste(name3, 'Count')
+      name3_3 <- paste(name3, 'Prop')
       pos_table3 <- data3 %>%
         dplyr::count(upos, sort = TRUE) %>%
         dplyr::mutate(!!name3_3 := round(n/denom3, 3)) %>%
-        dplyr::rename(!!name3 := n)
+        dplyr::rename(!!name3 := n) %>%
+        dplyr::rename(UPOS = upos)
       denom2 <- nrow(data2)
-      name2_2 <- paste(name2, 'count')
-      name2_3 <- paste(name2, 'prop')
+      name2_2 <- paste(name2, 'Count')
+      name2_3 <- paste(name2, 'Prop')
       pos_table2 <- data2 %>%
         dplyr::count(upos, sort = TRUE) %>%
         dplyr::mutate(!!name2_3 := round(n/denom2, 3)) %>%
-        dplyr::rename(!!name2_2 := n)
+        dplyr::rename(!!name2_2 := n) %>%
+        dplyr::rename(UPOS = upos)
       denom1 <- nrow(data1)
-      name1_2 <- paste(name1, 'count')
-      name1_3 <- paste(name1, 'prop')
+      name1_2 <- paste(name1, 'Count')
+      name1_3 <- paste(name1, 'Prop')
       pos_table1 <- data1 %>%
         dplyr::count(upos, sort = TRUE) %>%
         dplyr::mutate(!!name1_3 := round(n/denom1, 3)) %>%
-        dplyr::rename(!!name1_2 := n)
-      df <- merge(x = pos_lookup, y = pos_table1, by = "upos") %>%
-        merge(pos_table2, by = "upos") %>%
-        merge(pos_table3, by = "upos")
+        dplyr::rename(!!name1_2 := n) %>%
+        dplyr::rename(UPOS = upos)
+      df <- merge(x = pos_lookup, y = pos_table1, by = "UPOS") %>%
+        merge(pos_table2, by = "UPOS") %>%
+        merge(pos_table3, by = "UPOS")
     }
   } else {
     denom2 <- nrow(data2)
-    name2_2 <- paste(name2, 'count')
-    name2_3 <- paste(name2, 'prop')
+    name2_2 <- paste(name2, 'Count')
+    name2_3 <- paste(name2, 'Prop')
     pos_table2 <- data2 %>%
       dplyr::count(upos, sort = TRUE) %>%
       dplyr::mutate(!!name2_3 := round(n/denom2, 3)) %>%
-      dplyr::rename(!!name2_2 := n)
+      dplyr::rename(!!name2_2 := n) %>%
+      dplyr::rename(UPOS = upos)
     denom1 <- nrow(data1)
-    name1_2 <- paste(name1, 'count')
-    name1_3 <- paste(name1, 'prop')
+    name1_2 <- paste(name1, 'Count')
+    name1_3 <- paste(name1, 'Prop')
     pos_table1 <- data1 %>%
       dplyr::count(upos, sort = TRUE) %>%
       dplyr::mutate(!!name1_3 := round(n/denom1, 3)) %>%
-      dplyr::rename(!!name1_2 := n)
-    df <- merge(x = pos_lookup, y = pos_table1, by = "upos") %>%
-      merge(pos_table2, by = "upos")
+      dplyr::rename(!!name1_2 := n) %>%
+      dplyr::rename(UPOS = upos)
+    df <- merge(x = pos_lookup, y = pos_table1, by = "UPOS") %>%
+      merge(pos_table2, by = "UPOS")
   }
   df
 }
+
 
 
 #' Make comparison summary

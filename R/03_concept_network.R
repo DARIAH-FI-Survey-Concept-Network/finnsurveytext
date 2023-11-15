@@ -189,7 +189,7 @@ fst_cn_plot <- function(edges, nodes, concepts, title = NULL) {
       unlist()
   }
   if (is.null(title)) {
-    title <- "Textrank extracted keyword occurrences"
+    title <- "Concept Network of Textrank extracted keyword occurrences"
   }
   nodes <- nodes %>%
     dplyr::mutate(is_concept = factor(ifelse(lemma %in% concepts, 0, 1),
@@ -211,9 +211,10 @@ fst_cn_plot <- function(edges, nodes, concepts, title = NULL) {
       ),
       colour = "#6da5d3"
     ) +
-    ggraph::scale_edge_width(range = c(1, 5)) +
-    ggraph::scale_edge_alpha(range = c(0.2, 1)) +
+    ggraph::scale_edge_width(range = c(1, 5),  limits = c(min(edges$co_occurrence),max(edges$co_occurrence))) +
+    ggraph::scale_edge_alpha(range = c(0.2, 1), limits = c(min(edges$co_occurrence),max(edges$co_occurrence))) +
     ggraph::geom_node_point(ggplot2::aes(size = pagerank)) +
+    ggplot2::scale_size(limit = c(min(nodes$pagerank),max(nodes$pagerank))) +
     ggraph::geom_node_text(ggplot2::aes(label = name, col = is_concept),
       check_overlap = TRUE, repel = TRUE
     ) +
