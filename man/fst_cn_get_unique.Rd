@@ -21,7 +21,19 @@ Takes at least two tables of nodes and pagerank (output of `fst_cn_nodes`)
 and finds nodes unique to one table.
 }
 \examples{
-unique <- fst_cn_get_unique(female_nodes, male_nodes, na_nodes)
-unique_2 <- fst_cn_get_unique(q11_1_nodes, q11_2_nodes)
-unique_3 <- fst_cn_get_unique(q11_1_nodes, q11_2_nodes, q11_3_nodes)
+con1 <- "elintaso, köyhä, ihminen"
+data1 <- conllu_dev_q11_1_nltk
+e1 <- fst_cn_edges(data = data1, concepts = con1, threshold = 3)
+q11_1_nodes <- fst_cn_nodes(conllu_dev_q11_1_nltk, e1)
+
+con2 <- "kehitysmaa, auttaa, pyrkiä, maa, ihminen"
+e2 <- fst_cn_edges(conllu_dev_q11_2_nltk, con2, threshold = 5)
+q11_2_nodes <- fst_cn_nodes(conllu_dev_q11_2_nltk, e2)
+
+con3 <- "köyhyys, nälänhätä, sota, ilmastonmuutos, puute"
+e3 <- fst_cn_edges(conllu_dev_q11_3_nltk, con3, threshold = 2)
+q11_3_nodes <- fst_cn_nodes(conllu_dev_q11_3_nltk, e3)
+
+fst_cn_get_unique(q11_1_nodes, q11_2_nodes)
+fst_cn_get_unique(q11_1_nodes, q11_2_nodes, q11_3_nodes)
 }

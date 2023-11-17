@@ -142,7 +142,7 @@ knitr::kable(head(q11_2_edges, n = 10))
 The arguments are the same as for `fst_cn_search` plus the `threshold`.
 
 1. `data` which is output from data preparation, prepared data in CoNLL-U format, such as the output of `fst_prepare_connlu`.
-2. `concept` is a string of concept terms to search for, separated by commas.
+2. `concepts` is a string of concept terms to search for, separated by commas.
 3. `threshold` is the minimum number of occurrences threshold for 'edge' between a concept term and other word, default is NULL.
 4. `norm` is the method for normalising the data. Valid settings are `'number_words'` (the number of words in the responses, default), `'number_resp'` (the number of responses), or `NULL` (raw count returned). Normalisation occurs **after** the threshold (if it exists) is applied. 
 5. `pos_filter` is a list of UPOS tags for inclusion, default is `NULL`.

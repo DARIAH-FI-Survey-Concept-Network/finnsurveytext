@@ -42,7 +42,10 @@ Compare words in responses based on part-of-speech tagging for between 2 and
 4 sets of prepared data.
 }
 \examples{
-fst_pos_compare(conllu_dev_q11_1_f, conllu_dev_q11_1_m, conllu_dev_q11_1_na, conllu_dev_q11_1, "Female", "Male", "No Gender Specified", "All")
-fst_pos_compare(conllu_dev_q11_1_f, conllu_dev_q11_1_m, name1 = "Female", name2 = "Male")
-pos_table <- fst_pos_compare(data1 = conllu_dev_q11_1, name1 = "All", data2 = conllu_dev_q11_1_m, name2 = "Male", data3 = conllu_dev_q11_1_f, name3 = "Female", data4 = conllu_dev_q11_1_na, name4 = "Not Spec")
+f <- conllu_dev_q11_1_f_nltk
+m <- conllu_dev_q11_1_m_nltk
+na <- conllu_dev_q11_1_na_nltk
+all <- conllu_dev_q11_1_nltk
+fst_pos_compare(f, m, na, all, "Female", "Male", "Not Spec.", "All")
+fst_pos_compare(f, m, name1 = "Female", name2 = "Male")
 }

@@ -13,7 +13,8 @@ fst_ngrams_plot(table, number = NULL, ngrams = 1, name = NULL)
 
 \item{ngrams}{The type of n-grams, default is `1`.}
 
-\item{name}{An optional "name" for the plot to add to title, default is `NULL`}
+\item{name}{An optional "name" for the plot to add to title, default is
+`NULL`}
 }
 \value{
 Plot of top n-grams.
@@ -22,8 +23,11 @@ Plot of top n-grams.
 Plots frequency n-grams.
 }
 \examples{
+topn_f <- fst_get_top_ngrams(conllu_dev_q11_1_f_nltk)
+topn_m <- fst_get_top_ngrams(conllu_dev_q11_1_m_nltk)
+topn_na <- fst_get_top_ngrams(conllu_dev_q11_1_na_nltk)
 fst_ngrams_plot(topn_f, ngrams = 2, name = "Female")
-fst_ngrams_plot(top_f, ngrams = 1, number = 15)
+fst_ngrams_plot(topn_f, ngrams = 1, number = 15)
 fst_ngrams_plot(topn_m, ngrams = 2, number = 15)
 fst_ngrams_plot(topn_na, ngrams = 2)
 }

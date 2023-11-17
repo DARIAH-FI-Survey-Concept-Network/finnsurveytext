@@ -14,6 +14,9 @@ fst_plot_multiple(plot1, plot2, plot3 = NULL, plot4 = NULL, main_title = NULL)
 \item{plot3}{Optional third plot to display, defaul is `NULL`}
 
 \item{plot4}{Optional fourth plot to display, defaul is `NULL`}
+
+\item{main_title}{An optional title for the set of plots. The default is
+`NULL` and no main title will be included.}
 }
 \value{
 Up to 4 plots within the plots pane.
@@ -23,7 +26,20 @@ Display between 2 and 4 plots within the plots pane. If 2 or 3 plots, they
 will be in a single row, if there are 4 plots, they will be in 2 rows of 2.
 }
 \examples{
-fst_plot_multiple(plot_top_fu, plot_top_mu, plot_top_nau, main_title = "Comparison Plots")
-fst_plot_multiple(plot_topn_fu, plot_topn_mu, plot_topn_nau, plot_topn_nau)
-fst_plot_multiple(plot_topn_fu, plot_topn_mu, main_title = "Comparison Plots")
+top_f <- fst_get_top_words(conllu_dev_q11_1_f_nltk)
+top_m <- fst_get_top_words(conllu_dev_q11_1_m_nltk)
+top_na <- fst_get_top_words(conllu_dev_q11_1_na_nltk)
+topn_f <- fst_get_top_ngrams(conllu_dev_q11_1_f_nltk)
+topn_m <- fst_get_top_ngrams(conllu_dev_q11_1_m_nltk)
+topn_na <- fst_get_top_ngrams(conllu_dev_q11_1_na_nltk)
+unique_words <- fst_get_unique_ngrams(top_f, top_m, top_na)
+unique_ngrams <- fst_get_unique_ngrams(topn_f, topn_m, topn_na)
+top_fu <-fst_join_unique(top_f, unique_words)
+top_mu <-fst_join_unique(top_m, unique_words)
+top_nau <-fst_join_unique(top_na, unique_words)
+p1 <- fst_ngrams_compare_plot(top_fu, ngrams = 1, name = "Female")
+p2 <- fst_ngrams_compare_plot(top_mu, ngrams = 1, name = "Male")
+p3 <- fst_ngrams_compare_plot(top_nau, ngrams = 1, name = "Not Spec")
+fst_plot_multiple(p1, p2, p3, main_title = "Comparison Plots")
+fst_plot_multiple(p1, p1)
 }

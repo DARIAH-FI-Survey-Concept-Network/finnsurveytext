@@ -11,9 +11,21 @@
 #' @export
 #'
 #' @examples
-#' unique <- fst_cn_get_unique(female_nodes, male_nodes, na_nodes)
-#' unique_2 <- fst_cn_get_unique(q11_1_nodes, q11_2_nodes)
-#' unique_3 <- fst_cn_get_unique(q11_1_nodes, q11_2_nodes, q11_3_nodes)
+#' con1 <- "elintaso, köyhä, ihminen"
+#' data1 <- conllu_dev_q11_1_nltk
+#' e1 <- fst_cn_edges(data = data1, concepts = con1, threshold = 3)
+#' q11_1_nodes <- fst_cn_nodes(conllu_dev_q11_1_nltk, e1)
+#'
+#' con2 <- "kehitysmaa, auttaa, pyrkiä, maa, ihminen"
+#' e2 <- fst_cn_edges(conllu_dev_q11_2_nltk, con2, threshold = 5)
+#' q11_2_nodes <- fst_cn_nodes(conllu_dev_q11_2_nltk, e2)
+#'
+#' con3 <- "köyhyys, nälänhätä, sota, ilmastonmuutos, puute"
+#' e3 <- fst_cn_edges(conllu_dev_q11_3_nltk, con3, threshold = 2)
+#' q11_3_nodes <- fst_cn_nodes(conllu_dev_q11_3_nltk, e3)
+#'
+#' fst_cn_get_unique(q11_1_nodes, q11_2_nodes)
+#' fst_cn_get_unique(q11_1_nodes, q11_2_nodes, q11_3_nodes)
 fst_cn_get_unique <- function(table1, table2, ...) {
   df <- rbind(table1, table2, ...)
   df <- df %>%
@@ -50,8 +62,24 @@ fst_cn_get_unique <- function(table1, table2, ...) {
 #' @export
 #'
 #' @examples
-#' fst_cn_compare_plot(edges = q11_1_edges, nodes = q11_1_nodes, concepts = "elintaso, köyhä, ihminen", unique_lemma = unique_2, name = "Q11_1")
-#' fst_cn_compare_plot(q11_2_edges, q11_2_nodes, concepts = "kehitysmaa, auttaa, pyrkiä, maa, ihminen", unique_lemma = unique_2, unique_colour = "purple")
+#' c1 <- "elintaso, köyhä, ihminen"
+#' data1 <- conllu_dev_q11_1_nltk
+#' e1 <- fst_cn_edges(data = data1, concepts = c1, threshold = 3)
+#' n1 <- fst_cn_nodes(conllu_dev_q11_1_nltk, e1)
+#'
+#' c2 <- "kehitysmaa, auttaa, pyrkiä, maa, ihminen"
+#' e2 <- fst_cn_edges(conllu_dev_q11_2_nltk, c2, threshold = 5)
+#' n2 <- fst_cn_nodes(conllu_dev_q11_2_nltk, e2)
+#'
+#' c3 <- "köyhyys, nälänhätä, sota, ilmastonmuutos, puute"
+#' e3 <- fst_cn_edges(conllu_dev_q11_3_nltk, c3, threshold = 2)
+#' n3 <- fst_cn_nodes(conllu_dev_q11_3_nltk, e3)
+#'
+#' u1 <- fst_cn_get_unique(n1, n2)
+#' u2 <- fst_cn_get_unique(n1, n2, n3)
+#'
+#' fst_cn_compare_plot(edges = e1, nodes = n1, concepts = c1, unique_lemma = u1)
+#' fst_cn_compare_plot(e2, n2, c2, unique_lemmas = u2, unique_colour = "purple")
 fst_cn_compare_plot <- function(edges,
                                 nodes,
                                 concepts,
@@ -59,10 +87,22 @@ fst_cn_compare_plot <- function(edges,
                                 name = NULL,
                                 concept_colour = "#cd1719",
                                 unique_colour = "#4DAF4A",
-                                min_edge,
-                                max_edge,
-                                min_node,
-                                max_node) {
+                                min_edge = NULL,
+                                max_edge = NULL,
+                                min_node = NULL,
+                                max_node = NULL) {
+  if (is.null(min_edge)) {
+    min_edge <- min(edges$co_occurrence)
+  }
+  if (is.null(max_edge)) {
+    max_edge <- max(edges$co_occurrence)
+  }
+  if (is.null(min_node)) {
+    min_node <- min(nodes$pagerank)
+  }
+  if (is.null(max_node)) {
+    max_node <- max(nodes$pagerank)
+  }
   if (stringr::str_detect(concepts, ",")) {
     concepts <- concepts %>%
       lapply(tolower) %>%
@@ -88,7 +128,7 @@ fst_cn_compare_plot <- function(edges,
     ggplot2::scale_size(limit = c(min_node,max_node)) +
     ggraph::geom_node_text(ggplot2::aes(label = name, col = is_concept), check_overlap = TRUE, repel = TRUE) +
     ggplot2::scale_color_manual("Word Type", values = c("Concept word" = concept_colour, "Unique Word" = unique_colour, "Common word" = "black")) +
-    ggraph::theme_graph() +
+    ggraph::theme_graph(base_family="sans") +
     ggplot2::labs(
       title = name
     ) #+
@@ -126,9 +166,15 @@ fst_cn_compare_plot <- function(edges,
 #' @export
 #'
 #' @examples
-#' fst_concept_network_compare(conllu_dev_q11_1_nltk, conllu_dev_q11_2_nltk, concepts = "elintaso, köyhä, ihminen", name1 = "Q1", name2 = "Q2", pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
-#' fst_concept_network_compare(conllu_dev_q11_1_nltk, conllu_dev_q11_2_nltk, conllu_dev_q11_3_nltk, concepts = "elintaso, köyhä, ihminen", name1 = "Q1", name2 = "Q2", name3 = "Q3", pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
-#' fst_concept_network_compare(conllu_dev_q11_1_f, conllu_dev_q11_1_m, concepts = "elintaso, köyhä, ihminen", pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+#' d1 <- conllu_dev_q11_1_nltk
+#' d2<- conllu_dev_q11_2_nltk
+#' d3 <- conllu_dev_q11_3_nltk
+#' con1 <- "elintaso"
+#' con2 <- "ihminen, elintaso"
+#' pos1 <- c("NOUN", "VERB", "ADJ", "ADV")
+#'
+#' fst_concept_network_compare(d1, d2, concepts = con1, pos_filter = pos1)
+#' fst_concept_network_compare(d1, d2, d3, concepts = con2, norm = 'number_resp')
 fst_concept_network_compare <- function(data1, data2, data3 = NULL, data4 = NULL, pos_filter = NULL, name1 = "Group 1", name2 = "Group 2", name3 = "Group 3", name4 = "Group 4", concepts, norm = "number_words", threshold = NULL) {
   if (!is.null(data3)) {
     if (!is.null(data4)) {
@@ -174,19 +220,19 @@ fst_concept_network_compare <- function(data1, data2, data3 = NULL, data4 = NULL
       num4 <- dplyr::n_distinct(data4$doc_id)
       message(paste0("Note: \n Consider whether your data is balanced between groups being compared and whether each group contains enough data for analysis. \n The number of responses in each group (including \'NAs\') are listed below: \n\t", name1, "=", num1, ", ", name2, "=", num2, ", ", name3, "=", num3, ", ", name4, "=", num4, "\n\n"))
       unique <- fst_cn_get_unique(nodes1, nodes2, nodes3, nodes4)
-      plot4 <- fst_cn_compare_plot(edges4, nodes4, name = name4, concepts = concepts, unique_lemma = unique, min_edge = min_edge, max_edge = max_edge, min_node = min_node, max_node = max_node)
-      plot3 <- fst_cn_compare_plot(edges3, nodes3, name = name3, concepts = concepts, unique_lemma = unique, min_edge = min_edge, max_edge = max_edge, min_node = min_node, max_node = max_node)
-      plot2 <- fst_cn_compare_plot(edges2, nodes2, name = name2, concepts = concepts, unique_lemma = unique, min_edge = min_edge, max_edge = max_edge, min_node = min_node, max_node = max_node)
-      plot1 <- fst_cn_compare_plot(edges1, nodes1, name = name1, concepts = concepts, unique_lemma = unique, min_edge = min_edge, max_edge = max_edge, min_node = min_node, max_node = max_node)
+      plot4 <- fst_cn_compare_plot(edges4, nodes4, name = name4, concepts = concepts, unique_lemmas = unique, min_edge = min_edge, max_edge = max_edge, min_node = min_node, max_node = max_node)
+      plot3 <- fst_cn_compare_plot(edges3, nodes3, name = name3, concepts = concepts, unique_lemmas = unique, min_edge = min_edge, max_edge = max_edge, min_node = min_node, max_node = max_node)
+      plot2 <- fst_cn_compare_plot(edges2, nodes2, name = name2, concepts = concepts, unique_lemmas = unique, min_edge = min_edge, max_edge = max_edge, min_node = min_node, max_node = max_node)
+      plot1 <- fst_cn_compare_plot(edges1, nodes1, name = name1, concepts = concepts, unique_lemmas = unique, min_edge = min_edge, max_edge = max_edge, min_node = min_node, max_node = max_node)
       plot <- ggpubr::ggarrange(plot1, plot2, plot3, plot4, ncol=2, nrow=2, common.legend = TRUE, legend="right")
       ggpubr::annotate_figure(plot, top = ggpubr::text_grob("Comparison Plot of Concept Networks",
                                                             face = "bold", size = 20))
       } else {
       message(paste0("Note: \n Consider whether your data is balanced between groups being compared and whether each group contains enough data for analysis. \n The number of responses in each group (including \'NAs\') are listed below: \n\t", name1, "=", num1, ", ", name2, "=", num2, ", ", name3, "=", num3, "\n\n"))
       unique <- fst_cn_get_unique(nodes1, nodes2, nodes3)
-      plot3 <- fst_cn_compare_plot(edges3, nodes3, name = name3, concepts = concepts, unique_lemma = unique, min_edge = min_edge, max_edge = max_edge, min_node = min_node, max_node = max_node)
-      plot2 <- fst_cn_compare_plot(edges2, nodes2, name = name2, concepts = concepts, unique_lemma = unique, min_edge = min_edge, max_edge = max_edge, min_node = min_node, max_node = max_node)
-      plot1 <- fst_cn_compare_plot(edges1, nodes1, name = name1, concepts = concepts, unique_lemma = unique, min_edge = min_edge, max_edge = max_edge, min_node = min_node, max_node = max_node)
+      plot3 <- fst_cn_compare_plot(edges3, nodes3, name = name3, concepts = concepts, unique_lemmas = unique, min_edge = min_edge, max_edge = max_edge, min_node = min_node, max_node = max_node)
+      plot2 <- fst_cn_compare_plot(edges2, nodes2, name = name2, concepts = concepts, unique_lemmas = unique, min_edge = min_edge, max_edge = max_edge, min_node = min_node, max_node = max_node)
+      plot1 <- fst_cn_compare_plot(edges1, nodes1, name = name1, concepts = concepts, unique_lemmas = unique, min_edge = min_edge, max_edge = max_edge, min_node = min_node, max_node = max_node)
       plot <- ggpubr::ggarrange(plot1, plot2, plot3, ncol = 3, nrow = 1, common.legend = TRUE, legend="right")
       ggpubr::annotate_figure(plot, top = ggpubr::text_grob("Comparison Plot of Concept Networks",
                                                             face = "bold", size = 20))
@@ -194,8 +240,8 @@ fst_concept_network_compare <- function(data1, data2, data3 = NULL, data4 = NULL
   } else {
     message(paste0("Note: \n Consider whether your data is balanced between groups being compared and whether each group contains enough data for analysis. \n The number of responses in each group (including \'NAs\') are listed below: \n\t", name1, "=", num1, ", ", name2, "=", num2, "\n\n"))
     unique <- fst_cn_get_unique(nodes1, nodes2)
-    plot2 <- fst_cn_compare_plot(edges2, nodes2, name = name2, concepts = concepts, unique_lemma = unique, min_edge = min_edge, max_edge = max_edge, min_node = min_node, max_node = max_node)
-    plot1 <- fst_cn_compare_plot(edges1, nodes1, name = name1, concepts = concepts, unique_lemma = unique, min_edge = min_edge, max_edge = max_edge, min_node = min_node, max_node = max_node)
+    plot2 <- fst_cn_compare_plot(edges2, nodes2, name = name2, concepts = concepts, unique_lemmas = unique, min_edge = min_edge, max_edge = max_edge, min_node = min_node, max_node = max_node)
+    plot1 <- fst_cn_compare_plot(edges1, nodes1, name = name1, concepts = concepts, unique_lemmas = unique, min_edge = min_edge, max_edge = max_edge, min_node = min_node, max_node = max_node)
     plot <- ggpubr::ggarrange(plot1, plot2, ncol = 2, nrow = 1, common.legend = TRUE, legend="right")
     ggpubr::annotate_figure(plot, top = ggpubr::text_grob("Comparison Plot of Concept Networks",
                                            face = "bold", size = 20))

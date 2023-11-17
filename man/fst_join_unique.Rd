@@ -20,10 +20,14 @@ Merges list of unique words from `fst_get_unique_ngrams` with output of
 displayed on comparison plots.
 }
 \examples{
-top_fu <- fst_join_unique(top_f, unique_w)
-top_mu <- fst_join_unique(top_m, unique_w)
-top_nau <- fst_join_unique(top_na, unique_w)
-topn_fu <- fst_join_unique(topn_f, unique_n)
-topn_mu <- fst_join_unique(topn_m, unique_n)
-topn_nau <- fst_join_unique(topn_na, unique_n)
+top_f <- fst_get_top_words(conllu_dev_q11_1_f_nltk)
+top_m <- fst_get_top_words(conllu_dev_q11_1_m_nltk)
+top_na <- fst_get_top_words(conllu_dev_q11_1_na_nltk)
+topn_f <- fst_get_top_ngrams(conllu_dev_q11_1_f_nltk)
+topn_m <- fst_get_top_ngrams(conllu_dev_q11_1_m_nltk)
+topn_na <- fst_get_top_ngrams(conllu_dev_q11_1_na_nltk)
+unique_words <- fst_get_unique_ngrams(top_f, top_m, top_na)
+unique_ngrams <- fst_get_unique_ngrams(topn_f, topn_m, topn_na)
+fst_join_unique(top_f, unique_words)
+fst_join_unique(topn_m, unique_ngrams)
 }

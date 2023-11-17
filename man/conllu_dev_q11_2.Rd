@@ -3,7 +3,8 @@
 \docType{data}
 \name{conllu_dev_q11_2}
 \alias{conllu_dev_q11_2}
-\title{Young People's Views on Development Cooperation 2012 q11_2 response data in CoNLL-U format}
+\title{Young People's Views on Development Cooperation 2012 q11_2 response data in
+CoNLL-U format}
 \format{
 ## `conllu_dev_q11_2`
 A dataframe with 5495 rows and 14 columns:

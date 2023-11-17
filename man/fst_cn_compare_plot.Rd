@@ -11,7 +11,11 @@ fst_cn_compare_plot(
   unique_lemmas,
   name = NULL,
   concept_colour = "#cd1719",
-  unique_colour = "#4DAF4A"
+  unique_colour = "#4DAF4A",
+  min_edge = NULL,
+  max_edge = NULL,
+  min_node = NULL,
+  max_node = NULL
 )
 }
 \arguments{
@@ -29,6 +33,18 @@ title ('Textrank extracted keyword occurences) will be used.}
 \item{concept_colour}{Colour to display concept words, default is `indianred`.}
 
 \item{unique_colour}{Colour to display unique words, default is `darkgreen`.}
+
+\item{min_edge}{A numeric value for the scale of the edges, the smallest
+co_occurence value for an edge across all Networks to be plotted together.}
+
+\item{max_edge}{A numeric value for the scale of the edges, the largest
+co_occurence value for an edge across all Networks to be plotted together.}
+
+\item{min_node}{A numeric value for the scale of the nodes, the smallest
+pagerank value for a node across all Networks to be plotted together.}
+
+\item{max_node}{A numeric value for the scale of the nodes, the largest
+pagerank value for a node across all Networks to be plotted together.}
 }
 \value{
 Plot of concept network with concept and unique words (nodes) highlighted
@@ -37,6 +53,22 @@ Plot of concept network with concept and unique words (nodes) highlighted
 Concept Network- Plot comparison Concept Network
 }
 \examples{
-fst_cn_compare_plot(edges = q11_1_edges, nodes = q11_1_nodes, concepts = "elintaso, köyhä, ihminen", unique_lemma = unique_2, name = "Q11_1")
-fst_cn_compare_plot(q11_2_edges, q11_2_nodes, concepts = "kehitysmaa, auttaa, pyrkiä, maa, ihminen", unique_lemma = unique_2, unique_colour = "purple")
+c1 <- "elintaso, köyhä, ihminen"
+data1 <- conllu_dev_q11_1_nltk
+e1 <- fst_cn_edges(data = data1, concepts = c1, threshold = 3)
+n1 <- fst_cn_nodes(conllu_dev_q11_1_nltk, e1)
+
+c2 <- "kehitysmaa, auttaa, pyrkiä, maa, ihminen"
+e2 <- fst_cn_edges(conllu_dev_q11_2_nltk, c2, threshold = 5)
+n2 <- fst_cn_nodes(conllu_dev_q11_2_nltk, e2)
+
+c3 <- "köyhyys, nälänhätä, sota, ilmastonmuutos, puute"
+e3 <- fst_cn_edges(conllu_dev_q11_3_nltk, c3, threshold = 2)
+n3 <- fst_cn_nodes(conllu_dev_q11_3_nltk, e3)
+
+u1 <- fst_cn_get_unique(n1, n2)
+u2 <- fst_cn_get_unique(n1, n2, n3)
+
+fst_cn_compare_plot(edges = e1, nodes = n1, concepts = c1, unique_lemma = u1)
+fst_cn_compare_plot(e2, n2, c2, unique_lemmas = u2, unique_colour = "purple")
 }

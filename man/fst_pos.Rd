@@ -10,15 +10,15 @@ fst_pos(data)
 \item{data}{A dataframe of text in CoNLL-U format.}
 }
 \value{
-A dataframe with a count of each UPOS tag in the data and the full
- name of the tag
+A dataframe with a count and proportion of each UPOS tag in the data
+ and the full name of the tag
 }
 \description{
 Creates a summary table for the input CoNLL-U data which counts the number of
 words of each part-of-speech tag within the data.
 }
 \examples{
-bullying_pos_table <- fst_pos(conllu_cb_bullying_iso)
-q11_3_pos_table <- fst_pos(conllu_dev_q11_3_nltk)
+fst_pos(conllu_cb_bullying_iso)
+fst_pos(conllu_dev_q11_3_nltk)
 fst_pos(conllu_dev_q11_1_snow)
 }

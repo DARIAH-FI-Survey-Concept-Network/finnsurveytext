@@ -21,8 +21,21 @@ A dataframe containing relevant lemmas and their associated pagerank
 Concept Network - Get textrank nodes
 }
 \examples{
-q11_1_nodes <- fst_cn_nodes(conllu_dev_q11_1_nltk, q11_1_edges)
-q11_2_nodes <- fst_cn_nodes(conllu_dev_q11_2_nltk, q11_2_edges)
-q11_3_nodes <- fst_cn_nodes(conllu_dev_q11_3_nltk, q11_3_edges)
-bullying_nodes <- fst_cn_nodes(conllu_cb_bullying_iso, bullying_edges, c("NOUN", "VERB", "ADJ", "ADV"))
+con1 <- "elintaso, köyhä, ihminen"
+data1 <- conllu_dev_q11_1_nltk
+e1 <- fst_cn_edges(data = data1, concepts = con1, threshold = 3)
+fst_cn_nodes(conllu_dev_q11_1_nltk, e1)
+
+con2 <- "kehitysmaa, auttaa, pyrkiä, maa, ihminen"
+e2 <- fst_cn_edges(conllu_dev_q11_2_nltk, con2, threshold = 5)
+fst_cn_nodes(conllu_dev_q11_2_nltk, e2)
+
+con3 <- "köyhyys, nälänhätä, sota, ilmastonmuutos, puute"
+e3 <- fst_cn_edges(conllu_dev_q11_3_nltk, con3, threshold = 2)
+fst_cn_nodes(conllu_dev_q11_3_nltk, e3)
+
+con4 <- "kiusata, lyöminen"
+cb <- conllu_cb_bullying_iso
+e4 <- fst_cn_edges(cb, con4, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+fst_cn_nodes(conllu_cb_bullying_iso, e4, c("NOUN", "VERB", "ADJ", "ADV"))
 }

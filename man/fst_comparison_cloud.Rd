@@ -49,8 +49,17 @@ Creates a comparison wordcloud showing words that occur differently between
 each group.
 }
 \examples{
-fst_comparison_cloud(conllu_dev_q11_1_nltk, conllu_dev_q11_2_nltk, conllu_dev_q11_3_nltk, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
-fst_comparison_cloud(conllu_cb_bullying_iso, conllu_dev_q11_1_nltk, conllu_dev_q11_2_nltk, conllu_dev_q11_3_nltk, max = 400)
-fst_comparison_cloud(conllu_dev_q11_1_f_nltk, conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_na_nltk, name1 = "Female", name2 = "Male", name3 = "NA", max = 400)
-fst_comparison_cloud(conllu_dev_q11_1_f_nltk, conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_na_nltk, name1 = "Female", name2 = "Male", name3 = "NA", max = 200)
+d1 <- conllu_dev_q11_1_nltk
+d2 <- conllu_dev_q11_3_nltk
+pf1 <- c("NOUN", "VERB", "ADJ", "ADV")
+fst_comparison_cloud(d1, d2, pos_filter = pf1)
+
+f <- conllu_dev_q11_1_f_nltk
+m <- conllu_dev_q11_1_m_nltk
+na <- conllu_dev_q11_1_na_nltk
+n1 <- "Female"
+n2 <- "Male"
+n3 <-  "NA"
+fst_comparison_cloud(f, m, na, name1 = n1, name2 = n2, name3 = n3, max = 400)
+fst_comparison_cloud(f, m, na, name1 = n1, name2 = n2, name3 = n3, max = 100)
 }

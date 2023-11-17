@@ -36,7 +36,7 @@ fst_summarise_short <- function(data) {
 #'
 #' @examples
 #' fst_summarise(conllu_dev_q11_1)
-#' q11_2 <- fst_summarise(conllu_dev_q11_2_nltk, "Q11_2")
+#' fst_summarise(conllu_dev_q11_2_nltk, "Q11_2")
 fst_summarise <- function(data, desc = "All respondents") {
   no_resp_count <- length(which(data$sentence %in% c("NA", "na")))
   df <- data %>%
@@ -66,8 +66,8 @@ fst_summarise <- function(data, desc = "All respondents") {
 #' @export
 #'
 #' @examples
-#' bullying_pos_table <- fst_pos(conllu_cb_bullying_iso)
-#' q11_3_pos_table <- fst_pos(conllu_dev_q11_3_nltk)
+#' fst_pos(conllu_cb_bullying_iso)
+#' fst_pos(conllu_dev_q11_3_nltk)
 #' fst_pos(conllu_dev_q11_1_snow)
 fst_pos <- function(data) {
   denom = nrow(data)
@@ -103,7 +103,7 @@ fst_pos <- function(data) {
 #'
 #' Create table summarising length of responses
 #'
-#' @param dataA dataframe of text in CoNLL-U format.
+#' @param data dataframe of text in CoNLL-U format.
 #' @param desc An optional string describing respondents, default is
 #'  `All respondents`
 #' @param incl_sentences Whether to include sentence data in table, default is
@@ -114,7 +114,7 @@ fst_pos <- function(data) {
 #'
 #' @examples
 #' fst_length_summary(conllu_dev_q11_1, incl_sentences = FALSE)
-#' fem <- fst_length_summary(conllu_dev_q11_1, desc = "Female")
+#' fst_length_summary(conllu_dev_q11_1, desc = "Female")
 fst_length_summary <- function(data,
                                desc = 'All respondents',
                                incl_sentences = TRUE) {
@@ -180,7 +180,9 @@ fst_length_summary <- function(data,
 #' @examples
 #' fst_get_top_words(conllu_dev_q11_1_nltk, number = 15, norm = NULL)
 #' fst_get_top_words(conllu_dev_q11_1_nltk, number = 15, strict = FALSE)
-#' top_bullying_words <- fst_get_top_words(conllu_cb_bullying, number = 5, norm = "number_resp", pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+#' cb <- conllu_cb_bullying
+#' pf <- c("NOUN", "VERB", "ADJ", "ADV")
+#' fst_get_top_words(cb, number = 5, norm = "number_resp", pos_filter = pf)
 fst_get_top_words <- function(data,
                               number = 10,
                               norm = "number_words",
@@ -244,9 +246,12 @@ fst_get_top_words <- function(data,
 #' @export
 #'
 #' @examples
-#' q11_1_ngrams <- fst_get_top_ngrams(conllu_dev_q11_1_nltk, norm = NULL)
-#' fst_get_top_ngrams(conllu_dev_q11_1_nltk, number = 10, ngrams = 1, norm = "number_resp")
-#' top_bullying_ngrams <- fst_get_top_ngrams(conllu_cb_bullying, number = 15, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+#' q11_1 <- conllu_dev_q11_1_nltk
+#' fst_get_top_ngrams(q11_1, norm = NULL)
+#' fst_get_top_ngrams(q11_1, number = 10, ngrams = 1, norm = "number_resp")
+#' cb <- conllu_cb_bullying
+#' pf <- c("NOUN", "VERB", "ADJ", "ADV")
+#' fst_get_top_ngrams(cb, number = 15, pos_filter = pf)
 fst_get_top_ngrams <- function(data, number = 10, ngrams = 1, norm = "number_words", pos_filter = NULL, strict = TRUE) {
   with_ties <- !strict
   if (strict == TRUE) {
@@ -366,7 +371,13 @@ fst_get_top_ngrams2 <- function(data,
 #' @export
 #'
 #' @examples
+#' cb <- conllu_cb_bullying
+#' pf <- c("NOUN", "VERB", "ADJ", "ADV")
+#' top_bullying_words <- fst_get_top_words(cb, number = 15, pos_filter = pf)
 #' fst_freq_plot(top_bullying_words, number = 5, name = "Bullying")
+#'
+#' q11_1 <- conllu_dev_q11_1_nltk
+#' q11_1_ngrams <- fst_get_top_ngrams(q11_1, number = 10, ngrams = 1)
 #' fst_freq_plot(q11_1_ngrams)
 fst_freq_plot <- function(table, number = NULL, name = NULL) {
   table %>%
@@ -388,15 +399,19 @@ fst_freq_plot <- function(table, number = NULL, name = NULL) {
 #' @param table Output of `fst_get_top_words` or `fst_get_top_ngrams`
 #' @param number Optional number of n-grams for title, default is `NULL`.
 #' @param ngrams The type of n-grams, default is `1`.
-#' @param name An optional "name" for the plot to add to title, default is `NULL`
+#' @param name An optional "name" for the plot to add to title, default is
+#'  `NULL`
 
 #'
 #' @return Plot of top n-grams.
 #' @export
 #'
 #' @examples
+#' topn_f <- fst_get_top_ngrams(conllu_dev_q11_1_f_nltk)
+#' topn_m <- fst_get_top_ngrams(conllu_dev_q11_1_m_nltk)
+#' topn_na <- fst_get_top_ngrams(conllu_dev_q11_1_na_nltk)
 #' fst_ngrams_plot(topn_f, ngrams = 2, name = "Female")
-#' fst_ngrams_plot(top_f, ngrams = 1, number = 15)
+#' fst_ngrams_plot(topn_f, ngrams = 1, number = 15)
 #' fst_ngrams_plot(topn_m, ngrams = 2, number = 15)
 #' fst_ngrams_plot(topn_na, ngrams = 2)
 fst_ngrams_plot <- function(table, number = NULL, ngrams = 1, name = NULL) {
@@ -438,8 +453,10 @@ fst_ngrams_plot <- function(table, number = NULL, ngrams = 1, name = NULL) {
 #' @export
 #'
 #' @examples
-#' fst_freq(conllu_dev_q11_1, number = 12, norm = "number_resp", strict = FALSE, name = "All")
-#' fst_freq(conllu_dev_q11_1_na, number = 15, name = "Not Spec")
+#' q11_1 <- conllu_dev_q11_1
+#' n1 <- "number_resp"
+#' fst_freq(q11_1, number = 12, norm = n1, strict = FALSE, name = "All")
+#' fst_freq(q11_1, number = 15, name = "Not Spec")
 fst_freq <- function(data,
                      number = 10,
                      norm = "number_words",
@@ -477,7 +494,8 @@ fst_freq <- function(data,
 #' @export
 #'
 #' @examples
-#' fst_ngrams(conllu_dev_q11_1, number = 12, ngrams = 2, norm = NULL, strict = FALSE, name = "All")
+#' q11_1 <- conllu_dev_q11_1
+#' fst_ngrams(q11_1, 12, ngrams = 2, norm = NULL, strict = FALSE, name = "All")
 #' fst_ngrams(conllu_dev_q11_1_na, number = 15, ngrams = 3, name = "Not Spec")
 fst_ngrams <- function(data,
                        number = 10,
@@ -516,9 +534,11 @@ fst_ngrams <- function(data,
 #' @export
 #'
 #' @examples
-#' fst_wordcloud(conllu_cb_bullying_iso)
-#' fst_wordcloud(conllu_cb_bullying_iso, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+#' cb <- conllu_cb_bullying_iso
+#' fst_wordcloud(cb)
+#' fst_wordcloud(cb, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
 #' fst_wordcloud(conllu_dev_q11_1_snow, pos_filter = "VERB", max = 50)
+#' fst_wordcloud(conllu_dev_q11_1_nltk)
 fst_wordcloud <- function(data, pos_filter = NULL, max = 100) {
   if (!is.null(pos_filter)) {
     data <- dplyr::filter(data, upos %in% pos_filter)
@@ -528,7 +548,7 @@ fst_wordcloud <- function(data, pos_filter = NULL, max = 100) {
     dplyr::filter(!is.na(lemma)) %>%
     dplyr::filter(lemma != "na") %>%
     dplyr::count(lemma, sort = TRUE)
-  par(mar = rep(0, 4))
+  graphics::par(mar = rep(0, 4))
   wordcloud::wordcloud(
     words = wordcloud_data$lemma,
     freq = wordcloud_data$n,

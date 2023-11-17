@@ -7,9 +7,11 @@
 fst_prepare_conllu(data, field, model = "ftb", stopword_list = "nltk")
 }
 \arguments{
-\item{data}{A dataframe of survey responses which contains an open-ended question.}
+\item{data}{A dataframe of survey responses which contains an open-ended
+question.}
 
-\item{field}{The field in the dataframe which contains the open-ended question.}
+\item{field}{The field in the dataframe which contains the open-ended
+question.}
 
 \item{model}{A Finnish language model available for [udpipe], `ftb` (default)
 or `tdt`.}
@@ -25,7 +27,8 @@ CoNLL-U dataframe
 Finnish survey text reponses in CoNLL-U format with stopwords removed.
 }
 \examples{
-prepd_bullying_iso <- fst_prepare_conllu(data = child_barometer_data, field = "q7", stopword_list = "stopwords-iso")
-prepd_dev_q11_2_snow <- fst_prepare_conllu(data = dev_data, field = "q11_2", stopword_list = "snowball")
-conllu_dev_q11_1_f_nltk <- fst_prepare_conllu(data = dev_data_f, field = "q11_1", stopword_list = "nltk")
+cb <- child_barometer_data
+fst_prepare_conllu(data = cb, field = "q7", stopword_list = "stopwords-iso")
+fst_prepare_conllu(dev_data, field = "q11_2", stopword_list = "snowball")
+fst_prepare_conllu(dev_data_f, field = "q11_1", stopword_list = "nltk")
 }

@@ -38,8 +38,16 @@ a dataframe is returned of 'edges' between two words which are connected
 together in an frequently-occurring n-gram containing a concept term
 }
 \examples{
-q11_1_edges <- fst_cn_edges(conllu_dev_q11_1_nltk, "elintaso, köyhä, ihminen", threshold = 3)
-q11_2_edges <- fst_cn_edges(conllu_dev_q11_2_nltk, "kehitysmaa, auttaa, pyrkiä, maa, ihminen", threshold = 5)
-q11_3_edges <- fst_cn_edges(conllu_dev_q11_3_nltk, "köyhyys, nälänhätä, sota, ilmastonmuutos, puute", threshold = 2)
-bullying_edges <- fst_cn_edges(conllu_cb_bullying_iso, "kiusata, lyöminen", pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+con1 <- "elintaso, köyhä, ihminen"
+fst_cn_edges(data = conllu_dev_q11_1_nltk, concepts = con1, threshold = 3)
+
+con2 <- "kehitysmaa, auttaa, pyrkiä, maa, ihminen"
+fst_cn_edges(conllu_dev_q11_2_nltk, con2, threshold = 5)
+
+con3 <- "köyhyys, nälänhätä, sota, ilmastonmuutos, puute"
+fst_cn_edges(conllu_dev_q11_3_nltk, con3, threshold = 2)
+
+con4 <- "kiusata, lyöminen"
+cb <- conllu_cb_bullying_iso
+fst_cn_edges(cb, con4, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
 }

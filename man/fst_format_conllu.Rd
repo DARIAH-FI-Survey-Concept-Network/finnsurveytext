@@ -22,8 +22,8 @@ Creates a dataframe in CoNLL-U format from a list of strings of Finnish text
 using the [udpipe] package and a Finnish language model
 }
 \examples{
-conllu_dev_q11_1 <- fst_format_conllu(data = dev_data, field = "q11_1")
-conllu_dev_q11_2 <- fst_format_conllu(data = dev_data, field = "q11_2")
-conllu_dev_q11_3 <- fst_format_conllu(data = dev_data, field = "q11_3")
-conllu_cb_bullying <- fst_format_conllu(data = child_barometer_data, field = "q7", model = "tdt")
+fst_format_conllu(data = dev_data, field = "q11_1")
+fst_format_conllu(data = dev_data, field = "q11_2")
+fst_format_conllu(data = dev_data, field = "q11_3")
+fst_format_conllu(data = child_barometer_data, field = "q7", model = "tdt")
 }

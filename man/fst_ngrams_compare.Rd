@@ -66,9 +66,13 @@ Results will be shown within the plots pane. If 2 or 3 plots, they will be in
 a single row, if there are 4 plots, they will be in 2 rows of 2.
 }
 \examples{
-fst_ngrams_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, number = 10, strict = FALSE)
-fst_ngrams_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, ngrams = 2, number = 10, strict = TRUE, norm = "number_resp")
-fst_ngrams_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, ngrams = 2, number = 10, strict = FALSE)
-fst_ngrams_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, number = 5, ngrams = 3, unique_colour = "black", name1 = "Male", name2 = "Female")
-fst_ngrams_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, conllu_dev_q11_1_na_nltk, conllu_dev_q11_1_m, number = 20, unique_colour = "slateblue", pos_filter = c("NOUN", "VERB", "ADJ", "ADV"), name1 = "Male", name2 = "Female", name3 = "Not Spec", name4 = "Male2")
+f <- conllu_dev_q11_1_f_nltk
+m <- conllu_dev_q11_1_m_nltk
+na <- conllu_dev_q11_1_na_nltk
+all <- conllu_dev_q11_1_nltk
+fst_ngrams_compare(f, m, na, all, number = 10, strict = FALSE)
+fst_ngrams_compare(f, m, ngrams = 2, number = 10, norm = "number_resp")
+fst_ngrams_compare(f, m, ngrams = 2, number = 10, strict = FALSE)
+fst_ngrams_compare(f, m, number = 5, ngrams = 3, name1 = "M", name2 = "F")
+fst_ngrams_compare(f, m, na,number = 20, unique_colour = "slateblue",)
 }

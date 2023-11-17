@@ -12,8 +12,14 @@
 #' @export
 #'
 #' @examples
-#' unique_w <- fst_get_unique_ngrams(top_f, top_m, top_na)
-#' unique_n <- fst_get_unique_ngrams(topn_f, topn_m, topn_na)
+#' top_f <- fst_get_top_words(conllu_dev_q11_1_f_nltk)
+#' top_m <- fst_get_top_words(conllu_dev_q11_1_m_nltk)
+#' top_na <- fst_get_top_words(conllu_dev_q11_1_na_nltk)
+#' topn_f <- fst_get_top_ngrams(conllu_dev_q11_1_f_nltk)
+#' topn_m <- fst_get_top_ngrams(conllu_dev_q11_1_m_nltk)
+#' topn_na <- fst_get_top_ngrams(conllu_dev_q11_1_na_nltk)
+#' fst_get_unique_ngrams(top_f, top_m, top_na)
+#' fst_get_unique_ngrams(topn_f, topn_m, topn_na)
 fst_get_unique_ngrams <- function(table1, table2, ...) {
   df <- rbind(table1, table2, ...)
   df <- df %>%
@@ -39,12 +45,16 @@ fst_get_unique_ngrams <- function(table1, table2, ...) {
 #' @export
 #'
 #' @examples
-#' top_fu <- fst_join_unique(top_f, unique_w)
-#' top_mu <- fst_join_unique(top_m, unique_w)
-#' top_nau <- fst_join_unique(top_na, unique_w)
-#' topn_fu <- fst_join_unique(topn_f, unique_n)
-#' topn_mu <- fst_join_unique(topn_m, unique_n)
-#' topn_nau <- fst_join_unique(topn_na, unique_n)
+#' top_f <- fst_get_top_words(conllu_dev_q11_1_f_nltk)
+#' top_m <- fst_get_top_words(conllu_dev_q11_1_m_nltk)
+#' top_na <- fst_get_top_words(conllu_dev_q11_1_na_nltk)
+#' topn_f <- fst_get_top_ngrams(conllu_dev_q11_1_f_nltk)
+#' topn_m <- fst_get_top_ngrams(conllu_dev_q11_1_m_nltk)
+#' topn_na <- fst_get_top_ngrams(conllu_dev_q11_1_na_nltk)
+#' unique_words <- fst_get_unique_ngrams(top_f, top_m, top_na)
+#' unique_ngrams <- fst_get_unique_ngrams(topn_f, topn_m, topn_na)
+#' fst_join_unique(top_f, unique_words)
+#' fst_join_unique(topn_m, unique_ngrams)
 fst_join_unique <- function(table, unique_table) {
   table <- table %>% dplyr::left_join(unique_table, by = "words")
   table
@@ -59,19 +69,26 @@ fst_join_unique <- function(table, unique_table) {
 #' @param ngrams The type of n-grams, default is `1`.
 #' @param unique_colour Colour to display unique words, default is `indianred`.
 #' @param name An optional "name" for the plot, default is `NULL`
+#' @param override_title An optional title to override the automatic one for
+#'  the plot. Default is `NULL`. If `NULL`, title of plot will be `number` "Most
+#'  Common 'Term'". 'Term' is "Words", "Bigrams", or "N-Grams" where N > 2.
 #'
 #' @return Plot of top n-grams with unique terms highlighted.
 #' @export
 #'
 #' @examples
+#' top_f <- fst_get_top_words(conllu_dev_q11_1_f_nltk)
+#' top_m <- fst_get_top_words(conllu_dev_q11_1_m_nltk)
+#' top_na <- fst_get_top_words(conllu_dev_q11_1_na_nltk)
+#' topn_f <- fst_get_top_ngrams(conllu_dev_q11_1_f_nltk)
+#' topn_m <- fst_get_top_ngrams(conllu_dev_q11_1_m_nltk)
+#' topn_na <- fst_get_top_ngrams(conllu_dev_q11_1_na_nltk)
+#' unique_words <- fst_get_unique_ngrams(top_f, top_m, top_na)
+#' unique_ngrams <- fst_get_unique_ngrams(topn_f, topn_m, topn_na)
+#' top_fu <-fst_join_unique(top_f, unique_words)
+#' topn_mu <- fst_join_unique(topn_m, unique_ngrams)
 #' fst_ngrams_compare_plot(top_fu, ngrams = 1, name = "Female")
-#' plot_top_fu <- fst_ngrams_compare_plot(top_fu, ngrams = 1, number = 8, override_title = "Female")
-#' plot_top_mu <- fst_ngrams_compare_plot(top_mu, ngrams = 1, override_title = "Male")
-#' plot_top_nau <- fst_ngrams_compare_plot(top_nau, ngrams = 1, override_title = "No Gender Specified")
-#' plot_topn_fu <- fst_ngrams_compare_plot(topn_fu, ngrams = 2, name = "Female")
-#' plot_topn_mu <- fst_ngrams_compare_plot(topn_mu, ngrams = 2, name = "Male")
-#' plot_top_mu + ggplot2::ggtitle("Plot of Top Male Words") + ggplot2::xlab("Count") + ggplot2::ylab("Top Words") # How to overwrite
-#' plot_topn_nau <- fst_ngrams_compare_plot(topn_nau, ngrams = 2, name = "No Gender Specified")
+#' fst_ngrams_compare_plot(topn_mu, ngrams = 2, name = "Male")
 fst_ngrams_compare_plot <- function(table, number = 10, ngrams = 1, unique_colour = "indianred", name = NULL, override_title = NULL) {
   colours <- c("yes" = unique_colour, "no" = "grey50")
   if (ngrams == 1) {
@@ -107,14 +124,29 @@ fst_ngrams_compare_plot <- function(table, number = 10, ngrams = 1, unique_colou
 #' @param plot2 Second plot to display
 #' @param plot3 Optional third plot to display, defaul is `NULL`
 #' @param plot4 Optional fourth plot to display, defaul is `NULL`
+#' @param main_title An optional title for the set of plots. The default is
+#'  `NULL` and no main title will be included.
 #'
 #' @return Up to 4 plots within the plots pane.
 #' @export
 #'
 #' @examples
-#' fst_plot_multiple(plot_top_fu, plot_top_mu, plot_top_nau, main_title = "Comparison Plots")
-#' fst_plot_multiple(plot_topn_fu, plot_topn_mu, plot_topn_nau, plot_topn_nau)
-#' fst_plot_multiple(plot_topn_fu, plot_topn_mu, main_title = "Comparison Plots")
+#' top_f <- fst_get_top_words(conllu_dev_q11_1_f_nltk)
+#' top_m <- fst_get_top_words(conllu_dev_q11_1_m_nltk)
+#' top_na <- fst_get_top_words(conllu_dev_q11_1_na_nltk)
+#' topn_f <- fst_get_top_ngrams(conllu_dev_q11_1_f_nltk)
+#' topn_m <- fst_get_top_ngrams(conllu_dev_q11_1_m_nltk)
+#' topn_na <- fst_get_top_ngrams(conllu_dev_q11_1_na_nltk)
+#' unique_words <- fst_get_unique_ngrams(top_f, top_m, top_na)
+#' unique_ngrams <- fst_get_unique_ngrams(topn_f, topn_m, topn_na)
+#' top_fu <-fst_join_unique(top_f, unique_words)
+#' top_mu <-fst_join_unique(top_m, unique_words)
+#' top_nau <-fst_join_unique(top_na, unique_words)
+#' p1 <- fst_ngrams_compare_plot(top_fu, ngrams = 1, name = "Female")
+#' p2 <- fst_ngrams_compare_plot(top_mu, ngrams = 1, name = "Male")
+#' p3 <- fst_ngrams_compare_plot(top_nau, ngrams = 1, name = "Not Spec")
+#' fst_plot_multiple(p1, p2, p3, main_title = "Comparison Plots")
+#' fst_plot_multiple(p1, p1)
 fst_plot_multiple <- function(plot1, plot2, plot3 = NULL, plot4 = NULL, main_title = NULL) {
   if (!is.null(plot3)) {
     if (!is.null(plot4)) {
@@ -159,11 +191,13 @@ fst_plot_multiple <- function(plot1, plot2, plot3 = NULL, plot4 = NULL, main_tit
 #' @export
 #'
 #' @examples
-#' fst_freq_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, number = 10)
-#' fst_freq_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, conllu_dev_q11_1_na_nltk, number = 5, norm = "number_resp")
-#' fst_freq_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, conllu_dev_q11_1_na_nltk, number = 15, unique_colour = "pink", pos_filter = c("NOUN", "VERB", "ADJ", "ADV"), name1 = "Male", name2 = "Female", name3 = "Not Specified")
-#' fst_freq_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, conllu_dev_q11_1_na_nltk, number = 10, name1 = "Female", name2 = "Male", name3 = "Gender Not Specified")
-#' fst_freq_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, conllu_dev_q11_1_na_nltk, number = 10, name1 = "Female", name2 = "Male", name3 = "Gender Not Specified", strict = FALSE)
+#' f <- conllu_dev_q11_1_f_nltk
+#' m <- conllu_dev_q11_1_m_nltk
+#' na <- conllu_dev_q11_1_na_nltk
+#' fst_freq_compare(f, m, number = 10)
+#' fst_freq_compare(f, m, na, number = 5, norm = "number_resp")
+#' fst_freq_compare(f, m, na, name1 = "F", name2 = "M", name3 = "NA")
+#' fst_freq_compare(f, m, na, strict = FALSE)
 fst_freq_compare <- function(data1, data2, data3 = NULL, data4 = NULL, number = 10, norm = "number_words", pos_filter = NULL, name1 = "Group 1", name2 = "Group 2", name3 = "Group 3", name4 = "Group 4", unique_colour = "indianred", strict = TRUE) {
   if (!is.null(data3)) {
     if (!is.null(data4)) {
@@ -256,11 +290,15 @@ fst_freq_compare <- function(data1, data2, data3 = NULL, data4 = NULL, number = 
 #' @export
 #'
 #' @examples
-#' fst_ngrams_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, number = 10, strict = FALSE)
-#' fst_ngrams_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, ngrams = 2, number = 10, strict = TRUE, norm = "number_resp")
-#' fst_ngrams_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, ngrams = 2, number = 10, strict = FALSE)
-#' fst_ngrams_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, number = 5, ngrams = 3, unique_colour = "black", name1 = "Male", name2 = "Female")
-#' fst_ngrams_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, conllu_dev_q11_1_na_nltk, conllu_dev_q11_1_m, number = 20, unique_colour = "slateblue", pos_filter = c("NOUN", "VERB", "ADJ", "ADV"), name1 = "Male", name2 = "Female", name3 = "Not Spec", name4 = "Male2")
+#' f <- conllu_dev_q11_1_f_nltk
+#' m <- conllu_dev_q11_1_m_nltk
+#' na <- conllu_dev_q11_1_na_nltk
+#' all <- conllu_dev_q11_1_nltk
+#' fst_ngrams_compare(f, m, na, all, number = 10, strict = FALSE)
+#' fst_ngrams_compare(f, m, ngrams = 2, number = 10, norm = "number_resp")
+#' fst_ngrams_compare(f, m, ngrams = 2, number = 10, strict = FALSE)
+#' fst_ngrams_compare(f, m, number = 5, ngrams = 3, name1 = "M", name2 = "F")
+#' fst_ngrams_compare(f, m, na,number = 20, unique_colour = "slateblue",)
 fst_ngrams_compare <- function(data1, data2, data3 = NULL, data4 = NULL, number = 10, ngrams = 1, norm = "number_words", pos_filter = NULL, name1 = "Group 1", name2 = "Group 2", name3 = "Group 3", name4 = "Group 4", unique_colour = "indianred", strict = TRUE) {
   if (ngrams == 1) {
     term <- "Words"
@@ -349,9 +387,12 @@ fst_ngrams_compare <- function(data1, data2, data3 = NULL, data4 = NULL, number 
 #' @export
 #'
 #' @examples
-#' fst_pos_compare(conllu_dev_q11_1_f, conllu_dev_q11_1_m, conllu_dev_q11_1_na, conllu_dev_q11_1, "Female", "Male", "No Gender Specified", "All")
-#' fst_pos_compare(conllu_dev_q11_1_f, conllu_dev_q11_1_m, name1 = "Female", name2 = "Male")
-#' pos_table <- fst_pos_compare(data1 = conllu_dev_q11_1, name1 = "All", data2 = conllu_dev_q11_1_m, name2 = "Male", data3 = conllu_dev_q11_1_f, name3 = "Female", data4 = conllu_dev_q11_1_na, name4 = "Not Spec")
+#' f <- conllu_dev_q11_1_f_nltk
+#' m <- conllu_dev_q11_1_m_nltk
+#' na <- conllu_dev_q11_1_na_nltk
+#' all <- conllu_dev_q11_1_nltk
+#' fst_pos_compare(f, m, na, all, "Female", "Male", "Not Spec.", "All")
+#' fst_pos_compare(f, m, name1 = "Female", name2 = "Male")
 fst_pos_compare <- function(data1, data2, data3 = NULL, data4 = NULL, name1 = "Group 1", name2 = "Group 2", name3 = "Group 3", name4 = "Group 4") {
   pos_lookup <- data.frame(
     "UPOS" = c(
@@ -483,9 +524,12 @@ fst_pos_compare <- function(data1, data2, data3 = NULL, data4 = NULL, name1 = "G
 #' @export
 #'
 #' @examples
-#' fst_summarise_compare(conllu_m, conllu_f, conllu_s, conllu_dev_q11_1_nltk, "Male", "Female", "No Gender Specified", "All")
-#' summary <- fst_summarise_compare(conllu_m, conllu_f)
-#' fst_summarise_compare(conllu_dev_q11_1_m, conllu_dev_q11_1_f, name1 = "Male", name2 = "Female")
+#' f <- conllu_dev_q11_1_f_nltk
+#' m <- conllu_dev_q11_1_m_nltk
+#' na <- conllu_dev_q11_1_na_nltk
+#' all <- conllu_dev_q11_1_nltk
+#' fst_summarise_compare(m, f, na, all, "Male", "Female", "Not Spec.", "All")
+#' fst_summarise_compare(m, f, name1 = "Male", name2 = "Female")
 fst_summarise_compare <- function(data1, data2, data3 = NULL, data4 = NULL, name1 = "Group 1", name2 = "Group 2", name3 = "Group 3", name4 = "Group 4") {
   if (!is.null(data3)) {
     if (!is.null(data4)) {
@@ -524,14 +568,19 @@ fst_summarise_compare <- function(data1, data2, data3 = NULL, data4 = NULL, name
 #' @param name2 A string describing data2, default is `Group 2`
 #' @param name3 A string describing data3, default is `Group 3`
 #' @param name4 A string describing data4, default is `Group 4`
-#' @param incl_sentences Whether to include sentence data in table, default is `TRUE`
+#' @param incl_sentences Whether to include sentence data in table, default is
+#'  `TRUE`
 #'
 #' @return Dataframe summarising response lengths
 #' @export
 #'
 #' @examples
-#' fst_length_compare(conllu_dev_q11_1_f, conllu_dev_q11_1_m, conllu_dev_q11_1_na, conllu_dev_q11_1, "Female", "Male", "Not Spec", "All")
-#' male_female <- fst_length_compare(conllu_dev_q11_1_f, conllu_dev_q11_1_m, name1 = "Female", name2 = "Male")
+#' f <- conllu_dev_q11_1_f_nltk
+#' m <- conllu_dev_q11_1_m_nltk
+#' na <- conllu_dev_q11_1_na_nltk
+#' all <- conllu_dev_q11_1_nltk
+#' fst_length_compare(f, m, na, all, "Female", "Male", "Not Spec", "All")
+#' fst_length_compare(f, m, name1 = "F", name2 = "M", incl_sentences = FALSE)
 fst_length_compare <- function(data1, data2, data3 = NULL, data4 = NULL, name1 = "Group 1", name2 = "Group 2", name3 = "Group 3", name4 = "Group 4", incl_sentences = TRUE) {
   if (!is.null(data3)) {
     if (!is.null(data4)) {
@@ -580,10 +629,19 @@ fst_length_compare <- function(data1, data2, data3 = NULL, data4 = NULL, name1 =
 #' @export
 #'
 #' @examples
-#' fst_comparison_cloud(conllu_dev_q11_1_nltk, conllu_dev_q11_2_nltk, conllu_dev_q11_3_nltk, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
-#' fst_comparison_cloud(conllu_cb_bullying_iso, conllu_dev_q11_1_nltk, conllu_dev_q11_2_nltk, conllu_dev_q11_3_nltk, max = 400)
-#' fst_comparison_cloud(conllu_dev_q11_1_f_nltk, conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_na_nltk, name1 = "Female", name2 = "Male", name3 = "NA", max = 400)
-#' fst_comparison_cloud(conllu_dev_q11_1_f_nltk, conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_na_nltk, name1 = "Female", name2 = "Male", name3 = "NA", max = 200)
+#' d1 <- conllu_dev_q11_1_nltk
+#' d2 <- conllu_dev_q11_3_nltk
+#' pf1 <- c("NOUN", "VERB", "ADJ", "ADV")
+#' fst_comparison_cloud(d1, d2, pos_filter = pf1)
+#'
+#' f <- conllu_dev_q11_1_f_nltk
+#' m <- conllu_dev_q11_1_m_nltk
+#' na <- conllu_dev_q11_1_na_nltk
+#' n1 <- "Female"
+#' n2 <- "Male"
+#' n3 <-  "NA"
+#' fst_comparison_cloud(f, m, na, name1 = n1, name2 = n2, name3 = n3, max = 400)
+#' fst_comparison_cloud(f, m, na, name1 = n1, name2 = n2, name3 = n3, max = 100)
 fst_comparison_cloud <- function(data1, data2, data3 = NULL, data4 = NULL, name1 = "Group 1", name2 = "Group 2", name3 = "Group 3", name4 = "Group 4", pos_filter = NULL, max = 100) {
   message("Notes on use of fst_comparison_cloud: \n If `max` is large, you may receive \"warnings\" indicating any words which are not plotted due to space constraints.\n\n")
   num1 <- dplyr::n_distinct(data1$doc_id)

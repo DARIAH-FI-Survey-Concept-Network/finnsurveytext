@@ -41,6 +41,7 @@ Creates a plot of the most frequently-occurring n-grams within the
 data.
 }
 \examples{
-fst_ngrams(conllu_dev_q11_1, number = 12, ngrams = 2, norm = NULL, strict = FALSE, name = "All")
+q11_1 <- conllu_dev_q11_1
+fst_ngrams(q11_1, 12, ngrams = 2, norm = NULL, strict = FALSE, name = "All")
 fst_ngrams(conllu_dev_q11_1_na, number = 15, ngrams = 3, name = "Not Spec")
 }

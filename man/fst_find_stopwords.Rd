@@ -14,5 +14,5 @@ Returns a tibble containing available Finnish stopword lists, their contents,
 and the size of the lists.
 }
 \examples{
-stopwords <- fst_find_stopwords()
+fst_find_stopwords()
 }

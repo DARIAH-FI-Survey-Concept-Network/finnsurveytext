@@ -63,9 +63,11 @@ Results will be shown within the plots pane. If 2 or 3 plots, they will be in
 a single row, if there are 4 plots, they will be in 2 rows of 2.
 }
 \examples{
-fst_freq_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, number = 10)
-fst_freq_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, conllu_dev_q11_1_na_nltk, number = 5, norm = "number_resp")
-fst_freq_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, conllu_dev_q11_1_na_nltk, number = 15, unique_colour = "pink", pos_filter = c("NOUN", "VERB", "ADJ", "ADV"), name1 = "Male", name2 = "Female", name3 = "Not Specified")
-fst_freq_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, conllu_dev_q11_1_na_nltk, number = 10, name1 = "Female", name2 = "Male", name3 = "Gender Not Specified")
-fst_freq_compare(conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_f_nltk, conllu_dev_q11_1_na_nltk, number = 10, name1 = "Female", name2 = "Male", name3 = "Gender Not Specified", strict = FALSE)
+f <- conllu_dev_q11_1_f_nltk
+m <- conllu_dev_q11_1_m_nltk
+na <- conllu_dev_q11_1_na_nltk
+fst_freq_compare(f, m, number = 10)
+fst_freq_compare(f, m, na, number = 5, norm = "number_resp")
+fst_freq_compare(f, m, na, name1 = "F", name2 = "M", name3 = "NA")
+fst_freq_compare(f, m, na, strict = FALSE)
 }

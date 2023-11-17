@@ -21,7 +21,9 @@ A wordcloud from the data
 Creates a wordcloud from CoNLL-U data of frequently-occuring words.
 }
 \examples{
-fst_wordcloud(conllu_cb_bullying_iso)
-fst_wordcloud(conllu_cb_bullying_iso, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+cb <- conllu_cb_bullying_iso
+fst_wordcloud(cb)
+fst_wordcloud(cb, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
 fst_wordcloud(conllu_dev_q11_1_snow, pos_filter = "VERB", max = 50)
+fst_wordcloud(conllu_dev_q11_1_nltk)
 }

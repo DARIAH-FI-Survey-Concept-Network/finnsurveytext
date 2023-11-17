@@ -23,6 +23,10 @@ fst_ngrams_compare_plot(
 \item{unique_colour}{Colour to display unique words, default is `indianred`.}
 
 \item{name}{An optional "name" for the plot, default is `NULL`}
+
+\item{override_title}{An optional title to override the automatic one for
+the plot. Default is `NULL`. If `NULL`, title of plot will be `number` "Most
+Common 'Term'". 'Term' is "Words", "Bigrams", or "N-Grams" where N > 2.}
 }
 \value{
 Plot of top n-grams with unique terms highlighted.
@@ -31,12 +35,16 @@ Plot of top n-grams with unique terms highlighted.
 Plots frequency n-grams with unique n-grams highlighted.
 }
 \examples{
+top_f <- fst_get_top_words(conllu_dev_q11_1_f_nltk)
+top_m <- fst_get_top_words(conllu_dev_q11_1_m_nltk)
+top_na <- fst_get_top_words(conllu_dev_q11_1_na_nltk)
+topn_f <- fst_get_top_ngrams(conllu_dev_q11_1_f_nltk)
+topn_m <- fst_get_top_ngrams(conllu_dev_q11_1_m_nltk)
+topn_na <- fst_get_top_ngrams(conllu_dev_q11_1_na_nltk)
+unique_words <- fst_get_unique_ngrams(top_f, top_m, top_na)
+unique_ngrams <- fst_get_unique_ngrams(topn_f, topn_m, topn_na)
+top_fu <-fst_join_unique(top_f, unique_words)
+topn_mu <- fst_join_unique(topn_m, unique_ngrams)
 fst_ngrams_compare_plot(top_fu, ngrams = 1, name = "Female")
-plot_top_fu <- fst_ngrams_compare_plot(top_fu, ngrams = 1, number = 8, override_title = "Female")
-plot_top_mu <- fst_ngrams_compare_plot(top_mu, ngrams = 1, override_title = "Male")
-plot_top_nau <- fst_ngrams_compare_plot(top_nau, ngrams = 1, override_title = "No Gender Specified")
-plot_topn_fu <- fst_ngrams_compare_plot(topn_fu, ngrams = 2, name = "Female")
-plot_topn_mu <- fst_ngrams_compare_plot(topn_mu, ngrams = 2, name = "Male")
-plot_top_mu + ggplot2::ggtitle("Plot of Top Male Words") + ggplot2::xlab("Count") + ggplot2::ylab("Top Words") # How to overwrite
-plot_topn_nau <- fst_ngrams_compare_plot(topn_nau, ngrams = 2, name = "No Gender Specified")
+fst_ngrams_compare_plot(topn_mu, ngrams = 2, name = "Male")
 }

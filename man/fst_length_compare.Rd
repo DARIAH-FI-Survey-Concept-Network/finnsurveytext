@@ -35,7 +35,8 @@ group, default is `NULL`}
 
 \item{name4}{A string describing data4, default is `Group 4`}
 
-\item{incl_sentences}{Whether to include sentence data in table, default is `TRUE`}
+\item{incl_sentences}{Whether to include sentence data in table, default is
+`TRUE`}
 }
 \value{
 Dataframe summarising response lengths
@@ -44,6 +45,10 @@ Dataframe summarising response lengths
 Compare length of text responses for between 2 and 4 sets of prepared data.
 }
 \examples{
-fst_length_compare(conllu_dev_q11_1_f, conllu_dev_q11_1_m, conllu_dev_q11_1_na, conllu_dev_q11_1, "Female", "Male", "Not Spec", "All")
-male_female <- fst_length_compare(conllu_dev_q11_1_f, conllu_dev_q11_1_m, name1 = "Female", name2 = "Male")
+f <- conllu_dev_q11_1_f_nltk
+m <- conllu_dev_q11_1_m_nltk
+na <- conllu_dev_q11_1_na_nltk
+all <- conllu_dev_q11_1_nltk
+fst_length_compare(f, m, na, all, "Female", "Male", "Not Spec", "All")
+fst_length_compare(f, m, name1 = "F", name2 = "M", incl_sentences = FALSE)
 }

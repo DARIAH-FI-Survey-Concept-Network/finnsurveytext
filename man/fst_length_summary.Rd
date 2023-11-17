@@ -4,15 +4,16 @@
 \alias{fst_length_summary}
 \title{Make Length Summary Table}
 \usage{
-fst_length_summary(data, desc = NULL, incl_sentences = TRUE)
+fst_length_summary(data, desc = "All respondents", incl_sentences = TRUE)
 }
 \arguments{
-\item{desc}{An optional string describing respondents, default is `NULL`}
+\item{data}{dataframe of text in CoNLL-U format.}
+
+\item{desc}{An optional string describing respondents, default is
+`All respondents`}
 
 \item{incl_sentences}{Whether to include sentence data in table, default is
 `TRUE`}
-
-\item{dataA}{dataframe of text in CoNLL-U format.}
 }
 \value{
 Table summarising distribution of lengths of responses
@@ -22,5 +23,5 @@ Create table summarising length of responses
 }
 \examples{
 fst_length_summary(conllu_dev_q11_1, incl_sentences = FALSE)
-fem <- fst_length_summary(conllu_dev_q11_1, desc = "Female")
+fst_length_summary(conllu_dev_q11_1, desc = "Female")
 }

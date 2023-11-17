@@ -3,7 +3,8 @@
 \docType{data}
 \name{conllu_cb_bullying_iso}
 \alias{conllu_cb_bullying_iso}
-\title{Child Barometer 2016 Bullying response data in CoNLL-U format with ISO stopwords removed}
+\title{Child Barometer 2016 Bullying response data in CoNLL-U format with ISO
+stopwords removed}
 \format{
 ## `conllu_cb_bullying_iso`
 A dataframe with 1240 rows and 14 columns:

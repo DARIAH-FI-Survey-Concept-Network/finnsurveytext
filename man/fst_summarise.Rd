@@ -21,5 +21,5 @@ words, and the number of unique lemmas.
 }
 \examples{
 fst_summarise(conllu_dev_q11_1)
-q11_2 <- fst_summarise(conllu_dev_q11_2_nltk, "Q11_2")
+fst_summarise(conllu_dev_q11_2_nltk, "Q11_2")
 }

@@ -38,7 +38,10 @@ Creates a table of the most frequently-occurring ngrams within the
 data.
 }
 \examples{
-q11_1_ngrams <- fst_get_top_ngrams(conllu_dev_q11_1_nltk, norm = NULL)
-fst_get_top_ngrams(conllu_dev_q11_1_nltk, number = 10, ngrams = 1, norm = "number_resp")
-top_bullying_ngrams <- fst_get_top_ngrams(conllu_cb_bullying, number = 15, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+q11_1 <- conllu_dev_q11_1_nltk
+fst_get_top_ngrams(q11_1, norm = NULL)
+fst_get_top_ngrams(q11_1, number = 10, ngrams = 1, norm = "number_resp")
+cb <- conllu_cb_bullying
+pf <- c("NOUN", "VERB", "ADJ", "ADV")
+fst_get_top_ngrams(cb, number = 15, pos_filter = pf)
 }

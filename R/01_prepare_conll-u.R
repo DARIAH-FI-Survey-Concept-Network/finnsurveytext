@@ -12,10 +12,10 @@
 #' @export
 #'
 #' @examples
-#' conllu_dev_q11_1 <- fst_format_conllu(data = dev_data, field = "q11_1")
-#' conllu_dev_q11_2 <- fst_format_conllu(data = dev_data, field = "q11_2")
-#' conllu_dev_q11_3 <- fst_format_conllu(data = dev_data, field = "q11_3")
-#' conllu_cb_bullying <- fst_format_conllu(data = child_barometer_data, field = "q7", model = "tdt")
+#' fst_format_conllu(data = dev_data, field = "q11_1")
+#' fst_format_conllu(data = dev_data, field = "q11_2")
+#' fst_format_conllu(data = dev_data, field = "q11_3")
+#' fst_format_conllu(data = child_barometer_data, field = "q7", model = "tdt")
 fst_format_conllu <- function(data, field, model = "ftb") {
   data <- data %>%
     dplyr::mutate(new_col = trimws(.data[[field]])) %>%
@@ -25,14 +25,22 @@ fst_format_conllu <- function(data, field, model = "ftb") {
     if (!file.exists("finnish-ftb-ud-2.5-191206.udpipe")) {
       udpipe::udpipe_download_model(language = "finnish-ftb")
     }
-    model_ftb <- udpipe::udpipe_load_model(file = "finnish-ftb-ud-2.5-191206.udpipe")
-    annotated_data <- as.data.frame(udpipe::udpipe_annotate(model_ftb, x = data))
+    model_ftb <- udpipe::udpipe_load_model(
+      file = "finnish-ftb-ud-2.5-191206.udpipe"
+      )
+    annotated_data <- as.data.frame(
+      udpipe::udpipe_annotate(model_ftb, x = data)
+      )
   } else if (model == "tdt") {
     if (!file.exists("finnish-tdt-ud-2.5-191206.udpipe")) {
       udpipe::udpipe_download_model(language = "finnish-tdt")
     }
-    model_tdt <- udpipe::udpipe_load_model(file = "finnish-tdt-ud-2.5-191206.udpipe")
-    annotated_data <- as.data.frame(udpipe::udpipe_annotate(model_tdt, x = data))
+    model_tdt <- udpipe::udpipe_load_model(
+      file = "finnish-tdt-ud-2.5-191206.udpipe"
+      )
+    annotated_data <- as.data.frame(
+      udpipe::udpipe_annotate(model_tdt, x = data)
+      )
   }
   annotated_data %>%
     dplyr::mutate(token = tolower(token)) %>%
@@ -48,7 +56,7 @@ fst_format_conllu <- function(data, field, model = "ftb") {
 #' @export
 #'
 #' @examples
-#' stopwords <- fst_find_stopwords()
+#' fst_find_stopwords()
 fst_find_stopwords <- function() {
   Name <- sort(stopwords::stopwords_getsources()[unlist(lapply(
     stopwords::stopwords_getsources(),
@@ -75,11 +83,11 @@ fst_find_stopwords <- function() {
 #' @export
 #'
 #' @examples
-#' conllu_dev_q11_1_nltk <- fst_rm_stop_punct(conllu_dev_q11_1)
-#' conllu_dev_q11_2_nltk <- fst_rm_stop_punct(conllu_dev_q11_2)
-#' conllu_dev_q11_3_nltk <- fst_rm_stop_punct(conllu_dev_q11_3)
-#' conllu_dev_q11_1_snow <- fst_rm_stop_punct(conllu_dev_q11_1, stopword_list = "snowball")
-#' conllu_cb_bullying_iso <- fst_rm_stop_punct(conllu_cb_bullying, "stopwords-iso")
+#' fst_rm_stop_punct(conllu_dev_q11_1)
+#' fst_rm_stop_punct(conllu_dev_q11_2)
+#' fst_rm_stop_punct(conllu_dev_q11_3)
+#' fst_rm_stop_punct(conllu_dev_q11_1, stopword_list <- "snowball")
+#' fst_rm_stop_punct(conllu_cb_bullying, "stopwords-iso")
 fst_rm_stop_punct <- function(data, stopword_list = "nltk") {
   swords <- stopwords::stopwords("fi", stopword_list)
   output <- data %>%
@@ -95,8 +103,10 @@ fst_rm_stop_punct <- function(data, stopword_list = "nltk") {
 #' `fst_prepare_conllu` produces a dataframe (and saves as csv) containing
 #' Finnish survey text reponses in CoNLL-U format with stopwords removed.
 #'
-#' @param data A dataframe of survey responses which contains an open-ended question.
-#' @param field The field in the dataframe which contains the open-ended question.
+#' @param data A dataframe of survey responses which contains an open-ended
+#'  question.
+#' @param field The field in the dataframe which contains the open-ended
+#'  question.
 #' @param model A Finnish language model available for [udpipe], `ftb` (default)
 #'  or `tdt`.
 #' @param stopword_list A valid Finnish stopword list, default is `nltk`, or
@@ -106,9 +116,10 @@ fst_rm_stop_punct <- function(data, stopword_list = "nltk") {
 #' @export
 #'
 #' @examples
-#' prepd_bullying_iso <- fst_prepare_conllu(data = child_barometer_data, field = "q7", stopword_list = "stopwords-iso")
-#' prepd_dev_q11_2_snow <- fst_prepare_conllu(data = dev_data, field = "q11_2", stopword_list = "snowball")
-#' conllu_dev_q11_1_f_nltk <- fst_prepare_conllu(data = dev_data_f, field = "q11_1", stopword_list = "nltk")
+#' cb <- child_barometer_data
+#' fst_prepare_conllu(data = cb, field = "q7", stopword_list = "stopwords-iso")
+#' fst_prepare_conllu(dev_data, field = "q11_2", stopword_list = "snowball")
+#' fst_prepare_conllu(dev_data_f, field = "q11_1", stopword_list = "nltk")
 fst_prepare_conllu <- function(data,
                                field,
                                model = "ftb",

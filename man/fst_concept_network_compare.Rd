@@ -60,7 +60,13 @@ highlighted.
 Concept Network- Compare and plot Concept Network
 }
 \examples{
-fst_concept_network_compare(conllu_dev_q11_1_nltk, conllu_dev_q11_2_nltk, concepts = "elintaso, köyhä, ihminen", name1 = "Q1", name2 = "Q2", pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
-fst_concept_network_compare(conllu_dev_q11_1_nltk, conllu_dev_q11_2_nltk, conllu_dev_q11_3_nltk, concepts = "elintaso, köyhä, ihminen", name1 = "Q1", name2 = "Q2", name3 = "Q3", pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
-fst_concept_network_compare(conllu_dev_q11_1_f, conllu_dev_q11_1_m, concepts = "elintaso, köyhä, ihminen", pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+d1 <- conllu_dev_q11_1_nltk
+d2<- conllu_dev_q11_2_nltk
+d3 <- conllu_dev_q11_3_nltk
+con1 <- "elintaso"
+con2 <- "ihminen, elintaso"
+pos1 <- c("NOUN", "VERB", "ADJ", "ADV")
+
+fst_concept_network_compare(d1, d2, concepts = con1, pos_filter = pos1)
+fst_concept_network_compare(d1, d2, d3, concepts = con2, norm = 'number_resp')
 }
