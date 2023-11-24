@@ -1,0 +1,16 @@
+pandoc: 2.19.2
+pkgdown: 2.0.7
+pkgdown_sha: ~
+articles:
+  ReadMe: ReadMe.html
+  Tutorial1-Prepare_CoNLL-U: web_only/Tutorial1-Prepare_CoNLL-U.html
+  Tutorial2-Data_exploration: web_only/Tutorial2-Data_exploration.html
+  Tutorial3-Overview_of_Concept_Network_functions: web_only/Tutorial3-Overview_of_Concept_Network_functions.html
+  Tutorial4-Analysis_and_config_of_Concept_Network_functions: web_only/Tutorial4-Analysis_and_config_of_Concept_Network_functions.html
+  Tutorial5-Demonstration_of_comparison_functions: web_only/Tutorial5-Demonstration_of_comparison_functions.html
+  Tutorial6-Example_of_analysis_of_an_open-ended_survey_question: web_only/Tutorial6-Example_of_analysis_of_an_open-ended_survey_question.html
+last_built: 2023-11-24T09:20Z
+urls:
+  reference: https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference
+  article: https://dariah-fi-survey-concept-network.github.io/finnsurveytext/articles
+
