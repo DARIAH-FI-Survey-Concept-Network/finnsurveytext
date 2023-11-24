@@ -11,7 +11,8 @@ Authors@R: c(
     person("Joni", "Oksanen", , email = "joni.oksanen@helsinki.fi", role = "aut"),
     person("Tuukka", "Oikarinen", role="aut"),
     person("Maria", "Valaste", , email = "maria.valaste@helsinki.fi", role = "aut"),
-    person("Emilia", "Carson", role="ctb"),
+    person(first = "Shannon", middle = "Emilia", last = "Carson", role="ctb"),
+    person("Sirpa", "Lappalainen", role = "ctb"),
     person("Kimmo", "Vehkalahti", role="ctb")
   )
 Description: Annotates Finnish textual survey responses into CoNLL-U
