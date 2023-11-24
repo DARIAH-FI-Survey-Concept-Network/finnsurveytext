@@ -155,52 +155,52 @@ versions with and without stopwords removed because we have some
 functions which are better with/without the stopwords included.)</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">all</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/fst_prepare_conllu.html">fst_prepare_conllu</a></span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">dev_data</span>, </span>
-<span>  field <span class="op">=</span> <span class="st">"q11_2"</span>, </span>
+<span>  data <span class="op">=</span> <span class="va">dev_data</span>,</span>
+<span>  field <span class="op">=</span> <span class="st">"q11_2"</span>,</span>
 <span>  stopword_list <span class="op">=</span> <span class="st">"none"</span></span>
-<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">all_nltk</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/fst_prepare_conllu.html">fst_prepare_conllu</a></span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">dev_data</span>, </span>
-<span>  field <span class="op">=</span> <span class="st">"q11_2"</span>, </span>
+<span>  data <span class="op">=</span> <span class="va">dev_data</span>,</span>
+<span>  field <span class="op">=</span> <span class="st">"q11_2"</span>,</span>
 <span>  stopword_list <span class="op">=</span> <span class="st">"nltk"</span></span>
-<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">female</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/fst_prepare_conllu.html">fst_prepare_conllu</a></span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">dev_data_f</span>, </span>
-<span>  field <span class="op">=</span> <span class="st">"q11_2"</span>, </span>
+<span>  data <span class="op">=</span> <span class="va">dev_data_f</span>,</span>
+<span>  field <span class="op">=</span> <span class="st">"q11_2"</span>,</span>
 <span>  stopword_list <span class="op">=</span> <span class="st">"none"</span></span>
-<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">female_nltk</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/fst_prepare_conllu.html">fst_prepare_conllu</a></span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">dev_data_f</span>, </span>
-<span>  field <span class="op">=</span> <span class="st">"q11_2"</span>, </span>
+<span>  data <span class="op">=</span> <span class="va">dev_data_f</span>,</span>
+<span>  field <span class="op">=</span> <span class="st">"q11_2"</span>,</span>
 <span>  stopword_list <span class="op">=</span> <span class="st">"nltk"</span></span>
-<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">male</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/fst_prepare_conllu.html">fst_prepare_conllu</a></span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">dev_data_m</span>, </span>
-<span>  field <span class="op">=</span> <span class="st">"q11_2"</span>, </span>
+<span>  data <span class="op">=</span> <span class="va">dev_data_m</span>,</span>
+<span>  field <span class="op">=</span> <span class="st">"q11_2"</span>,</span>
 <span>  stopword_list <span class="op">=</span> <span class="st">"none"</span></span>
-<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">male_nltk</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/fst_prepare_conllu.html">fst_prepare_conllu</a></span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">dev_data_m</span>, </span>
-<span>  field <span class="op">=</span> <span class="st">"q11_2"</span>, </span>
+<span>  data <span class="op">=</span> <span class="va">dev_data_m</span>,</span>
+<span>  field <span class="op">=</span> <span class="st">"q11_2"</span>,</span>
 <span>  stopword_list <span class="op">=</span> <span class="st">"nltk"</span></span>
-<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">na</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/fst_prepare_conllu.html">fst_prepare_conllu</a></span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">dev_data_na</span>, </span>
-<span>  field <span class="op">=</span> <span class="st">"q11_2"</span>, </span>
+<span>  data <span class="op">=</span> <span class="va">dev_data_na</span>,</span>
+<span>  field <span class="op">=</span> <span class="st">"q11_2"</span>,</span>
 <span>  stopword_list <span class="op">=</span> <span class="st">"none"</span></span>
-<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">na_nltk</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/fst_prepare_conllu.html">fst_prepare_conllu</a></span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">dev_data_na</span>, </span>
-<span>  field <span class="op">=</span> <span class="st">"q11_2"</span>, </span>
+<span>  data <span class="op">=</span> <span class="va">dev_data_na</span>,</span>
+<span>  field <span class="op">=</span> <span class="st">"q11_2"</span>,</span>
 <span>  stopword_list <span class="op">=</span> <span class="st">"nltk"</span></span>
-<span>  <span class="op">)</span></span></code></pre></div>
+<span><span class="op">)</span></span></code></pre></div>
 <p>The data is formatted like this:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">male_nltk</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -653,7 +653,7 @@ responses.</p>
 <span>    data1 <span class="op">=</span> <span class="va">all</span>, name1 <span class="op">=</span> <span class="st">"All"</span>,</span>
 <span>    data2 <span class="op">=</span> <span class="va">female</span>, name2 <span class="op">=</span> <span class="st">"Female"</span>,</span>
 <span>    data3 <span class="op">=</span> <span class="va">male</span>, name3 <span class="op">=</span> <span class="st">"Male"</span>,</span>
-<span>    data4 <span class="op">=</span> <span class="va">na</span>, name4 <span class="op">=</span> <span class="st">"Unspecified"</span>, </span>
+<span>    data4 <span class="op">=</span> <span class="va">na</span>, name4 <span class="op">=</span> <span class="st">"Unspecified"</span>,</span>
 <span>    incl_sentences <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -1494,22 +1494,22 @@ networks show different words used around our “concept” words of
 <span><span class="va">female_cn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/fst_cn_compare_plot.html">fst_cn_compare_plot</a></span><span class="op">(</span><span class="va">female_edges</span>, <span class="va">female_nodes</span>, <span class="va">concepts</span>,</span>
 <span>  unique_lemmas <span class="op">=</span> <span class="va">unique2</span>,</span>
 <span>  name <span class="op">=</span> <span class="st">"Female"</span>,</span>
-<span>  concept_colour <span class="op">=</span> <span class="st">"red"</span>, </span>
-<span>  unique_colour <span class="op">=</span> <span class="st">"purple"</span>, </span>
-<span>  min_edge <span class="op">=</span> <span class="va">min_edge</span>, </span>
-<span>  max_edge <span class="op">=</span> <span class="va">max_edge</span>, </span>
-<span>  min_node <span class="op">=</span> <span class="va">min_node</span>, </span>
+<span>  concept_colour <span class="op">=</span> <span class="st">"red"</span>,</span>
+<span>  unique_colour <span class="op">=</span> <span class="st">"purple"</span>,</span>
+<span>  min_edge <span class="op">=</span> <span class="va">min_edge</span>,</span>
+<span>  max_edge <span class="op">=</span> <span class="va">max_edge</span>,</span>
+<span>  min_node <span class="op">=</span> <span class="va">min_node</span>,</span>
 <span>  max_node <span class="op">=</span> <span class="va">max_node</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">male_cn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/fst_cn_compare_plot.html">fst_cn_compare_plot</a></span><span class="op">(</span><span class="va">male_edges</span>, <span class="va">male_nodes</span>, <span class="va">concepts</span>,</span>
 <span>  unique_lemmas <span class="op">=</span> <span class="va">unique2</span>,</span>
 <span>  name <span class="op">=</span> <span class="st">"Male"</span>,</span>
-<span>  concept_colour <span class="op">=</span> <span class="st">"red"</span>, </span>
-<span>  unique_colour <span class="op">=</span> <span class="st">"blue"</span>, </span>
-<span>  min_edge <span class="op">=</span> <span class="va">min_edge</span>, </span>
-<span>  max_edge <span class="op">=</span> <span class="va">max_edge</span>, </span>
-<span>  min_node <span class="op">=</span> <span class="va">min_node</span>, </span>
+<span>  concept_colour <span class="op">=</span> <span class="st">"red"</span>,</span>
+<span>  unique_colour <span class="op">=</span> <span class="st">"blue"</span>,</span>
+<span>  min_edge <span class="op">=</span> <span class="va">min_edge</span>,</span>
+<span>  max_edge <span class="op">=</span> <span class="va">max_edge</span>,</span>
+<span>  min_node <span class="op">=</span> <span class="va">min_node</span>,</span>
 <span>  max_node <span class="op">=</span> <span class="va">max_node</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -1542,7 +1542,7 @@ Finnish Social Science Data Archive [distributor]. <a href="http://urn.fi/urn:nb
 
     <footer><div class="pkgdown-footer-left">
   <p></p>
-<p>Developed by Adeline Clarke, Krista Lagus, Katja Laine, Maria Litova, Matti Nelimarkka, Joni Oksanen, Tuukka Oikarinen, Maria Valaste.</p>
+<p>Developed by Adeline Clarke, Krista Lagus, Katja Laine, Maria Litova, Matti Nelimarkka, Joni Oksanen, Jaakko Peltonen, Tuukka Oikarinen, Jani-Matti Tirkkonen, Ida Toivanen, Maria Valaste.</p>
 </div>
 
 <div class="pkgdown-footer-right">
