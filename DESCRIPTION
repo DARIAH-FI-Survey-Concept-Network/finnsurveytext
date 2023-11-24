@@ -4,9 +4,15 @@ Title: Analyse Open-ended Survey Responses in Finnish
 Version: 0.1.0
 Authors@R: c(
     person("Adeline", "Clarke", , email = "adelinepclarke@gmail.com", role = c("cre", "aut")),
-    person("Maria", "Valaste", , email = "maria.valaste@helsinki.fi", role = "ctb"),
-    person("Matti", "Nelimarkka", , email = "matti.nelimarkka@helsinki.fi", role = "ctb"),
-    person("Joni", "Oksanen", , email = "joni.oksanen@helsinki.fi", role = "aut")
+    person("Krista", "Lagus", email = "krista.lagus@helsinki.fi", role="aut"), 
+    person("Katja", "Laine", role="aut"),
+    person("Maria", "Litova", role="aut"),
+    person("Matti", "Nelimarkka", , email = "matti.nelimarkka@helsinki.fi", role = "aut"),
+    person("Joni", "Oksanen", , email = "joni.oksanen@helsinki.fi", role = "aut"),
+    person("Tuukka", "Oikarinen", role="aut"),
+    person("Maria", "Valaste", , email = "maria.valaste@helsinki.fi", role = "aut"),
+    person("Emilia", "Carson", role="ctb"),
+    person("Kimmo", "Vehkalahti", role="ctb")
   )
 Description: Annotates Finnish textual survey responses into CoNLL-U
     format and analyses data using n-gram plots, wordclouds,
@@ -38,3 +44,4 @@ VignetteBuilder:
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.3
+URL: https://dariah-fi-survey-concept-network.github.io/finnsurveytext/
