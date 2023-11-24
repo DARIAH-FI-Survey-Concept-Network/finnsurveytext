@@ -66,52 +66,52 @@ We can prepare the data into CoNLL-U format using functions from `01_prepare_con
 
 ```{r}
 all <- fst_prepare_conllu(
-  data = dev_data, 
-  field = "q11_2", 
+  data = dev_data,
+  field = "q11_2",
   stopword_list = "none"
-  )
+)
 
 all_nltk <- fst_prepare_conllu(
-  data = dev_data, 
-  field = "q11_2", 
+  data = dev_data,
+  field = "q11_2",
   stopword_list = "nltk"
-  )
+)
 
 female <- fst_prepare_conllu(
-  data = dev_data_f, 
-  field = "q11_2", 
+  data = dev_data_f,
+  field = "q11_2",
   stopword_list = "none"
-  )
+)
 
 female_nltk <- fst_prepare_conllu(
-  data = dev_data_f, 
-  field = "q11_2", 
+  data = dev_data_f,
+  field = "q11_2",
   stopword_list = "nltk"
-  )
+)
 
 male <- fst_prepare_conllu(
-  data = dev_data_m, 
-  field = "q11_2", 
+  data = dev_data_m,
+  field = "q11_2",
   stopword_list = "none"
-  )
+)
 
 male_nltk <- fst_prepare_conllu(
-  data = dev_data_m, 
-  field = "q11_2", 
+  data = dev_data_m,
+  field = "q11_2",
   stopword_list = "nltk"
-  )
+)
 
 na <- fst_prepare_conllu(
-  data = dev_data_na, 
-  field = "q11_2", 
+  data = dev_data_na,
+  field = "q11_2",
   stopword_list = "none"
-  )
+)
 
 na_nltk <- fst_prepare_conllu(
-  data = dev_data_na, 
-  field = "q11_2", 
+  data = dev_data_na,
+  field = "q11_2",
   stopword_list = "nltk"
-  )
+)
 ```
 
 The data is formatted like this: 
@@ -177,7 +177,7 @@ knitr::kable(
     data1 = all, name1 = "All",
     data2 = female, name2 = "Female",
     data3 = male, name3 = "Male",
-    data4 = na, name4 = "Unspecified", 
+    data4 = na, name4 = "Unspecified",
     incl_sentences = TRUE
   )
 )
@@ -466,22 +466,22 @@ unique2 <- fst_cn_get_unique(female_nodes, male_nodes)
 female_cn <- fst_cn_compare_plot(female_edges, female_nodes, concepts,
   unique_lemmas = unique2,
   name = "Female",
-  concept_colour = "red", 
-  unique_colour = "purple", 
-  min_edge = min_edge, 
-  max_edge = max_edge, 
-  min_node = min_node, 
+  concept_colour = "red",
+  unique_colour = "purple",
+  min_edge = min_edge,
+  max_edge = max_edge,
+  min_node = min_node,
   max_node = max_node
 )
 
 male_cn <- fst_cn_compare_plot(male_edges, male_nodes, concepts,
   unique_lemmas = unique2,
   name = "Male",
-  concept_colour = "red", 
-  unique_colour = "blue", 
-  min_edge = min_edge, 
-  max_edge = max_edge, 
-  min_node = min_node, 
+  concept_colour = "red",
+  unique_colour = "blue",
+  min_edge = min_edge,
+  max_edge = max_edge,
+  min_node = min_node,
   max_node = max_node
 )
 

@@ -80,7 +80,7 @@ Using our Child Barometer bullying data, we can call this function as follows:
 prepd_bullying <- fst_prepare_conllu(
   data = child_barometer_data,
   field = "q7",
-  stopword_list = "nltk", 
+  stopword_list = "nltk",
   model = "ftb"
 )
 ```

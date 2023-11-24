@@ -52,52 +52,52 @@ There are four sets of data files available within the package which are used in
 Below, we prepare the data. (For further explanation of these functions, see Tutorial1-Prepare CoNLL-U.)
 ```{r}
 all <- fst_prepare_conllu(
-  data = dev_data, 
-  field = "q11_3", 
+  data = dev_data,
+  field = "q11_3",
   stopword_list = "none"
-  )
+)
 
 all_nltk <- fst_prepare_conllu(
-  data = dev_data, 
-  field = "q11_3", 
+  data = dev_data,
+  field = "q11_3",
   stopword_list = "nltk"
-  )
+)
 
 female <- fst_prepare_conllu(
-  data = dev_data_f, 
-  field = "q11_3", 
+  data = dev_data_f,
+  field = "q11_3",
   stopword_list = "none"
-  )
+)
 
 female_nltk <- fst_prepare_conllu(
-  data = dev_data_f, 
-  field = "q11_3", 
+  data = dev_data_f,
+  field = "q11_3",
   stopword_list = "nltk"
-  )
+)
 
 male <- fst_prepare_conllu(
-  data = dev_data_m, 
-  field = "q11_3", 
+  data = dev_data_m,
+  field = "q11_3",
   stopword_list = "none"
-  )
+)
 
 male_nltk <- fst_prepare_conllu(
-  data = dev_data_m, 
-  field = "q11_3", 
+  data = dev_data_m,
+  field = "q11_3",
   stopword_list = "nltk"
-  )
+)
 
 na <- fst_prepare_conllu(
-  data = dev_data_na, 
-  field = "q11_3", 
+  data = dev_data_na,
+  field = "q11_3",
   stopword_list = "none"
-  )
+)
 
 na_nltk <- fst_prepare_conllu(
-  data = dev_data_na, 
-  field = "q11_3", 
+  data = dev_data_na,
+  field = "q11_3",
   stopword_list = "nltk"
-  )
+)
 ```
 
 The following is an excerpt from one of our prepared datasets:

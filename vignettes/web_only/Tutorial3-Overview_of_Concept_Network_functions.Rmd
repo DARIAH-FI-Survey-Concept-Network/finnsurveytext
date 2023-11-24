@@ -176,10 +176,11 @@ This function takes the output of the previous functions and plots the concept n
 
 ```{r}
 fst_cn_plot(
-  edges = bullying_edges, 
-  nodes = bullying_nodes, 
-  concepts = "kiusata, lyöminen", 
-  title = "Bullying Data CN")
+  edges = bullying_edges,
+  nodes = bullying_nodes,
+  concepts = "kiusata, lyöminen",
+  title = "Bullying Data CN"
+)
 ```
 
 Recall that for `q11_2_edges` we have set the `threshold` as 5.

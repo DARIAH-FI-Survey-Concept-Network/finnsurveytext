@@ -86,13 +86,13 @@ The differences in the types of responses can be seen in the exploratory data an
 #### Summarise
 ```{r}
 knitr::kable(
-  fst_summarise(data = q11_1, desc = 'Q11_1')
+  fst_summarise(data = q11_1, desc = "Q11_1")
 )
 knitr::kable(
-  fst_summarise(data = q11_2, desc = 'Q11_2')
+  fst_summarise(data = q11_2, desc = "Q11_2")
 )
 knitr::kable(
-  fst_summarise(data = q11_3, desc = 'Q11_3')
+  fst_summarise(data = q11_3, desc = "Q11_3")
 )
 ```
 
@@ -127,22 +127,22 @@ knitr::kable(
 ```{r}
 knitr::kable(
   fst_length_summary(
-    data = q11_1, 
-    desc = 'Q11_1', 
+    data = q11_1,
+    desc = "Q11_1",
     incl_sentences = TRUE
   )
 )
 knitr::kable(
   fst_length_summary(
-    data = q11_2, 
-    desc = 'Q11_2', 
+    data = q11_2,
+    desc = "Q11_2",
     incl_sentences = TRUE
   )
 )
 knitr::kable(
   fst_length_summary(
-    data = q11_3, 
-    desc = 'Q11_2', 
+    data = q11_3,
+    desc = "Q11_2",
     incl_sentences = TRUE
   )
 )
@@ -163,8 +163,8 @@ Now, lets create some tables of the most common words, bigrams and trigrams usin
 #### Top Words
 ```{r}
 fst_freq(
-  data = q11_1, 
-  number = 10, 
+  data = q11_1,
+  number = 10,
   norm = "number_words",
   pos_filter = c("NOUN", "VERB", "ADJ", "ADV"),
   strict = TRUE,
@@ -172,19 +172,19 @@ fst_freq(
 )
 
 fst_freq(
-  data = q11_2, 
-  number = 10, 
+  data = q11_2,
+  number = 10,
   norm = "number_words",
-  pos_filter = c("NOUN", "VERB", "ADJ", "ADV"), 
+  pos_filter = c("NOUN", "VERB", "ADJ", "ADV"),
   strict = TRUE,
   name = "Q11_2"
 )
 
 fst_freq(
-  data = q11_3, 
-  number = 10, 
+  data = q11_3,
+  number = 10,
   norm = "number_words",
-  pos_filter = c("NOUN", "VERB", "ADJ", "ADV"), 
+  pos_filter = c("NOUN", "VERB", "ADJ", "ADV"),
   strict = TRUE,
   name = "Q11_3"
 )
@@ -204,56 +204,56 @@ Here we look at common sets of two or three words.
 
 ```{r}
 fst_ngrams(
-  data = q11_1, 
-  number = 10, 
-  ngrams = 2, 
+  data = q11_1,
+  number = 10,
+  ngrams = 2,
   norm = "number_words",
-  pos_filter = c("NOUN", "VERB", "ADJ", "ADV"),  
+  pos_filter = c("NOUN", "VERB", "ADJ", "ADV"),
   strict = TRUE,
   name = "Q11_1"
 )
 fst_ngrams(
-  data = q11_1, 
-  number = 10, 
-  ngrams = 3, 
+  data = q11_1,
+  number = 10,
+  ngrams = 3,
   norm = "number_words",
-  pos_filter = c("NOUN", "VERB", "ADJ", "ADV"), 
+  pos_filter = c("NOUN", "VERB", "ADJ", "ADV"),
   strict = TRUE,
   name = "Q11_1"
 )
 fst_ngrams(
-  data = q11_2, 
-  number = 10, 
-  ngrams = 2, 
+  data = q11_2,
+  number = 10,
+  ngrams = 2,
   norm = "number_words",
-  pos_filter = c("NOUN", "VERB", "ADJ", "ADV"), 
+  pos_filter = c("NOUN", "VERB", "ADJ", "ADV"),
   strict = TRUE,
   name = "Q11_2"
 )
 fst_ngrams(
-  data = q11_2, 
-  number = 10, 
-  ngrams = 3, 
+  data = q11_2,
+  number = 10,
+  ngrams = 3,
   norm = "number_words",
-  pos_filter = c("NOUN", "VERB", "ADJ", "ADV"), 
+  pos_filter = c("NOUN", "VERB", "ADJ", "ADV"),
   strict = TRUE,
   name = "Q11_2"
 )
 fst_ngrams(
-  data = q11_3, 
-  number = 10, 
-  ngrams = 2, 
+  data = q11_3,
+  number = 10,
+  ngrams = 2,
   norm = "number_words",
-  pos_filter = c("NOUN", "VERB", "ADJ", "ADV"), 
+  pos_filter = c("NOUN", "VERB", "ADJ", "ADV"),
   strict = TRUE,
   name = "Q11_3"
 )
 fst_ngrams(
-  data = q11_3, 
-  number = 10, 
-  ngrams = 3, 
+  data = q11_3,
+  number = 10,
+  ngrams = 3,
   norm = "number_words",
-  pos_filter = c("NOUN", "VERB", "ADJ", "ADV"), 
+  pos_filter = c("NOUN", "VERB", "ADJ", "ADV"),
   strict = TRUE,
   name = "Q11_3"
 )
@@ -286,19 +286,19 @@ We can see the most frequent words identified above also coming out in the wordc
 
 ```{r}
 fst_wordcloud(
-  data = q11_1, 
-  pos_filter = c("NOUN", "VERB", "ADJ", "ADV"), 
+  data = q11_1,
+  pos_filter = c("NOUN", "VERB", "ADJ", "ADV"),
   max = 100
 )
 
 fst_wordcloud(
-  data = q11_2, 
-  pos_filter = c("NOUN", "VERB", "ADJ", "ADV"), 
+  data = q11_2,
+  pos_filter = c("NOUN", "VERB", "ADJ", "ADV"),
   max = 100
 )
 
 fst_wordcloud(
-  data = q11_3, 
+  data = q11_3,
   pos_filter = c("NOUN", "VERB", "ADJ", "ADV"),
   max = 100
 )
@@ -315,35 +315,35 @@ Based on the most frequently-occurring words, we have chosen some lists of "conc
   + (In English) standard of living, poor, man
 ```{r}
 fst_concept_network(
-  data = q11_1, 
-  concepts = "elintaso, köyhä", 
-  threshold = NULL, 
-  norm = 'number_words', 
-  pos_filter = NULL, 
+  data = q11_1,
+  concepts = "elintaso, köyhä",
+  threshold = NULL,
+  norm = "number_words",
+  pos_filter = NULL,
   title = "Q11_1 - No threshold"
 )
 fst_concept_network(
-  data = q11_1, 
-  concepts = "elintaso, köyhä", 
-  threshold = 3, 
-  norm = 'number_words', 
-  pos_filter = NULL, 
+  data = q11_1,
+  concepts = "elintaso, köyhä",
+  threshold = 3,
+  norm = "number_words",
+  pos_filter = NULL,
   title = "Q11_1 - Threshold = 3"
 )
 fst_concept_network(
-  data = q11_1, 
-  concepts = "elintaso, köyhä, ihminen", 
-  threshold = NULL, 
-  norm = 'number_words', 
-  pos_filter = NULL, 
+  data = q11_1,
+  concepts = "elintaso, köyhä, ihminen",
+  threshold = NULL,
+  norm = "number_words",
+  pos_filter = NULL,
   title = "Q11_1 - No threshold"
 )
 fst_concept_network(
-  data = q11_1, 
-  concepts = "elintaso, köyhä, ihminen", 
-  threshold = 3, 
-  norm = 'number_words', 
-  pos_filter = NULL, 
+  data = q11_1,
+  concepts = "elintaso, köyhä, ihminen",
+  threshold = 3,
+  norm = "number_words",
+  pos_filter = NULL,
   title = "Q11_1 - Threshold = 3"
 )
 ```
@@ -358,44 +358,44 @@ Here, our first plot may be the best. We can see that a threshold is not require
   + (In English) development, help, strive, country, man
 ```{r}
 fst_concept_network(
-  data = q11_2, 
+  data = q11_2,
   concepts = "kehitysmaa, auttaa, pyrkiä, maa, ihminen",
-  threshold = NULL, 
-  norm = 'number_words', 
-  pos_filter = NULL, 
+  threshold = NULL,
+  norm = "number_words",
+  pos_filter = NULL,
   title = "Q11_2 - No threshold"
 )
 fst_concept_network(
-  data = q11_2, 
-  concepts = "kehitysmaa, auttaa, pyrkiä, maa, ihminen", 
-  threshold = 10, 
-  norm = 'number_words', 
-  pos_filter = NULL, 
+  data = q11_2,
+  concepts = "kehitysmaa, auttaa, pyrkiä, maa, ihminen",
+  threshold = 10,
+  norm = "number_words",
+  pos_filter = NULL,
   title = "Q11_2 - Threshold = 10"
 )
 fst_concept_network(
-  data = q11_2, 
-  concepts = "kehitysmaa, auttaa, pyrkiä, maa, ihminen", 
-  threshold = 5, 
-  norm = 'number_words', 
-  pos_filter = NULL, 
+  data = q11_2,
+  concepts = "kehitysmaa, auttaa, pyrkiä, maa, ihminen",
+  threshold = 5,
+  norm = "number_words",
+  pos_filter = NULL,
   title = "Q11_2 - Threshold = 5"
 )
 
 fst_concept_network(
-  data = q11_2, 
-  concepts = "kehitysmaa, auttaa, pyrkiä", 
-  threshold = NULL, 
-  norm = 'number_words', 
-  pos_filter = NULL, 
+  data = q11_2,
+  concepts = "kehitysmaa, auttaa, pyrkiä",
+  threshold = NULL,
+  norm = "number_words",
+  pos_filter = NULL,
   title = "Q11_2 - No threshold"
 )
 fst_concept_network(
-  data = q11_2, 
-  concepts = "kehitysmaa, auttaa, pyrkiä", 
-  threshold = 5, 
-  norm = 'number_words', 
-  pos_filter = NULL, 
+  data = q11_2,
+  concepts = "kehitysmaa, auttaa, pyrkiä",
+  threshold = 5,
+  norm = "number_words",
+  pos_filter = NULL,
   title = "Q11_2 - Threshold = 5"
 )
 ```
@@ -410,43 +410,43 @@ In Q11_2, plots 1-3 show that if we include all 5 of our words ('developing coun
   + (In English) poverty, famine, war, climate change, lack of
 ```{r}
 fst_concept_network(
-  data = q11_3, 
-  concepts = "köyhyys", 
-  threshold = NULL, 
-  norm = 'number_words', 
-  pos_filter = NULL, 
+  data = q11_3,
+  concepts = "köyhyys",
+  threshold = NULL,
+  norm = "number_words",
+  pos_filter = NULL,
   title = "Q11_3 - köyhyys / No threshold"
 )
 fst_concept_network(
-  data = q11_3, 
-  concepts = "köyhyys, puute", 
-  threshold = NULL, 
-  norm = 'number_words', 
-  pos_filter = NULL, 
+  data = q11_3,
+  concepts = "köyhyys, puute",
+  threshold = NULL,
+  norm = "number_words",
+  pos_filter = NULL,
   title = "Q11_3 - köyhyys, puute / No threshold"
 )
 fst_concept_network(
-  data = q11_3, 
-  concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute", 
-  threshold = NULL, 
-  norm = 'number_words', 
-  pos_filter = NULL, 
+  data = q11_3,
+  concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute",
+  threshold = NULL,
+  norm = "number_words",
+  pos_filter = NULL,
   title = "Q11_3 - No threshold"
 )
 fst_concept_network(
-  data = q11_3, 
-  concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute", 
-  threshold = 3, 
-  norm = 'number_words', 
-  pos_filter = NULL, 
+  data = q11_3,
+  concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute",
+  threshold = 3,
+  norm = "number_words",
+  pos_filter = NULL,
   title = "Q11_3 - Threshold = 3"
 )
 fst_concept_network(
-  data = q11_3, 
-  concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute", 
-  threshold = 2, 
-  norm = 'number_words', 
-  pos_filter = NULL, 
+  data = q11_3,
+  concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute",
+  threshold = 2,
+  norm = "number_words",
+  pos_filter = NULL,
   title = "Q11_3 - Threshold = 2"
 )
 ```

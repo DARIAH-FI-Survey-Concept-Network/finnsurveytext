@@ -70,7 +70,7 @@ fst_summarise <- function(data, desc = "All respondents") {
 #' fst_pos(conllu_dev_q11_3_nltk)
 #' fst_pos(conllu_dev_q11_1_snow)
 fst_pos <- function(data) {
-  denom = nrow(data)
+  denom <- nrow(data)
   pos_table <- data %>%
     dplyr::count(upos, sort = TRUE) %>%
     dplyr::rename(UPOS = upos)
@@ -116,7 +116,7 @@ fst_pos <- function(data) {
 #' fst_length_summary(conllu_dev_q11_1, incl_sentences = FALSE)
 #' fst_length_summary(conllu_dev_q11_1, desc = "Female")
 fst_length_summary <- function(data,
-                               desc = 'All respondents',
+                               desc = "All respondents",
                                incl_sentences = TRUE) {
   no_resp_count <- length(which(data$sentence %in% c("NA", "na")))
   data <- dplyr::select(data, doc_id, sentence) %>%

@@ -85,7 +85,7 @@ fst_join_unique <- function(table, unique_table) {
 #' topn_na <- fst_get_top_ngrams(conllu_dev_q11_1_na_nltk)
 #' unique_words <- fst_get_unique_ngrams(top_f, top_m, top_na)
 #' unique_ngrams <- fst_get_unique_ngrams(topn_f, topn_m, topn_na)
-#' top_fu <-fst_join_unique(top_f, unique_words)
+#' top_fu <- fst_join_unique(top_f, unique_words)
 #' topn_mu <- fst_join_unique(topn_m, unique_ngrams)
 #' fst_ngrams_compare_plot(top_fu, ngrams = 1, name = "Female")
 #' fst_ngrams_compare_plot(topn_mu, ngrams = 2, name = "Male")
@@ -139,9 +139,9 @@ fst_ngrams_compare_plot <- function(table, number = 10, ngrams = 1, unique_colou
 #' topn_na <- fst_get_top_ngrams(conllu_dev_q11_1_na_nltk)
 #' unique_words <- fst_get_unique_ngrams(top_f, top_m, top_na)
 #' unique_ngrams <- fst_get_unique_ngrams(topn_f, topn_m, topn_na)
-#' top_fu <-fst_join_unique(top_f, unique_words)
-#' top_mu <-fst_join_unique(top_m, unique_words)
-#' top_nau <-fst_join_unique(top_na, unique_words)
+#' top_fu <- fst_join_unique(top_f, unique_words)
+#' top_mu <- fst_join_unique(top_m, unique_words)
+#' top_nau <- fst_join_unique(top_na, unique_words)
 #' p1 <- fst_ngrams_compare_plot(top_fu, ngrams = 1, name = "Female")
 #' p2 <- fst_ngrams_compare_plot(top_mu, ngrams = 1, name = "Male")
 #' p3 <- fst_ngrams_compare_plot(top_nau, ngrams = 1, name = "Not Spec")
@@ -298,7 +298,7 @@ fst_freq_compare <- function(data1, data2, data3 = NULL, data4 = NULL, number = 
 #' fst_ngrams_compare(f, m, ngrams = 2, number = 10, norm = "number_resp")
 #' fst_ngrams_compare(f, m, ngrams = 2, number = 10, strict = FALSE)
 #' fst_ngrams_compare(f, m, number = 5, ngrams = 3, name1 = "M", name2 = "F")
-#' fst_ngrams_compare(f, m, na,number = 20, unique_colour = "slateblue",)
+#' fst_ngrams_compare(f, m, na, number = 20, unique_colour = "slateblue", )
 fst_ngrams_compare <- function(data1, data2, data3 = NULL, data4 = NULL, number = 10, ngrams = 1, norm = "number_words", pos_filter = NULL, name1 = "Group 1", name2 = "Group 2", name3 = "Group 3", name4 = "Group 4", unique_colour = "indianred", strict = TRUE) {
   if (ngrams == 1) {
     term <- "Words"
@@ -416,35 +416,35 @@ fst_pos_compare <- function(data1, data2, data3 = NULL, data4 = NULL, name1 = "G
   if (!is.null(data3)) {
     if (!is.null(data4)) {
       denom4 <- nrow(data4)
-      name4_2 <- paste(name4, 'Count')
-      name4_3 <- paste(name4, 'Prop')
+      name4_2 <- paste(name4, "Count")
+      name4_3 <- paste(name4, "Prop")
       pos_table4 <- data4 %>%
         dplyr::count(upos, sort = TRUE) %>%
-        dplyr::mutate(!!name4_3 := round(n/denom4, 3)) %>%
+        dplyr::mutate(!!name4_3 := round(n / denom4, 3)) %>%
         dplyr::rename(!!name4_2 := n) %>%
         dplyr::rename(UPOS = upos)
       denom3 <- nrow(data3)
-      name3_2 <- paste(name3, 'Count')
-      name3_3 <- paste(name3, 'Prop')
+      name3_2 <- paste(name3, "Count")
+      name3_3 <- paste(name3, "Prop")
       pos_table3 <- data3 %>%
         dplyr::count(upos, sort = TRUE) %>%
-        dplyr::mutate(!!name3_3 := round(n/denom3, 3)) %>%
+        dplyr::mutate(!!name3_3 := round(n / denom3, 3)) %>%
         dplyr::rename(!!name3_2 := n) %>%
         dplyr::rename(UPOS = upos)
       denom2 <- nrow(data2)
-      name2_2 <- paste(name2, 'Count')
-      name2_3 <- paste(name2, 'Prop')
+      name2_2 <- paste(name2, "Count")
+      name2_3 <- paste(name2, "Prop")
       pos_table2 <- data2 %>%
         dplyr::count(upos, sort = TRUE) %>%
-        dplyr::mutate(!!name2_3 := round(n/denom2, 3)) %>%
+        dplyr::mutate(!!name2_3 := round(n / denom2, 3)) %>%
         dplyr::rename(!!name2_2 := n) %>%
         dplyr::rename(UPOS = upos)
       denom1 <- nrow(data1)
-      name1_2 <- paste(name1, 'Count')
-      name1_3 <- paste(name1, 'Prop')
+      name1_2 <- paste(name1, "Count")
+      name1_3 <- paste(name1, "Prop")
       pos_table1 <- data1 %>%
         dplyr::count(upos, sort = TRUE) %>%
-        dplyr::mutate(!!name1_3 := round(n/denom1, 3)) %>%
+        dplyr::mutate(!!name1_3 := round(n / denom1, 3)) %>%
         dplyr::rename(!!name1_2 := n) %>%
         dplyr::rename(UPOS = upos)
       df <- merge(x = pos_lookup, y = pos_table1, by = "UPOS") %>%
@@ -453,27 +453,27 @@ fst_pos_compare <- function(data1, data2, data3 = NULL, data4 = NULL, name1 = "G
         merge(pos_table4, by = "UPOS")
     } else {
       denom3 <- nrow(data3)
-      name3_2 <- paste(name3, 'Count')
-      name3_3 <- paste(name3, 'Prop')
+      name3_2 <- paste(name3, "Count")
+      name3_3 <- paste(name3, "Prop")
       pos_table3 <- data3 %>%
         dplyr::count(upos, sort = TRUE) %>%
-        dplyr::mutate(!!name3_3 := round(n/denom3, 3)) %>%
+        dplyr::mutate(!!name3_3 := round(n / denom3, 3)) %>%
         dplyr::rename(!!name3 := n) %>%
         dplyr::rename(UPOS = upos)
       denom2 <- nrow(data2)
-      name2_2 <- paste(name2, 'Count')
-      name2_3 <- paste(name2, 'Prop')
+      name2_2 <- paste(name2, "Count")
+      name2_3 <- paste(name2, "Prop")
       pos_table2 <- data2 %>%
         dplyr::count(upos, sort = TRUE) %>%
-        dplyr::mutate(!!name2_3 := round(n/denom2, 3)) %>%
+        dplyr::mutate(!!name2_3 := round(n / denom2, 3)) %>%
         dplyr::rename(!!name2_2 := n) %>%
         dplyr::rename(UPOS = upos)
       denom1 <- nrow(data1)
-      name1_2 <- paste(name1, 'Count')
-      name1_3 <- paste(name1, 'Prop')
+      name1_2 <- paste(name1, "Count")
+      name1_3 <- paste(name1, "Prop")
       pos_table1 <- data1 %>%
         dplyr::count(upos, sort = TRUE) %>%
-        dplyr::mutate(!!name1_3 := round(n/denom1, 3)) %>%
+        dplyr::mutate(!!name1_3 := round(n / denom1, 3)) %>%
         dplyr::rename(!!name1_2 := n) %>%
         dplyr::rename(UPOS = upos)
       df <- merge(x = pos_lookup, y = pos_table1, by = "UPOS") %>%
@@ -482,19 +482,19 @@ fst_pos_compare <- function(data1, data2, data3 = NULL, data4 = NULL, name1 = "G
     }
   } else {
     denom2 <- nrow(data2)
-    name2_2 <- paste(name2, 'Count')
-    name2_3 <- paste(name2, 'Prop')
+    name2_2 <- paste(name2, "Count")
+    name2_3 <- paste(name2, "Prop")
     pos_table2 <- data2 %>%
       dplyr::count(upos, sort = TRUE) %>%
-      dplyr::mutate(!!name2_3 := round(n/denom2, 3)) %>%
+      dplyr::mutate(!!name2_3 := round(n / denom2, 3)) %>%
       dplyr::rename(!!name2_2 := n) %>%
       dplyr::rename(UPOS = upos)
     denom1 <- nrow(data1)
-    name1_2 <- paste(name1, 'Count')
-    name1_3 <- paste(name1, 'Prop')
+    name1_2 <- paste(name1, "Count")
+    name1_3 <- paste(name1, "Prop")
     pos_table1 <- data1 %>%
       dplyr::count(upos, sort = TRUE) %>%
-      dplyr::mutate(!!name1_3 := round(n/denom1, 3)) %>%
+      dplyr::mutate(!!name1_3 := round(n / denom1, 3)) %>%
       dplyr::rename(!!name1_2 := n) %>%
       dplyr::rename(UPOS = upos)
     df <- merge(x = pos_lookup, y = pos_table1, by = "UPOS") %>%
@@ -639,7 +639,7 @@ fst_length_compare <- function(data1, data2, data3 = NULL, data4 = NULL, name1 =
 #' na <- conllu_dev_q11_1_na_nltk
 #' n1 <- "Female"
 #' n2 <- "Male"
-#' n3 <-  "NA"
+#' n3 <- "NA"
 #' fst_comparison_cloud(f, m, na, name1 = n1, name2 = n2, name3 = n3, max = 400)
 #' fst_comparison_cloud(f, m, na, name1 = n1, name2 = n2, name3 = n3, max = 100)
 fst_comparison_cloud <- function(data1, data2, data3 = NULL, data4 = NULL, name1 = "Group 1", name2 = "Group 2", name3 = "Group 3", name4 = "Group 4", pos_filter = NULL, max = 100) {

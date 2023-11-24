@@ -165,7 +165,6 @@ knitr::kable(table1)
 
 table2 <- fst_get_top_words(data = q11_1, number = 5, norm = "number_resp", pos_filter = c("NOUN", "VERB"), strict = FALSE)
 knitr::kable(table2)
-
 ```
 
 `fst_get_top_words` takes 4 arguments:

@@ -30,20 +30,20 @@ fst_format_conllu <- function(data, field, model = "ftb") {
     }
     model_ftb <- udpipe::udpipe_load_model(
       file = "finnish-ftb-ud-2.5-191206.udpipe"
-      )
+    )
     annotated_data <- as.data.frame(
       udpipe::udpipe_annotate(model_ftb, x = data)
-      )
+    )
   } else if (model == "tdt") {
     if (!file.exists("finnish-tdt-ud-2.5-191206.udpipe")) {
       udpipe::udpipe_download_model(language = "finnish-tdt")
     }
     model_tdt <- udpipe::udpipe_load_model(
       file = "finnish-tdt-ud-2.5-191206.udpipe"
-      )
+    )
     annotated_data <- as.data.frame(
       udpipe::udpipe_annotate(model_tdt, x = data)
-      )
+    )
   }
   annotated_data %>%
     dplyr::mutate(token = tolower(token)) %>%

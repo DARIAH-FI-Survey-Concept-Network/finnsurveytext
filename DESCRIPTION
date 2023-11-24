@@ -4,16 +4,20 @@ Title: Analyse Open-ended Survey Responses in Finnish
 Version: 0.1.0
 Authors@R: c(
     person("Adeline", "Clarke", , email = "adelinepclarke@gmail.com", role = c("cre", "aut")),
-    person("Krista", "Lagus", email = "krista.lagus@helsinki.fi", role="aut"), 
-    person("Katja", "Laine", role="aut"),
-    person("Maria", "Litova", role="aut"),
+    person("Krista", "Lagus", email = "krista.lagus@helsinki.fi", role = "aut"), 
+    person("Katja", "Laine", role = "aut"),
+    person("Maria", "Litova", role = "aut"),
     person("Matti", "Nelimarkka", , email = "matti.nelimarkka@helsinki.fi", role = "aut"),
     person("Joni", "Oksanen", , email = "joni.oksanen@helsinki.fi", role = "aut"),
-    person("Tuukka", "Oikarinen", role="aut"),
+    person("Jaakko", "Peltonen", role = "aut"),
+    person("Tuukka", "Oikarinen", role = "aut"),
+    person("Jani-Matti", "Tirkkonen", role = "aut"), 
+    person("Ida", "Toivanen", role = "aut"),
     person("Maria", "Valaste", , email = "maria.valaste@helsinki.fi", role = "aut"),
-    person("Shannon Emilia", "Carson", role="ctb"),
+    person("Shannon Emilia", "Carson", role = "ctb"),
     person("Sirpa", "Lappalainen", role = "ctb"),
-    person("Kimmo", "Vehkalahti", role="ctb")
+    person("Tuukka", "Puonti", role = "ctb"), 
+    person("Kimmo", "Vehkalahti", role = "ctb")
   )
 Description: Annotates Finnish textual survey responses into CoNLL-U
     format and analyses data using n-gram plots, wordclouds,
