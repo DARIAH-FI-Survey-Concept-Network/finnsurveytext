@@ -59,7 +59,7 @@ m <- conllu_dev_q11_1_m_nltk
 na <- conllu_dev_q11_1_na_nltk
 n1 <- "Female"
 n2 <- "Male"
-n3 <-  "NA"
+n3 <- "NA"
 fst_comparison_cloud(f, m, na, name1 = n1, name2 = n2, name3 = n3, max = 400)
 fst_comparison_cloud(f, m, na, name1 = n1, name2 = n2, name3 = n3, max = 100)
 }

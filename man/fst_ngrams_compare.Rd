@@ -74,5 +74,5 @@ fst_ngrams_compare(f, m, na, all, number = 10, strict = FALSE)
 fst_ngrams_compare(f, m, ngrams = 2, number = 10, norm = "number_resp")
 fst_ngrams_compare(f, m, ngrams = 2, number = 10, strict = FALSE)
 fst_ngrams_compare(f, m, number = 5, ngrams = 3, name1 = "M", name2 = "F")
-fst_ngrams_compare(f, m, na,number = 20, unique_colour = "slateblue",)
+fst_ngrams_compare(f, m, na, number = 20, unique_colour = "slateblue", )
 }
