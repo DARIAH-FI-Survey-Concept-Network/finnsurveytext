@@ -35,6 +35,9 @@ will be in a single row, if there are 4 plots, they will be in 2 rows of 2."><!-
     <a class="dropdown-item" href="../articles/web_only/Tutorial6-Example_of_analysis_of_an_open-ended_survey_question.html">Tutorial6-Example_of_analysis_of_an_open-ended_survey_question</a>
   </div>
 </li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
+</li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -130,9 +133,9 @@ will be in a single row, if there are 4 plots, they will be in 2 rows of 2.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="va">unique_words</span> <span class="op">&lt;-</span> <span class="fu"><a href="fst_get_unique_ngrams.html">fst_get_unique_ngrams</a></span><span class="op">(</span><span class="va">top_f</span>, <span class="va">top_m</span>, <span class="va">top_na</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">unique_ngrams</span> <span class="op">&lt;-</span> <span class="fu"><a href="fst_get_unique_ngrams.html">fst_get_unique_ngrams</a></span><span class="op">(</span><span class="va">topn_f</span>, <span class="va">topn_m</span>, <span class="va">topn_na</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">top_fu</span> <span class="op">&lt;-</span><span class="fu"><a href="fst_join_unique.html">fst_join_unique</a></span><span class="op">(</span><span class="va">top_f</span>, <span class="va">unique_words</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">top_mu</span> <span class="op">&lt;-</span><span class="fu"><a href="fst_join_unique.html">fst_join_unique</a></span><span class="op">(</span><span class="va">top_m</span>, <span class="va">unique_words</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">top_nau</span> <span class="op">&lt;-</span><span class="fu"><a href="fst_join_unique.html">fst_join_unique</a></span><span class="op">(</span><span class="va">top_na</span>, <span class="va">unique_words</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">top_fu</span> <span class="op">&lt;-</span> <span class="fu"><a href="fst_join_unique.html">fst_join_unique</a></span><span class="op">(</span><span class="va">top_f</span>, <span class="va">unique_words</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">top_mu</span> <span class="op">&lt;-</span> <span class="fu"><a href="fst_join_unique.html">fst_join_unique</a></span><span class="op">(</span><span class="va">top_m</span>, <span class="va">unique_words</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">top_nau</span> <span class="op">&lt;-</span> <span class="fu"><a href="fst_join_unique.html">fst_join_unique</a></span><span class="op">(</span><span class="va">top_na</span>, <span class="va">unique_words</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="fst_ngrams_compare_plot.html">fst_ngrams_compare_plot</a></span><span class="op">(</span><span class="va">top_fu</span>, ngrams <span class="op">=</span> <span class="fl">1</span>, name <span class="op">=</span> <span class="st">"Female"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="fst_ngrams_compare_plot.html">fst_ngrams_compare_plot</a></span><span class="op">(</span><span class="va">top_mu</span>, ngrams <span class="op">=</span> <span class="fl">1</span>, name <span class="op">=</span> <span class="st">"Male"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="fu"><a href="fst_ngrams_compare_plot.html">fst_ngrams_compare_plot</a></span><span class="op">(</span><span class="va">top_nau</span>, ngrams <span class="op">=</span> <span class="fl">1</span>, name <span class="op">=</span> <span class="st">"Not Spec"</span><span class="op">)</span></span></span>
