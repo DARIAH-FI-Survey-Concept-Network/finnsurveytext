@@ -20,6 +20,10 @@ library(finnsurveytext)
 
 This repository contains an R package called finnsurveytext. 
 For further details on how to use the package, please see the [package website](https://dariah-fi-survey-concept-network.github.io/finnsurveytext/index.html) which contains tutorials covering all the functions available in finnsurveytext. 
+
+## Installation ##
+Install the released version of finnsurveytext from CRAN:
+install.packages("finnsurveytext")
  
 ## Background ##
 DARIAH-FI is one of two components of FIN-CLARIAH which is a research infrastructure project for Social Sciences and Humanities (SSH) in Finland. DARIAH-FI involves all Finnish universities with research in SSH. 
