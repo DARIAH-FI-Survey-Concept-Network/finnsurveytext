@@ -17,7 +17,8 @@ Authors@R: c(
     person("Shannon Emilia", "Carson", role = "ctb"),
     person("Sirpa", "Lappalainen", role = "ctb"),
     person("Tuukka", "Puonti", role = "ctb"), 
-    person("Kimmo", "Vehkalahti", role = "ctb")
+    person("Kimmo", "Vehkalahti", role = "ctb"), 
+    person("DARIAH-FI", role = c("cph", "fnd"))
   )
 Description: Annotates Finnish textual survey responses into CoNLL-U
     format and analyses data using n-gram plots, wordclouds,
