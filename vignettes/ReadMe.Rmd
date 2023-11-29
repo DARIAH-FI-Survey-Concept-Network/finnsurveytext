@@ -84,12 +84,12 @@ Currently, the package can only be installed through this Github repository.
 Fielding, J., Fielding, N., & Hughes, G. (2013). Opening up open-ended survey data using qualitative software. Quality & Quantity, 47(6), 3261–3276. https://doi.org/10.1007/s11135-012-9716-1.
  
 Finnish Children and Youth Foundation: Young People’s Views on Development Cooperation 2012 [dataset].
-Version 2.0 (2019-01-22). Finnish Social Science Data Archive [distributor]. http://urn.fi/urn:nbn:fi:fsd:T-FSD2821
+Version 2.0 (2019-01-22). Finnish Social Science Data Archive [distributor]. https://urn.fi/urn:nbn:fi:fsd:T-FSD2821
  
 He, Z., & Schonlau, M. (2021). Coding Text Answers to Open-ended Questions: Human Coders and Statistical Learning Algorithms Make Similar Mistakes. Methods, Data, Analyses, 15(1), Article 1. https://doi.org/10.12758/mda.2020.10.
  
 The Office of Ombudsman for Children: Child Barometer 2016 [dataset]. Version 1.0 (2016-12-09). Finnish
-Social Science Data Archive [distributor]. http://urn.fi/urn:nbn:fi:fsd:T-FSD3134
+Social Science Data Archive [distributor]. https://urn.fi/urn:nbn:fi:fsd:T-FSD3134
  
  
  
