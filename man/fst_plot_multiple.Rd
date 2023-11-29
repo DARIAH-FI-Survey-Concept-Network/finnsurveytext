@@ -7,13 +7,13 @@
 fst_plot_multiple(plot1, plot2, plot3 = NULL, plot4 = NULL, main_title = NULL)
 }
 \arguments{
-\item{plot1}{First plot to display}
+\item{plot1}{First plot to display.}
 
-\item{plot2}{Second plot to display}
+\item{plot2}{Second plot to display.}
 
-\item{plot3}{Optional third plot to display, defaul is `NULL`}
+\item{plot3}{Optional third plot to display, defaul is `NULL`.}
 
-\item{plot4}{Optional fourth plot to display, defaul is `NULL`}
+\item{plot4}{Optional fourth plot to display, defaul is `NULL`.}
 
 \item{main_title}{An optional title for the set of plots. The default is
 `NULL` and no main title will be included.}

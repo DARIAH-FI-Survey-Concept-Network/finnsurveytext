@@ -13,17 +13,17 @@ question.}
 \item{field}{The field in the dataframe which contains the open-ended
 question.}
 
-\item{model}{A Finnish language model available for [udpipe], `ftb` (default)
-or `tdt`.}
+\item{model}{A Finnish language model available for [udpipe], `"ftb"`
+(default) or `"tdt"`.}
 
-\item{stopword_list}{A valid Finnish stopword list, default is `nltk`, or
-"none".}
+\item{stopword_list}{A valid Finnish stopword list, default is `"nltk"`, or
+`"none"`.}
 }
 \value{
-CoNLL-U dataframe
+A dataframe of Finnish text in CoNLL-U format.
 }
 \description{
-`fst_prepare_conllu` produces a dataframe (and saves as csv) containing
+`fst_prepare_conllu()` produces a dataframe (and saves as csv) containing
 Finnish survey text reponses in CoNLL-U format with stopwords removed.
 }
 \examples{

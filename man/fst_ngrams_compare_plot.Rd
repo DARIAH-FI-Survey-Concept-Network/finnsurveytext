@@ -14,15 +14,15 @@ fst_ngrams_compare_plot(
 )
 }
 \arguments{
-\item{table}{The table of n-grams, output of `get_unique_ngrams`}
+\item{table}{The table of n-grams, output of `get_unique_ngrams()`.}
 
 \item{number}{The number of n-grams, default is `10`.}
 
 \item{ngrams}{The type of n-grams, default is `1`.}
 
-\item{unique_colour}{Colour to display unique words, default is `indianred`.}
+\item{unique_colour}{Colour to display unique words, default is `"indianred"`.}
 
-\item{name}{An optional "name" for the plot, default is `NULL`}
+\item{name}{An optional "name" for the plot, default is `NULL`.}
 
 \item{override_title}{An optional title to override the automatic one for
 the plot. Default is `NULL`. If `NULL`, title of plot will be `number` "Most

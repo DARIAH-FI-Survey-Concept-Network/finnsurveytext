@@ -21,20 +21,20 @@ fst_get_top_ngrams(
 \item{ngrams}{The type of n-grams to return, default is `1`.}
 
 \item{norm}{The method for normalising the data. Valid settings are
-`'number_words'` (the number of words in the responses, default),
-`'number_resp'` (the number of responses), or `NULL` (raw count returned).}
+`"number_words"` (the number of words in the responses, default),
+`"number_resp"` (the number of responses), or `NULL` (raw count returned).}
 
 \item{pos_filter}{List of UPOS tags for inclusion, default is `NULL` which
-means all word types included}
+means all word types included.}
 
 \item{strict}{Whether to strictly cut-off at `number` (ties are
-alphabetically ordered), default is `TRUE`}
+alphabetically ordered), default is `TRUE`.}
 }
 \value{
 A table of the most frequently occurring n-grams in the data.
 }
 \description{
-Creates a table of the most frequently-occurring ngrams within the
+Creates a table of the most frequently-occurring n-grams within the
 data.
 }
 \examples{

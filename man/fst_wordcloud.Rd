@@ -15,10 +15,10 @@ means all word types included.}
 \item{max}{The maximum number of words to display, default is `100`}
 }
 \value{
-A wordcloud from the data
+A wordcloud from the data.
 }
 \description{
-Creates a wordcloud from CoNLL-U data of frequently-occuring words.
+Creates a wordcloud from CoNLL-U data of frequently-occurring words.
 }
 \examples{
 cb <- conllu_cb_bullying_iso

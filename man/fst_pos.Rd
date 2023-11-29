@@ -11,7 +11,7 @@ fst_pos(data)
 }
 \value{
 A dataframe with a count and proportion of each UPOS tag in the data
- and the full name of the tag
+ and the full name of the tag.
 }
 \description{
 Creates a summary table for the input CoNLL-U data which counts the number of

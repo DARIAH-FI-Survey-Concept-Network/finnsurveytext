@@ -10,7 +10,7 @@ fst_summarise_short(data)
 \item{data}{A dataframe of text in CoNLL-U format.}
 }
 \value{
-A dataframe with summary info for the data.
+A dataframe with summary information on word counts for the data.
 }
 \description{
 Creates a summary table for the input CoNLL-U data which provides the total

@@ -12,7 +12,8 @@ fst_rm_stop_punct(data, stopword_list = "nltk")
 \item{stopword_list}{A valid Finnish stopword list, default is `"nltk"`.}
 }
 \value{
-A dataframe of Finnish text in CoNLL-U format.
+A dataframe of Finnish text in CoNLL-U format without stopwords and
+ punctuation.
 }
 \description{
 Removes stopwords and punctuation from a dataframe containing Finnish survey

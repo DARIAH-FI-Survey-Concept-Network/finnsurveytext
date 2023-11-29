@@ -16,26 +16,26 @@ fst_pos_compare(
 )
 }
 \arguments{
-\item{data1}{A dataframe of text in CoNLL-U format for the first group}
+\item{data1}{A dataframe of text in CoNLL-U format for the first group.}
 
 \item{data2}{A dataframe of text in CoNLL-U format for the second group.}
 
 \item{data3}{An optional dataframe of text in CoNLL-U format for the third
-group, default is `NULL`}
+group, default is `NULL`.}
 
 \item{data4}{An optional dataframe of text in CoNLL-U format for the fourth
-group, default is `NULL`}
+group, default is `NULL`.}
 
-\item{name1}{An optional "name" for the first group, default is `NULL`}
+\item{name1}{An optional "name" for the first group, default is `"Group 1"`.}
 
-\item{name2}{An optional "name" for the second group, default is `NULL`}
+\item{name2}{An optional "name" for the second group, default is `"Group 2"`.}
 
-\item{name3}{An optional "name" for the third group, default is `NULL`}
+\item{name3}{An optional "name" for the third group, default is `"Group 3"`.}
 
-\item{name4}{An optional "name" for the fourth group, default is `NULL`}
+\item{name4}{An optional "name" for the fourth group, default is `"Group 4"`.}
 }
 \value{
-Table of POS tag counts for the groups
+Table of POS tag counts for the groups.
 }
 \description{
 Compare words in responses based on part-of-speech tagging for between 2 and

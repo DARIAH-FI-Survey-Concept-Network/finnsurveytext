@@ -7,19 +7,21 @@
 fst_format_conllu(data, field, model = "ftb")
 }
 \arguments{
-\item{data}{A dataframe of survey responses which contains an open-ended question.}
+\item{data}{A dataframe of survey responses which contains an open-ended
+question.}
 
-\item{field}{The field in the dataframe which contains the open-ended question.}
+\item{field}{The field in the dataframe which contains the open-ended
+question.}
 
-\item{model}{A Finnish language model available for [udpipe], `"ftb"` (default)
-or `"tdt"`.}
+\item{model}{A Finnish language model available for [udpipe], `"ftb"`
+(default) or `"tdt"`.}
 }
 \value{
 Dataframe of annotated text in CoNLL-U format.
 }
 \description{
 Creates a dataframe in CoNLL-U format from a list of strings of Finnish text
-using the [udpipe] package and a Finnish language model
+using the [udpipe] package and a Finnish language model.
 }
 \examples{
 fst_format_conllu(data = dev_data, field = "q11_1")

@@ -22,20 +22,21 @@ searched term and other word, default is `NULL`. Note, the threshold is
 applied before normalisation.}
 
 \item{norm}{The method for normalising the data. Valid settings are
-`'number_words'` (the number of words in the responses, default),
-`'number_resp'` (the number of responses), or `NULL` (raw count returned).}
+`"number_words"` (the number of words in the responses, default),
+`"number_resp"` (the number of responses), or `NULL` (raw count returned).}
 
 \item{pos_filter}{List of UPOS tags for inclusion, default is `NULL` to
 include all UPOS tags.}
 }
 \value{
-Dataframe of 'edges' between two connected words.
+Dataframe of co-occurrences between two connected words.
 }
 \description{
 This function takes a string of terms (separated by commas) or a single term
-and, using `fst_cn_search` find words conected to these searched terms. Then,
-a dataframe is returned of 'edges' between two words which are connected
-together in an frequently-occurring n-gram containing a concept term
+and, using `fst_cn_search()` find words connected to these searched terms.
+Then, a dataframe is returned of 'edges' between two words which are
+connected together in an frequently-occurring n-gram containing a concept
+term.
 }
 \examples{
 con1 <- "elintaso, köyhä, ihminen"

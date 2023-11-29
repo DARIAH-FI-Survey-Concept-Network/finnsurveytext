@@ -9,10 +9,11 @@ fst_summarise(data, desc = "All respondents")
 \arguments{
 \item{data}{A dataframe of text in CoNLL-U format.}
 
-\item{desc}{A string describing respondents, default is `All respondents`}
+\item{desc}{A string describing respondents, default is `"All respondents"`}
 }
 \value{
-Summary table for data
+A dataframe with summary information for the data including reponse
+ rate and word counts.
 }
 \description{
 Creates a summary table for the input CoNLL-U data which provides the

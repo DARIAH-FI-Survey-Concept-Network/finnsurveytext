@@ -19,26 +19,30 @@ fst_cn_compare_plot(
 )
 }
 \arguments{
-\item{edges}{Output of `fst_cn_edges`, dataframe of 'edges' connecting two words}
+\item{edges}{Output of `fst_cn_edges()`, dataframe of 'edges' connecting
+two words.}
 
-\item{nodes}{Output of `fst_cn_nodes`, dataframe of relevant lemmas and their associated pagerank}
+\item{nodes}{Output of `fst_cn_nodes()`, dataframe of relevant lemmas and
+their associated pagerank.}
 
-\item{concepts}{List of terms which have been searched for, separated by commas.}
+\item{concepts}{List of terms which have been searched for, separated by
+commas.}
 
-\item{unique_lemmas}{List of unique lemmas, output of `fst_cn_get_unique`}
+\item{unique_lemmas}{List of unique lemmas, output of `fst_cn_get_unique()`}
 
 \item{name}{An optional "name" for the plot, default is `NULL` and a generic
-title ('Textrank extracted keyword occurences) will be used.}
+title ("Textrank extracted keyword occurrences") will be used.}
 
-\item{concept_colour}{Colour to display concept words, default is `indianred`.}
+\item{concept_colour}{Colour to display concept words, default is
+`"indianred"`.}
 
-\item{unique_colour}{Colour to display unique words, default is `darkgreen`.}
+\item{unique_colour}{Colour to display unique words, default is `"darkgreen"`.}
 
 \item{min_edge}{A numeric value for the scale of the edges, the smallest
-co_occurence value for an edge across all Networks to be plotted together.}
+co_occurrence value for an edge across all Networks to be plotted together.}
 
 \item{max_edge}{A numeric value for the scale of the edges, the largest
-co_occurence value for an edge across all Networks to be plotted together.}
+co_occurrence value for an edge across all Networks to be plotted together.}
 
 \item{min_node}{A numeric value for the scale of the nodes, the smallest
 pagerank value for a node across all Networks to be plotted together.}
@@ -47,10 +51,13 @@ pagerank value for a node across all Networks to be plotted together.}
 pagerank value for a node across all Networks to be plotted together.}
 }
 \value{
-Plot of concept network with concept and unique words (nodes) highlighted
+Plot of concept network with concept and unique words (nodes)
+ highlighted.
 }
 \description{
-Concept Network- Plot comparison Concept Network
+Creates a Concept Network plot from a list of edges and nodes (and their
+respective weights) which indicates unique words in this plot in comparison
+to another Network.
 }
 \examples{
 c1 <- "elintaso, köyhä, ihminen"

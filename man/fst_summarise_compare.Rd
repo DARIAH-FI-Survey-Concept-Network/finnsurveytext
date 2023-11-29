@@ -16,26 +16,26 @@ fst_summarise_compare(
 )
 }
 \arguments{
-\item{data1}{A dataframe of text in CoNLL-U format for the first group}
+\item{data1}{A dataframe of text in CoNLL-U format for the first group.}
 
 \item{data2}{A dataframe of text in CoNLL-U format for the second group.}
 
 \item{data3}{An optional dataframe of text in CoNLL-U format for the third
-group, default is `NULL`}
+group, default is `NULL`.}
 
 \item{data4}{An optional dataframe of text in CoNLL-U format for the fourth
-group, default is `NULL`}
+group, default is `NULL`.}
 
-\item{name1}{A string describing data1, default is `Group 1`}
+\item{name1}{A string describing data1, default is `"Group 1"`.}
 
-\item{name2}{A string describing data2, default is `Group 2`}
+\item{name2}{A string describing data2, default is `"Group 2"`.}
 
-\item{name3}{A string describing data3, default is `Group 3`}
+\item{name3}{A string describing data3, default is `"Group 3"`.}
 
-\item{name4}{A string describing data4, default is `Group 4`}
+\item{name4}{A string describing data4, default is `"Group 4"`.}
 }
 \value{
-Summary table of responses between groups
+Summary table of responses between groups.
 }
 \description{
 Compare text responses for between 2 and 4 sets of prepared data.

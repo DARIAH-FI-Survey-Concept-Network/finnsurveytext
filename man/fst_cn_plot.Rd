@@ -7,23 +7,24 @@
 fst_cn_plot(edges, nodes, concepts, title = NULL)
 }
 \arguments{
-\item{edges}{Output of `fst_cn_edges`, dataframe of 'edges' connecting two
-words}
+\item{edges}{Output of `fst_cn_edges()`, dataframe of 'edges' connecting two
+words.}
 
-\item{nodes}{Output of `fst_cn_nodes`, dataframe of relevant lemmas and their
-associated pagerank}
+\item{nodes}{Output of `fst_cn_nodes()`, dataframe of relevant lemmas and
+their associated pagerank.}
 
 \item{concepts}{List of terms which have been searched for, separated by
 commas.}
 
 \item{title}{Optional title for plot, default is `NULL` and a generic title
-('Textrank extracted keyword occurrences) will be used.}
+("Textrank extracted keyword occurrences") will be used.}
 }
 \value{
-Plot of Concept Network
+Plot of Concept Network.
 }
 \description{
-Plot Concept Network
+Creates a Concept Network plot from a list of edges and nodes (and their
+respective weights).
 }
 \examples{
 con1 <- "elintaso, köyhä, ihminen"

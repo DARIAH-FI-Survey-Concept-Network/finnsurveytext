@@ -9,16 +9,20 @@ fst_cn_nodes(data, edges, pos_filter = NULL)
 \arguments{
 \item{data}{A dataframe of text in CoNLL-U format.}
 
-\item{edges}{Output of fst_cn_edges, dataframe of 'edges' connecting two words}
+\item{edges}{Output of `fst_cn_edges()`, dataframe of co-occurrences between
+two words.}
 
 \item{pos_filter}{List of UPOS tags for inclusion, default is `NULL` to
 include all UPOS tags.}
 }
 \value{
-A dataframe containing relevant lemmas and their associated pagerank
+A dataframe containing relevant lemmas and their associated pagerank.
 }
 \description{
-Concept Network - Get textrank nodes
+This function takes a string of terms (separated by commas) or a single term
+and, using `textrank_keywords()` from `textrank` package, filters data based
+on `pos_filter` ranks words which are the filtered for those connected to
+search terms.
 }
 \examples{
 con1 <- "elintaso, köyhä, ihminen"

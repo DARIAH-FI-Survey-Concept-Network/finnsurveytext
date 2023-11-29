@@ -15,12 +15,12 @@ fst_cn_search(data, concepts, pos_filter = NULL)
 include all UPOS tags.}
 }
 \value{
-Dataframe of n-grams containing searched terms
+Dataframe of n-grams containing searched terms.
 }
 \description{
 This function takes a string of terms (separated by commas) or a single term
-and, using `textrank_keywords` from `textrank` package, filters data based on
-`pos_filter` and finds words connected to search terms.
+and, using `textrank_keywords()` from `textrank` package, filters data based
+on `pos_filter` and finds words connected to search terms.
 }
 \examples{
 con1 <- "elintaso, köyhä, ihminen"

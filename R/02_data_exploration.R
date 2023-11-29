@@ -5,7 +5,7 @@
 #'
 #' @param data A dataframe of text in CoNLL-U format.
 #'
-#' @return A dataframe with summary info for the data.
+#' @return A dataframe with summary information on word counts for the data.
 #' @export
 #'
 #' @examples
@@ -29,9 +29,10 @@ fst_summarise_short <- function(data) {
 #' words, and the number of unique lemmas.
 #'
 #' @param data A dataframe of text in CoNLL-U format.
-#' @param desc A string describing respondents, default is `All respondents`
+#' @param desc A string describing respondents, default is `"All respondents"`.
 #'
-#' @return Summary table for data
+#' @return A dataframe with summary information for the data including reponse
+#'  rate and word counts.
 #' @export
 #'
 #' @examples
@@ -62,7 +63,7 @@ fst_summarise <- function(data, desc = "All respondents") {
 #' @param data A dataframe of text in CoNLL-U format.
 #'
 #' @return A dataframe with a count and proportion of each UPOS tag in the data
-#'  and the full name of the tag
+#'  and the full name of the tag.
 #' @export
 #'
 #' @examples
@@ -101,15 +102,15 @@ fst_pos <- function(data) {
 
 #' Make Length Summary Table
 #'
-#' Create table summarising length of responses
+#' Create a  table summarising  distribution of the length of responses.
 #'
 #' @param data dataframe of text in CoNLL-U format.
 #' @param desc An optional string describing respondents, default is
-#'  `All respondents`
+#'  `"All respondents"`.
 #' @param incl_sentences Whether to include sentence data in table, default is
-#'  `TRUE`
+#'  `TRUE`.
 #'
-#' @return Table summarising distribution of lengths of responses
+#' @return Table summarising distribution of lengths of responses.
 #' @export
 #'
 #' @examples
@@ -167,14 +168,14 @@ fst_length_summary <- function(data,
 #' @param data A dataframe of text in CoNLL-U format.
 #' @param number The number of top words to return, default is `10`.
 #' @param norm The method for normalising the data. Valid settings are
-#'  `'number_words'` (the number of words in the responses, default),
-#'  `'number_resp'` (the number of responses), or `NULL` (raw count returned).
+#'  `"number_words"` (the number of words in the responses, default),
+#'  `"number_resp"` (the number of responses), or `NULL` (raw count returned).
 #' @param pos_filter List of UPOS tags for inclusion, default is `NULL` which
-#'  means all word types included
+#'  means all word types included.
 #' @param strict Whether to strictly cut-off at `number` (ties are
-#'  alphabetically ordered), default is `TRUE`
+#'  alphabetically ordered), default is `TRUE`.
 #'
-#' @return A table of the most frequently occurring words in the data
+#' @return A table of the most frequently occurring words in the data.
 #' @export
 #'
 #' @examples
@@ -228,19 +229,19 @@ fst_get_top_words <- function(data,
 
 #' Make Top N-grams Table
 #'
-#' Creates a table of the most frequently-occurring ngrams within the
+#' Creates a table of the most frequently-occurring n-grams within the
 #' data.
 #'
 #' @param data A dataframe of text in CoNLL-U format.
 #' @param number The number of n-grams to return, default is `10`.
 #' @param ngrams The type of n-grams to return, default is `1`.
 #' @param norm The method for normalising the data. Valid settings are
-#'  `'number_words'` (the number of words in the responses, default),
-#'  `'number_resp'` (the number of responses), or `NULL` (raw count returned).
+#'  `"number_words"` (the number of words in the responses, default),
+#'  `"number_resp"` (the number of responses), or `NULL` (raw count returned).
 #' @param pos_filter List of UPOS tags for inclusion, default is `NULL` which
-#'  means all word types included
+#'  means all word types included.
 #' @param strict Whether to strictly cut-off at `number` (ties are
-#'  alphabetically ordered), default is `TRUE`
+#'  alphabetically ordered), default is `TRUE`.
 #'
 #' @return A table of the most frequently occurring n-grams in the data.
 #' @export
@@ -297,7 +298,7 @@ fst_get_top_ngrams <- function(data, number = 10, ngrams = 1, norm = "number_wor
 #' Make Top N-grams Table 2
 #'
 #' Creates a table of the most frequently-occurring ngrams within the
-#' data. Equivalent to `fst_get_top_ngrams` but does not print message.
+#' data. Equivalent to `fst_get_top_ngrams()` but does not print message.
 #'
 #' @param data A dataframe of text in CoNLL-U format.
 #' @param number The number of n-grams to return, default is `10`.
@@ -306,9 +307,9 @@ fst_get_top_ngrams <- function(data, number = 10, ngrams = 1, norm = "number_wor
 #'  `'number_words'` (the number of words in the responses, default),
 #'  `'number_resp'` (the number of responses), or `NULL` (raw count returned).
 #' @param pos_filter List of UPOS tags for inclusion, default is `NULL` which
-#'  means all word types included
+#'  means all word types included.
 #' @param strict Whether to strictly cut-off at `number` (ties are
-#'  alphabetically ordered), default is `TRUE`
+#'  alphabetically ordered), default is `TRUE`.
 #'
 #' @return A table of the most frequently occurring n-grams in the data.
 #' @export
@@ -363,9 +364,10 @@ fst_get_top_ngrams2 <- function(data,
 #'
 #' Plots most common words.
 #'
-#' @param table Output of `fst_get_top_words` or `fst_get_top_ngrams`
+#' @param table Output of `fst_get_top_words()` or `fst_get_top_ngrams()`.
 #' @param number Optional number of n-grams for the title, default is `NULL`.
-#' @param name An optional "name" for the plot to add to title, default is `NULL`
+#' @param name An optional "name" for the plot to add to title, default is
+#'  `NULL`.
 #'
 #' @return Plot of top words.
 #' @export
@@ -396,11 +398,11 @@ fst_freq_plot <- function(table, number = NULL, name = NULL) {
 #'
 #' Plots frequency n-grams.
 #'
-#' @param table Output of `fst_get_top_words` or `fst_get_top_ngrams`
+#' @param table Output of `fst_get_top_words()` or `fst_get_top_ngrams()`.
 #' @param number Optional number of n-grams for title, default is `NULL`.
 #' @param ngrams The type of n-grams, default is `1`.
 #' @param name An optional "name" for the plot to add to title, default is
-#'  `NULL`
+#'  `NULL`.
 
 #'
 #' @return Plot of top n-grams.
@@ -441,15 +443,16 @@ fst_ngrams_plot <- function(table, number = NULL, ngrams = 1, name = NULL) {
 #' @param data A dataframe of text in CoNLL-U format.
 #' @param number The number of top words to return, default is `10`.
 #' @param norm The method for normalising the data. Valid settings are
-#'  `'number_words'` (the number of words in the responses, default),
-#'  `'number_resp'` (the number of responses), or `NULL` (raw count returned).
+#'  `"number_words"` (the number of words in the responses, default),
+#'  `"number_resp"` (the number of responses), or `NULL` (raw count returned).
 #' @param pos_filter List of UPOS tags for inclusion, default is `NULL` which
-#'  means all word types included
+#'  means all word types included.
 #' @param strict Whether to strictly cut-off at `number` (ties are
-#'  alphabetically ordered), default is `TRUE`
-#' @param name An optional "name" for the plot to add to title, default is `NULL`
+#'  alphabetically ordered), default is `TRUE`.
+#' @param name An optional "name" for the plot to add to title, default is
+#'  `NULL`.
 #'
-#' @return Plot of top words
+#' @return Plot of top words.
 #' @export
 #'
 #' @examples
@@ -482,13 +485,14 @@ fst_freq <- function(data,
 #' @param number The number of top words to return, default is `10`.
 #' @param ngrams The type of n-grams, default is `1`.
 #' @param norm The method for normalising the data. Valid settings are
-#'  `'number_words'` (the number of words in the responses, default),
-#'  `'number_resp'` (the number of responses), or `NULL` (raw count returned).
+#'  `"number_words"` (the number of words in the responses, default),
+#'  `"number_resp"` (the number of responses), or `NULL` (raw count returned).
 #' @param pos_filter List of UPOS tags for inclusion, default is `NULL` which
-#'  means all word types included
+#'  means all word types included.
 #' @param strict Whether to strictly cut-off at `number` (ties are
-#'  alphabetically ordered), default is `TRUE`
-#' @param name An optional "name" for the plot to add to title, default is `NULL`
+#'  alphabetically ordered), default is `TRUE`.
+#' @param name An optional "name" for the plot to add to title, default is
+#'  `NULL`.
 #'
 #' @return Plot of top n-grams
 #' @export
@@ -523,14 +527,14 @@ fst_ngrams <- function(data,
 
 #' Make Wordcloud
 #'
-#' Creates a wordcloud from CoNLL-U data of frequently-occuring words.
+#' Creates a wordcloud from CoNLL-U data of frequently-occurring words.
 #'
 #' @param data A dataframe of text in CoNLL-U format.
 #' @param pos_filter List of UPOS tags for inclusion, default is `NULL` which
 #'  means all word types included.
 #' @param max The maximum number of words to display, default is `100`
 #'
-#' @return A wordcloud from the data
+#' @return A wordcloud from the data.
 #' @export
 #'
 #' @examples

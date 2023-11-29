@@ -1,13 +1,13 @@
 #' Concept Network- Get Unique Nodes
 #'
-#' Takes at least two tables of nodes and pagerank (output of `fst_cn_nodes`)
+#' Takes at least two tables of nodes and pagerank (output of `fst_cn_nodes()`)
 #' and finds nodes unique to one table.
 #'
-#' @param table1 The first table
-#' @param table2 The second table
-#' @param ... Any other tables you want to include
+#' @param table1 The first table.
+#' @param table2 The second table.
+#' @param ... Any other tables you want to include.
 #'
-#' @return Dataframe of words and whether word is unique or not
+#' @return Dataframe of words and whether word is unique or not.
 #' @export
 #'
 #' @examples
@@ -41,24 +41,33 @@ fst_cn_get_unique <- function(table1, table2, ...) {
 
 #' Concept Network- Plot comparison Concept Network
 #'
-#' @param edges Output of `fst_cn_edges`, dataframe of 'edges' connecting two words
-#' @param nodes Output of `fst_cn_nodes`, dataframe of relevant lemmas and their associated pagerank
-#' @param concepts List of terms which have been searched for, separated by commas.
-#' @param unique_lemmas List of unique lemmas, output of `fst_cn_get_unique`
-#' @param name An optional "name" for the plot, default is `NULL` and a generic
-#' title ('Textrank extracted keyword occurences) will be used.
-#' @param concept_colour Colour to display concept words, default is `indianred`.
-#' @param unique_colour Colour to display unique words, default is `darkgreen`.
-#' @param min_edge A numeric value for the scale of the edges, the smallest
-#' co_occurence value for an edge across all Networks to be plotted together.
-#' @param max_edge A numeric value for the scale of the edges, the largest
-#' co_occurence value for an edge across all Networks to be plotted together.
-#' @param min_node A numeric value for the scale of the nodes, the smallest
-#' pagerank value for a node across all Networks to be plotted together.
-#' @param max_node A numeric value for the scale of the nodes, the largest
-#' pagerank value for a node across all Networks to be plotted together.
+#' Creates a Concept Network plot from a list of edges and nodes (and their
+#' respective weights) which indicates unique words in this plot in comparison
+#' to another Network.
 #'
-#' @return Plot of concept network with concept and unique words (nodes) highlighted
+#' @param edges Output of `fst_cn_edges()`, dataframe of 'edges' connecting
+#'  two words.
+#' @param nodes Output of `fst_cn_nodes()`, dataframe of relevant lemmas and
+#'  their associated pagerank.
+#' @param concepts List of terms which have been searched for, separated by
+#'  commas.
+#' @param unique_lemmas List of unique lemmas, output of `fst_cn_get_unique()`
+#' @param name An optional "name" for the plot, default is `NULL` and a generic
+#'  title ("Textrank extracted keyword occurrences") will be used.
+#' @param concept_colour Colour to display concept words, default is
+#'  `"indianred"`.
+#' @param unique_colour Colour to display unique words, default is `"darkgreen"`.
+#' @param min_edge A numeric value for the scale of the edges, the smallest
+#'  co_occurrence value for an edge across all Networks to be plotted together.
+#' @param max_edge A numeric value for the scale of the edges, the largest
+#'  co_occurrence value for an edge across all Networks to be plotted together.
+#' @param min_node A numeric value for the scale of the nodes, the smallest
+#'  pagerank value for a node across all Networks to be plotted together.
+#' @param max_node A numeric value for the scale of the nodes, the largest
+#'  pagerank value for a node across all Networks to be plotted together.
+#'
+#' @return Plot of concept network with concept and unique words (nodes)
+#'  highlighted.
 #' @export
 #'
 #' @examples
@@ -140,26 +149,33 @@ fst_cn_compare_plot <- function(edges,
 
 #' Concept Network- Compare and plot Concept Network
 #'
+#' This function takes a string of terms (separated by commas) or a single term
+#' and, using `textrank_keywords()` from `textrank` package, filters data based
+#' on `pos_filter` and finds words connected to search terms for each group.
+#' Then it plots a Concept Network for each group based on the calculated
+#' weights of these terms and the frequency of co-occurrences, indicating any
+#' words that are unique to each group's Network plot.
+#'
 #' @param data1 A dataframe of text in CoNLL-U format for the first concept
-#' network
+#'  network.
 #' @param data2 A dataframe of text in CoNLL-U format for the second concept
-#' network
+#'  network.
 #' @param data3 An optional dataframe of text in CoNLL-U format for the third
-#' concept network, default is `NULL`
+#'  concept network, default is `NULL`.
 #' @param data4 An optional dataframe of text in CoNLL-U format for the fourth
-#' concept network, default is `NULL`
+#'  concept network, default is `NULL`.
 #' @param pos_filter List of UPOS tags for inclusion, default is `NULL` which
-#'  means all word types included
-#' @param name1 A string describing data1, default is `Group 1`
-#' @param name2 A string describing data2, default is `Group 2`
-#' @param name3 A string describing data3, default is `Group 3`
-#' @param name4 A string describing data4, default is `Group 4`
+#'  means all word types included.
+#' @param name1 A string describing data1, default is `"Group 1"`.
+#' @param name2 A string describing data2, default is `"Group 2"`.
+#' @param name3 A string describing data3, default is `"Group 3"`.
+#' @param name4 A string describing data4, default is `"Group 4"`.
 #' @param concepts List of terms to search for, separated by commas.
 #' @param norm The method for normalising the data. Valid settings are
-#'  `'number_words'` (the number of words in the responses, default),
-#'  `'number_resp'` (the number of responses), or `NULL` (raw count returned).
+#'  `"number_words"` (the number of words in the responses, default),
+#'  `"number_resp"` (the number of responses), or `NULL` (raw count returned).
 #' @param threshold A minimum number of occurrences threshold for 'edge' between
-#' searched term and other word, default is `NULL`.
+#'  searched term and other word, default is `NULL`.
 #'
 #' @return Between 2 and 4 concept network plots with concept and unique words
 #' highlighted.

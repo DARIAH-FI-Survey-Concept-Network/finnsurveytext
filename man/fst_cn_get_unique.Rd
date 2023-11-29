@@ -7,17 +7,17 @@
 fst_cn_get_unique(table1, table2, ...)
 }
 \arguments{
-\item{table1}{The first table}
+\item{table1}{The first table.}
 
-\item{table2}{The second table}
+\item{table2}{The second table.}
 
-\item{...}{Any other tables you want to include}
+\item{...}{Any other tables you want to include.}
 }
 \value{
-Dataframe of words and whether word is unique or not
+Dataframe of words and whether word is unique or not.
 }
 \description{
-Takes at least two tables of nodes and pagerank (output of `fst_cn_nodes`)
+Takes at least two tables of nodes and pagerank (output of `fst_cn_nodes()`)
 and finds nodes unique to one table.
 }
 \examples{

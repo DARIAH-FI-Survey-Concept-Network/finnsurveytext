@@ -1,12 +1,14 @@
 #' Annotate open-ended survey responses in Finnish into CoNLL-U format
 #'
 #' Creates a dataframe in CoNLL-U format from a list of strings of Finnish text
-#' using the [udpipe] package and a Finnish language model
+#' using the [udpipe] package and a Finnish language model.
 #'
-#' @param data A dataframe of survey responses which contains an open-ended question.
-#' @param field The field in the dataframe which contains the open-ended question.
-#' @param model A Finnish language model available for [udpipe], `"ftb"` (default)
-#'  or `"tdt"`.
+#' @param data A dataframe of survey responses which contains an open-ended
+#'  question.
+#' @param field The field in the dataframe which contains the open-ended
+#'  question.
+#' @param model A Finnish language model available for [udpipe], `"ftb"`
+#'  (default) or `"tdt"`.
 #'
 #' @return Dataframe of annotated text in CoNLL-U format.
 #' @export
@@ -55,7 +57,7 @@ fst_format_conllu <- function(data, field, model = "ftb") {
 #' Returns a tibble containing available Finnish stopword lists, their contents,
 #' and the size of the lists.
 #'
-#' @return A tibble containing the stopwords lists
+#' @return A tibble containing the stopwords lists.
 #' @export
 #'
 #' @examples
@@ -82,7 +84,8 @@ fst_find_stopwords <- function() {
 #' @param data A dataframe of Finnish text in CoNLL-U format.
 #' @param stopword_list A valid Finnish stopword list, default is `"nltk"`.
 #'
-#' @return A dataframe of Finnish text in CoNLL-U format.
+#' @return A dataframe of Finnish text in CoNLL-U format without stopwords and
+#'  punctuation.
 #' @export
 #'
 #' @examples
@@ -103,19 +106,19 @@ fst_rm_stop_punct <- function(data, stopword_list = "nltk") {
 
 #' Read In and format Finnish survey text responses
 #'
-#' `fst_prepare_conllu` produces a dataframe (and saves as csv) containing
+#' `fst_prepare_conllu()` produces a dataframe (and saves as csv) containing
 #' Finnish survey text reponses in CoNLL-U format with stopwords removed.
 #'
 #' @param data A dataframe of survey responses which contains an open-ended
 #'  question.
 #' @param field The field in the dataframe which contains the open-ended
 #'  question.
-#' @param model A Finnish language model available for [udpipe], `ftb` (default)
-#'  or `tdt`.
-#' @param stopword_list A valid Finnish stopword list, default is `nltk`, or
-#'  "none".
+#' @param model A Finnish language model available for [udpipe], `"ftb"`
+#'  (default) or `"tdt"`.
+#' @param stopword_list A valid Finnish stopword list, default is `"nltk"`, or
+#'  `"none"`.
 #'
-#' @return CoNLL-U dataframe
+#' @return A dataframe of Finnish text in CoNLL-U format.
 #' @export
 #'
 #' @examples

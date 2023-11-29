@@ -7,11 +7,12 @@
 fst_freq_plot(table, number = NULL, name = NULL)
 }
 \arguments{
-\item{table}{Output of `fst_get_top_words` or `fst_get_top_ngrams`}
+\item{table}{Output of `fst_get_top_words()` or `fst_get_top_ngrams()`.}
 
 \item{number}{Optional number of n-grams for the title, default is `NULL`.}
 
-\item{name}{An optional "name" for the plot to add to title, default is `NULL`}
+\item{name}{An optional "name" for the plot to add to title, default is
+`NULL`.}
 }
 \value{
 Plot of top words.

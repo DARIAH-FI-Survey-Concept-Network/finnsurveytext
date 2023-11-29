@@ -21,33 +21,33 @@ fst_concept_network_compare(
 }
 \arguments{
 \item{data1}{A dataframe of text in CoNLL-U format for the first concept
-network}
+network.}
 
 \item{data2}{A dataframe of text in CoNLL-U format for the second concept
-network}
+network.}
 
 \item{data3}{An optional dataframe of text in CoNLL-U format for the third
-concept network, default is `NULL`}
+concept network, default is `NULL`.}
 
 \item{data4}{An optional dataframe of text in CoNLL-U format for the fourth
-concept network, default is `NULL`}
+concept network, default is `NULL`.}
 
 \item{pos_filter}{List of UPOS tags for inclusion, default is `NULL` which
-means all word types included}
+means all word types included.}
 
-\item{name1}{A string describing data1, default is `Group 1`}
+\item{name1}{A string describing data1, default is `"Group 1"`.}
 
-\item{name2}{A string describing data2, default is `Group 2`}
+\item{name2}{A string describing data2, default is `"Group 2"`.}
 
-\item{name3}{A string describing data3, default is `Group 3`}
+\item{name3}{A string describing data3, default is `"Group 3"`.}
 
-\item{name4}{A string describing data4, default is `Group 4`}
+\item{name4}{A string describing data4, default is `"Group 4"`.}
 
 \item{concepts}{List of terms to search for, separated by commas.}
 
 \item{norm}{The method for normalising the data. Valid settings are
-`'number_words'` (the number of words in the responses, default),
-`'number_resp'` (the number of responses), or `NULL` (raw count returned).}
+`"number_words"` (the number of words in the responses, default),
+`"number_resp"` (the number of responses), or `NULL` (raw count returned).}
 
 \item{threshold}{A minimum number of occurrences threshold for 'edge' between
 searched term and other word, default is `NULL`.}
@@ -57,7 +57,12 @@ Between 2 and 4 concept network plots with concept and unique words
 highlighted.
 }
 \description{
-Concept Network- Compare and plot Concept Network
+This function takes a string of terms (separated by commas) or a single term
+and, using `textrank_keywords()` from `textrank` package, filters data based
+on `pos_filter` and finds words connected to search terms for each group.
+Then it plots a Concept Network for each group based on the calculated
+weights of these terms and the frequency of co-occurrences, indicating any
+words that are unique to each group's Network plot.
 }
 \examples{
 d1 <- conllu_dev_q11_1_nltk

@@ -7,16 +7,17 @@
 fst_join_unique(table, unique_table)
 }
 \arguments{
-\item{table}{Output of `fst_get_top_words` or `fst_get_top_ngrams`}
+\item{table}{Output of `fst_get_top_words()` or `fst_get_top_ngrams()`.}
 
-\item{unique_table}{Output of `fst_get_unique_ngrams`}
+\item{unique_table}{Output of `fst_get_unique_ngrams()`.}
 }
 \value{
-A table of top n-grams, frequency, and whether the n-gram is "unique"
+A table of top n-grams, frequency, and whether the n-gram is
+ "unique".
 }
 \description{
-Merges list of unique words from `fst_get_unique_ngrams` with output of
-`fst_get_top_ngrams` or `fst_get_top_words` so that unique words can be
+Merges list of unique words from `fst_get_unique_ngrams()` with output of
+`fst_get_top_ngrams()` or `fst_get_top_words()` so that unique words can be
 displayed on comparison plots.
 }
 \examples{

@@ -7,19 +7,19 @@
 fst_get_unique_ngrams(table1, table2, ...)
 }
 \arguments{
-\item{table1}{The first table}
+\item{table1}{The first table.}
 
-\item{table2}{The second table}
+\item{table2}{The second table.}
 
-\item{...}{Any other tables you want to include}
+\item{...}{Any other tables you want to include.}
 }
 \value{
-Dataframe of words and whether word is unique or not
+Dataframe of words and whether word is unique or not.
 }
 \description{
 Takes at least two tables of n-grams and frequencies (either output of
-`fst_get_top_words` or `fst_get_top_ngrams`) and finds n-grams unique to one
-table.
+`fst_get_top_words()` or `fst_get_top_ngrams()`) and finds n-grams unique to
+ one table.
 }
 \examples{
 top_f <- fst_get_top_words(conllu_dev_q11_1_f_nltk)

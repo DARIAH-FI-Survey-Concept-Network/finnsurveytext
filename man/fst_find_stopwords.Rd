@@ -7,7 +7,7 @@
 fst_find_stopwords()
 }
 \value{
-A tibble containing the stopwords lists
+A tibble containing the stopwords lists.
 }
 \description{
 Returns a tibble containing available Finnish stopword lists, their contents,

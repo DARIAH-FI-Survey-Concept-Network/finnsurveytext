@@ -1,14 +1,14 @@
 #' Get unique n-grams
 #'
 #' Takes at least two tables of n-grams and frequencies (either output of
-#' `fst_get_top_words` or `fst_get_top_ngrams`) and finds n-grams unique to one
-#' table.
+#' `fst_get_top_words()` or `fst_get_top_ngrams()`) and finds n-grams unique to
+#'  one table.
 #'
-#' @param table1 The first table
-#' @param table2 The second table
-#' @param ... Any other tables you want to include
+#' @param table1 The first table.
+#' @param table2 The second table.
+#' @param ... Any other tables you want to include.
 #'
-#' @return Dataframe of words and whether word is unique or not
+#' @return Dataframe of words and whether word is unique or not.
 #' @export
 #'
 #' @examples
@@ -34,14 +34,15 @@ fst_get_unique_ngrams <- function(table1, table2, ...) {
 
 #' Merge N-grams table with unique words
 #'
-#' Merges list of unique words from `fst_get_unique_ngrams` with output of
-#' `fst_get_top_ngrams` or `fst_get_top_words` so that unique words can be
+#' Merges list of unique words from `fst_get_unique_ngrams()` with output of
+#' `fst_get_top_ngrams()` or `fst_get_top_words()` so that unique words can be
 #' displayed on comparison plots.
 #'
-#' @param table Output of `fst_get_top_words` or `fst_get_top_ngrams`
-#' @param unique_table Output of `fst_get_unique_ngrams`
+#' @param table Output of `fst_get_top_words()` or `fst_get_top_ngrams()`.
+#' @param unique_table Output of `fst_get_unique_ngrams()`.
 #'
-#' @return A table of top n-grams, frequency, and whether the n-gram is "unique"
+#' @return A table of top n-grams, frequency, and whether the n-gram is
+#'  "unique".
 #' @export
 #'
 #' @examples
@@ -64,11 +65,11 @@ fst_join_unique <- function(table, unique_table) {
 #'
 #' Plots frequency n-grams with unique n-grams highlighted.
 #'
-#' @param table The table of n-grams, output of `get_unique_ngrams`
+#' @param table The table of n-grams, output of `get_unique_ngrams()`.
 #' @param number The number of n-grams, default is `10`.
 #' @param ngrams The type of n-grams, default is `1`.
-#' @param unique_colour Colour to display unique words, default is `indianred`.
-#' @param name An optional "name" for the plot, default is `NULL`
+#' @param unique_colour Colour to display unique words, default is `"indianred"`.
+#' @param name An optional "name" for the plot, default is `NULL`.
 #' @param override_title An optional title to override the automatic one for
 #'  the plot. Default is `NULL`. If `NULL`, title of plot will be `number` "Most
 #'  Common 'Term'". 'Term' is "Words", "Bigrams", or "N-Grams" where N > 2.
@@ -120,10 +121,10 @@ fst_ngrams_compare_plot <- function(table, number = 10, ngrams = 1, unique_colou
 #' Display between 2 and 4 plots within the plots pane. If 2 or 3 plots, they
 #' will be in a single row, if there are 4 plots, they will be in 2 rows of 2.
 #'
-#' @param plot1 First plot to display
-#' @param plot2 Second plot to display
-#' @param plot3 Optional third plot to display, defaul is `NULL`
-#' @param plot4 Optional fourth plot to display, defaul is `NULL`
+#' @param plot1 First plot to display.
+#' @param plot2 Second plot to display.
+#' @param plot3 Optional third plot to display, defaul is `NULL`.
+#' @param plot4 Optional fourth plot to display, defaul is `NULL`.
 #' @param main_title An optional title for the set of plots. The default is
 #'  `NULL` and no main title will be included.
 #'
@@ -169,25 +170,26 @@ fst_plot_multiple <- function(plot1, plot2, plot3 = NULL, plot4 = NULL, main_tit
 #' @param data1 A dataframe of text in CoNLL-U format for the first plot.
 #' @param data2 A dataframe of text in CoNLL-U format for the second plot.
 #' @param data3 An optional dataframe of text in CoNLL-U format for the third
-#' plot, default is `NULL`
+#'  plot, default is `NULL`.
 #' @param data4 An optional dataframe of text in CoNLL-U format for the fourth
-#' plot, default is `NULL`
+#'  plot, default is `NULL`.
 #' @param number The number of top words to return, default is `10`.
 #' @param norm The method for normalising the data. Valid settings are
-#'  `'number_words'` (the number of words in the responses, default),
-#'  `'number_resp'` (the number of responses), or `NULL` (raw count returned).
+#'  `"number_words"` (the number of words in the responses, default),
+#'  `"number_resp"` (the number of responses), or `NULL` (raw count returned).
 #' @param pos_filter List of UPOS tags for inclusion, default is `NULL` which
-#'  means all word types included
-#' @param name1 An optional "name" for the first plot, default is `NULL`
-#' @param name2 An optional "name" for the second plot, default is `NULL`
-#' @param name3 An optional "name" for the third plot, default is `NULL`
-#' @param name4 An optional "name" for the fourth plot, default is `NULL`
-#' @param unique_colour Colour to display unique words, default is `indianred`.
+#'  means all word types included.
+#' @param name1 An optional "name" for the first plot, default is `"Group 1"`.
+#' @param name2 An optional "name" for the second plot, default is `"Group 2"`.
+#' @param name3 An optional "name" for the third plot, default is `"Group 3"`.
+#' @param name4 An optional "name" for the fourth plot, default is `"Group 4"`.
+#' @param unique_colour Colour to display unique words, default is
+#'  `"indianred"`.
 #' @param strict Whether to strictly cut-off at `number` (ties are
-#'  alphabetically ordered), default is `TRUE`
+#'  alphabetically ordered), default is `TRUE`.
 #'
 #' @return Between 2 and 4 plots of Top n-grams in the plots pane with unique
-#' n-grams highlighted
+#' n-grams highlighted.
 #' @export
 #'
 #' @examples
@@ -267,26 +269,27 @@ fst_freq_compare <- function(data1, data2, data3 = NULL, data4 = NULL, number = 
 #' @param data1 A dataframe of text in CoNLL-U format for the first plot.
 #' @param data2 A dataframe of text in CoNLL-U format for the second plot.
 #' @param data3 An optional dataframe of text in CoNLL-U format for the third
-#' plot, default is `NULL`
+#'  plot, default is `NULL`.
 #' @param data4 An optional dataframe of text in CoNLL-U format for the fourth
-#' plot, default is `NULL`
+#'  plot, default is `NULL`.
 #' @param number The number of n-grams to return, default is `10`.
 #' @param ngrams The type of n-grams to return, default is `1`.
 #' @param norm The method for normalising the data. Valid settings are
-#'  `'number_words'` (the number of words in the responses, default),
-#'  `'number_resp'` (the number of responses), or `NULL` (raw count returned).
+#'  `"number_words"` (the number of words in the responses, default),
+#'  `"number_resp"` (the number of responses), or `NULL` (raw count returned).
 #' @param pos_filter List of UPOS tags for inclusion, default is `NULL` which
-#'  means all word types included
-#' @param name1 An optional "name" for the first plot, default is `NULL`
-#' @param name2 An optional "name" for the second plot, default is `NULL`
-#' @param name3 An optional "name" for the third plot, default is `NULL`
-#' @param name4 An optional "name" for the fourth plot, default is `NULL`
-#' @param unique_colour Colour to display unique words, default is `indianred`.
+#'  means all word types included.
+#' @param name1 An optional "name" for the first plot, default is `"Group 1"`.
+#' @param name2 An optional "name" for the second plot, default is `"Group 2"`.
+#' @param name3 An optional "name" for the third plot, default is `"Group 3"`.
+#' @param name4 An optional "name" for the fourth plot, default is `"Group 4"`.
+#' @param unique_colour Colour to display unique words, default is
+#'  `"indianred"`.
 #' @param strict Whether to strictly cut-off at `number` (ties are
-#'  alphabetically ordered), default is `TRUE`
+#'  alphabetically ordered), default is `TRUE`.
 #'
 #' @return Between 2 and 4 plots of Top n-grams in the plots pane with unique
-#' n-grams highlighted
+#' n-grams highlighted.
 #' @export
 #'
 #' @examples
@@ -372,18 +375,18 @@ fst_ngrams_compare <- function(data1, data2, data3 = NULL, data4 = NULL, number 
 #' Compare words in responses based on part-of-speech tagging for between 2 and
 #' 4 sets of prepared data.
 #'
-#' @param data1 A dataframe of text in CoNLL-U format for the first group
+#' @param data1 A dataframe of text in CoNLL-U format for the first group.
 #' @param data2 A dataframe of text in CoNLL-U format for the second group.
 #' @param data3 An optional dataframe of text in CoNLL-U format for the third
-#' group, default is `NULL`
+#'  group, default is `NULL`.
 #' @param data4 An optional dataframe of text in CoNLL-U format for the fourth
-#' group, default is `NULL`
-#' @param name1 An optional "name" for the first group, default is `NULL`
-#' @param name2 An optional "name" for the second group, default is `NULL`
-#' @param name3 An optional "name" for the third group, default is `NULL`
-#' @param name4 An optional "name" for the fourth group, default is `NULL`
+#'  group, default is `NULL`.
+#' @param name1 An optional "name" for the first group, default is `"Group 1"`.
+#' @param name2 An optional "name" for the second group, default is `"Group 2"`.
+#' @param name3 An optional "name" for the third group, default is `"Group 3"`.
+#' @param name4 An optional "name" for the fourth group, default is `"Group 4"`.
 #'
-#' @return Table of POS tag counts for the groups
+#' @return Table of POS tag counts for the groups.
 #' @export
 #'
 #' @examples
@@ -509,18 +512,18 @@ fst_pos_compare <- function(data1, data2, data3 = NULL, data4 = NULL, name1 = "G
 #'
 #' Compare text responses for between 2 and 4 sets of prepared data.
 #'
-#' @param data1 A dataframe of text in CoNLL-U format for the first group
+#' @param data1 A dataframe of text in CoNLL-U format for the first group.
 #' @param data2 A dataframe of text in CoNLL-U format for the second group.
 #' @param data3 An optional dataframe of text in CoNLL-U format for the third
-#' group, default is `NULL`
+#'  group, default is `NULL`.
 #' @param data4 An optional dataframe of text in CoNLL-U format for the fourth
-#' group, default is `NULL`
-#' @param name1 A string describing data1, default is `Group 1`
-#' @param name2 A string describing data2, default is `Group 2`
-#' @param name3 A string describing data3, default is `Group 3`
-#' @param name4 A string describing data4, default is `Group 4`
+#'  group, default is `NULL`.
+#' @param name1 A string describing data1, default is `"Group 1"`.
+#' @param name2 A string describing data2, default is `"Group 2"`.
+#' @param name3 A string describing data3, default is `"Group 3"`.
+#' @param name4 A string describing data4, default is `"Group 4"`.
 #'
-#' @return Summary table of responses between groups
+#' @return Summary table of responses between groups.
 #' @export
 #'
 #' @examples
@@ -558,20 +561,20 @@ fst_summarise_compare <- function(data1, data2, data3 = NULL, data4 = NULL, name
 #'
 #' Compare length of text responses for between 2 and 4 sets of prepared data.
 #'
-#' @param data1 A dataframe of text in CoNLL-U format for the first group
+#' @param data1 A dataframe of text in CoNLL-U format for the first group.
 #' @param data2 A dataframe of text in CoNLL-U format for the second group.
 #' @param data3 An optional dataframe of text in CoNLL-U format for the third
-#' group, default is `NULL`
+#'  group, default is `NULL`.
 #' @param data4 An optional dataframe of text in CoNLL-U format for the fourth
-#' group, default is `NULL`
-#' @param name1 A string describing data1, default is `Group 1`
-#' @param name2 A string describing data2, default is `Group 2`
-#' @param name3 A string describing data3, default is `Group 3`
-#' @param name4 A string describing data4, default is `Group 4`
+#'  group, default is `NULL`.
+#' @param name1 A string describing data1, default is `"Group 1"`.
+#' @param name2 A string describing data2, default is `"Group 2"`.
+#' @param name3 A string describing data3, default is `"Group 3"`.
+#' @param name4 A string describing data4, default is `"Group 4"`.
 #' @param incl_sentences Whether to include sentence data in table, default is
-#'  `TRUE`
+#'  `TRUE`.
 #'
-#' @return Dataframe summarising response lengths
+#' @return Dataframe summarising response lengths.
 #' @export
 #'
 #' @examples
@@ -611,21 +614,21 @@ fst_length_compare <- function(data1, data2, data3 = NULL, data4 = NULL, name1 =
 #' Creates a comparison wordcloud showing words that occur differently between
 #' each group.
 #'
-#' @param data1 A dataframe of text in CoNLL-U format for the first group
+#' @param data1 A dataframe of text in CoNLL-U format for the first group.
 #' @param data2 A dataframe of text in CoNLL-U format for the second group.
 #' @param data3 An optional dataframe of text in CoNLL-U format for the third
-#' group, default is `NULL`
+#'  group, default is `NULL`.
 #' @param data4 An optional dataframe of text in CoNLL-U format for the fourth
-#' group, default is `NULL`
-#' @param name1 A string describing data1, default is `Group 1`
-#' @param name2 A string describing data2, default is `Group 2`
-#' @param name3 A string describing data3, default is `Group 3`
-#' @param name4 A string describing data4, default is `Group 4`
+#'  group, default is `NULL`.
+#' @param name1 A string describing data1, default is `Group 1`.
+#' @param name2 A string describing data2, default is `Group 2`.
+#' @param name3 A string describing data3, default is `Group 3`.
+#' @param name4 A string describing data4, default is `Group 4`.
 #' @param pos_filter List of UPOS tags for inclusion, default is `NULL` which
-#'  means all word types included
-#' @param max The maximum number of words to display, default is `100`
+#'  means all word types included.
+#' @param max The maximum number of words to display, default is `100`.
 #'
-#' @return comparison cloud from wordcloud package
+#' @return A comparison cloud from wordcloud package.
 #' @export
 #'
 #' @examples

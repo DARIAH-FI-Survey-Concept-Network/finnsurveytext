@@ -23,20 +23,24 @@ searched term and other word, default is `NULL`. Note, the threshold is
 applied before normalisation.}
 
 \item{norm}{The method for normalising the data. Valid settings are
-`'number_words'` (the number of words in the responses, default),
-`'number_resp'` (the number of responses), or `NULL` (raw count returned).}
+`"number_words"` (the number of words in the responses, default),
+`"number_resp"` (the number of responses), or `NULL` (raw count returned).}
 
 \item{pos_filter}{List of UPOS tags for inclusion, default is `NULL` to
 include all UPOS tags.}
 
 \item{title}{Optional title for plot, default is `NULL` and a generic title
-('Textrank extracted keyword occurences) will be used.}
+("Textrank extracted keyword occurrences") will be used.}
 }
 \value{
-Plot of concept network
+Plot of Concept Network.
 }
 \description{
-Concept Network - Make Concept Network plot
+This function takes a string of terms (separated by commas) or a single term
+and, using `textrank_keywords()` from `textrank` package, filters data based
+on `pos_filter` and finds words connected to search terms. Then it plots a
+Concept Network based on the calculated weights of these terms and the
+frequency of co-occurrences.
 }
 \examples{
 fst_concept_network(conllu_dev_q11_3, concepts = "köyhyys, puute")

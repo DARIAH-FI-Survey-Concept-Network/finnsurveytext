@@ -1,15 +1,15 @@
 #' Concept Network - Search textrank for concepts
 #'
 #' This function takes a string of terms (separated by commas) or a single term
-#' and, using `textrank_keywords` from `textrank` package, filters data based on
-#' `pos_filter` and finds words connected to search terms.
+#' and, using `textrank_keywords()` from `textrank` package, filters data based
+#' on `pos_filter` and finds words connected to search terms.
 #'
 #' @param data A dataframe of text in CoNLL-U format.
 #' @param concepts String of terms to search for, separated by commas.
 #' @param pos_filter List of UPOS tags for inclusion, default is `NULL` to
 #' include all UPOS tags.
 #'
-#' @return Dataframe of n-grams containing searched terms
+#' @return Dataframe of n-grams containing searched terms.
 #' @export
 #'
 #' @examples
@@ -67,9 +67,10 @@ fst_cn_search <- function(data,
 #' Concept Network - Get textrank edges
 #'
 #' This function takes a string of terms (separated by commas) or a single term
-#' and, using `fst_cn_search` find words conected to these searched terms. Then,
-#' a dataframe is returned of 'edges' between two words which are connected
-#' together in an frequently-occurring n-gram containing a concept term
+#' and, using `fst_cn_search()` find words connected to these searched terms.
+#' Then, a dataframe is returned of 'edges' between two words which are
+#' connected together in an frequently-occurring n-gram containing a concept
+#' term.
 #'
 #' @param data A dataframe of text in CoNLL-U format.
 #' @param concepts List of terms to search for, separated by commas.
@@ -77,12 +78,12 @@ fst_cn_search <- function(data,
 #'  searched term and other word, default is `NULL`. Note, the threshold is
 #'  applied before normalisation.
 #' @param norm The method for normalising the data. Valid settings are
-#'  `'number_words'` (the number of words in the responses, default),
-#'  `'number_resp'` (the number of responses), or `NULL` (raw count returned).
+#'  `"number_words"` (the number of words in the responses, default),
+#'  `"number_resp"` (the number of responses), or `NULL` (raw count returned).
 #' @param pos_filter List of UPOS tags for inclusion, default is `NULL` to
 #' include all UPOS tags.
 #'
-#' @return Dataframe of 'edges' between two connected words.
+#' @return Dataframe of co-occurrences between two connected words.
 #' @export
 #'
 #' @examples
@@ -143,12 +144,18 @@ fst_cn_edges <- function(data,
 
 #' Concept Network - Get textrank nodes
 #'
+#' This function takes a string of terms (separated by commas) or a single term
+#' and, using `textrank_keywords()` from `textrank` package, filters data based
+#' on `pos_filter` ranks words which are the filtered for those connected to
+#' search terms.
+#'
 #' @param data A dataframe of text in CoNLL-U format.
-#' @param edges Output of fst_cn_edges, dataframe of 'edges' connecting two words
+#' @param edges Output of `fst_cn_edges()`, dataframe of co-occurrences between
+#'  two words.
 #' @param pos_filter List of UPOS tags for inclusion, default is `NULL` to
 #' include all UPOS tags.
 #'
-#' @return A dataframe containing relevant lemmas and their associated pagerank
+#' @return A dataframe containing relevant lemmas and their associated pagerank.
 #' @export
 #'
 #' @examples
@@ -194,16 +201,19 @@ fst_cn_nodes <- function(data,
 
 #' Plot Concept Network
 #'
-#' @param edges Output of `fst_cn_edges`, dataframe of 'edges' connecting two
-#'  words
-#' @param nodes Output of `fst_cn_nodes`, dataframe of relevant lemmas and their
-#'  associated pagerank
+#' Creates a Concept Network plot from a list of edges and nodes (and their
+#' respective weights).
+#'
+#' @param edges Output of `fst_cn_edges()`, dataframe of 'edges' connecting two
+#'  words.
+#' @param nodes Output of `fst_cn_nodes()`, dataframe of relevant lemmas and
+#'  their associated pagerank.
 #' @param concepts List of terms which have been searched for, separated by
 #'  commas.
 #' @param title Optional title for plot, default is `NULL` and a generic title
-#'  ('Textrank extracted keyword occurrences) will be used.
+#'  ("Textrank extracted keyword occurrences") will be used.
 #'
-#' @return Plot of Concept Network
+#' @return Plot of Concept Network.
 #' @export
 #'
 #' @examples
@@ -282,20 +292,26 @@ fst_cn_plot <- function(edges, nodes, concepts, title = NULL) {
 
 #' Concept Network - Make Concept Network plot
 #'
+#' This function takes a string of terms (separated by commas) or a single term
+#' and, using `textrank_keywords()` from `textrank` package, filters data based
+#' on `pos_filter` and finds words connected to search terms. Then it plots a
+#' Concept Network based on the calculated weights of these terms and the
+#' frequency of co-occurrences.
+#'
 #' @param data A dataframe of text in CoNLL-U format.
 #' @param concepts List of terms to search for, separated by commas.
 #' @param threshold A minimum number of occurrences threshold for 'edge' between
 #'  searched term and other word, default is `NULL`. Note, the threshold is
 #'  applied before normalisation.
 #' @param norm The method for normalising the data. Valid settings are
-#'  `'number_words'` (the number of words in the responses, default),
-#'  `'number_resp'` (the number of responses), or `NULL` (raw count returned).
+#'  `"number_words"` (the number of words in the responses, default),
+#'  `"number_resp"` (the number of responses), or `NULL` (raw count returned).
 #' @param pos_filter List of UPOS tags for inclusion, default is `NULL` to
 #'  include all UPOS tags.
 #' @param title Optional title for plot, default is `NULL` and a generic title
-#'  ('Textrank extracted keyword occurences) will be used.
+#'  ("Textrank extracted keyword occurrences") will be used.
 #'
-#' @return Plot of concept network
+#' @return Plot of Concept Network.
 #' @export
 #'
 #' @examples

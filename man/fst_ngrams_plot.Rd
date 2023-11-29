@@ -7,14 +7,14 @@
 fst_ngrams_plot(table, number = NULL, ngrams = 1, name = NULL)
 }
 \arguments{
-\item{table}{Output of `fst_get_top_words` or `fst_get_top_ngrams`}
+\item{table}{Output of `fst_get_top_words()` or `fst_get_top_ngrams()`.}
 
 \item{number}{Optional number of n-grams for title, default is `NULL`.}
 
 \item{ngrams}{The type of n-grams, default is `1`.}
 
 \item{name}{An optional "name" for the plot to add to title, default is
-`NULL`}
+`NULL`.}
 }
 \value{
 Plot of top n-grams.

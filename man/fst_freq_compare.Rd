@@ -26,36 +26,37 @@ fst_freq_compare(
 \item{data2}{A dataframe of text in CoNLL-U format for the second plot.}
 
 \item{data3}{An optional dataframe of text in CoNLL-U format for the third
-plot, default is `NULL`}
+plot, default is `NULL`.}
 
 \item{data4}{An optional dataframe of text in CoNLL-U format for the fourth
-plot, default is `NULL`}
+plot, default is `NULL`.}
 
 \item{number}{The number of top words to return, default is `10`.}
 
 \item{norm}{The method for normalising the data. Valid settings are
-`'number_words'` (the number of words in the responses, default),
-`'number_resp'` (the number of responses), or `NULL` (raw count returned).}
+`"number_words"` (the number of words in the responses, default),
+`"number_resp"` (the number of responses), or `NULL` (raw count returned).}
 
 \item{pos_filter}{List of UPOS tags for inclusion, default is `NULL` which
-means all word types included}
+means all word types included.}
 
-\item{name1}{An optional "name" for the first plot, default is `NULL`}
+\item{name1}{An optional "name" for the first plot, default is `"Group 1"`.}
 
-\item{name2}{An optional "name" for the second plot, default is `NULL`}
+\item{name2}{An optional "name" for the second plot, default is `"Group 2"`.}
 
-\item{name3}{An optional "name" for the third plot, default is `NULL`}
+\item{name3}{An optional "name" for the third plot, default is `"Group 3"`.}
 
-\item{name4}{An optional "name" for the fourth plot, default is `NULL`}
+\item{name4}{An optional "name" for the fourth plot, default is `"Group 4"`.}
 
-\item{unique_colour}{Colour to display unique words, default is `indianred`.}
+\item{unique_colour}{Colour to display unique words, default is
+`"indianred"`.}
 
 \item{strict}{Whether to strictly cut-off at `number` (ties are
-alphabetically ordered), default is `TRUE`}
+alphabetically ordered), default is `TRUE`.}
 }
 \value{
 Between 2 and 4 plots of Top n-grams in the plots pane with unique
-n-grams highlighted
+n-grams highlighted.
 }
 \description{
 Find top and unique top words for between 2 and 4 sets of prepared data.

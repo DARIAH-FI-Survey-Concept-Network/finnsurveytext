@@ -10,16 +10,16 @@ fst_length_summary(data, desc = "All respondents", incl_sentences = TRUE)
 \item{data}{dataframe of text in CoNLL-U format.}
 
 \item{desc}{An optional string describing respondents, default is
-`All respondents`}
+`"All respondents"`.}
 
 \item{incl_sentences}{Whether to include sentence data in table, default is
-`TRUE`}
+`TRUE`.}
 }
 \value{
-Table summarising distribution of lengths of responses
+Table summarising distribution of lengths of responses.
 }
 \description{
-Create table summarising length of responses
+Create a  table summarising  distribution of the length of responses.
 }
 \examples{
 fst_length_summary(conllu_dev_q11_1, incl_sentences = FALSE)
