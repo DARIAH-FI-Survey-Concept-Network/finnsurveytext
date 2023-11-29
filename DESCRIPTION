@@ -20,9 +20,9 @@ Authors@R: c(
     person("Kimmo", "Vehkalahti", role = "ctb"), 
     person("DARIAH-FI", role = c("cph", "fnd"))
   )
-Description: Annotates Finnish textual survey responses into CoNLL-U
-    format and analyses data using n-gram plots, wordclouds,
-    part-of-speech summaries and concept network plots.
+Description: Annotates Finnish textual survey responses into CoNLL-U format and 
+    analyses formatted data using single or comparison n-gram plots, wordclouds, 
+    summary tables and Concept Network plots.
 License: MIT + file LICENSE
 Depends: 
     R (>= 2.10)
