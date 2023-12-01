@@ -86,39 +86,15 @@ and finds nodes unique to one table.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">con1</span> <span class="op">&lt;-</span> <span class="st">"elintaso, köyhä, ihminen"</span></span></span>
-<span class="r-in"><span><span class="va">data1</span> <span class="op">&lt;-</span> <span class="va">conllu_dev_q11_1_nltk</span></span></span>
-<span class="r-in"><span><span class="va">e1</span> <span class="op">&lt;-</span> <span class="fu"><a href="fst_cn_edges.html">fst_cn_edges</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data1</span>, concepts <span class="op">=</span> <span class="va">con1</span>, threshold <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">q11_1_nodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="fst_cn_nodes.html">fst_cn_nodes</a></span><span class="op">(</span><span class="va">conllu_dev_q11_1_nltk</span>, <span class="va">e1</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">con2</span> <span class="op">&lt;-</span> <span class="st">"kehitysmaa, auttaa, pyrkiä, maa, ihminen"</span></span></span>
-<span class="r-in"><span><span class="va">e2</span> <span class="op">&lt;-</span> <span class="fu"><a href="fst_cn_edges.html">fst_cn_edges</a></span><span class="op">(</span><span class="va">conllu_dev_q11_2_nltk</span>, <span class="va">con2</span>, threshold <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">q11_2_nodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="fst_cn_nodes.html">fst_cn_nodes</a></span><span class="op">(</span><span class="va">conllu_dev_q11_2_nltk</span>, <span class="va">e2</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">con3</span> <span class="op">&lt;-</span> <span class="st">"köyhyys, nälänhätä, sota, ilmastonmuutos, puute"</span></span></span>
-<span class="r-in"><span><span class="va">e3</span> <span class="op">&lt;-</span> <span class="fu"><a href="fst_cn_edges.html">fst_cn_edges</a></span><span class="op">(</span><span class="va">conllu_dev_q11_3_nltk</span>, <span class="va">con3</span>, threshold <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">q11_3_nodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="fst_cn_nodes.html">fst_cn_nodes</a></span><span class="op">(</span><span class="va">conllu_dev_q11_3_nltk</span>, <span class="va">e3</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">fst_cn_get_unique</span><span class="op">(</span><span class="va">q11_1_nodes</span>, <span class="va">q11_2_nodes</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "alapuolella" "asua"        "auttaa"      "elintaso"    "elää"       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] "kehittyä"    "kehitysmaa"  "köyhyysraja" "köyhä"       "köys"       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "nähdä"       "nälkä"       "olo"         "osa"         "parantaa"   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [16] "pyrkiä"      "saavuttaa"   "suuri"       "tarvita"     "tarvitsla"  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [21] "tilanne"     "voida"      </span>
-<span class="r-in"><span><span class="fu">fst_cn_get_unique</span><span class="op">(</span><span class="va">q11_1_nodes</span>, <span class="va">q11_2_nodes</span>, <span class="va">q11_3_nodes</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "aiheuttaa"         "alapuolella"       "asua"             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [4] "auttaa"            "elintaso"          "elää"             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "epätasa-arvo"      "huono"             "ihmisoikeus"      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [10] "ilmastonmuutos"    "kehittyä"          "kehitysmaa"       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "koulutus"          "köyhyys"           "köyhyysraja"      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [16] "köyhä"             "köys"              "nähdä"            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [19] "nälänhätä"         "olo"               "osa"              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [22] "parantaa"          "puhdas"            "puute"            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [25] "pyrkiä"            "riippuvuus"        "saastuminen"      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [28] "saavuttaa"         "sota"              "suuri"            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [31] "talous"            "tarvita"           "tarvitsla"        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [34] "tilanne"           "vesi"              "voida"            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [37] "väestönkasvu"      "ylikansoittuminen" "öljy"             </span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">cb</span> <span class="op">&lt;-</span> <span class="va">conllu_cb_bullying_iso</span></span></span>
+<span class="r-in"><span><span class="va">pos_filter</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NOUN"</span>, <span class="st">"VERB"</span>, <span class="st">"ADJ"</span>, <span class="st">"ADV"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">e1</span> <span class="op">&lt;-</span> <span class="fu"><a href="fst_cn_edges.html">fst_cn_edges</a></span><span class="op">(</span><span class="va">cb</span>, <span class="st">"lyödä"</span>, pos_filter <span class="op">=</span> <span class="va">pos_filter</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">e2</span> <span class="op">&lt;-</span> <span class="fu"><a href="fst_cn_edges.html">fst_cn_edges</a></span><span class="op">(</span><span class="va">cb</span>, <span class="st">"lyöminen"</span>, pos_filter <span class="op">=</span> <span class="va">pos_filter</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">n1</span> <span class="op">&lt;-</span> <span class="fu"><a href="fst_cn_nodes.html">fst_cn_nodes</a></span><span class="op">(</span><span class="va">cb</span>, <span class="va">e1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">n2</span> <span class="op">&lt;-</span> <span class="fu"><a href="fst_cn_nodes.html">fst_cn_nodes</a></span><span class="op">(</span><span class="va">cb</span>, <span class="va">e2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">fst_cn_get_unique</span><span class="op">(</span><span class="va">n1</span>, <span class="va">n2</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "lyödä"      "lyöminen"   "mieli"      "paha"       "potkia"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [6] "potkiminen" "sanoa"      "tehdä"      "töniminen" </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
