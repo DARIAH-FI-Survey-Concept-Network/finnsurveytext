@@ -41,7 +41,7 @@ This package aims to provide a useful and user friendly set of tools for social 
 There are 5 sets of functions included in the finnsurveytext package. These are: 
  
 1. Preparation functions (R/01_prepare_conll-u.R)
-    * These are functions to annotate survey data into a useful format (CoNLL-U) for analysis. There is a 'main' function within this set, `fst_prepare_conllu` which combines the other preparation functions and can be run as a single function to prepare data for analysis. 
+    * These are functions to annotate survey data into a useful format (CoNLL-U) for analysis. There is a 'main' function within this set, `fst_prepare_conllu()` which combines the other preparation functions and can be run as a single function to prepare data for analysis. 
 2. Data exploration functions (R/02_data_exploration.R)
     * This file contains a number of functions which can be used for exploratory data analysis such as summary tables, plotting frequently occurring words and phrases, and creating wordclouds. 
 3. Concept Network functions (R/03_concept_network.R)

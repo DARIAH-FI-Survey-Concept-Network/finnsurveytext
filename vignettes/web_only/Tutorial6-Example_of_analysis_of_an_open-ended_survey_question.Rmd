@@ -109,10 +109,10 @@ knitr::kable(head(all_nltk, 10))
 
 First, let's consider all the data to get some initial information about the responses to this question. We will run the following functions: 
 
-1. `fst_summarise`
-2. `fst_pos`
-3. `fst_length_summary`
-4. `fst_wordcloud`
+1. `fst_summarise()`
+2. `fst_pos()`
+3. `fst_length_summary()`
+4. `fst_wordcloud()`
 
 For further information on these functions, please see "Tutorial2-Data_exploration". 
 
@@ -250,9 +250,9 @@ For further details on the comparison functions, please refer to "Tutorial5-Demo
 #### Summary Comparisons
 We will start the comparison by looking at the summary functions: 
 
-1. `fst_summarise_compare`
-2. `fst_pos_compare``
-3. `fst_length_compare`
+1. `fst_summarise_compare()`
+2. `fst_pos_compare()`
+3. `fst_length_compare()`
 
 ```{r}
 knitr::kable(
@@ -377,7 +377,7 @@ Only part of this is explained by the fact that we have nearly 4 times as many r
 
 ## Conclusion 
 
-This tutorial demonstrates the use of `finnsurveytext` to look at a single question and then consider whether gender impacts response. Gender is just one of many ways you could split the data and is used as an example in this context. It is likely an analyst would want to split the data in other ways also such as age, education level, etc. 
+This tutorial demonstrates the use of `finnsurveytext` to look at a single question and then consider whether gender impacts response. Gender is just one of many ways you could split the data and is used as an example in this context. It is likely an analyst would also want to split the data in other ways such as age, education level, etc. 
 
 Following the use of `finnsurveytext`, we have a number of hypotheses, such as "Male survey respondents are more concerned about climate change than females", which could inform further analysis of the survey as a whole. 
 

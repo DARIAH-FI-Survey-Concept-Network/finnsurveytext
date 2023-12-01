@@ -34,11 +34,11 @@ library(finnsurveytext)
 ### Overview of Functions 
 The functions covered in this tutorial are in r/03_concept_network.R. These are: 
 
-1. `fst_cn_search`
-2. `fst_cn_edges`
-3. `fst_cn_nodes`
-4. `fst_cn_plot`
-5. `fst_concept_network`
+1. `fst_cn_search()`
+2. `fst_cn_edges()`
+3. `fst_cn_nodes()`
+4. `fst_cn_plot()`
+5. `fst_concept_network()`
 
 ### Data 
 
@@ -71,18 +71,18 @@ knitr::kable(head(bullying))
 ## FUNCTIONS
 
 ### Concept Network - Search Textrank for Concepts
-`fst_cn_search`
+`fst_cn_search()`
 
-This function is used to find words which are related to a list of provided terms. It utilises the `textrank_keywords` function which is part of the `textrank` package.
+This function is used to find words which are related to a list of provided terms. It utilises the `textrank_keywords()` function which is part of the `textrank` package.
 
 This function goes through the following process: 
 
 1. separates the search string into individual terms
-2. applies the `textrank_keywords` function which finds n-grams in the text that occur multiple times
+2. applies the `textrank_keywords()` function which finds n-grams in the text that occur multiple times
 3. finds all pairs of words included in these common ngrams 
 4. filters the pairs so that at least one of the pair is a searched term. 
 
-The function `fst_cn_search` is demonstrated below.
+The function `fst_cn_search()` is demonstrated below.
 ```{r}
 bullying_concepts <- fst_cn_search(
   data = bullying,
@@ -106,14 +106,14 @@ knitr::kable(head(q11_3_concepts, n = 10))
 
 To run `fst_cn_search`, we provide the following arguments to the function:
 
-1. `data` which is output from data preparation, prepared data in CoNLL-U format, such as the output of `fst_prepare_connlu`. 
+1. `data` which is output from data preparation, prepared data in CoNLL-U format, such as the output of `fst_prepare_connlu()`. 
 2. `concepts` is a string of concept terms to search for, separated by commas.
 3. `relevant_pos` is a list of UPOS tags for inclusion, default is c("NOUN", "VERB", "ADJ", "ADV").
 
 ### Concept Network - Get Textrank Edges
-`fst_cn_edges`
+`fst_cn_edges()`
 
-The Get Edges function runs the search function, `fst_cn_search` and then filters for edges (pairs of co-occurring words where one is a concept word) which are larger than the threshold (occurring enough times). The resulting dataframe is simplified in preparation for plotting.
+The Get Edges function runs the search function, `fst_cn_search()` and then filters for edges (pairs of co-occurring words where one is a concept word) which are larger than the threshold (occurring enough times). The resulting dataframe is simplified in preparation for plotting.
 
 ```{r}
 bullying_edges <- fst_cn_edges(
@@ -133,24 +133,24 @@ q11_3_edges <- fst_cn_edges(
 )
 ```
 
-The dataframe has a simplified format from the `fst_cn_search` results, with only columns "to", "from" and "n" which indicates the number of occurrences.
+The dataframe has a simplified format from the `fst_cn_search()` results, with only columns "to", "from" and "n" which indicates the number of occurrences.
 
 ```{r}
 knitr::kable(head(q11_2_edges, n = 10))
 ```
 
-The arguments are the same as for `fst_cn_search` plus the `threshold`.
+The arguments are the same as for `fst_cn_search()` plus the `threshold`.
 
-1. `data` which is output from data preparation, prepared data in CoNLL-U format, such as the output of `fst_prepare_connlu`.
+1. `data` which is output from data preparation, prepared data in CoNLL-U format, such as the output of `fst_prepare_connlu()`.
 2. `concepts` is a string of concept terms to search for, separated by commas.
 3. `threshold` is the minimum number of occurrences threshold for 'edge' between a concept term and other word, default is NULL.
 4. `norm` is the method for normalising the data. Valid settings are `'number_words'` (the number of words in the responses, default), `'number_resp'` (the number of responses), or `NULL` (raw count returned). Normalisation occurs **after** the threshold (if it exists) is applied. 
 5. `pos_filter` is a list of UPOS tags for inclusion, default is `NULL`.
 
 ### Concept Network - Get Textrank Nodes
-`fst_cn_nodes`
+`fst_cn_nodes()`
 
-This function runs the `textrank_keywords` function which is part of the `textrank` package and returns a dataframe containing relevant lemmas and their associated pagerank. 
+This function runs the `textrank_keywords()` function which is part of the `textrank` package and returns a dataframe containing relevant lemmas and their associated pagerank. 
 
 It is demonstrated as follows:
 ```{r}
@@ -163,14 +163,14 @@ q11_3_nodes <- fst_cn_nodes(data = conllu_dev_q11_3_nltk, edges = q11_3_edges)
 knitr::kable(head(q11_2_nodes, n = 10))
 ```
 
-`fst_cn_nodes` requires the following arguments:
+`fst_cn_nodes()` requires the following arguments:
 
-1. `data` which is output from data preparation, prepared data in CoNLL-U format, such as the output of `fst_prepare_connlu`.
-2. `edges` is the output from `fst_cn_edges`.
+1. `data` which is output from data preparation, prepared data in CoNLL-U format, such as the output of `fst_prepare_connlu()`.
+2. `edges` is the output from `fst_cn_edges()`.
 3. `pos_filter` is a list of UPOS tags for inclusion, default is `NULL`.
 
 ### Plot Concept Network
-`fst_cn_plot`
+`fst_cn_plot()`
 
 This function takes the output of the previous functions and plots the concept network. Edges between words in the plot show the number of occurrences with thicker and more opaque edges showing more occurrences. Similarly, the size of the word circle indicates the pagerank with higher pagerank resulting in a larger circle. Concept words are coloured red and other terms are black.
 
@@ -201,17 +201,17 @@ fst_cn_plot(
 )
 ```
 
-As `fst_cn_plot` uses results from the previous functions it requires 3 arguments:
+As `fst_cn_plot()` uses results from the previous functions it requires 3 arguments:
 
-1. `edges` is the output of `fst_cn_edges`.
-2. `nodes` is the output of `fst_cn_nodes`
+1. `edges` is the output of `fst_cn_edges()`.
+2. `nodes` is the output of `fst_cn_nodes()`
 3. `concepts` is a list of terms which have been searched for, separated by commas.
 4. `title` is an optional title for plot, default is `NULL` and a generic title, ('Textrank extracted keyword occurrences') will be used.
 
 ### Plot Concept Network
-`fst_concept_network`
+`fst_concept_network()`
 
-If you don't want to run all of the individual functions, `fst_cn_search`, `fst_cn_edges`, `fst_cn_nodes`, and `fst_cn_plot`, you can run them all within the one function `fst_concept_network`.
+If you don't want to run all of the individual functions, `fst_cn_search()`, `fst_cn_edges()`, `fst_cn_nodes()`, and `fst_cn_plot()`, you can run them all within the one function `fst_concept_network()`.
 
 This function is run as follows:
 ```{r}
@@ -256,7 +256,7 @@ fst_concept_network(
 
 The arguments are:
 
-1. `data` which is output from data preparation, prepared data in CoNLL-U format, such as the output of `fst_prepare_connlu`.
+1. `data` which is output from data preparation, prepared data in CoNLL-U format, such as the output of `fst_prepare_connlu()`.
 2. `concept` is a string of concept terms to search for, separated by commas.
 3. `threshold` is the minimum number of occurrences threshold for 'edge' between a concept term and other word, default is NULL.
 4. `norm` is the method for normalising the data. Valid settings are `'number_words'` (the number of words in the responses, default), `'number_resp'` (the number of responses), or `NULL` (raw count returned). Normalisation occurs **after** the threshold (if it exists) is applied. 

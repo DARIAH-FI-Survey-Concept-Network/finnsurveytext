@@ -39,10 +39,10 @@ library(finnsurveytext)
 
 The functions covered in this tutorial are: 
 
-1. `fst_format_conllu`
-2. `fst_find_stopwords`
-3. `fst_rm_stop_punct`
-4. `fst_prepare_conllu`
+1. `fst_format_conllu()`
+2. `fst_find_stopwords()`
+3. `fst_rm_stop_punct()`
+4. `fst_prepare_conllu()`
 
 ### Data
 This tutorial uses two sources of data from the Finnish Social Science Data Archive: 
@@ -60,7 +60,7 @@ This tutorial uses two sources of data from the Finnish Social Science Data Arch
 * Link to Data: https://urn.fi/urn:nbn:fi:fsd:T-FSD2821 
 
 
-Both of these will be demonstrated below but either can be used to complete the tutorial. If you would prefer to use your own data, you can read in this data through `read.csv` or similar so that you have a 'raw' dataframe ready in your R environment.
+Both of these will be demonstrated below but either can be used to complete the tutorial. If you would prefer to use your own data, you can read in this data through `read.csv()` or similar so that you have a 'raw' dataframe ready in your R environment.
 
 #### CoNLL-U Format Overview
 The `finnsurveytext` package uses the CoNLL-U format. This tutorial demonstrates the process of preparing Finnish survey text data into this format using functions in r/01_prepare_conll-u.r.
@@ -71,7 +71,7 @@ CoNLL stands for the Conference of Natural Language Learning and CoNLL-U format 
 More information on CoNLL-U format can be found in the Universal Dependencies Project, https://universaldependencies.org/format.html. 
 
 ## The Whole Story
-A single function, `fst_prepare_connlu` (which calls all the data preparation functions within the package) can be used to prepare the data into the required CoNNL-U format. 
+A single function, `fst_prepare_connlu()` (which calls all the data preparation functions within the package) can be used to prepare the data into the required CoNNL-U format. 
 
 ### 1. Child Barometer Data
 Using our Child Barometer bullying data, we can call this function as follows: 
@@ -87,9 +87,9 @@ prepd_bullying <- fst_prepare_conllu(
 
 Summary of components
 
-* `data` is the dataframe of interest. In this case, we are using data that comes with the package called 'child_barometer'. Otherwise, if you read in a csv containing a dataframe, such as through `read.csv` in base R for use in this tutorial.
+* `data` is the dataframe of interest. In this case, we are using data that comes with the package called 'child_barometer'. Otherwise, if you read in a csv containing a dataframe, such as through `read.csv()` in base R for use in this tutorial.
 * The `field` is the name of the column in your data which contains the open-ended survey question. In this example, the responses about bullying are in question 7. 
-* We have chosen to remove stopwords from the "nltk" stopword list in this example. To find the relevant lists of Finnish stopwords, you can run the `fst_rm_stopwords_punct` function which is outlined below. Punctuation is also removed from the data whenever stopwords are removed.
+* We have chosen to remove stopwords from the "nltk" stopword list in this example. To find the relevant lists of Finnish stopwords, you can run the `fst_rm_stopwords_punct()` function which is outlined below. Punctuation is also removed from the data whenever stopwords are removed.
 * The function also requires a Finnish language model available for `udpipe`, in this case we are using the default Finnish Treebank, `model = "ftb"`. (There are two options for Finnish langage model; the other option is the Turku Dependency Treebank. For further detail on the treebanks, see the **Format as CoNLL-U** section below.
 * The results in CoNLL-U format are stored in the local environment as "prepd_bullying". 
 
@@ -106,33 +106,33 @@ prepd_lonely <- fst_prepare_conllu(
 )
 ```
 
-* `data` is the dataframe of interest. In this case, we are using data that comes with the pacakge called 'dev_data'. Otherwise, if you read in a csv containing a dataframe, such as through `read.csv` in base R for use in this tutorial.
+* `data` is the dataframe of interest. In this case, we are using data that comes with the pacakge called 'dev_data'. Otherwise, if you read in a csv containing a dataframe, such as through `read.csv()` in base R for use in this tutorial.
 * The `field` is the name of the column in your data which contains the open-ended survey question. In this example, the responses are in question 11_2. 
 * We have chosen *not* to remove stopwords and punctuation in this example. (`stopword_list = NULL`)
 * The function also requires a Finnish language model available for [udpipe], in this case we are using the Turku Dependency Treebank, `model = "tdt"`.
 * The results in CoNLL-U format are stored in the local environment as "prepd_lonely". 
 
 ## In greater detail
-To better understand the `fst_prepare_connlu` function, we will go through each of the functions that this one calls. These are: 
+To better understand the `fst_prepare_connlu()` function, we will go through each of the functions that this one calls. These are: 
 
-* `fst_format_connlu`
-* `fst_rm_stopwords_punct`
+* `fst_format_connlu()`
+* `fst_rm_stopwords_punct()`
 
-Additionally, the `fst_find_stopwords` function can be used to find currently available lists of Finnish stopwords for exclusion from the data. The "name" column can be used to choose a list for the `stopword_list` variable above. 
+Additionally, the `fst_find_stopwords()` function can be used to find currently available lists of Finnish stopwords for exclusion from the data. The "name" column can be used to choose a list for the `stopword_list` variable above. 
 Stopword lists are lists of common words (eg. "and", "the",  and "is", or in Finnish "olla", "ollet", "ollen", and "on"...) which are often filtered out of the data, leaving less frequently-occurring, and thus more more meaningful, words remaining. 
 
 ```{r}
 stopwords <- fst_find_stopwords()
 ```
 
-The stopwords lists can be very long, so only one (nltk) is shown below. Another two lists, snowball and stopwords-iso, can be found by running the `fst_find_stopwords` function in your local environment. 
+The stopwords lists can be very long, so only one (nltk) is shown below. Another two lists, snowball and stopwords-iso, can be found by running the `fst_find_stopwords()` function in your local environment. 
 
 ```{r echo = FALSE}
 knitr::kable(head(stopwords, 1))
 ```
 
 ### Format as CoNNL-U
-`fst_format_connlu`
+`fst_format_connlu()`
 
 This function is used to format the data from your open-ended survey question into CoNLL-U format. It also: 
 * trims trailing whitespace from the data;
@@ -141,7 +141,7 @@ This function is used to format the data from your open-ended survey question in
 
 Our package works for two of the Finnish language models available, [Turku Dependency Treebank (TDT)](https://universaldependencies.org/treebanks/fi_tdt/index.html) and [FinnTreeBank (FTB)](https://universaldependencies.org/treebanks/fi_ftb/index.html). Further information about these treebanks can be found at the links but, in brief, the TDT is considered "broad coverage" and includes texts from Wikipedia and news sources, and FTB consists of manually annotated grammatical examples from [VISK](https://kaino.kotus.fi/visk/etusivu.php). 
 
-The `fst_format_conllu` function utilises the `udpipe` [package](https://cran.r-project.org/web/packages/udpipe/vignettes/udpipe-annotation.html) and can be run as follows: 
+The `fst_format_conllu()` function utilises the `udpipe` [package](https://cran.r-project.org/web/packages/udpipe/vignettes/udpipe-annotation.html) and can be run as follows: 
 
 ```{r}
 conllu_dev_q11_1 <- fst_format_conllu(data = dev_data, field = "q11_1")
@@ -154,21 +154,21 @@ The top 5 rows of the "conllu_cb_bullying" table are shown below:
 knitr::kable(head(conllu_cb_bullying))
 ```
 
-´fst_format_conllu` takes 3 arguments: 
+´fst_format_conllu()` takes 3 arguments: 
 
 1. `data` the dataframe containing the survey data. 
 2. `field` is the open-ended survey question header in the table, such as "q9"
 3. `model` is the chosen Finnish treebank for annotation, either "ftb" (the default) or "tdt". 
 
 ### Remove stopwords and punctuation from CoNLL-U data
-`fst_rm_stop_punct`
+`fst_rm_stop_punct()`
 
 This (optional) function will remove stopwords and punctuation from the CoNLL-U data. `fst_find_stopwords` can be used to find options for stopwords lists. 
 
-`fst_rm_stop_punct` takes 2 arguments: 
+`fst_rm_stop_punct()` takes 2 arguments: 
 
-1. `data` is output from `fst_format_conllu`
-2. `stopword_list` is a list of Finnish stopwords, the default is "nltk" but any "Name" column from `fst_find_stopwords` can be used.
+1. `data` is output from `fst_format_conllu()`
+2. `stopword_list` is a list of Finnish stopwords, the default is "nltk" but any "Name" column from `fst_find_stopwords()` can be used.
 
 ```{r}
 conllu_dev_q11_1_nltk <- fst_rm_stop_punct(data = conllu_dev_q11_1)

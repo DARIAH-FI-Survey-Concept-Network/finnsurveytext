@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 
 ## Introduction
 
-This tutorial goes into further details demonstrating the use of the package, covering functions in `r/02_data_exploration.R` and `r/02_data_exploration.R`. The intention is to provide an example of some initial analysis of open-ended survey questions being used to inform the settings and concept words of the Concept Network plot and then how you can be fine-tune these to produce plots that provide useful insights during analysis and are which are more persuasive visualisations of your findings.
+This tutorial goes into further details demonstrating the use of the package, covering functions in `r/02_data_exploration.R` and `r/03_concept_network.R`. The intention is to provide an example where some initial analysis of an open-ended survey question is used to inform the settings and concept words of the Concept Network plot. Then, we demonstrate how the Concept Network settings can be fine-tuned to produce plots which are more persuasive visualisations of your findings.
 
 ### Installation of package.
 
@@ -27,6 +27,17 @@ First, install and load the `finnsurveytext` package as below:
 ```{r setup}
 library(finnsurveytext)
 ```
+
+### Overview of Functions 
+The functions covered in this tutorial are: 
+
+1. `fst_summarise()` 
+2. `fst_pos()` 
+3. `fst_length_summary()`
+4. `fst_freq()`
+5. `fst_ngrams()`
+6. `fst_wordcloud()`
+7. `fst_concept_network()`
 
 ### The Data
 We're looking again at the FSD2821 Young People's Views on Development Cooperation 2012 (FSD2821 Nuorten ajatuksia kehitysyhteistyöstä 2012) survey which is provided as sample data with the package. 
@@ -77,9 +88,9 @@ To begin with, let's look at the differences between the types of reponses we ge
 
 First, let's consider these functions: 
 
-1. `fst_summarise` - This table will indicate response rate, and word counts.
-2. `fst_pos` - This table counts the number and proportion of words with each part-of-speech tag.
-3. `fst_length_summary` - This table gives the average and quartile values of lengths of responses in words and sentences. 
+1. `fst_summarise()` - This table will indicate response rate, and word counts.
+2. `fst_pos()` - This table counts the number and proportion of words with each part-of-speech tag.
+3. `fst_length_summary()` - This table gives the average and quartile values of lengths of responses in words and sentences. 
 
 The differences in the types of responses can be seen in the exploratory data analysis results below: 
 
@@ -96,11 +107,11 @@ knitr::kable(
 )
 ```
 
-**Remarks:* 
+**Remarks:**
 
-* All 3 questions have a high (97/98%) response rate
-* Q11_1 contains the most unique words
-* All 3 questions have a similar number of unique lemmas 
+* All 3 questions have a high (97/98%) response rate.
+* Q11_1 contains the most unique words.
+* All 3 questions have a similar number of unique lemmas.
 
 #### POS Summary
 ```{r}
@@ -118,8 +129,8 @@ knitr::kable(
 **Remarks:**
 
 * Nouns are the most common word type across all 3 questions. 
-* Q11_1 also commonly contains adjectives, adverbs and nouns
-* Q11_2 has a similar number of nouns and verbs, and then a smaller number of adjectives and adverbs
+* Q11_1 also commonly contains adjectives, adverbs and nouns.
+* Q11_2 has a similar number of nouns and verbs, and then a smaller number of adjectives and adverbs.
 * Q11_3 also has a lot of adjectives and verbs but few adverbs. 
 
 
@@ -150,15 +161,15 @@ knitr::kable(
 
 **Remarks:**
 
-* All 3 questions have most responses being one sentence
+* All 3 questions have most responses being one sentence.
 * Each question has a longest response of about 30 words and most responses of about 5 words. 
 
 ### Most common words and n-grams
 
 Now, lets create some tables of the most common words, bigrams and trigrams using the following functions: 
 
-1. `fst_freq`
-2. `fst_ngrams`
+1. `fst_freq()`
+2. `fst_ngrams()`
 
 #### Top Words
 ```{r}
@@ -281,6 +292,7 @@ fst_ngrams(
   + 'vesi puute', 'puhdas vesi', 'puhdas vesi puute' 
 
 #### Wordcloud
+`fst_wordcloud()`
 
 We can see the most frequent words identified above also coming out in the wordclouds. 
 
@@ -305,6 +317,7 @@ fst_wordcloud(
 ```
 
 ### Exploring some concept networks based on thematic frequently occurring words
+`fst_concept_network()`
 
 Based on the most frequently-occurring words, we have chosen some lists of "concepts" for each question and will create Concept Networks based on these. You can see below how the `threshold` can be used to make sure the concept network isn't too "busy" by removing less frequent connection words. Similarly, you can see how the length of the "concepts" list impacts the "busyness" of the plot. Often, the "concept" list and appropriate `threshold` will be the product of trial and error. 
 
@@ -349,6 +362,7 @@ fst_concept_network(
 ```
 
 **Remarks:**
+
 Here, our first plot may be the best. We can see that a threshold is not required as there are not too many words displayed but we can get some insight into the use of these words (in English, they are 'standard-of-living' and 'poor'). As you can see in plots 3 and 4, when including the most common word, 'ihminen' ('human being' or 'man'), a threshold such as 3 is advisable. 
 
 #### Q11_2
@@ -401,7 +415,8 @@ fst_concept_network(
 ```
 
 **Remarks:**
-In Q11_2, plots 1-3 show that if we include all 5 of our words ('developing country', 'help', 'strive', 'country', 'man') or a subset that a threshold is required, but that a threshold of 10 is too large to gain additional words in the Network. Here `threshold = 5` seems appropriate 
+
+In Q11_2, plots 1-3 show that if we include all 5 of our words ('developing country', 'help', 'strive', 'country', 'man') or a subset that a threshold is required, but that a threshold of 10 is too large to gain additional words in the Network. Here `threshold = 5` seems appropriate.
 
 #### Q11_3
 * q11_3 Jatka lausetta: Maailman kolme suurinta ongelmaa ovat... (Avokysymys)
@@ -452,11 +467,12 @@ fst_concept_network(
 ```
 
 **Remarks:**
+
 In Q11_3, we can see that if your concept word list is short (such as a single word) thresholds generally are not required, but that with longer concept lists, setting a `threshold = 2` or `threshold = 3`, we can simplify and improve a plot that is a little too crowded in this case. The "best" threshold is generally a matter of context and at the analyst's discretion. 
 
 ## Conclusion 
 
-From the above, we can see that different settings create different Concept Networks. There is no "right" setting for a Concept Network, so it is worthwhile exploring the Concept Networks that result from different concept words and thresholds to investigate the data and identify trends which warrant further analysis. Initial Concept Network settings can be informed by other functions in `finnsurveytext` functions such as most frequent words or wordclouds. 
+From the above, we can see that different settings create different Concept Networks. There is no "right" setting for a Concept Network, so it is worthwhile exploring the Concept Networks that result from different concept words and thresholds to investigate the data and identify trends which warrant further analysis. Initial Concept Network settings can be informed by other functions in `finnsurveytext`, such as choosing the most frequent words/n-grams or considering insights from wordclouds. 
 
 
 ## Citation

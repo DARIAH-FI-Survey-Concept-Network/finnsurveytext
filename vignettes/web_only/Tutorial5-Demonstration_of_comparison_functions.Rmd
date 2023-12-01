@@ -18,24 +18,24 @@ knitr::opts_chunk$set(
 ## Introduction
 When analysing responses to open-ended questions, you may want to look into whether different groups of survey participants have, in general, responded differently to the prompt. `finnsurveytext` contains a number of comparison functions which are intended to be used to compare responses between groups. These comparison functions covered are defined in `r/04_comparison_functions.R` and `r/05_comparison_concept_network.R`.
 
-One way to split the data is using a different question within the survey such as a categorical question (eg. gender, location, or level of education) or an ordinal variable (such as aged or income). In this tutorial, we will look at comparing responses to a question based on gender. Before using the comparison functions, we run the preparation functions which are in `r/01_prepare_conll-u.R` (and which are covered in detail in 'Tutorial1-Prepare CoNLL-U') for each group separately.  
+One way to split the data is using a different question within the survey such as a categorical question (eg. gender, location, or level of education) or an ordinal variable (such as age or income bracket). In this tutorial, we will look at comparing responses to a question based on gender. Before using the comparison functions, we run the preparation functions which are in `r/01_prepare_conll-u.R` (and which are covered in detail in 'Tutorial1-Prepare CoNLL-U') for each group separately.  
 
 The comparison functions are: 
 
-1. `fst_summarise_compare`
-2. `fst_pos_compare`
-3. `fst_length_compare`
-4. `fst_comparisoncloud`
-5. `fst_get_unique_ngrams`
-6. `fst_join_unique`
-7. `fst_ngrams_compare_plot`
-8. `fst_ngrams_compare_plot2`
-9. `fst_plot_multiple`
-10. `fst_freq_compare`
-11. `fst_ngrams_compare`
-12. `fst_cn_get_unique`
-13. `fst_cn_compare_plot`
-14. `fst_concept_network_compare`
+1. `fst_summarise_compare()`
+2. `fst_pos_compare()`
+3. `fst_length_compare()`
+4. `fst_comparisoncloud()`
+5. `fst_get_unique_ngrams()`
+6. `fst_join_unique()`
+7. `fst_ngrams_compare_plot()`
+8. `fst_ngrams_compare_plot2()`
+9. `fst_plot_multiple()`
+10. `fst_freq_compare()`
+11. `fst_ngrams_compare()`
+12. `fst_cn_get_unique()`
+13. `fst_cn_compare_plot()`
+14. `fst_concept_network_compare()`
 
 We will look at the following question: 
 
@@ -62,7 +62,7 @@ There are four sets of data files available within the package which are used in
 * data/dev_data_na.rda - Responses to the survey by participants who have not responded to the gender question 
 
 We can prepare the data into CoNLL-U format using functions from `01_prepare_conllu-u.R` as follows:
-(We are preparing versions with and without stopwords removed because we have some functions which are better with/without the stopwords included.)
+(We are preparing versions with and without stopwords removed because we have some functions which are more informative with or without the stopwords included.)
 
 ```{r}
 all <- fst_prepare_conllu(
@@ -131,9 +131,9 @@ All of our comparison functions can compare between two and four sets of data. T
 
 First, we will look at some summary functions to compare the responses overall. (We are using the versions which **include** the stopwords here.) The functions are: 
 
-1. `fst_summarise_compare`
-2. `fst_pos_summary`
-3. `fst_length_compare`
+1. `fst_summarise_compare()`
+2. `fst_pos_summary()`
+3. `fst_length_compare()`
 
 #### Make Comparison Summary
 
@@ -150,7 +150,7 @@ knitr::kable(
 )
 ```
 
-To run `fst_summarise_compare`, we provide the following arguments to the function:
+To run `fst_summarise_compare()`, we provide the following arguments to the function:
 
 * `data1`, `data2`, `data3` and `data4` (as defined above, `data3` and `data4` are optional)
 * `name1`, `name2`, `name3` and `name4` (optional, as defined above)
@@ -188,7 +188,7 @@ Both these functions have the same arguments, as defined above:
 * `data1`, `data2`, `data3` and `data4` (`data3` and `data4` are optional)
 * `name1`, `name2`, `name3` and `name4` 
 
-Additionally, `fst_length_compare` has: 
+Additionally, `fst_length_compare()` has: 
 
 * `incl_sentences` an optional boolean of whether to include sentence data in table, default is `TRUE`. If `incl_sentences = TRUE`, the table will also provide length information for the number of sentences within responses. If `incl_sentences = FALSE`, the table will show only show results for the number of words in responses. 
 
@@ -213,7 +213,7 @@ fst_comparison_cloud(
 )
 ```
 
-To run `fst_comparison_cloud`, we provide the following arguments to the function:
+To run `fst_comparison_cloud()`, we provide the following arguments to the function:
 
 * `data1`, `data2`, `data3` and `data4` (as defined above, `data3` and `data4` are optional)
 * `name1`, `name2`, `name3` and `name4` (optional, as defined above)
@@ -229,7 +229,7 @@ Now, we will look at common words occurring in the responses.
 
 First, we will consider all the responses for this question. We are not filtering the data based on POS tag, and will leave the default of `strict = TRUE` which will cut-off the list at 10 words (see the warning note about this). We also use the default for the norm which means we are standardising between groups by dividing count of a word by the total number of words in the responses. 
 
-For definition of `fst_get_top_words` and `fst_get_top_ngrams` functions, see "Tutorial2-Data_Exploration". 
+For definition of `fst_get_top_words()` and `fst_get_top_ngrams()` functions, see "Tutorial2-Data_Exploration". 
 
 ```{r}
 all_top10 <- fst_get_top_words(all_nltk,
@@ -282,7 +282,7 @@ knitr::kable(na_top10)
 As you can see, the top words are very similar across all respondent types. 
 
 ### Comparison N-Gram Plots 
-This is further shown in the comparison plots. There are two functions which create the plots in one function simply. These are `fst_freq_compare` and `fst_ngrams_compare`. 
+This is further shown in the comparison plots. There are two functions which create the plots in one function simply. These are `fst_freq_compare()` and `fst_ngrams_compare()`. 
 
 (Note that words that are unique to a gender are highlighted in red. This is only comparing the top 10 words, so be aware this word likely still appears in the other genders, just less frequently!)
 
@@ -299,7 +299,7 @@ fst_freq_compare(
 )
 ```
 
-The function `fst_freq_compare` has the following arguments:
+The function `fst_freq_compare()` has the following arguments:
 
 * `data1`, `data2`, `data3` and `data4` (as defined above, `data3` and `data4` are optional)
 * `name1`, `name2`, `name3` and `name4` (optional, as defined above)
@@ -324,7 +324,7 @@ fst_ngrams_compare(
 )
 ```
 
-The function `fst_ngrams_compare` has the following arguments:
+The function `fst_ngrams_compare()` has the following arguments:
 
 * `data1`, `data2`, `data3` and `data4` (as defined above, `data3` and `data4` are optional)
 * `name1`, `name2`, `name3` and `name4` (optional, as defined above)
@@ -335,8 +335,7 @@ The function `fst_ngrams_compare` has the following arguments:
 * `unique_colour` is the colour that unique words will be displayed, the default is `indianred`. 
 * `strict` is a boolean that determines how the function will deal with 'ties'. If `strict = TRUE`, the table will cut-off at the exact `number`(words are presented in alphabetical order so later-alphabetically, equally occurring words to the word at `number` will not be shown.) If `strict = FALSE`, the table will show any words that occur equally frequently as the number cutoff word. 
 
-
-Now, we might want to compare this to the overall results. Since, `fst_freq_compare` looks for unique words among all the sets provided, and we only want to look for unique words within the gender-specific sets, we need to run this activity through the component functions. These are `fst_get_unique_ngrams`, `fst_join_unique`, `fst_ngrams_compare_plot` and `fst_plot_multiple`. (Just for fun, let's also changed the colour of the unique words.)
+Now, we might want to compare this to the overall results. Since, `fst_freq_compare()` looks for unique words among all the sets provided, and we only want to look for unique words within the gender-specific sets, we need to run this activity through the component functions. These are `fst_get_unique_ngrams()`, `fst_join_unique()`, `fst_ngrams_compare_plot()` and `fst_plot_multiple()`. (Just for fun, let's also changed the colour of the unique words.)
 
 ```{r}
 unique <- fst_get_unique_ngrams(female_top10, male_top10, na_top10)
@@ -375,18 +374,18 @@ fst_plot_multiple(plot_all,
 
 The arguments of these functions are: 
 
-* `fst_get_unique_grams`: 
-  + `table1`, `table2`, ... - A list of names of tables which are the output of `fst_get_top_words` or `fst_get_top_ngrams`
-* `fst_join_unique`: 
-  + `table` is a table that is the output of `fst_get_top_words` or `fst_get_top_ngrams``
-  + `unique` is the output of `fst_get_unique`
-* `fst_ngrams_compare_plot`: 
-  + `table` is the table of words/n-grams, output of `get_unique_ngrams`
+* `fst_get_unique_ngrams()`: 
+  + `table1`, `table2`, ... - A list of names of tables which are the output of `fst_get_top_words()` or `fst_get_top_ngrams()`
+* `fst_join_unique()`: 
+  + `table` is a table that is the output of `fst_get_top_words()` or `fst_get_top_ngrams()`
+  + `unique` is the output of `fst_get_unique_ngrams()`
+* `fst_ngrams_compare_plot()`: 
+  + `table` is the table of words/n-grams, output of `fst_join_unique()`
   + `number` is the number of n-grams, default is `10`.
   + `ngrams` is the type of n-grams, default is `1`.
-  + `unique_colour`is the colour to display unique words, default is `indianred`.
+  + `unique_colour`is the colour to display unique words, default is `"indianred"`.
   + `name` is an optional "name" for the plot, default is `NULL`
-* `fst_plot_multiple`: 
+* `fst_plot_multiple()`: 
   + `plot1`, `plot2`, `plot3` and `plot4` are the plots. Since you can compare between 2 and 4 plots, `plot3` and `plot4` are both optional.
 
 ### Comparison Concept Network 

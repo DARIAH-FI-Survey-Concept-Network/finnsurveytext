@@ -30,7 +30,6 @@ Finnish survey text reponses in CoNLL-U format with stopwords removed.
 
 cb <- child_barometer_data
 fst_prepare_conllu(data = cb, field = "q7", stopword_list = "stopwords-iso")
-fst_prepare_conllu(dev_data, field = "q11_2", stopword_list = "snowball")
 fst_prepare_conllu(dev_data_f, field = "q11_1", stopword_list = "nltk")
 
 unlink("finnish-ftb-ud-2.5-191206.udpipe")
