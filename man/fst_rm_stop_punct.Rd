@@ -20,8 +20,6 @@ Removes stopwords and punctuation from a dataframe containing Finnish survey
 text data which is already in CoNLL-U format.
 }
 \examples{
-fst_rm_stop_punct(conllu_dev_q11_1)
-fst_rm_stop_punct(conllu_dev_q11_2)
 fst_rm_stop_punct(conllu_dev_q11_3)
 fst_rm_stop_punct(conllu_dev_q11_1, stopword_list <- "snowball")
 fst_rm_stop_punct(conllu_cb_bullying, "stopwords-iso")

@@ -9,8 +9,7 @@
 #' @export
 #'
 #' @examples
-#' bullying_summary <- fst_summarise_short(conllu_cb_bullying_iso)
-#' q11_1_summary <- fst_summarise_short(conllu_dev_q11_1_nltk)
+#' fst_summarise_short(conllu_cb_bullying_iso)
 #' fst_summarise_short(conllu_dev_q11_2_nltk)
 fst_summarise_short <- function(data) {
   data %>%
@@ -69,7 +68,6 @@ fst_summarise <- function(data, desc = "All respondents") {
 #' @examples
 #' fst_pos(conllu_cb_bullying_iso)
 #' fst_pos(conllu_dev_q11_3_nltk)
-#' fst_pos(conllu_dev_q11_1_snow)
 fst_pos <- function(data) {
   denom <- nrow(data)
   pos_table <- data %>%
@@ -179,7 +177,6 @@ fst_length_summary <- function(data,
 #' @export
 #'
 #' @examples
-#' fst_get_top_words(conllu_dev_q11_1_nltk, number = 15, norm = NULL)
 #' fst_get_top_words(conllu_dev_q11_1_nltk, number = 15, strict = FALSE)
 #' cb <- conllu_cb_bullying
 #' pf <- c("NOUN", "VERB", "ADJ", "ADV")

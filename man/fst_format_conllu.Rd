@@ -24,9 +24,10 @@ Creates a dataframe in CoNLL-U format from a list of strings of Finnish text
 using the [udpipe] package and a Finnish language model.
 }
 \examples{
-fst_format_conllu(data = dev_data, field = "q11_1")
+\donttest{
+fst_format_conllu(data = child_barometer_data, field = "q7")
 fst_format_conllu(data = child_barometer_data, field = "q7", model = "tdt")
-
 unlink("finnish-ftb-ud-2.5-191206.udpipe")
 unlink("finnish-tdt-ud-2.5-191206.udpipe")
+}
 }

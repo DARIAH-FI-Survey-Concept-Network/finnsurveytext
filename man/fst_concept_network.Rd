@@ -43,17 +43,9 @@ Concept Network based on the calculated weights of these terms and the
 frequency of co-occurrences.
 }
 \examples{
-fst_concept_network(conllu_dev_q11_3, concepts = "köyhyys, puute")
-
-con2 <- "köyhyys, nälänhätä, sota, ilmastonmuutos, puute"
-fst_concept_network(conllu_dev_q11_3, concepts = con2)
-
-con3 <- "köyhyys, nälänhätä, sota, ilmastonmuutos, puute"
-fst_concept_network(conllu_dev_q11_3, concepts = con3, threshold = 3)
-
-data4 <- conllu_cb_bullying_iso
-con4 <- "kiusata, lyöminen"
-pf4 <- c("NOUN", "VERB", "ADJ", "ADV")
-title4 <- "Bullying Concept Network"
-fst_concept_network(data4, concepts = con4, pos_filter = pf4, title = title4)
+data <- conllu_cb_bullying_iso
+con <- "kiusata, lyöminen"
+pf <- c("NOUN", "VERB", "ADJ", "ADV")
+title <- "Bullying Concept Network"
+fst_concept_network(data, concepts = con, pos_filter = pf, title = title)
 }

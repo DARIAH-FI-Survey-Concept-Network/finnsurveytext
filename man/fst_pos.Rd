@@ -20,5 +20,4 @@ words of each part-of-speech tag within the data.
 \examples{
 fst_pos(conllu_cb_bullying_iso)
 fst_pos(conllu_dev_q11_3_nltk)
-fst_pos(conllu_dev_q11_1_snow)
 }

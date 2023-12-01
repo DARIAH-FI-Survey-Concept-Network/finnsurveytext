@@ -35,7 +35,6 @@ Creates a table of the most frequently-occurring words (unigrams) within the
 data.
 }
 \examples{
-fst_get_top_words(conllu_dev_q11_1_nltk, number = 15, norm = NULL)
 fst_get_top_words(conllu_dev_q11_1_nltk, number = 15, strict = FALSE)
 cb <- conllu_cb_bullying
 pf <- c("NOUN", "VERB", "ADJ", "ADV")

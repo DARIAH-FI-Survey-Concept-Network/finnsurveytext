@@ -23,17 +23,8 @@ and, using `textrank_keywords()` from `textrank` package, filters data based
 on `pos_filter` and finds words connected to search terms.
 }
 \examples{
-con1 <- "elintaso, köyhä, ihminen"
-fst_cn_search(conllu_dev_q11_1_nltk, con1)
-
-con2 <- "kehitysmaa, auttaa, pyrkiä, maa, ihminen"
-pf1 <- c("NOUN", "ADV", "ADJ")
-fst_cn_search(conllu_dev_q11_2_nltk, con2, pos_filter = pf1)
-
-con3 <- "köyhyys, nälänhätä, sota, ilmastonmuutos, puute"
-fst_cn_search(conllu_dev_q11_3_nltk, con3, pos_filter = "NOUN")
-
-con4 <- "kiusata, lyöminen, lyödä, potkia"
-pf2 <- c("NOUN", "VERB", "ADJ", "ADV")
-fst_cn_search(conllu_cb_bullying_iso, con4, pos_filter = pf2)
+con <- "kiusata, lyöminen, lyödä, potkia"
+pf <- c("NOUN", "VERB", "ADJ", "ADV")
+fst_cn_search(conllu_cb_bullying_iso, concepts = con, pos_filter = pf)
+fst_cn_search(conllu_cb_bullying_iso, concepts = con)
 }

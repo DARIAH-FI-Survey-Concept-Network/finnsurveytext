@@ -14,11 +14,12 @@
 #' @export
 #'
 #' @examples
-#' fst_format_conllu(data = dev_data, field = "q11_1")
+#' \donttest{
+#' fst_format_conllu(data = child_barometer_data, field = "q7")
 #' fst_format_conllu(data = child_barometer_data, field = "q7", model = "tdt")
-#'
 #' unlink("finnish-ftb-ud-2.5-191206.udpipe")
 #' unlink("finnish-tdt-ud-2.5-191206.udpipe")
+#' }
 fst_format_conllu <- function(data, field, model = "ftb") {
   data <- data %>%
     dplyr::mutate(new_col = trimws(.data[[field]])) %>%
@@ -87,8 +88,6 @@ fst_find_stopwords <- function() {
 #' @export
 #'
 #' @examples
-#' fst_rm_stop_punct(conllu_dev_q11_1)
-#' fst_rm_stop_punct(conllu_dev_q11_2)
 #' fst_rm_stop_punct(conllu_dev_q11_3)
 #' fst_rm_stop_punct(conllu_dev_q11_1, stopword_list <- "snowball")
 #' fst_rm_stop_punct(conllu_cb_bullying, "stopwords-iso")
@@ -120,13 +119,12 @@ fst_rm_stop_punct <- function(data, stopword_list = "nltk") {
 #' @export
 #'
 #' @examples
-#'
+#' \donttest{
 #' cb <- child_barometer_data
 #' fst_prepare_conllu(data = cb, field = "q7", stopword_list = "stopwords-iso")
-#' fst_prepare_conllu(dev_data_f, field = "q11_1", stopword_list = "nltk")
-#'
 #' unlink("finnish-ftb-ud-2.5-191206.udpipe")
 #' unlink("finnish-tdt-ud-2.5-191206.udpipe")
+#' }
 fst_prepare_conllu <- function(data,
                                field,
                                model = "ftb",
