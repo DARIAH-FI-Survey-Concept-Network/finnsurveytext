@@ -94,72 +94,10 @@ include all UPOS tags.</p></dd>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">con1</span> <span class="op">&lt;-</span> <span class="st">"elintaso, köyhä, ihminen"</span></span></span>
-<span class="r-in"><span><span class="va">data1</span> <span class="op">&lt;-</span> <span class="va">conllu_dev_q11_1_nltk</span></span></span>
-<span class="r-in"><span><span class="va">e1</span> <span class="op">&lt;-</span> <span class="fu"><a href="fst_cn_edges.html">fst_cn_edges</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data1</span>, concepts <span class="op">=</span> <span class="va">con1</span>, threshold <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">fst_cn_nodes</span><span class="op">(</span><span class="va">conllu_dev_q11_1_nltk</span>, <span class="va">e1</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          lemma    pagerank</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1      tarvita 0.011303222</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2        köyhä 0.015831729</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3      ihminen 0.037634633</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4        suuri 0.008139690</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5     elintaso 0.017805645</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6        nähdä 0.002613529</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7          osa 0.003541460</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  köyhyysraja 0.002260802</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9          apu 0.010529782</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10        elää 0.007713708</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 alapuolella 0.002482670</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12       voida 0.003178106</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13       nälkä 0.004414100</span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">con2</span> <span class="op">&lt;-</span> <span class="st">"kehitysmaa, auttaa, pyrkiä, maa, ihminen"</span></span></span>
-<span class="r-in"><span><span class="va">e2</span> <span class="op">&lt;-</span> <span class="fu"><a href="fst_cn_edges.html">fst_cn_edges</a></span><span class="op">(</span><span class="va">conllu_dev_q11_2_nltk</span>, <span class="va">con2</span>, threshold <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">fst_cn_nodes</span><span class="op">(</span><span class="va">conllu_dev_q11_2_nltk</span>, <span class="va">e2</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         lemma    pagerank</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1      auttaa 0.079993982</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2      pyrkiä 0.035807413</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  kehitysmaa 0.076814766</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4    parantaa 0.022363473</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5     ihminen 0.025092128</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6         apu 0.008981242</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7         olo 0.012328932</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8        asua 0.003022699</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9    kehittyä 0.005980005</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10  tarvitsla 0.003426629</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11    tilanne 0.002620661</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12       köys 0.001778706</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13  saavuttaa 0.001178081</span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">con3</span> <span class="op">&lt;-</span> <span class="st">"köyhyys, nälänhätä, sota, ilmastonmuutos, puute"</span></span></span>
-<span class="r-in"><span><span class="va">e3</span> <span class="op">&lt;-</span> <span class="fu"><a href="fst_cn_edges.html">fst_cn_edges</a></span><span class="op">(</span><span class="va">conllu_dev_q11_3_nltk</span>, <span class="va">con3</span>, threshold <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">fst_cn_nodes</span><span class="op">(</span><span class="va">conllu_dev_q11_3_nltk</span>, <span class="va">e3</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                lemma     pagerank</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1             puhdas 0.0124400183</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2               vesi 0.0161469177</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3          nälänhätä 0.0433034461</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4            köyhyys 0.0461445812</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5               sota 0.0414512878</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6     ilmastonmuutos 0.0262900492</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7            ihminen 0.0207061155</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8              nälkä 0.0149125715</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9              puute 0.0211828601</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10          koulutus 0.0043896877</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11      epätasa-arvo 0.0159168825</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12      väestönkasvu 0.0090297460</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13       ihmisoikeus 0.0051055092</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14       saastuminen 0.0037587779</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15        riippuvuus 0.0009532796</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16             huono 0.0037057816</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17 ylikansoittuminen 0.0032732562</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18              öljy 0.0013980793</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19         aiheuttaa 0.0025966939</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20            talous 0.0031345086</span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">con4</span> <span class="op">&lt;-</span> <span class="st">"kiusata, lyöminen"</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">con</span> <span class="op">&lt;-</span> <span class="st">"kiusata, lyöminen"</span></span></span>
 <span class="r-in"><span><span class="va">cb</span> <span class="op">&lt;-</span> <span class="va">conllu_cb_bullying_iso</span></span></span>
-<span class="r-in"><span><span class="va">e4</span> <span class="op">&lt;-</span> <span class="fu"><a href="fst_cn_edges.html">fst_cn_edges</a></span><span class="op">(</span><span class="va">cb</span>, <span class="va">con4</span>, pos_filter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NOUN"</span>, <span class="st">"VERB"</span>, <span class="st">"ADJ"</span>, <span class="st">"ADV"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">fst_cn_nodes</span><span class="op">(</span><span class="va">conllu_cb_bullying_iso</span>, <span class="va">e4</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NOUN"</span>, <span class="st">"VERB"</span>, <span class="st">"ADJ"</span>, <span class="st">"ADV"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">edges</span> <span class="op">&lt;-</span> <span class="fu"><a href="fst_cn_edges.html">fst_cn_edges</a></span><span class="op">(</span><span class="va">cb</span>, <span class="va">con</span>, pos_filter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NOUN"</span>, <span class="st">"VERB"</span>, <span class="st">"ADJ"</span>, <span class="st">"ADV"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">fst_cn_nodes</span><span class="op">(</span><span class="va">cb</span>, <span class="va">edges</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NOUN"</span>, <span class="st">"VERB"</span>, <span class="st">"ADJ"</span>, <span class="st">"ADV"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        lemma   pagerank</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   lyöminen 0.03611268</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2       paha 0.02775495</span>

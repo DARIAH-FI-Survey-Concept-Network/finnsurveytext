@@ -120,23 +120,12 @@ include all UPOS tags.</p></dd>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">fst_concept_network</span><span class="op">(</span><span class="va">conllu_dev_q11_3</span>, concepts <span class="op">=</span> <span class="st">"köyhyys, puute"</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">conllu_cb_bullying_iso</span></span></span>
+<span class="r-in"><span><span class="va">con</span> <span class="op">&lt;-</span> <span class="st">"kiusata, lyöminen"</span></span></span>
+<span class="r-in"><span><span class="va">pf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NOUN"</span>, <span class="st">"VERB"</span>, <span class="st">"ADJ"</span>, <span class="st">"ADV"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">title</span> <span class="op">&lt;-</span> <span class="st">"Bullying Concept Network"</span></span></span>
+<span class="r-in"><span><span class="fu">fst_concept_network</span><span class="op">(</span><span class="va">data</span>, concepts <span class="op">=</span> <span class="va">con</span>, pos_filter <span class="op">=</span> <span class="va">pf</span>, title <span class="op">=</span> <span class="va">title</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="fst_concept_network-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">con2</span> <span class="op">&lt;-</span> <span class="st">"köyhyys, nälänhätä, sota, ilmastonmuutos, puute"</span></span></span>
-<span class="r-in"><span><span class="fu">fst_concept_network</span><span class="op">(</span><span class="va">conllu_dev_q11_3</span>, concepts <span class="op">=</span> <span class="va">con2</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="fst_concept_network-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">con3</span> <span class="op">&lt;-</span> <span class="st">"köyhyys, nälänhätä, sota, ilmastonmuutos, puute"</span></span></span>
-<span class="r-in"><span><span class="fu">fst_concept_network</span><span class="op">(</span><span class="va">conllu_dev_q11_3</span>, concepts <span class="op">=</span> <span class="va">con3</span>, threshold <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="fst_concept_network-3.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">data4</span> <span class="op">&lt;-</span> <span class="va">conllu_cb_bullying_iso</span></span></span>
-<span class="r-in"><span><span class="va">con4</span> <span class="op">&lt;-</span> <span class="st">"kiusata, lyöminen"</span></span></span>
-<span class="r-in"><span><span class="va">pf4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NOUN"</span>, <span class="st">"VERB"</span>, <span class="st">"ADJ"</span>, <span class="st">"ADV"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">title4</span> <span class="op">&lt;-</span> <span class="st">"Bullying Concept Network"</span></span></span>
-<span class="r-in"><span><span class="fu">fst_concept_network</span><span class="op">(</span><span class="va">data4</span>, concepts <span class="op">=</span> <span class="va">con4</span>, pos_filter <span class="op">=</span> <span class="va">pf4</span>, title <span class="op">=</span> <span class="va">title4</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="fst_concept_network-4.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

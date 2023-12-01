@@ -90,61 +90,9 @@ include all UPOS tags.</p></dd>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">con1</span> <span class="op">&lt;-</span> <span class="st">"elintaso, köyhä, ihminen"</span></span></span>
-<span class="r-in"><span><span class="fu">fst_cn_search</span><span class="op">(</span><span class="va">conllu_dev_q11_1_nltk</span>, <span class="va">con1</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 43 × 5</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    keyword                                  ngram  freq word1       word2      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> ihminen-elää                                 2     5 ihminen     elää       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> suuri-osa-ihminen-elää-köyhyysraja           5     4 suuri       osa        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> suuri-osa-ihminen-elää-köyhyysraja           5     4 osa         ihminen    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> suuri-osa-ihminen-elää-köyhyysraja           5     4 ihminen     elää       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> suuri-osa-ihminen-elää-köyhyysraja           5     4 elää        köyhyysraja</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> osa-ihminen-elää-köyhyysraja-alapuolella     5     4 osa         ihminen    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> osa-ihminen-elää-köyhyysraja-alapuolella     5     4 ihminen     elää       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> osa-ihminen-elää-köyhyysraja-alapuolella     5     4 elää        köyhyysraja</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> osa-ihminen-elää-köyhyysraja-alapuolella     5     4 köyhyysraja alapuolella</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> ihminen-elintaso                             2     3 ihminen     elintaso   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 33 more rows</span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">con2</span> <span class="op">&lt;-</span> <span class="st">"kehitysmaa, auttaa, pyrkiä, maa, ihminen"</span></span></span>
-<span class="r-in"><span><span class="va">pf1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NOUN"</span>, <span class="st">"ADV"</span>, <span class="st">"ADJ"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">fst_cn_search</span><span class="op">(</span><span class="va">conllu_dev_q11_2_nltk</span>, <span class="va">con2</span>, pos_filter <span class="op">=</span> <span class="va">pf1</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 52 × 5</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    keyword               ngram  freq word1      word2     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> kehitysmaa-ihminen        2    31 kehitysmaa ihminen   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> kehitysmaa-olo            2    26 kehitysmaa olo       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> kehitysmaa-asukas         2    18 kehitysmaa asukas    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> kehitysmaa-tilanne        2    11 kehitysmaa tilanne   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> kehitysmaa-elinolo        2     7 kehitysmaa elinolo   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> kehitysmaa-kehitys        2     6 kehitysmaa kehitys   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> kehitysmaa-kehitysmaa     2     6 kehitysmaa kehitysmaa</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> ihminen-olo               2     6 ihminen    olo       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> maa-olo                   2     5 maa        olo       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> ihminen-kehitysmaa        2     5 ihminen    kehitysmaa</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 42 more rows</span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">con3</span> <span class="op">&lt;-</span> <span class="st">"köyhyys, nälänhätä, sota, ilmastonmuutos, puute"</span></span></span>
-<span class="r-in"><span><span class="fu">fst_cn_search</span><span class="op">(</span><span class="va">conllu_dev_q11_3_nltk</span>, <span class="va">con3</span>, pos_filter <span class="op">=</span> <span class="st">"NOUN"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 50 × 5</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    keyword                  ngram  freq word1          word2         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> sota-nälänhätä               2    11 sota           nälänhätä     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> nälänhätä-sota               2     9 nälänhätä      sota          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> köyhyys-nälänhätä            2     6 köyhyys        nälänhätä     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> köyhyys-sota                 2     5 köyhyys        sota          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> nälänhätä-köyhyys            2     5 nälänhätä      köyhyys       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> nälänhätä-ilmastonmuutos     2     4 nälänhätä      ilmastonmuutos</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> sota-köyhyys                 2     4 sota           köyhyys       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> ilmastonmuutos-nälänhätä     2     4 ilmastonmuutos nälänhätä     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> nälkä-köyhyys-sota           3     3 nälkä          köyhyys       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> nälkä-köyhyys-sota           3     3 köyhyys        sota          </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 40 more rows</span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">con4</span> <span class="op">&lt;-</span> <span class="st">"kiusata, lyöminen, lyödä, potkia"</span></span></span>
-<span class="r-in"><span><span class="va">pf2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NOUN"</span>, <span class="st">"VERB"</span>, <span class="st">"ADJ"</span>, <span class="st">"ADV"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">fst_cn_search</span><span class="op">(</span><span class="va">conllu_cb_bullying_iso</span>, <span class="va">con4</span>, pos_filter <span class="op">=</span> <span class="va">pf2</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">con</span> <span class="op">&lt;-</span> <span class="st">"kiusata, lyöminen, lyödä, potkia"</span></span></span>
+<span class="r-in"><span><span class="va">pf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NOUN"</span>, <span class="st">"VERB"</span>, <span class="st">"ADJ"</span>, <span class="st">"ADV"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">fst_cn_search</span><span class="op">(</span><span class="va">conllu_cb_bullying_iso</span>, concepts <span class="op">=</span> <span class="va">con</span>, pos_filter <span class="op">=</span> <span class="va">pf</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 13 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    keyword                             ngram  freq word1      word2     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                               <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span>
@@ -161,6 +109,21 @@ include all UPOS tags.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> tehdä-paha-lyöminen-potkiminen-paha     5     2 potkiminen paha      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> lyödä-lyödä-potkia                      3     2 lyödä      lyödä     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> lyödä-lyödä-potkia                      3     2 lyödä      potkia    </span>
+<span class="r-in"><span><span class="fu">fst_cn_search</span><span class="op">(</span><span class="va">conllu_cb_bullying_iso</span>, concepts <span class="op">=</span> <span class="va">con</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 11 × 5</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    keyword                             ngram  freq word1      word2     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                               <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> lyöminen-potkiminen                     2     5 lyöminen   potkiminen</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> lyödä-potkia                            2     4 lyödä      potkia    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> lyöminen-paha-mieli                     3     2 lyöminen   paha      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> lyöminen-paha-mieli                     3     2 paha       mieli     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> lyödä-sanoa                             2     2 lyödä      sanoa     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> töniminen-lyöminen-potkiminen           3     2 töniminen  lyöminen  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> töniminen-lyöminen-potkiminen           3     2 lyöminen   potkiminen</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> tehdä-paha-lyöminen-potkiminen-paha     5     2 tehdä      paha      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> tehdä-paha-lyöminen-potkiminen-paha     5     2 paha       lyöminen  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> tehdä-paha-lyöminen-potkiminen-paha     5     2 lyöminen   potkiminen</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> tehdä-paha-lyöminen-potkiminen-paha     5     2 potkiminen paha      </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

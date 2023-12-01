@@ -78,8 +78,9 @@ number of words, the number of unique words, and the number of unique lemmas.</p
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">bullying_summary</span> <span class="op">&lt;-</span> <span class="fu">fst_summarise_short</span><span class="op">(</span><span class="va">conllu_cb_bullying_iso</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">q11_1_summary</span> <span class="op">&lt;-</span> <span class="fu">fst_summarise_short</span><span class="op">(</span><span class="va">conllu_dev_q11_1_nltk</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">fst_summarise_short</span><span class="op">(</span><span class="va">conllu_cb_bullying_iso</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Respondents Total Words Unique Words Unique Lemmas</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1         409        1240          469           364</span>
 <span class="r-in"><span><span class="fu">fst_summarise_short</span><span class="op">(</span><span class="va">conllu_dev_q11_2_nltk</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Respondents Total Words Unique Words Unique Lemmas</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1         941        4407         1270           893</span>

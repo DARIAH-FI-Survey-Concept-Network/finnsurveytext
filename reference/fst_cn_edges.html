@@ -114,70 +114,9 @@ include all UPOS tags.</p></dd>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">con1</span> <span class="op">&lt;-</span> <span class="st">"elintaso, köyhä, ihminen"</span></span></span>
-<span class="r-in"><span><span class="fu">fst_cn_edges</span><span class="op">(</span>data <span class="op">=</span> <span class="va">conllu_dev_q11_1_nltk</span>, concepts <span class="op">=</span> <span class="va">con1</span>, threshold <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 12 × 3</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    from        to          co_occurrence</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> apu         ihminen          0.000<span style="text-decoration: underline;">945</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> elää        köyhyysraja      0.002<span style="text-decoration: underline;">36</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> ihminen     elintaso         0.002<span style="text-decoration: underline;">13</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> ihminen     elää             0.003<span style="text-decoration: underline;">54</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> ihminen     nähdä            0.000<span style="text-decoration: underline;">945</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> ihminen     voida            0.000<span style="text-decoration: underline;">945</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> köyhyysraja alapuolella      0.001<span style="text-decoration: underline;">42</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> köyhä       ihminen          0.000<span style="text-decoration: underline;">945</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> nähdä       nälkä            0.000<span style="text-decoration: underline;">945</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> osa         ihminen          0.001<span style="text-decoration: underline;">89</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> suuri       osa              0.000<span style="text-decoration: underline;">945</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> tarvita     apu              0.000<span style="text-decoration: underline;">945</span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">con2</span> <span class="op">&lt;-</span> <span class="st">"kehitysmaa, auttaa, pyrkiä, maa, ihminen"</span></span></span>
-<span class="r-in"><span><span class="fu">fst_cn_edges</span><span class="op">(</span><span class="va">conllu_dev_q11_2_nltk</span>, <span class="va">con2</span>, threshold <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 20 × 3</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    from       to         co_occurrence</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> apu        tarvitsla        0.001<span style="text-decoration: underline;">83</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> asua       ihminen          0.001<span style="text-decoration: underline;">37</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> auttaa     apu              0.001<span style="text-decoration: underline;">83</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> auttaa     kehitysmaa       0.015<span style="text-decoration: underline;">1</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> auttaa     köys             0.001<span style="text-decoration: underline;">37</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> ihminen    auttaa           0.001<span style="text-decoration: underline;">14</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> kehitysmaa asua             0.002<span style="text-decoration: underline;">06</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> kehitysmaa auttaa           0.003<span style="text-decoration: underline;">43</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> kehitysmaa ihminen          0.002<span style="text-decoration: underline;">97</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> kehitysmaa kehittyä         0.001<span style="text-decoration: underline;">37</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> kehitysmaa olo              0.004<span style="text-decoration: underline;">12</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> kehitysmaa parantaa         0.001<span style="text-decoration: underline;">37</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> kehitysmaa pyrkiä           0.002<span style="text-decoration: underline;">97</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> kehitysmaa saavuttaa        0.001<span style="text-decoration: underline;">37</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> kehitysmaa tilanne          0.001<span style="text-decoration: underline;">83</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">16</span> olo        pyrkiä           0.001<span style="text-decoration: underline;">83</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">17</span> parantaa   kehitysmaa       0.004<span style="text-decoration: underline;">12</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">18</span> pyrkiä     auttaa           0.005<span style="text-decoration: underline;">03</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">19</span> pyrkiä     parantaa         0.005<span style="text-decoration: underline;">03</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">20</span> tarvitsla  auttaa           0.001<span style="text-decoration: underline;">37</span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">con3</span> <span class="op">&lt;-</span> <span class="st">"köyhyys, nälänhätä, sota, ilmastonmuutos, puute"</span></span></span>
-<span class="r-in"><span><span class="fu">fst_cn_edges</span><span class="op">(</span><span class="va">conllu_dev_q11_3_nltk</span>, <span class="va">con3</span>, threshold <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 36 × 3</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    from           to                co_occurrence</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> aiheuttaa      ilmastonmuutos          0.000<span style="text-decoration: underline;">48</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> ihminen        aiheuttaa               0.000<span style="text-decoration: underline;">48</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> ihminen        ihminen                 0.000<span style="text-decoration: underline;">48</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> ilmastonmuutos aiheuttaa               0.000<span style="text-decoration: underline;">48</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> ilmastonmuutos epätasa-arvo            0.000<span style="text-decoration: underline;">48</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> ilmastonmuutos ihmisoikeus             0.000<span style="text-decoration: underline;">48</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> ilmastonmuutos köyhyys                 0.000<span style="text-decoration: underline;">48</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> ilmastonmuutos nälänhätä               0.001<span style="text-decoration: underline;">2</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> ilmastonmuutos sota                    0.000<span style="text-decoration: underline;">48</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> ilmastonmuutos ylikansoittuminen       0.000<span style="text-decoration: underline;">48</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 26 more rows</span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">con4</span> <span class="op">&lt;-</span> <span class="st">"kiusata, lyöminen"</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">con</span> <span class="op">&lt;-</span> <span class="st">"kiusata, lyöminen"</span></span></span>
 <span class="r-in"><span><span class="va">cb</span> <span class="op">&lt;-</span> <span class="va">conllu_cb_bullying_iso</span></span></span>
-<span class="r-in"><span><span class="fu">fst_cn_edges</span><span class="op">(</span><span class="va">cb</span>, <span class="va">con4</span>, pos_filter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NOUN"</span>, <span class="st">"VERB"</span>, <span class="st">"ADJ"</span>, <span class="st">"ADV"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">fst_cn_edges</span><span class="op">(</span><span class="va">cb</span>, <span class="va">con</span>, pos_filter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NOUN"</span>, <span class="st">"VERB"</span>, <span class="st">"ADJ"</span>, <span class="st">"ADV"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 7 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   from       to         co_occurrence</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
@@ -188,6 +127,17 @@ include all UPOS tags.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> potkiminen paha             0.001<span style="text-decoration: underline;">61</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> tehdä      paha             0.001<span style="text-decoration: underline;">61</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span> töniminen  lyöminen         0.001<span style="text-decoration: underline;">61</span></span>
+<span class="r-in"><span><span class="fu">fst_cn_edges</span><span class="op">(</span><span class="va">cb</span>, <span class="va">con</span>, threshold <span class="op">=</span> <span class="fl">2</span>, norm <span class="op">=</span> <span class="st">'number_resp'</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 7 × 3</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   from       to         co_occurrence</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> lyöminen   paha             0.004<span style="text-decoration: underline;">89</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> lyöminen   potkiminen       0.022  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> paha       lyöminen         0.004<span style="text-decoration: underline;">89</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> paha       mieli            0.004<span style="text-decoration: underline;">89</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> potkiminen paha             0.004<span style="text-decoration: underline;">89</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> tehdä      paha             0.004<span style="text-decoration: underline;">89</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span> töniminen  lyöminen         0.004<span style="text-decoration: underline;">89</span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
