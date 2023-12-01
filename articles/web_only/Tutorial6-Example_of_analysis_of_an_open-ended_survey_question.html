@@ -400,10 +400,10 @@ ylikansoittuminen</td>
 about the responses to this question. We will run the following
 functions:</p>
 <ol style="list-style-type: decimal">
-<li><code>fst_summarise</code></li>
-<li><code>fst_pos</code></li>
-<li><code>fst_length_summary</code></li>
-<li><code>fst_wordcloud</code></li>
+<li><code><a href="../../reference/fst_summarise.html">fst_summarise()</a></code></li>
+<li><code><a href="../../reference/fst_pos.html">fst_pos()</a></code></li>
+<li><code><a href="../../reference/fst_length_summary.html">fst_length_summary()</a></code></li>
+<li><code><a href="../../reference/fst_wordcloud.html">fst_wordcloud()</a></code></li>
 </ol>
 <p>For further information on these functions, please see
 “Tutorial2-Data_exploration”.</p>
@@ -772,9 +772,9 @@ please refer to “Tutorial5-Demonstration_of_comparison_functions”.</p>
 </h4>
 <p>We will start the comparison by looking at the summary functions:</p>
 <ol style="list-style-type: decimal">
-<li><code>fst_summarise_compare</code></li>
-<li>`fst_pos_compare``</li>
-<li><code>fst_length_compare</code></li>
+<li><code><a href="../../reference/fst_summarise_compare.html">fst_summarise_compare()</a></code></li>
+<li><code><a href="../../reference/fst_pos_compare.html">fst_pos_compare()</a></code></li>
+<li><code><a href="../../reference/fst_length_compare.html">fst_length_compare()</a></code></li>
 </ol>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span></span>
@@ -1103,7 +1103,9 @@ since this sample is so small)</p>
 <span><span class="co">#&gt; Note: </span></span>
 <span><span class="co">#&gt;  Consider whether your data is balanced between groups being compared and whether each group contains enough data for analysis. </span></span>
 <span><span class="co">#&gt;  The number of responded in each group (including 'NAs') are listed below: </span></span>
-<span><span class="co">#&gt;  Female=673, Male=183, NA=89</span></span></code></pre></div>
+<span><span class="co">#&gt;  Female=673, Male=183, NA=89</span></span>
+<span><span class="co">#&gt; Warning in wordcloud::comparison.cloud(compcloud_data, max.words = max, :</span></span>
+<span><span class="co">#&gt; ilmastonmuutos could not be fit on page. It will not be plotted.</span></span></code></pre></div>
 <p><img src="Tutorial6-Example_of_analysis_of_an_open-ended_survey_question_files/figure-html/unnamed-chunk-11-1.png" width="768"></p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
@@ -1265,7 +1267,7 @@ respondents who discuss independent themes to these.</p>
 look at a single question and then consider whether gender impacts
 response. Gender is just one of many ways you could split the data and
 is used as an example in this context. It is likely an analyst would
-want to split the data in other ways also such as age, education level,
+also want to split the data in other ways such as age, education level,
 etc.</p>
 <p>Following the use of <code>finnsurveytext</code>, we have a number of
 hypotheses, such as “Male survey respondents are more concerned about

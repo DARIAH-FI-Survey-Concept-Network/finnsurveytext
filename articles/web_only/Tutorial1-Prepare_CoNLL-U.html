@@ -121,10 +121,10 @@ installed in your environment.)</p>
 </h3>
 <p>The functions covered in this tutorial are:</p>
 <ol style="list-style-type: decimal">
-<li><code>fst_format_conllu</code></li>
-<li><code>fst_find_stopwords</code></li>
-<li><code>fst_rm_stop_punct</code></li>
-<li><code>fst_prepare_conllu</code></li>
+<li><code><a href="../../reference/fst_format_conllu.html">fst_format_conllu()</a></code></li>
+<li><code><a href="../../reference/fst_find_stopwords.html">fst_find_stopwords()</a></code></li>
+<li><code><a href="../../reference/fst_rm_stop_punct.html">fst_rm_stop_punct()</a></code></li>
+<li><code><a href="../../reference/fst_prepare_conllu.html">fst_prepare_conllu()</a></code></li>
 </ol>
 </div>
 <div class="section level3">
@@ -161,7 +161,7 @@ BY 4.0).</li>
 </ul>
 <p>Both of these will be demonstrated below but either can be used to
 complete the tutorial. If you would prefer to use your own data, you can
-read in this data through <code>read.csv</code> or similar so that you
+read in this data through <code><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv()</a></code> or similar so that you
 have a ‘raw’ dataframe ready in your R environment.</p>
 </div>
 <div class="section level4">
@@ -185,7 +185,7 @@ Dependencies Project, <a href="https://universaldependencies.org/format.html" cl
 <div class="section level2">
 <h2 id="the-whole-story">The Whole Story<a class="anchor" aria-label="anchor" href="#the-whole-story"></a>
 </h2>
-<p>A single function, <code>fst_prepare_connlu</code> (which calls all
+<p>A single function, <code>fst_prepare_connlu()</code> (which calls all
 the data preparation functions within the package) can be used to
 prepare the data into the required CoNNL-U format.</p>
 <div class="section level3">
@@ -206,13 +206,13 @@ follows:</p>
 <code>data</code> is the dataframe of interest. In this case, we are
 using data that comes with the package called ‘child_barometer’.
 Otherwise, if you read in a csv containing a dataframe, such as through
-<code>read.csv</code> in base R for use in this tutorial.</li>
+<code><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv()</a></code> in base R for use in this tutorial.</li>
 <li>The <code>field</code> is the name of the column in your data which
 contains the open-ended survey question. In this example, the responses
 about bullying are in question 7.</li>
 <li>We have chosen to remove stopwords from the “nltk” stopword list in
 this example. To find the relevant lists of Finnish stopwords, you can
-run the <code>fst_rm_stopwords_punct</code> function which is outlined
+run the <code>fst_rm_stopwords_punct()</code> function which is outlined
 below. Punctuation is also removed from the data whenever stopwords are
 removed.</li>
 <li>The function also requires a Finnish language model available for
@@ -242,7 +242,7 @@ prepared using this function call:</p>
 <code>data</code> is the dataframe of interest. In this case, we are
 using data that comes with the pacakge called ‘dev_data’. Otherwise, if
 you read in a csv containing a dataframe, such as through
-<code>read.csv</code> in base R for use in this tutorial.</li>
+<code><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv()</a></code> in base R for use in this tutorial.</li>
 <li>The <code>field</code> is the name of the column in your data which
 contains the open-ended survey question. In this example, the responses
 are in question 11_2.</li>
@@ -259,14 +259,14 @@ this example. (<code>stopword_list = NULL</code>)</li>
 <div class="section level2">
 <h2 id="in-greater-detail">In greater detail<a class="anchor" aria-label="anchor" href="#in-greater-detail"></a>
 </h2>
-<p>To better understand the <code>fst_prepare_connlu</code> function, we
-will go through each of the functions that this one calls. These
+<p>To better understand the <code>fst_prepare_connlu()</code> function,
+we will go through each of the functions that this one calls. These
 are:</p>
 <ul>
-<li><code>fst_format_connlu</code></li>
-<li><code>fst_rm_stopwords_punct</code></li>
+<li><code>fst_format_connlu()</code></li>
+<li><code>fst_rm_stopwords_punct()</code></li>
 </ul>
-<p>Additionally, the <code>fst_find_stopwords</code> function can be
+<p>Additionally, the <code><a href="../../reference/fst_find_stopwords.html">fst_find_stopwords()</a></code> function can be
 used to find currently available lists of Finnish stopwords for
 exclusion from the data. The “name” column can be used to choose a list
 for the <code>stopword_list</code> variable above. Stopword lists are
@@ -278,7 +278,7 @@ remaining.</p>
 <code class="sourceCode R"><span><span class="va">stopwords</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/fst_find_stopwords.html">fst_find_stopwords</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>The stopwords lists can be very long, so only one (nltk) is shown
 below. Another two lists, snowball and stopwords-iso, can be found by
-running the <code>fst_find_stopwords</code> function in your local
+running the <code><a href="../../reference/fst_find_stopwords.html">fst_find_stopwords()</a></code> function in your local
 environment.</p>
 <table class="table">
 <colgroup>
@@ -327,7 +327,7 @@ vaan , vai , vaikka , kanssa , mukaan , noin , poikki , yli , kun , nyt
 <div class="section level3">
 <h3 id="format-as-connl-u">Format as CoNNL-U<a class="anchor" aria-label="anchor" href="#format-as-connl-u"></a>
 </h3>
-<p><code>fst_format_connlu</code></p>
+<p><code>fst_format_connlu()</code></p>
 <p>This function is used to format the data from your open-ended survey
 question into CoNLL-U format. It also: * trims trailing whitespace from
 the data; * converts the ‘lemma’ and ‘token’ columns to lowercase; and,
@@ -339,7 +339,7 @@ Dependency Treebank (TDT)</a> and <a href="https://universaldependencies.org/tre
 links but, in brief, the TDT is considered “broad coverage” and includes
 texts from Wikipedia and news sources, and FTB consists of manually
 annotated grammatical examples from <a href="https://kaino.kotus.fi/visk/etusivu.php" class="external-link">VISK</a>.</p>
-<p>The <code>fst_format_conllu</code> function utilises the
+<p>The <code><a href="../../reference/fst_format_conllu.html">fst_format_conllu()</a></code> function utilises the
 <code>udpipe</code> <a href="https://cran.r-project.org/web/packages/udpipe/vignettes/udpipe-annotation.html" class="external-link">package</a>
 and can be run as follows:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
@@ -492,7 +492,7 @@ relevant treebank from udpipe for use in the annotations.</em></p>
 </tr>
 </tbody>
 </table>
-<p>´fst_format_conllu` takes 3 arguments:</p>
+<p>´fst_format_conllu()` takes 3 arguments:</p>
 <ol style="list-style-type: decimal">
 <li>
 <code>data</code> the dataframe containing the survey data.</li>
@@ -507,19 +507,20 @@ either “ftb” (the default) or “tdt”.</li>
 <div class="section level3">
 <h3 id="remove-stopwords-and-punctuation-from-conll-u-data">Remove stopwords and punctuation from CoNLL-U data<a class="anchor" aria-label="anchor" href="#remove-stopwords-and-punctuation-from-conll-u-data"></a>
 </h3>
-<p><code>fst_rm_stop_punct</code></p>
+<p><code><a href="../../reference/fst_rm_stop_punct.html">fst_rm_stop_punct()</a></code></p>
 <p>This (optional) function will remove stopwords and punctuation from
 the CoNLL-U data. <code>fst_find_stopwords</code> can be used to find
 options for stopwords lists.</p>
-<p><code>fst_rm_stop_punct</code> takes 2 arguments:</p>
+<p><code><a href="../../reference/fst_rm_stop_punct.html">fst_rm_stop_punct()</a></code> takes 2 arguments:</p>
 <ol style="list-style-type: decimal">
 <li>
-<code>data</code> is output from <code>fst_format_conllu</code>
+<code>data</code> is output from
+<code><a href="../../reference/fst_format_conllu.html">fst_format_conllu()</a></code>
 </li>
 <li>
 <code>stopword_list</code> is a list of Finnish stopwords, the
 default is “nltk” but any “Name” column from
-<code>fst_find_stopwords</code> can be used.</li>
+<code><a href="../../reference/fst_find_stopwords.html">fst_find_stopwords()</a></code> can be used.</li>
 </ol>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">conllu_dev_q11_1_nltk</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/fst_rm_stop_punct.html">fst_rm_stop_punct</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">conllu_dev_q11_1</span><span class="op">)</span></span>

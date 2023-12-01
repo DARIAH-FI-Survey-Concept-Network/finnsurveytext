@@ -84,12 +84,12 @@
 </h2>
 <p>This tutorial goes into further details demonstrating the use of the
 package, covering functions in <code>r/02_data_exploration.R</code> and
-<code>r/02_data_exploration.R</code>. The intention is to provide an
-example of some initial analysis of open-ended survey questions being
+<code>r/03_concept_network.R</code>. The intention is to provide an
+example where some initial analysis of an open-ended survey question is
 used to inform the settings and concept words of the Concept Network
-plot and then how you can be fine-tune these to produce plots that
-provide useful insights during analysis and are which are more
-persuasive visualisations of your findings.</p>
+plot. Then, we demonstrate how the Concept Network settings can be
+fine-tuned to produce plots which are more persuasive visualisations of
+your findings.</p>
 <div class="section level3">
 <h3 id="installation-of-package-">Installation of package.<a class="anchor" aria-label="anchor" href="#installation-of-package-"></a>
 </h3>
@@ -99,6 +99,20 @@ below: (Other required packages such as <code>dplyr</code> and
 installed in your environment.)</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dariah-fi-survey-concept-network.github.io/finnsurveytext/">finnsurveytext</a></span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="overview-of-functions">Overview of Functions<a class="anchor" aria-label="anchor" href="#overview-of-functions"></a>
+</h3>
+<p>The functions covered in this tutorial are:</p>
+<ol style="list-style-type: decimal">
+<li><code><a href="../../reference/fst_summarise.html">fst_summarise()</a></code></li>
+<li><code><a href="../../reference/fst_pos.html">fst_pos()</a></code></li>
+<li><code><a href="../../reference/fst_length_summary.html">fst_length_summary()</a></code></li>
+<li><code><a href="../../reference/fst_freq.html">fst_freq()</a></code></li>
+<li><code><a href="../../reference/fst_ngrams.html">fst_ngrams()</a></code></li>
+<li><code><a href="../../reference/fst_wordcloud.html">fst_wordcloud()</a></code></li>
+<li><code><a href="../../reference/fst_concept_network.html">fst_concept_network()</a></code></li>
+</ol>
 </div>
 <div class="section level3">
 <h3 id="the-data">The Data<a class="anchor" aria-label="anchor" href="#the-data"></a>
@@ -443,13 +457,13 @@ the EDA functions. (For further details into these functions, see
 <p>First, let’s consider these functions:</p>
 <ol style="list-style-type: decimal">
 <li>
-<code>fst_summarise</code> - This table will indicate response rate,
-and word counts.</li>
+<code><a href="../../reference/fst_summarise.html">fst_summarise()</a></code> - This table will indicate response
+rate, and word counts.</li>
 <li>
-<code>fst_pos</code> - This table counts the number and proportion
+<code><a href="../../reference/fst_pos.html">fst_pos()</a></code> - This table counts the number and proportion
 of words with each part-of-speech tag.</li>
 <li>
-<code>fst_length_summary</code> - This table gives the average and
+<code><a href="../../reference/fst_length_summary.html">fst_length_summary()</a></code> - This table gives the average and
 quartile values of lengths of responses in words and sentences.</li>
 </ol>
 <p>The differences in the types of responses can be seen in the
@@ -556,11 +570,11 @@ exploratory data analysis results below:</p>
 <td align="right">994</td>
 </tr></tbody>
 </table>
-<p>**Remarks:*</p>
+<p><strong>Remarks:</strong></p>
 <ul>
-<li>All 3 questions have a high (97/98%) response rate</li>
-<li>Q11_1 contains the most unique words</li>
-<li>All 3 questions have a similar number of unique lemmas</li>
+<li>All 3 questions have a high (97/98%) response rate.</li>
+<li>Q11_1 contains the most unique words.</li>
+<li>All 3 questions have a similar number of unique lemmas.</li>
 </ul>
 </div>
 <div class="section level4">
@@ -887,9 +901,9 @@ exploratory data analysis results below:</p>
 <p><strong>Remarks:</strong></p>
 <ul>
 <li>Nouns are the most common word type across all 3 questions.</li>
-<li>Q11_1 also commonly contains adjectives, adverbs and nouns</li>
+<li>Q11_1 also commonly contains adjectives, adverbs and nouns.</li>
 <li>Q11_2 has a similar number of nouns and verbs, and then a smaller
-number of adjectives and adverbs</li>
+number of adjectives and adverbs.</li>
 <li>Q11_3 also has a lot of adjectives and verbs but few adverbs.</li>
 </ul>
 </div>
@@ -1054,7 +1068,7 @@ number of adjectives and adverbs</li>
 </table>
 <p><strong>Remarks:</strong></p>
 <ul>
-<li>All 3 questions have most responses being one sentence</li>
+<li>All 3 questions have most responses being one sentence.</li>
 <li>Each question has a longest response of about 30 words and most
 responses of about 5 words.</li>
 </ul>
@@ -1066,8 +1080,8 @@ responses of about 5 words.</li>
 <p>Now, lets create some tables of the most common words, bigrams and
 trigrams using the following functions:</p>
 <ol style="list-style-type: decimal">
-<li><code>fst_freq</code></li>
-<li><code>fst_ngrams</code></li>
+<li><code><a href="../../reference/fst_freq.html">fst_freq()</a></code></li>
+<li><code><a href="../../reference/fst_ngrams.html">fst_ngrams()</a></code></li>
 </ol>
 <div class="section level4">
 <h4 id="top-words">Top Words<a class="anchor" aria-label="anchor" href="#top-words"></a>
@@ -1271,6 +1285,7 @@ auttaa’</li>
 <div class="section level4">
 <h4 id="wordcloud">Wordcloud<a class="anchor" aria-label="anchor" href="#wordcloud"></a>
 </h4>
+<p><code><a href="../../reference/fst_wordcloud.html">fst_wordcloud()</a></code></p>
 <p>We can see the most frequent words identified above also coming out
 in the wordclouds.</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
@@ -1302,6 +1317,7 @@ in the wordclouds.</p>
 <h3 id="exploring-some-concept-networks-based-on-thematic-frequently-occurring-words">Exploring some concept networks based on thematic frequently
 occurring words<a class="anchor" aria-label="anchor" href="#exploring-some-concept-networks-based-on-thematic-frequently-occurring-words"></a>
 </h3>
+<p><code><a href="../../reference/fst_concept_network.html">fst_concept_network()</a></code></p>
 <p>Based on the most frequently-occurring words, we have chosen some
 lists of “concepts” for each question and will create Concept Networks
 based on these. You can see below how the <code>threshold</code> can be
@@ -1366,12 +1382,13 @@ where… (Open question)</li>
 <span>  title <span class="op">=</span> <span class="st">"Q11_1 - Threshold = 3"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="Tutorial4-Analysis_and_config_of_Concept_Network_functions_files/figure-html/unnamed-chunk-10-4.png" width="576"></p>
-<p><strong>Remarks:</strong> Here, our first plot may be the best. We
-can see that a threshold is not required as there are not too many words
-displayed but we can get some insight into the use of these words (in
-English, they are ‘standard-of-living’ and ‘poor’). As you can see in
-plots 3 and 4, when including the most common word, ‘ihminen’ (‘human
-being’ or ‘man’), a threshold such as 3 is advisable.</p>
+<p><strong>Remarks:</strong></p>
+<p>Here, our first plot may be the best. We can see that a threshold is
+not required as there are not too many words displayed but we can get
+some insight into the use of these words (in English, they are
+‘standard-of-living’ and ‘poor’). As you can see in plots 3 and 4, when
+including the most common word, ‘ihminen’ (‘human being’ or ‘man’), a
+threshold such as 3 is advisable.</p>
 </div>
 <div class="section level4">
 <h4 id="q11_2">Q11_2<a class="anchor" aria-label="anchor" href="#q11_2"></a>
@@ -1441,11 +1458,12 @@ in which… (Open question)</li>
 <span>  title <span class="op">=</span> <span class="st">"Q11_2 - Threshold = 5"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="Tutorial4-Analysis_and_config_of_Concept_Network_functions_files/figure-html/unnamed-chunk-11-5.png" width="576"></p>
-<p><strong>Remarks:</strong> In Q11_2, plots 1-3 show that if we include
-all 5 of our words (‘developing country’, ‘help’, ‘strive’, ‘country’,
-‘man’) or a subset that a threshold is required, but that a threshold of
-10 is too large to gain additional words in the Network. Here
-<code>threshold = 5</code> seems appropriate</p>
+<p><strong>Remarks:</strong></p>
+<p>In Q11_2, plots 1-3 show that if we include all 5 of our words
+(‘developing country’, ‘help’, ‘strive’, ‘country’, ‘man’) or a subset
+that a threshold is required, but that a threshold of 10 is too large to
+gain additional words in the Network. Here <code>threshold = 5</code>
+seems appropriate.</p>
 </div>
 <div class="section level4">
 <h4 id="q11_3">Q11_3<a class="anchor" aria-label="anchor" href="#q11_3"></a>
@@ -1515,13 +1533,13 @@ puute”
 <span>  title <span class="op">=</span> <span class="st">"Q11_3 - Threshold = 2"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="Tutorial4-Analysis_and_config_of_Concept_Network_functions_files/figure-html/unnamed-chunk-12-5.png" width="576"></p>
-<p><strong>Remarks:</strong> In Q11_3, we can see that if your concept
-word list is short (such as a single word) thresholds generally are not
-required, but that with longer concept lists, setting a
-<code>threshold = 2</code> or <code>threshold = 3</code>, we can
-simplify and improve a plot that is a little too crowded in this case.
-The “best” threshold is generally a matter of context and at the
-analyst’s discretion.</p>
+<p><strong>Remarks:</strong></p>
+<p>In Q11_3, we can see that if your concept word list is short (such as
+a single word) thresholds generally are not required, but that with
+longer concept lists, setting a <code>threshold = 2</code> or
+<code>threshold = 3</code>, we can simplify and improve a plot that is a
+little too crowded in this case. The “best” threshold is generally a
+matter of context and at the analyst’s discretion.</p>
 </div>
 </div>
 </div>
@@ -1534,8 +1552,8 @@ it is worthwhile exploring the Concept Networks that result from
 different concept words and thresholds to investigate the data and
 identify trends which warrant further analysis. Initial Concept Network
 settings can be informed by other functions in
-<code>finnsurveytext</code> functions such as most frequent words or
-wordclouds.</p>
+<code>finnsurveytext</code>, such as choosing the most frequent
+words/n-grams or considering insights from wordclouds.</p>
 </div>
 <div class="section level2">
 <h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>

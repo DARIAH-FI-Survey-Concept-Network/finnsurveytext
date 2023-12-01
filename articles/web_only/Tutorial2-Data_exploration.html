@@ -104,18 +104,18 @@ installed in your environment.)</p>
 </h3>
 <p>The functions covered in this tutorial are:</p>
 <ol style="list-style-type: decimal">
-<li><code>fst_summarise_short</code></li>
-<li><code>fst_summarise</code></li>
-<li><code>fst_pos</code></li>
-<li><code>fst_length_summary</code></li>
-<li><code>fst_get_top_words</code></li>
-<li><code>fst_get_top_ngrams</code></li>
-<li><code>fst_get_top_ngrams2</code></li>
-<li><code>fst_freq_plot</code></li>
-<li><code>fst_ngrams_plot</code></li>
-<li><code>fst_wordcloud</code></li>
-<li><code>fst_freq</code></li>
-<li><code>fst_ngrams</code></li>
+<li><code><a href="../../reference/fst_summarise_short.html">fst_summarise_short()</a></code></li>
+<li><code><a href="../../reference/fst_summarise.html">fst_summarise()</a></code></li>
+<li><code><a href="../../reference/fst_pos.html">fst_pos()</a></code></li>
+<li><code><a href="../../reference/fst_length_summary.html">fst_length_summary()</a></code></li>
+<li><code><a href="../../reference/fst_get_top_words.html">fst_get_top_words()</a></code></li>
+<li><code><a href="../../reference/fst_get_top_ngrams.html">fst_get_top_ngrams()</a></code></li>
+<li><code><a href="../../reference/fst_get_top_ngrams2.html">fst_get_top_ngrams2()</a></code></li>
+<li><code><a href="../../reference/fst_freq_plot.html">fst_freq_plot()</a></code></li>
+<li><code><a href="../../reference/fst_ngrams_plot.html">fst_ngrams_plot()</a></code></li>
+<li><code><a href="../../reference/fst_wordcloud.html">fst_wordcloud()</a></code></li>
+<li><code><a href="../../reference/fst_freq.html">fst_freq()</a></code></li>
+<li><code><a href="../../reference/fst_ngrams.html">fst_ngrams()</a></code></li>
 </ol>
 </div>
 <div class="section level3">
@@ -293,7 +293,8 @@ activities.</p>
 <div class="section level3">
 <h3 id="get-summary-table-functions">Get Summary Table functions<a class="anchor" aria-label="anchor" href="#get-summary-table-functions"></a>
 </h3>
-<p><code>fst_summarise_short</code> and <code>fst_summarise</code></p>
+<p><code><a href="../../reference/fst_summarise_short.html">fst_summarise_short()</a></code> and
+<code><a href="../../reference/fst_summarise.html">fst_summarise()</a></code></p>
 <p>This first function creates a simple summary table for the data that
 shows the total number of word, number of unique words, and number of
 unique lemmas in the data. You can either view the table in the console,
@@ -336,15 +337,15 @@ of survey respondents which answered this question</p>
 <td align="right">1065</td>
 </tr></tbody>
 </table>
-<p><code>fst_summarise_short</code> and <code>fst_summarise</code> take
-1 argument:</p>
+<p><code><a href="../../reference/fst_summarise_short.html">fst_summarise_short()</a></code> and <code><a href="../../reference/fst_summarise.html">fst_summarise()</a></code>
+take 1 argument:</p>
 <ol style="list-style-type: decimal">
 <li>
 <code>data</code> is output from data preparation, prepared data in
 CoNLL-U format, such as the output of
-<code>fst_prepare_connlu</code>.</li>
+<code>fst_prepare_connlu()</code>.</li>
 </ol>
-<p><code>fst_summarise</code> takes an optional second argument:</p>
+<p><code><a href="../../reference/fst_summarise.html">fst_summarise()</a></code> takes an optional second argument:</p>
 <ol start="2" style="list-style-type: decimal">
 <li>
 <code>desc</code> is an optional string describing respondents. This
@@ -355,7 +356,7 @@ defined, it will default to ‘All respondents’.</li>
 <div class="section level3">
 <h3 id="get-part-of-speech-summary-table-function">Get Part-Of-Speech Summary Table function<a class="anchor" aria-label="anchor" href="#get-part-of-speech-summary-table-function"></a>
 </h3>
-<p><code>fst_pos</code></p>
+<p><code><a href="../../reference/fst_pos.html">fst_pos()</a></code></p>
 <p>This function creates a table which counts the number and proportion
 of words of each part-of-speech (POS) tag within the data. Again, you
 can either view the table in the console, or define a variable which
@@ -480,18 +481,18 @@ will contain this table.</p>
 </tr>
 </tbody>
 </table>
-<p><code>fst_pos</code> takes 1 argument:</p>
+<p><code><a href="../../reference/fst_pos.html">fst_pos()</a></code> takes 1 argument:</p>
 <ol style="list-style-type: decimal">
 <li>
 <code>data</code> is output from data preparation, prepared data in
 CoNLL-U format, such as the output of
-<code>fst_prepare_connlu</code>.</li>
+<code>fst_prepare_connlu()</code>.</li>
 </ol>
 </div>
 <div class="section level3">
 <h3 id="get-length-summary-table-function">Get Length Summary Table function<a class="anchor" aria-label="anchor" href="#get-length-summary-table-function"></a>
 </h3>
-<p><code>fst_length_summary</code></p>
+<p><code><a href="../../reference/fst_length_summary.html">fst_length_summary()</a></code></p>
 <p>This function creates a table which summarises the distribution of
 lengths in the responses. Again, you can either view the table in the
 console, or define a variable which will contain this table.</p>
@@ -537,12 +538,12 @@ console, or define a variable which will contain this table.</p>
 <td align="right">33</td>
 </tr></tbody>
 </table>
-<p><code>fst_length_summary</code> takes 3 arguments:</p>
+<p><code><a href="../../reference/fst_length_summary.html">fst_length_summary()</a></code> takes 3 arguments:</p>
 <ol style="list-style-type: decimal">
 <li>
 <code>data</code> is output from data preparation, prepared data in
 CoNLL-U format, such as the output of
-<code>fst_prepare_connlu</code>.</li>
+<code>fst_prepare_connlu()</code>.</li>
 <li>
 <code>desc</code> is an optional string describing respondents. If
 not defined, it will remain blank in the table meaning that the
@@ -568,7 +569,7 @@ n-gram is a set of n successive words in the data.</p>
 <div class="section level3">
 <h3 id="make-top-words-table-function">Make Top Words Table function<a class="anchor" aria-label="anchor" href="#make-top-words-table-function"></a>
 </h3>
-<p><code>fst_get_top_words</code></p>
+<p><code><a href="../../reference/fst_get_top_words.html">fst_get_top_words()</a></code></p>
 <p>This functions creates a table of the most frequently occurring words
 in the data (noting that “stopwords” may have been removed in previous
 data preparation steps.)</p>
@@ -586,7 +587,7 @@ that equally-occurring later-alphabetically words beyond the cutoff word
 <strong>will not</strong> be displayed. Alternatively, you can decide
 that the cutoff is not strict, in which case words occurring equally
 often as the <code>number</code> cutoff words <strong>will</strong> be
-displayed. (<code>fst_get_top_words</code> will print a message
+displayed. (<code><a href="../../reference/fst_get_top_words.html">fst_get_top_words()</a></code> will print a message
 regarding this decision.)</p>
 <p>We run the functions as follows:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
@@ -703,12 +704,12 @@ regarding this decision.)</p>
 </tr>
 </tbody>
 </table>
-<p><code>fst_get_top_words</code> takes 4 arguments:</p>
+<p><code><a href="../../reference/fst_get_top_words.html">fst_get_top_words()</a></code> takes 4 arguments:</p>
 <ol style="list-style-type: decimal">
 <li>
 <code>data</code> is output from data preparation, prepared data in
 CoNLL-U format, such as the output of
-<code>fst_prepare_connlu</code>.</li>
+<code>fst_prepare_connlu()</code>.</li>
 <li>
 <code>number</code> is the number of top words/n-grams to return,
 default is <code>10</code> which means that the top 10 words will be
@@ -736,8 +737,8 @@ equally frequently as the number cutoff word.</li>
 <div class="section level3">
 <h3 id="make-top-n-grams-table-function">Make Top N-Grams Table function<a class="anchor" aria-label="anchor" href="#make-top-n-grams-table-function"></a>
 </h3>
-<p><code>fst_get_top_ngrams</code></p>
-<p>Similar to <code>fst_get_top_words</code>, this functions creates a
+<p><code><a href="../../reference/fst_get_top_ngrams.html">fst_get_top_ngrams()</a></code></p>
+<p>Similar to <code><a href="../../reference/fst_get_top_words.html">fst_get_top_words()</a></code>, this functions creates a
 table of the most frequently occurring n-grams in the data (noting that
 “stopwords” may have been removed in previous data preparation
 steps.)</p>
@@ -755,9 +756,9 @@ that equally-occurring later-alphabetically n-grams beyond the cutoff
 n-gram <strong>will not</strong> be displayed. Alternatively, you can
 decide that the cutoff is not strict, in which case n-grams occurring
 equally often as the <code>number</code> cutoff n-gram
-<strong>will</strong> be displayed. (<code>fst_get_top_ngrams</code>
+<strong>will</strong> be displayed. (<code><a href="../../reference/fst_get_top_ngrams.html">fst_get_top_ngrams()</a></code>
 will print a message regarding this decision. There is another function
-<code>fst_get_top_ngrams2</code> which doesn’t print a message. This
+<code><a href="../../reference/fst_get_top_ngrams2.html">fst_get_top_ngrams2()</a></code> which doesn’t print a message. This
 function is used within the comparison functions in
 <code>04_comparison_functions.R</code>)</p>
 <p>We run the functions as follows:</p>
@@ -976,14 +977,14 @@ function is used within the comparison functions in
 </tr>
 </tbody>
 </table>
-<p><code>fst_get_top_ngrams</code> has the same setup as
-<code>fst_get_top_words</code> plus an additional argument
+<p><code><a href="../../reference/fst_get_top_ngrams.html">fst_get_top_ngrams()</a></code> has the same setup as
+<code><a href="../../reference/fst_get_top_words.html">fst_get_top_words()</a></code> plus an additional argument
 <code>ngrams</code>:</p>
 <ol style="list-style-type: decimal">
 <li>
 <code>data</code> is output from data preparation, prepared data in
 CoNLL-U format, such as the output of
-<code>fst_prepare_connlu</code>.</li>
+<code>fst_prepare_connlu()</code>.</li>
 <li>
 <code>number</code> is the number of top words/n-grams to return,
 default is <code>10</code> which means that the top 10 n-grams will be
@@ -1015,9 +1016,9 @@ equally frequently as the number cutoff n-gram.</li>
 <div class="section level3">
 <h3 id="make-top-wordsn-grams-tables-functions">Make Top Words/N-grams Tables functions<a class="anchor" aria-label="anchor" href="#make-top-wordsn-grams-tables-functions"></a>
 </h3>
-<p><code>fst_freq_plot</code></p>
+<p><code><a href="../../reference/fst_freq_plot.html">fst_freq_plot()</a></code></p>
 <p>This functions plots the results of
-<code>fst_get_top_words</code>.</p>
+<code><a href="../../reference/fst_get_top_words.html">fst_get_top_words()</a></code>.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/fst_freq_plot.html">fst_freq_plot</a></span><span class="op">(</span>table <span class="op">=</span> <span class="va">table1</span>, number <span class="op">=</span> <span class="fl">5</span>, name <span class="op">=</span> <span class="st">"Table 1"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Tutorial2-Data_exploration_files/figure-html/unnamed-chunk-8-1.png" width="576"></p>
@@ -1028,7 +1029,7 @@ equally frequently as the number cutoff n-gram.</li>
 <ol style="list-style-type: decimal">
 <li>
 <code>table</code> is the output of <code>fst_get_top_words</code>
-or <code>fst_get_top_ngrams</code>
+or <code><a href="../../reference/fst_get_top_ngrams.html">fst_get_top_ngrams()</a></code>
 </li>
 <li>
 <code>number</code> The number of words/n-grams, default is
@@ -1042,9 +1043,9 @@ or <code>fst_get_top_ngrams</code>
 <div class="section level3">
 <h3 id="make-top-n-grams-tables-functions">Make Top N-grams Tables functions<a class="anchor" aria-label="anchor" href="#make-top-n-grams-tables-functions"></a>
 </h3>
-<p><code>fst_ngrams_plot</code></p>
-<p>This functions plotw the results of
-<code>fst_get_top_ngrams</code>.</p>
+<p><code><a href="../../reference/fst_ngrams_plot.html">fst_ngrams_plot()</a></code></p>
+<p>This functions plots the results of
+<code><a href="../../reference/fst_get_top_ngrams.html">fst_get_top_ngrams()</a></code>.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/fst_ngrams_plot.html">fst_ngrams_plot</a></span><span class="op">(</span>table <span class="op">=</span> <span class="va">table3</span>, number <span class="op">=</span> <span class="fl">15</span>, ngrams <span class="op">=</span> <span class="fl">3</span>, <span class="st">"Trigrams"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Tutorial2-Data_exploration_files/figure-html/unnamed-chunk-9-1.png" width="576"></p>
@@ -1055,7 +1056,7 @@ or <code>fst_get_top_ngrams</code>
 <ol style="list-style-type: decimal">
 <li>
 <code>table</code> is the output of <code>fst_get_top_words</code>
-or <code>fst_get_top_ngrams</code>
+or <code><a href="../../reference/fst_get_top_ngrams.html">fst_get_top_ngrams()</a></code>
 </li>
 <li>
 <code>number</code> The number of words/n-grams, default is
@@ -1072,9 +1073,9 @@ you can plot top words using <code>ngrams = 1</code>.</li>
 <div class="section level3">
 <h3 id="find-and-plot-top-words-function">Find and Plot Top Words function<a class="anchor" aria-label="anchor" href="#find-and-plot-top-words-function"></a>
 </h3>
-<p><code>fst_freq</code></p>
-<p>This functions runs <code>fst_get_top_words</code> and
-<code>fst_freq_plot</code> within one function:</p>
+<p><code><a href="../../reference/fst_freq.html">fst_freq()</a></code></p>
+<p>This functions runs <code><a href="../../reference/fst_get_top_words.html">fst_get_top_words()</a></code> and
+<code><a href="../../reference/fst_freq_plot.html">fst_freq_plot()</a></code> within one function:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/fst_freq.html">fst_freq</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">q11_1</span>, number <span class="op">=</span> <span class="fl">12</span>, strict <span class="op">=</span> <span class="cn">FALSE</span>, name <span class="op">=</span> <span class="st">"Q11_1"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Note:</span></span>
@@ -1086,7 +1087,7 @@ you can plot top words using <code>ngrams = 1</code>.</li>
 <li>
 <code>data</code> is output from data preparation, prepared data in
 CoNLL-U format, such as the output of
-<code>fst_prepare_connlu</code>.</li>
+<code>fst_prepare_connlu()</code>.</li>
 <li>
 <code>number</code> is the number of top words/n+grams to return,
 default is <code>10</code>.</li>
@@ -1117,9 +1118,9 @@ equally frequently as the number cutoff word.</li>
 <div class="section level3">
 <h3 id="find-and-plot-top-n-grams-function">Find and Plot Top N-Grams function<a class="anchor" aria-label="anchor" href="#find-and-plot-top-n-grams-function"></a>
 </h3>
-<p><code>fst_ngrams</code></p>
-<p>This functions runs <code>fst_get_top_ngrams</code> and
-<code>fst_ngrams_plot</code> within one function:</p>
+<p><code><a href="../../reference/fst_ngrams.html">fst_ngrams()</a></code></p>
+<p>This functions runs <code><a href="../../reference/fst_get_top_ngrams.html">fst_get_top_ngrams()</a></code> and
+<code><a href="../../reference/fst_ngrams_plot.html">fst_ngrams_plot()</a></code> within one function:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/fst_ngrams.html">fst_ngrams</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">bullying</span>, number <span class="op">=</span> <span class="fl">12</span>, ngrams <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Note:</span></span>
@@ -1132,7 +1133,7 @@ equally frequently as the number cutoff word.</li>
 <li>
 <code>data</code> is output from data preparation, prepared data in
 CoNLL-U format, such as the output of
-<code>fst_prepare_connlu</code>.</li>
+<code>fst_prepare_connlu()</code>.</li>
 <li>
 <code>number</code> is the number of top words/n+grams to return,
 default is <code>10</code>.</li>
@@ -1163,7 +1164,7 @@ equally frequently as the number cutoff word.</li>
 <div class="section level3">
 <h3 id="make-wordcloud-function">Make Wordcloud function<a class="anchor" aria-label="anchor" href="#make-wordcloud-function"></a>
 </h3>
-<p><code>fst_wordcloud</code></p>
+<p><code><a href="../../reference/fst_wordcloud.html">fst_wordcloud()</a></code></p>
 <p>This function will create a wordcloud plot for the data. There is an
 option to select only specific word types (POS tag).</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
@@ -1176,12 +1177,12 @@ option to select only specific word types (POS tag).</p>
 <span>  max <span class="op">=</span> <span class="fl">150</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="Tutorial2-Data_exploration_files/figure-html/unnamed-chunk-12-2.png" width="576"></p>
-<p><code>fst_wordclouds</code> takes 3 arguments:</p>
+<p><code>fst_wordclouds()</code> takes 3 arguments:</p>
 <ol style="list-style-type: decimal">
 <li>
 <code>data</code> is output from data preparation, prepared data in
 CoNLL-U format, such as the output of
-<code>fst_prepare_connlu</code>.</li>
+<code>fst_prepare_connlu()</code>.</li>
 <li>
 <code>pos_filter</code> is an optional list of POS tags for
 inclusion in the wordcloud. The defaul is <code>NULL</code>.</li>

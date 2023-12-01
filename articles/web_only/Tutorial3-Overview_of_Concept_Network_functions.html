@@ -114,11 +114,11 @@ installed in your environment.)</p>
 <p>The functions covered in this tutorial are in r/03_concept_network.R.
 These are:</p>
 <ol style="list-style-type: decimal">
-<li><code>fst_cn_search</code></li>
-<li><code>fst_cn_edges</code></li>
-<li><code>fst_cn_nodes</code></li>
-<li><code>fst_cn_plot</code></li>
-<li><code>fst_concept_network</code></li>
+<li><code><a href="../../reference/fst_cn_search.html">fst_cn_search()</a></code></li>
+<li><code><a href="../../reference/fst_cn_edges.html">fst_cn_edges()</a></code></li>
+<li><code><a href="../../reference/fst_cn_nodes.html">fst_cn_nodes()</a></code></li>
+<li><code><a href="../../reference/fst_cn_plot.html">fst_cn_plot()</a></code></li>
+<li><code><a href="../../reference/fst_concept_network.html">fst_concept_network()</a></code></li>
 </ol>
 </div>
 <div class="section level3">
@@ -298,20 +298,20 @@ activities.</p>
 <div class="section level3">
 <h3 id="concept-network---search-textrank-for-concepts">Concept Network - Search Textrank for Concepts<a class="anchor" aria-label="anchor" href="#concept-network---search-textrank-for-concepts"></a>
 </h3>
-<p><code>fst_cn_search</code></p>
+<p><code><a href="../../reference/fst_cn_search.html">fst_cn_search()</a></code></p>
 <p>This function is used to find words which are related to a list of
-provided terms. It utilises the <code>textrank_keywords</code> function
-which is part of the <code>textrank</code> package.</p>
+provided terms. It utilises the <code>textrank_keywords()</code>
+function which is part of the <code>textrank</code> package.</p>
 <p>This function goes through the following process:</p>
 <ol style="list-style-type: decimal">
 <li>separates the search string into individual terms</li>
-<li>applies the <code>textrank_keywords</code> function which finds
+<li>applies the <code>textrank_keywords()</code> function which finds
 n-grams in the text that occur multiple times</li>
 <li>finds all pairs of words included in these common ngrams</li>
 <li>filters the pairs so that at least one of the pair is a searched
 term.</li>
 </ol>
-<p>The function <code>fst_cn_search</code> is demonstrated below.</p>
+<p>The function <code><a href="../../reference/fst_cn_search.html">fst_cn_search()</a></code> is demonstrated below.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bullying_concepts</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/fst_cn_search.html">fst_cn_search</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">bullying</span>,</span>
@@ -423,7 +423,7 @@ to the function:</p>
 <li>
 <code>data</code> which is output from data preparation, prepared
 data in CoNLL-U format, such as the output of
-<code>fst_prepare_connlu</code>.</li>
+<code>fst_prepare_connlu()</code>.</li>
 <li>
 <code>concepts</code> is a string of concept terms to search for,
 separated by commas.</li>
@@ -435,9 +435,9 @@ default is c(“NOUN”, “VERB”, “ADJ”, “ADV”).</li>
 <div class="section level3">
 <h3 id="concept-network---get-textrank-edges">Concept Network - Get Textrank Edges<a class="anchor" aria-label="anchor" href="#concept-network---get-textrank-edges"></a>
 </h3>
-<p><code>fst_cn_edges</code></p>
+<p><code><a href="../../reference/fst_cn_edges.html">fst_cn_edges()</a></code></p>
 <p>The Get Edges function runs the search function,
-<code>fst_cn_search</code> and then filters for edges (pairs of
+<code><a href="../../reference/fst_cn_search.html">fst_cn_search()</a></code> and then filters for edges (pairs of
 co-occurring words where one is a concept word) which are larger than
 the threshold (occurring enough times). The resulting dataframe is
 simplified in preparation for plotting.</p>
@@ -458,7 +458,7 @@ simplified in preparation for plotting.</p>
 <span>  threshold <span class="op">=</span> <span class="fl">2</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>The dataframe has a simplified format from the
-<code>fst_cn_search</code> results, with only columns “to”, “from” and
+<code><a href="../../reference/fst_cn_search.html">fst_cn_search()</a></code> results, with only columns “to”, “from” and
 “n” which indicates the number of occurrences.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">q11_2_edges</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -521,13 +521,13 @@ simplified in preparation for plotting.</p>
 </tr>
 </tbody>
 </table>
-<p>The arguments are the same as for <code>fst_cn_search</code> plus the
-<code>threshold</code>.</p>
+<p>The arguments are the same as for <code><a href="../../reference/fst_cn_search.html">fst_cn_search()</a></code> plus
+the <code>threshold</code>.</p>
 <ol style="list-style-type: decimal">
 <li>
 <code>data</code> which is output from data preparation, prepared
 data in CoNLL-U format, such as the output of
-<code>fst_prepare_connlu</code>.</li>
+<code>fst_prepare_connlu()</code>.</li>
 <li>
 <code>concepts</code> is a string of concept terms to search for,
 separated by commas.</li>
@@ -550,10 +550,10 @@ default is <code>NULL</code>.</li>
 <div class="section level3">
 <h3 id="concept-network---get-textrank-nodes">Concept Network - Get Textrank Nodes<a class="anchor" aria-label="anchor" href="#concept-network---get-textrank-nodes"></a>
 </h3>
-<p><code>fst_cn_nodes</code></p>
-<p>This function runs the <code>textrank_keywords</code> function which
-is part of the <code>textrank</code> package and returns a dataframe
-containing relevant lemmas and their associated pagerank.</p>
+<p><code><a href="../../reference/fst_cn_nodes.html">fst_cn_nodes()</a></code></p>
+<p>This function runs the <code>textrank_keywords()</code> function
+which is part of the <code>textrank</code> package and returns a
+dataframe containing relevant lemmas and their associated pagerank.</p>
 <p>It is demonstrated as follows:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bullying_nodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/fst_cn_nodes.html">fst_cn_nodes</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">bullying</span>, edges <span class="op">=</span> <span class="va">bullying_edges</span><span class="op">)</span></span>
@@ -609,15 +609,15 @@ containing relevant lemmas and their associated pagerank.</p>
 </tr>
 </tbody>
 </table>
-<p><code>fst_cn_nodes</code> requires the following arguments:</p>
+<p><code><a href="../../reference/fst_cn_nodes.html">fst_cn_nodes()</a></code> requires the following arguments:</p>
 <ol style="list-style-type: decimal">
 <li>
 <code>data</code> which is output from data preparation, prepared
 data in CoNLL-U format, such as the output of
-<code>fst_prepare_connlu</code>.</li>
+<code>fst_prepare_connlu()</code>.</li>
 <li>
 <code>edges</code> is the output from
-<code>fst_cn_edges</code>.</li>
+<code><a href="../../reference/fst_cn_edges.html">fst_cn_edges()</a></code>.</li>
 <li>
 <code>pos_filter</code> is a list of UPOS tags for inclusion,
 default is <code>NULL</code>.</li>
@@ -626,7 +626,7 @@ default is <code>NULL</code>.</li>
 <div class="section level3">
 <h3 id="plot-concept-network">Plot Concept Network<a class="anchor" aria-label="anchor" href="#plot-concept-network"></a>
 </h3>
-<p><code>fst_cn_plot</code></p>
+<p><code><a href="../../reference/fst_cn_plot.html">fst_cn_plot()</a></code></p>
 <p>This function takes the output of the previous functions and plots
 the concept network. Edges between words in the plot show the number of
 occurrences with thicker and more opaque edges showing more occurrences.
@@ -661,13 +661,14 @@ data.</p>
 <span>  concepts <span class="op">=</span> <span class="st">"köyhyys, nälänhätä, sota, ilmastonmuutos, puute"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="Tutorial3-Overview_of_Concept_Network_functions_files/figure-html/unnamed-chunk-11-1.png" width="576"></p>
-<p>As <code>fst_cn_plot</code> uses results from the previous functions
-it requires 3 arguments:</p>
+<p>As <code><a href="../../reference/fst_cn_plot.html">fst_cn_plot()</a></code> uses results from the previous
+functions it requires 3 arguments:</p>
 <ol style="list-style-type: decimal">
 <li>
-<code>edges</code> is the output of <code>fst_cn_edges</code>.</li>
+<code>edges</code> is the output of
+<code><a href="../../reference/fst_cn_edges.html">fst_cn_edges()</a></code>.</li>
 <li>
-<code>nodes</code> is the output of <code>fst_cn_nodes</code>
+<code>nodes</code> is the output of <code><a href="../../reference/fst_cn_nodes.html">fst_cn_nodes()</a></code>
 </li>
 <li>
 <code>concepts</code> is a list of terms which have been searched
@@ -681,11 +682,11 @@ occurrences’) will be used.</li>
 <div class="section level3">
 <h3 id="plot-concept-network-1">Plot Concept Network<a class="anchor" aria-label="anchor" href="#plot-concept-network-1"></a>
 </h3>
-<p><code>fst_concept_network</code></p>
+<p><code><a href="../../reference/fst_concept_network.html">fst_concept_network()</a></code></p>
 <p>If you don’t want to run all of the individual functions,
-<code>fst_cn_search</code>, <code>fst_cn_edges</code>,
-<code>fst_cn_nodes</code>, and <code>fst_cn_plot</code>, you can run
-them all within the one function <code>fst_concept_network</code>.</p>
+<code><a href="../../reference/fst_cn_search.html">fst_cn_search()</a></code>, <code><a href="../../reference/fst_cn_edges.html">fst_cn_edges()</a></code>,
+<code><a href="../../reference/fst_cn_nodes.html">fst_cn_nodes()</a></code>, and <code><a href="../../reference/fst_cn_plot.html">fst_cn_plot()</a></code>, you can run
+them all within the one function <code><a href="../../reference/fst_concept_network.html">fst_concept_network()</a></code>.</p>
 <p>This function is run as follows:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/fst_concept_network.html">fst_concept_network</a></span><span class="op">(</span></span>
@@ -745,7 +746,7 @@ them all within the one function <code>fst_concept_network</code>.</p>
 <li>
 <code>data</code> which is output from data preparation, prepared
 data in CoNLL-U format, such as the output of
-<code>fst_prepare_connlu</code>.</li>
+<code>fst_prepare_connlu()</code>.</li>
 <li>
 <code>concept</code> is a string of concept terms to search for,
 separated by commas.</li>

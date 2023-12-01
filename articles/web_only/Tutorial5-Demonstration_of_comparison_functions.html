@@ -92,28 +92,28 @@ comparison functions covered are defined in
 <code>r/05_comparison_concept_network.R</code>.</p>
 <p>One way to split the data is using a different question within the
 survey such as a categorical question (eg. gender, location, or level of
-education) or an ordinal variable (such as aged or income). In this
-tutorial, we will look at comparing responses to a question based on
-gender. Before using the comparison functions, we run the preparation
+education) or an ordinal variable (such as age or income bracket). In
+this tutorial, we will look at comparing responses to a question based
+on gender. Before using the comparison functions, we run the preparation
 functions which are in <code>r/01_prepare_conll-u.R</code> (and which
 are covered in detail in ‘Tutorial1-Prepare CoNLL-U’) for each group
 separately.</p>
 <p>The comparison functions are:</p>
 <ol style="list-style-type: decimal">
-<li><code>fst_summarise_compare</code></li>
-<li><code>fst_pos_compare</code></li>
-<li><code>fst_length_compare</code></li>
-<li><code>fst_comparisoncloud</code></li>
-<li><code>fst_get_unique_ngrams</code></li>
-<li><code>fst_join_unique</code></li>
-<li><code>fst_ngrams_compare_plot</code></li>
-<li><code>fst_ngrams_compare_plot2</code></li>
-<li><code>fst_plot_multiple</code></li>
-<li><code>fst_freq_compare</code></li>
-<li><code>fst_ngrams_compare</code></li>
-<li><code>fst_cn_get_unique</code></li>
-<li><code>fst_cn_compare_plot</code></li>
-<li><code>fst_concept_network_compare</code></li>
+<li><code><a href="../../reference/fst_summarise_compare.html">fst_summarise_compare()</a></code></li>
+<li><code><a href="../../reference/fst_pos_compare.html">fst_pos_compare()</a></code></li>
+<li><code><a href="../../reference/fst_length_compare.html">fst_length_compare()</a></code></li>
+<li><code>fst_comparisoncloud()</code></li>
+<li><code><a href="../../reference/fst_get_unique_ngrams.html">fst_get_unique_ngrams()</a></code></li>
+<li><code><a href="../../reference/fst_join_unique.html">fst_join_unique()</a></code></li>
+<li><code><a href="../../reference/fst_ngrams_compare_plot.html">fst_ngrams_compare_plot()</a></code></li>
+<li><code>fst_ngrams_compare_plot2()</code></li>
+<li><code><a href="../../reference/fst_plot_multiple.html">fst_plot_multiple()</a></code></li>
+<li><code><a href="../../reference/fst_freq_compare.html">fst_freq_compare()</a></code></li>
+<li><code><a href="../../reference/fst_ngrams_compare.html">fst_ngrams_compare()</a></code></li>
+<li><code><a href="../../reference/fst_cn_get_unique.html">fst_cn_get_unique()</a></code></li>
+<li><code><a href="../../reference/fst_cn_compare_plot.html">fst_cn_compare_plot()</a></code></li>
+<li><code><a href="../../reference/fst_concept_network_compare.html">fst_concept_network_compare()</a></code></li>
 </ol>
 <p>We will look at the following question:</p>
 <ul>
@@ -155,7 +155,8 @@ have not responded to the gender question</li>
 <p>We can prepare the data into CoNLL-U format using functions from
 <code>01_prepare_conllu-u.R</code> as follows: (We are preparing
 versions with and without stopwords removed because we have some
-functions which are better with/without the stopwords included.)</p>
+functions which are more informative with or without the stopwords
+included.)</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">all</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/fst_prepare_conllu.html">fst_prepare_conllu</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">dev_data</span>,</span>
@@ -368,9 +369,9 @@ groups. They will default to <code>"Group 1"</code>,
 responses overall. (We are using the versions which
 <strong>include</strong> the stopwords here.) The functions are:</p>
 <ol style="list-style-type: decimal">
-<li><code>fst_summarise_compare</code></li>
-<li><code>fst_pos_summary</code></li>
-<li><code>fst_length_compare</code></li>
+<li><code><a href="../../reference/fst_summarise_compare.html">fst_summarise_compare()</a></code></li>
+<li><code>fst_pos_summary()</code></li>
+<li><code><a href="../../reference/fst_length_compare.html">fst_length_compare()</a></code></li>
 </ol>
 <div class="section level4">
 <h4 id="make-comparison-summary">Make Comparison Summary<a class="anchor" aria-label="anchor" href="#make-comparison-summary"></a>
@@ -445,7 +446,7 @@ use <code><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-lin
 </tr>
 </tbody>
 </table>
-<p>To run <code>fst_summarise_compare</code>, we provide the following
+<p>To run <code><a href="../../reference/fst_summarise_compare.html">fst_summarise_compare()</a></code>, we provide the following
 arguments to the function:</p>
 <ul>
 <li>
@@ -775,7 +776,7 @@ optional)</li>
 <code>name4</code>
 </li>
 </ul>
-<p>Additionally, <code>fst_length_compare</code> has:</p>
+<p>Additionally, <code><a href="../../reference/fst_length_compare.html">fst_length_compare()</a></code> has:</p>
 <ul>
 <li>
 <code>incl_sentences</code> an optional boolean of whether to
@@ -819,7 +820,7 @@ documentation</a>.</p>
 <span><span class="co">#&gt;  The number of responded in each group (including 'NAs') are listed below: </span></span>
 <span><span class="co">#&gt;  Female=673, Male=183, Unspecified=89</span></span></code></pre></div>
 <p><img src="Tutorial5-Demonstration_of_comparison_functions_files/figure-html/unnamed-chunk-6-1.png" width="768"></p>
-<p>To run <code>fst_comparison_cloud</code>, we provide the following
+<p>To run <code><a href="../../reference/fst_comparison_cloud.html">fst_comparison_cloud()</a></code>, we provide the following
 arguments to the function:</p>
 <ul>
 <li>
@@ -853,8 +854,8 @@ not filtering the data based on POS tag, and will leave the default of
 the warning note about this). We also use the default for the norm which
 means we are standardising between groups by dividing count of a word by
 the total number of words in the responses.</p>
-<p>For definition of <code>fst_get_top_words</code> and
-<code>fst_get_top_ngrams</code> functions, see
+<p>For definition of <code><a href="../../reference/fst_get_top_words.html">fst_get_top_words()</a></code> and
+<code><a href="../../reference/fst_get_top_ngrams.html">fst_get_top_ngrams()</a></code> functions, see
 “Tutorial2-Data_Exploration”.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">all_top10</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/fst_get_top_words.html">fst_get_top_words</a></span><span class="op">(</span><span class="va">all_nltk</span>,</span>
@@ -1169,7 +1170,8 @@ types.</p>
 </h3>
 <p>This is further shown in the comparison plots. There are two
 functions which create the plots in one function simply. These are
-<code>fst_freq_compare</code> and <code>fst_ngrams_compare</code>.</p>
+<code><a href="../../reference/fst_freq_compare.html">fst_freq_compare()</a></code> and
+<code><a href="../../reference/fst_ngrams_compare.html">fst_ngrams_compare()</a></code>.</p>
 <p>(Note that words that are unique to a gender are highlighted in red.
 This is only comparing the top 10 words, so be aware this word likely
 still appears in the other genders, just less frequently!)</p>
@@ -1193,7 +1195,7 @@ still appears in the other genders, just less frequently!)</p>
 <span><span class="co">#&gt;  By default, words are presented in order to the `number` cutoff word. </span></span>
 <span><span class="co">#&gt;  This means that equally-occurring later-alphabetically words beyond the cutoff will not be displayed.</span></span></code></pre></div>
 <p><img src="Tutorial5-Demonstration_of_comparison_functions_files/figure-html/unnamed-chunk-9-1.png" width="768"></p>
-<p>The function <code>fst_freq_compare</code> has the following
+<p>The function <code><a href="../../reference/fst_freq_compare.html">fst_freq_compare()</a></code> has the following
 arguments:</p>
 <ul>
 <li>
@@ -1249,7 +1251,7 @@ equally frequently as the number cutoff word.</li>
 <span><span class="co">#&gt;  By default, n-grams are presented in order to the `number` cutoff n-gram </span></span>
 <span><span class="co">#&gt;  This means that equally-occurring later-alphabetically n-grams beyond the cutoff n-gram will not be displayed.</span></span></code></pre></div>
 <p><img src="Tutorial5-Demonstration_of_comparison_functions_files/figure-html/unnamed-chunk-10-1.png" width="768"></p>
-<p>The function <code>fst_ngrams_compare</code> has the following
+<p>The function <code><a href="../../reference/fst_ngrams_compare.html">fst_ngrams_compare()</a></code> has the following
 arguments:</p>
 <ul>
 <li>
@@ -1289,13 +1291,13 @@ the word at <code>number</code> will not be shown.) If
 equally frequently as the number cutoff word.</li>
 </ul>
 <p>Now, we might want to compare this to the overall results. Since,
-<code>fst_freq_compare</code> looks for unique words among all the sets
-provided, and we only want to look for unique words within the
+<code><a href="../../reference/fst_freq_compare.html">fst_freq_compare()</a></code> looks for unique words among all the
+sets provided, and we only want to look for unique words within the
 gender-specific sets, we need to run this activity through the component
-functions. These are <code>fst_get_unique_ngrams</code>,
-<code>fst_join_unique</code>, <code>fst_ngrams_compare_plot</code> and
-<code>fst_plot_multiple</code>. (Just for fun, let’s also changed the
-colour of the unique words.)</p>
+functions. These are <code><a href="../../reference/fst_get_unique_ngrams.html">fst_get_unique_ngrams()</a></code>,
+<code><a href="../../reference/fst_join_unique.html">fst_join_unique()</a></code>, <code><a href="../../reference/fst_ngrams_compare_plot.html">fst_ngrams_compare_plot()</a></code>
+and <code><a href="../../reference/fst_plot_multiple.html">fst_plot_multiple()</a></code>. (Just for fun, let’s also changed
+the colour of the unique words.)</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">unique</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/fst_get_unique_ngrams.html">fst_get_unique_ngrams</a></span><span class="op">(</span><span class="va">female_top10</span>, <span class="va">male_top10</span>, <span class="va">na_top10</span><span class="op">)</span></span>
 <span></span>
@@ -1333,33 +1335,35 @@ colour of the unique words.)</p>
 <p>The arguments of these functions are:</p>
 <ul>
 <li>
-<code>fst_get_unique_grams</code>:
+<code><a href="../../reference/fst_get_unique_ngrams.html">fst_get_unique_ngrams()</a></code>:
 <ul>
 <li>
 <code>table1</code>, <code>table2</code>, … - A list of names of
-tables which are the output of <code>fst_get_top_words</code> or
-<code>fst_get_top_ngrams</code>
+tables which are the output of <code><a href="../../reference/fst_get_top_words.html">fst_get_top_words()</a></code> or
+<code><a href="../../reference/fst_get_top_ngrams.html">fst_get_top_ngrams()</a></code>
 </li>
 </ul>
 </li>
 <li>
-<code>fst_join_unique</code>:
+<code><a href="../../reference/fst_join_unique.html">fst_join_unique()</a></code>:
 <ul>
 <li>
 <code>table</code> is a table that is the output of
-<code>fst_get_top_words</code> or `fst_get_top_ngrams``</li>
+<code><a href="../../reference/fst_get_top_words.html">fst_get_top_words()</a></code> or
+<code><a href="../../reference/fst_get_top_ngrams.html">fst_get_top_ngrams()</a></code>
+</li>
 <li>
 <code>unique</code> is the output of
-<code>fst_get_unique</code>
+<code><a href="../../reference/fst_get_unique_ngrams.html">fst_get_unique_ngrams()</a></code>
 </li>
 </ul>
 </li>
 <li>
-<code>fst_ngrams_compare_plot</code>:
+<code><a href="../../reference/fst_ngrams_compare_plot.html">fst_ngrams_compare_plot()</a></code>:
 <ul>
 <li>
 <code>table</code> is the table of words/n-grams, output of
-<code>get_unique_ngrams</code>
+<code><a href="../../reference/fst_join_unique.html">fst_join_unique()</a></code>
 </li>
 <li>
 <code>number</code> is the number of n-grams, default is
@@ -1369,7 +1373,7 @@ tables which are the output of <code>fst_get_top_words</code> or
 <code>1</code>.</li>
 <li>
 <code>unique_colour</code>is the colour to display unique words,
-default is <code>indianred</code>.</li>
+default is <code>"indianred"</code>.</li>
 <li>
 <code>name</code> is an optional “name” for the plot, default is
 <code>NULL</code>
@@ -1377,7 +1381,7 @@ default is <code>indianred</code>.</li>
 </ul>
 </li>
 <li>
-<code>fst_plot_multiple</code>:
+<code><a href="../../reference/fst_plot_multiple.html">fst_plot_multiple()</a></code>:
 <ul>
 <li>
 <code>plot1</code>, <code>plot2</code>, <code>plot3</code> and
