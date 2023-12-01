@@ -11,21 +11,13 @@
 #' @export
 #'
 #' @examples
-#' con1 <- "elintaso, köyhä, ihminen"
-#' data1 <- conllu_dev_q11_1_nltk
-#' e1 <- fst_cn_edges(data = data1, concepts = con1, threshold = 3)
-#' q11_1_nodes <- fst_cn_nodes(conllu_dev_q11_1_nltk, e1)
-#'
-#' con2 <- "kehitysmaa, auttaa, pyrkiä, maa, ihminen"
-#' e2 <- fst_cn_edges(conllu_dev_q11_2_nltk, con2, threshold = 5)
-#' q11_2_nodes <- fst_cn_nodes(conllu_dev_q11_2_nltk, e2)
-#'
-#' con3 <- "köyhyys, nälänhätä, sota, ilmastonmuutos, puute"
-#' e3 <- fst_cn_edges(conllu_dev_q11_3_nltk, con3, threshold = 2)
-#' q11_3_nodes <- fst_cn_nodes(conllu_dev_q11_3_nltk, e3)
-#'
-#' fst_cn_get_unique(q11_1_nodes, q11_2_nodes)
-#' fst_cn_get_unique(q11_1_nodes, q11_2_nodes, q11_3_nodes)
+#' cb <- conllu_cb_bullying_iso
+#' pos_filter = c("NOUN", "VERB", "ADJ", "ADV")
+#' e1 <- fst_cn_edges(cb, "lyödä", pos_filter = pos_filter)
+#' e2 <- fst_cn_edges(cb, "lyöminen", pos_filter = pos_filter)
+#' n1 <- fst_cn_nodes(cb, e1)
+#' n2 <- fst_cn_nodes(cb, e2)
+#' fst_cn_get_unique(n1, n2)
 fst_cn_get_unique <- function(table1, table2, ...) {
   df <- rbind(table1, table2, ...)
   df <- df %>%
@@ -71,24 +63,16 @@ fst_cn_get_unique <- function(table1, table2, ...) {
 #' @export
 #'
 #' @examples
-#' c1 <- "elintaso, köyhä, ihminen"
-#' data1 <- conllu_dev_q11_1_nltk
-#' e1 <- fst_cn_edges(data = data1, concepts = c1, threshold = 3)
-#' n1 <- fst_cn_nodes(conllu_dev_q11_1_nltk, e1)
+#' cb <- conllu_cb_bullying_iso
+#' pos_filter = c("NOUN", "VERB", "ADJ", "ADV")
+#' e1 <- fst_cn_edges(cb, "lyödä", pos_filter = pos_filter)
+#' e2 <- fst_cn_edges(cb, "lyöminen", pos_filter = pos_filter)
+#' n1 <- fst_cn_nodes(cb, e1)
+#' n2 <- fst_cn_nodes(cb, e2)
+#' u <- fst_cn_get_unique(n1, n2)
 #'
-#' c2 <- "kehitysmaa, auttaa, pyrkiä, maa, ihminen"
-#' e2 <- fst_cn_edges(conllu_dev_q11_2_nltk, c2, threshold = 5)
-#' n2 <- fst_cn_nodes(conllu_dev_q11_2_nltk, e2)
-#'
-#' c3 <- "köyhyys, nälänhätä, sota, ilmastonmuutos, puute"
-#' e3 <- fst_cn_edges(conllu_dev_q11_3_nltk, c3, threshold = 2)
-#' n3 <- fst_cn_nodes(conllu_dev_q11_3_nltk, e3)
-#'
-#' u1 <- fst_cn_get_unique(n1, n2)
-#' u2 <- fst_cn_get_unique(n1, n2, n3)
-#'
-#' fst_cn_compare_plot(edges = e1, nodes = n1, concepts = c1, unique_lemma = u1)
-#' fst_cn_compare_plot(e2, n2, c2, unique_lemmas = u2, unique_colour = "purple")
+#' fst_cn_compare_plot(e1, n1, "lyödä", unique_lemma = u)
+#' fst_cn_compare_plot(e2, n2, "lyöminen", u, unique_colour = "purple")
 fst_cn_compare_plot <- function(edges,
                                 nodes,
                                 concepts,
@@ -182,15 +166,10 @@ fst_cn_compare_plot <- function(edges,
 #' @export
 #'
 #' @examples
-#' d1 <- conllu_dev_q11_1_nltk
-#' d2 <- conllu_dev_q11_2_nltk
-#' d3 <- conllu_dev_q11_3_nltk
-#' con1 <- "elintaso"
-#' con2 <- "ihminen, elintaso"
-#' pos1 <- c("NOUN", "VERB", "ADJ", "ADV")
-#'
-#' fst_concept_network_compare(d1, d2, concepts = con1, pos_filter = pos1)
-#' fst_concept_network_compare(d1, d2, d3, concepts = con2, norm = "number_resp")
+#' d1 <- conllu_cb_bullying
+#' d2 <- conllu_cb_bullying_iso
+#' con1 <- "lyödä, lyöminen"
+#' fst_concept_network_compare(d1, d2, concepts = con1)
 fst_concept_network_compare <- function(data1, data2, data3 = NULL, data4 = NULL, pos_filter = NULL, name1 = "Group 1", name2 = "Group 2", name3 = "Group 3", name4 = "Group 4", concepts, norm = "number_words", threshold = NULL) {
   if (!is.null(data3)) {
     if (!is.null(data4)) {

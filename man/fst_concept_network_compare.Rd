@@ -65,13 +65,8 @@ weights of these terms and the frequency of co-occurrences, indicating any
 words that are unique to each group's Network plot.
 }
 \examples{
-d1 <- conllu_dev_q11_1_nltk
-d2 <- conllu_dev_q11_2_nltk
-d3 <- conllu_dev_q11_3_nltk
-con1 <- "elintaso"
-con2 <- "ihminen, elintaso"
-pos1 <- c("NOUN", "VERB", "ADJ", "ADV")
-
-fst_concept_network_compare(d1, d2, concepts = con1, pos_filter = pos1)
-fst_concept_network_compare(d1, d2, d3, concepts = con2, norm = "number_resp")
+d1 <- conllu_cb_bullying
+d2 <- conllu_cb_bullying_iso
+con1 <- "lyödä, lyöminen"
+fst_concept_network_compare(d1, d2, concepts = con1)
 }

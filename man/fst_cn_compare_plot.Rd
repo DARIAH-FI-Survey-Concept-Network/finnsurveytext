@@ -60,22 +60,14 @@ respective weights) which indicates unique words in this plot in comparison
 to another Network.
 }
 \examples{
-c1 <- "elintaso, köyhä, ihminen"
-data1 <- conllu_dev_q11_1_nltk
-e1 <- fst_cn_edges(data = data1, concepts = c1, threshold = 3)
-n1 <- fst_cn_nodes(conllu_dev_q11_1_nltk, e1)
+cb <- conllu_cb_bullying_iso
+pos_filter = c("NOUN", "VERB", "ADJ", "ADV")
+e1 <- fst_cn_edges(cb, "lyödä", pos_filter = pos_filter)
+e2 <- fst_cn_edges(cb, "lyöminen", pos_filter = pos_filter)
+n1 <- fst_cn_nodes(cb, e1)
+n2 <- fst_cn_nodes(cb, e2)
+u <- fst_cn_get_unique(n1, n2)
 
-c2 <- "kehitysmaa, auttaa, pyrkiä, maa, ihminen"
-e2 <- fst_cn_edges(conllu_dev_q11_2_nltk, c2, threshold = 5)
-n2 <- fst_cn_nodes(conllu_dev_q11_2_nltk, e2)
-
-c3 <- "köyhyys, nälänhätä, sota, ilmastonmuutos, puute"
-e3 <- fst_cn_edges(conllu_dev_q11_3_nltk, c3, threshold = 2)
-n3 <- fst_cn_nodes(conllu_dev_q11_3_nltk, e3)
-
-u1 <- fst_cn_get_unique(n1, n2)
-u2 <- fst_cn_get_unique(n1, n2, n3)
-
-fst_cn_compare_plot(edges = e1, nodes = n1, concepts = c1, unique_lemma = u1)
-fst_cn_compare_plot(e2, n2, c2, unique_lemmas = u2, unique_colour = "purple")
+fst_cn_compare_plot(e1, n1, "lyödä", unique_lemma = u)
+fst_cn_compare_plot(e2, n2, "lyöminen", u, unique_colour = "purple")
 }

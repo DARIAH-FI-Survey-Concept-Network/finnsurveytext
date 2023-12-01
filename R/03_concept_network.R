@@ -81,7 +81,7 @@ fst_cn_search <- function(data,
 #' con <- "kiusata, lyöminen"
 #' cb <- conllu_cb_bullying_iso
 #' fst_cn_edges(cb, con, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
-#' fst_cn_edges(cb, con, threshold = 2, norm = 'number_resp')
+#' fst_cn_edges(cb, "lyöminen", threshold = 2, norm = 'number_resp')
 fst_cn_edges <- function(data,
                          concepts,
                          threshold = NULL,
