@@ -33,7 +33,7 @@ There are 5 sets of functions included in the finnsurveytext package. These are:
  
  
 ## Function Demos and Tutorials ##
-Vignettes accompanying each of these R scripts can be found in the 'vignettes' folder within the repository. These vignettes use the sample data outlined below.  
+Tutorials accompanying each of these R scripts can be found in the 'Articles' tab within the website. These tutorials use the sample data outlined below.  
  
  
 ## Sample Data ##
