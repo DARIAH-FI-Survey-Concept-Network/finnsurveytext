@@ -85,26 +85,26 @@
 <p>This tutorial follows on from Tutorial 2 and guides you through
 creation of a concept network plot. A concept network is a way to
 visualise words which often occur together.</p>
-<p>Our concept network function uses the Textrank algorithm which is a
+<p>Our concept network function uses the TextRank algorithm which is a
 graph-based ranking model for text processing. Vertices represent words
 and co-occurrence between words is shown through edges. Word importance
-is determined recursively (through the unsupervised learning Textrank
+is determined recursively (through the unsupervised learning TextRank
 algorithm) where words get more weight based on how many words co-occur
 and the weight of these co-occurring words.</p>
-<p>To utilise the Textrank algorithm in <code>finnsurveytext</code>, we
+<p>To utilise the TextRank algorithm in <code>finnsurveytext</code>, we
 use the <code>textrank</code> package. For further information on the
 package, please see <a href="https://cran.r-project.org/web/packages/textrank/vignettes/textrank.html" class="external-link">this
-documentation</a>. This package implements the Textrank and Pagerank
-algorithms. (Pagerank is the same algorithm that Google uses to rank
+documentation</a>. This package implements the TextRank and PageRank
+algorithms. (PageRank is the algorithm that Google uses to rank
 webpages.) You can read about the underlying Textrank algorithm <a href="https://web.eecs.umich.edu/~mihalcea/papers/mihalcea.emnlp04.pdf" class="external-link">here</a>
 and about the PageRank algorithm <a href="https://www.sciencedirect.com/science/article/abs/pii/S016975529800110X" class="external-link">here</a>.</p>
 <div class="section level3">
 <h3 id="installation-of-package-">Installation of package.<a class="anchor" aria-label="anchor" href="#installation-of-package-"></a>
 </h3>
-<p>First, install and load the <code>finnsurveytext</code> package as
-below: (Other required packages such as <code>dplyr</code> and
-<code>stringr</code> will also be installed if they are not currently
-installed in your environment.)</p>
+<p>Once the package is installed, you can load the
+<code>finnsurveytext</code> package as below: (Other required packages
+such as <code>dplyr</code> and <code>stringr</code> will also be
+installed if they are not currently installed in your environment.)</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dariah-fi-survey-concept-network.github.io/finnsurveytext/">finnsurveytext</a></span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -127,8 +127,8 @@ These are:</p>
 <p>There are two sets of data files available within the package which
 could be used in this tutorial. These files have been created following
 the process demonstrated in Tutorial 1. The suffixes ‘iso’, ‘nltk’ and
-‘snow’ refer to the stopword list used within the preparation
-activities.</p>
+‘snow’ refer to the types of stopwords which have been removed during
+the data preparation activities.</p>
 <div class="section level4">
 <h4 id="child-barometer-data">1. Child Barometer Data<a class="anchor" aria-label="anchor" href="#child-barometer-data"></a>
 </h4>
@@ -553,7 +553,7 @@ default is <code>NULL</code>.</li>
 <p><code><a href="../../reference/fst_cn_nodes.html">fst_cn_nodes()</a></code></p>
 <p>This function runs the <code>textrank_keywords()</code> function
 which is part of the <code>textrank</code> package and returns a
-dataframe containing relevant lemmas and their associated pagerank.</p>
+dataframe containing relevant lemmas and their associated PageRank.</p>
 <p>It is demonstrated as follows:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bullying_nodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/fst_cn_nodes.html">fst_cn_nodes</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">bullying</span>, edges <span class="op">=</span> <span class="va">bullying_edges</span><span class="op">)</span></span>
@@ -630,8 +630,8 @@ default is <code>NULL</code>.</li>
 <p>This function takes the output of the previous functions and plots
 the concept network. Edges between words in the plot show the number of
 occurrences with thicker and more opaque edges showing more occurrences.
-Similarly, the size of the word circle indicates the pagerank with
-higher pagerank resulting in a larger circle. Concept words are coloured
+Similarly, the size of the word circle indicates the PageRank with
+higher PageRank resulting in a larger circle. Concept words are coloured
 red and other terms are black.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/fst_cn_plot.html">fst_cn_plot</a></span><span class="op">(</span></span>
@@ -662,7 +662,7 @@ data.</p>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="Tutorial3-Overview_of_Concept_Network_functions_files/figure-html/unnamed-chunk-11-1.png" width="576"></p>
 <p>As <code><a href="../../reference/fst_cn_plot.html">fst_cn_plot()</a></code> uses results from the previous
-functions it requires 3 arguments:</p>
+functions, it has 4 arguments:</p>
 <ol style="list-style-type: decimal">
 <li>
 <code>edges</code> is the output of
@@ -686,7 +686,8 @@ occurrences’) will be used.</li>
 <p>If you don’t want to run all of the individual functions,
 <code><a href="../../reference/fst_cn_search.html">fst_cn_search()</a></code>, <code><a href="../../reference/fst_cn_edges.html">fst_cn_edges()</a></code>,
 <code><a href="../../reference/fst_cn_nodes.html">fst_cn_nodes()</a></code>, and <code><a href="../../reference/fst_cn_plot.html">fst_cn_plot()</a></code>, you can run
-them all within the one function <code><a href="../../reference/fst_concept_network.html">fst_concept_network()</a></code>.</p>
+them all within the one function,
+<code><a href="../../reference/fst_concept_network.html">fst_concept_network()</a></code>.</p>
 <p>This function is run as follows:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/fst_concept_network.html">fst_concept_network</a></span><span class="op">(</span></span>
