@@ -23,7 +23,7 @@ This tutorial follows on from Tutorial 1 and guides you through an EDA of data w
 
 ### Installation of package.
 
-First, install and load the `finnsurveytext` package as below:
+Once the package is installed, you can load the `finnsurveytext` package as below:
 (Other required packages such as `dplyr` and `stringr` will also be installed if they are not currently installed in your environment.)
 
 ```{r setup}
@@ -79,7 +79,7 @@ q11_1 <- conllu_dev_q11_1_nltk
 
 This first function creates a simple summary table for the data that shows the total number of word, number of unique words, and number of unique lemmas in the data. You can either view the table in the console, or define a variable which will contain this table. 
 
-The second function adds information about the number and proportion of survey respondents which answered this question
+The second function adds information about the number and proportion of survey respondents which answered this question.
 
 ```{r}
 fst_summarise_short(data = bullying)
