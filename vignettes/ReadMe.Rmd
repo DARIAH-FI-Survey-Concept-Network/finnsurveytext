@@ -21,6 +21,8 @@ library(finnsurveytext)
 This repository contains an R package called finnsurveytext. 
 For further details on how to use the package, please see the [package website](https://dariah-fi-survey-concept-network.github.io/finnsurveytext/index.html) which contains tutorials covering all the functions available in finnsurveytext. 
 
+A video demonstrating use of the package is available [here](https://www.helsinki.fi/fi/unitube/video/307d2df5-1a2b-4440-9562-d7d915addc35)
+
 ## Installation ##
 Install the released version of finnsurveytext from CRAN:
 install.packages("finnsurveytext")

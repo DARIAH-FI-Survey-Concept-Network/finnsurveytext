@@ -18,13 +18,13 @@ knitr::opts_chunk$set(
 ## Introduction
 This tutorial follows on from Tutorial 2 and guides you through creation of a concept network plot. A concept network is a way to visualise words which often occur together.
 
-Our concept network function uses the Textrank algorithm which is a graph-based ranking model for text processing. Vertices represent words and co-occurrence between words is shown through edges. Word importance is determined recursively (through the unsupervised learning Textrank algorithm) where words get more weight based on how many words co-occur and the weight of these co-occurring words. 
+Our concept network function uses the TextRank algorithm which is a graph-based ranking model for text processing. Vertices represent words and co-occurrence between words is shown through edges. Word importance is determined recursively (through the unsupervised learning TextRank algorithm) where words get more weight based on how many words co-occur and the weight of these co-occurring words. 
 
-To utilise the Textrank algorithm in `finnsurveytext`, we use the `textrank` package. For further information on the package, please see [this documentation](https://cran.r-project.org/web/packages/textrank/vignettes/textrank.html). This package implements the Textrank and Pagerank algorithms. (Pagerank is the same algorithm that Google uses to rank webpages.) You can read about the underlying Textrank algorithm [here](https://web.eecs.umich.edu/~mihalcea/papers/mihalcea.emnlp04.pdf) and about the PageRank algorithm [here](https://www.sciencedirect.com/science/article/abs/pii/S016975529800110X).  
+To utilise the TextRank algorithm in `finnsurveytext`, we use the `textrank` package. For further information on the package, please see [this documentation](https://cran.r-project.org/web/packages/textrank/vignettes/textrank.html). This package implements the TextRank and PageRank algorithms. (PageRank is the algorithm that Google uses to rank webpages.) You can read about the underlying Textrank algorithm [here](https://web.eecs.umich.edu/~mihalcea/papers/mihalcea.emnlp04.pdf) and about the PageRank algorithm [here](https://www.sciencedirect.com/science/article/abs/pii/S016975529800110X).  
 
 ### Installation of package.
 
-First, install and load the `finnsurveytext` package as below:
+Once the package is installed, you can load the `finnsurveytext` package as below:
 (Other required packages such as `dplyr` and `stringr` will also be installed if they are not currently installed in your environment.)
 
 ```{r setup}
@@ -42,7 +42,7 @@ The functions covered in this tutorial are in r/03_concept_network.R. These are:
 
 ### Data 
 
-There are two sets of data files available within the package which could be used in this tutorial. These files have been created following the process demonstrated in Tutorial 1. The suffixes 'iso', 'nltk' and 'snow' refer to the stopword list used within the preparation activities. 
+There are two sets of data files available within the package which could be used in this tutorial. These files have been created following the process demonstrated in Tutorial 1. The suffixes 'iso', 'nltk' and 'snow' refer to the types of stopwords which have been removed during the data preparation activities.  
 
 #### 1. Child Barometer Data
 * data/conllu_cb_bullying.rda
@@ -150,7 +150,7 @@ The arguments are the same as for `fst_cn_search()` plus the `threshold`.
 ### Concept Network - Get Textrank Nodes
 `fst_cn_nodes()`
 
-This function runs the `textrank_keywords()` function which is part of the `textrank` package and returns a dataframe containing relevant lemmas and their associated pagerank. 
+This function runs the `textrank_keywords()` function which is part of the `textrank` package and returns a dataframe containing relevant lemmas and their associated PageRank. 
 
 It is demonstrated as follows:
 ```{r}
@@ -172,7 +172,7 @@ knitr::kable(head(q11_2_nodes, n = 10))
 ### Plot Concept Network
 `fst_cn_plot()`
 
-This function takes the output of the previous functions and plots the concept network. Edges between words in the plot show the number of occurrences with thicker and more opaque edges showing more occurrences. Similarly, the size of the word circle indicates the pagerank with higher pagerank resulting in a larger circle. Concept words are coloured red and other terms are black.
+This function takes the output of the previous functions and plots the concept network. Edges between words in the plot show the number of occurrences with thicker and more opaque edges showing more occurrences. Similarly, the size of the word circle indicates the PageRank with higher PageRank resulting in a larger circle. Concept words are coloured red and other terms are black.
 
 ```{r}
 fst_cn_plot(
@@ -201,7 +201,7 @@ fst_cn_plot(
 )
 ```
 
-As `fst_cn_plot()` uses results from the previous functions it requires 3 arguments:
+As `fst_cn_plot()` uses results from the previous functions, it has 4 arguments:
 
 1. `edges` is the output of `fst_cn_edges()`.
 2. `nodes` is the output of `fst_cn_nodes()`
@@ -211,7 +211,7 @@ As `fst_cn_plot()` uses results from the previous functions it requires 3 argume
 ### Plot Concept Network
 `fst_concept_network()`
 
-If you don't want to run all of the individual functions, `fst_cn_search()`, `fst_cn_edges()`, `fst_cn_nodes()`, and `fst_cn_plot()`, you can run them all within the one function `fst_concept_network()`.
+If you don't want to run all of the individual functions, `fst_cn_search()`, `fst_cn_edges()`, `fst_cn_nodes()`, and `fst_cn_plot()`, you can run them all within the one function, `fst_concept_network()`.
 
 This function is run as follows:
 ```{r}

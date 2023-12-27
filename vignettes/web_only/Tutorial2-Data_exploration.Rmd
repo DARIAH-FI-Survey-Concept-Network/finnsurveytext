@@ -23,7 +23,7 @@ This tutorial follows on from Tutorial 1 and guides you through an EDA of data w
 
 ### Installation of package.
 
-First, install and load the `finnsurveytext` package as below:
+Once the package is installed, you can load the `finnsurveytext` package as below:
 (Other required packages such as `dplyr` and `stringr` will also be installed if they are not currently installed in your environment.)
 
 ```{r setup}
@@ -49,7 +49,7 @@ The functions covered in this tutorial are:
 
 
 ### Data
-There are two sets of data files available within the package which could be used in this tutorial. These files have been created following the process demonstrated in Tutorial 1. The suffixes 'iso', 'nltk' and 'snow' refer to the stopword list used within the preparation activities. 
+There are two sets of data files available within the package which could be used in this tutorial. These files have been created following the process demonstrated in Tutorial 1. The suffixes 'iso', 'nltk' and 'snow' refer to the types of stopwords which have been removed during the data preparation activities.  
 
 ##### 1. Child Barometer Data
 * data/conllu_cb_bullying.rda
@@ -77,9 +77,9 @@ q11_1 <- conllu_dev_q11_1_nltk
 ### Get Summary Table functions
 `fst_summarise_short()` and `fst_summarise()`
 
-This first function creates a simple summary table for the data that shows the total number of word, number of unique words, and number of unique lemmas in the data. You can either view the table in the console, or define a variable which will contain this table. 
+This first function creates a simple summary table for the data that shows the total number of words, number of unique words, and number of unique lemmas in the data. You can either view the table in the console, or define a variable which will contain this table. 
 
-The second function adds information about the number and proportion of survey respondents which answered this question
+The second function adds information about the number and proportion of survey respondents which answered this question.
 
 ```{r}
 fst_summarise_short(data = bullying)
@@ -217,7 +217,6 @@ This functions plots the results of `fst_get_top_words()`.
 
 ```{r}
 fst_freq_plot(table = table1, number = 5, name = "Table 1")
-fst_freq_plot(table = table1, number = 5, name = "Table 1 with N-grams Plot Function")
 ```
 
 The arguments are: 
