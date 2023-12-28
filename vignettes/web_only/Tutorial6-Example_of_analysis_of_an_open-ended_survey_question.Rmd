@@ -305,7 +305,7 @@ Based on comparison cloud, it looks like:
 
 When we look at individuals, we see: 
 
-* 'ilmastonmuutos' in top 3 for males - possibly # 2, nälnhätä less common for males 
+* 'ilmastonmuutos' in top 3 for males - possibly # 2, nälänhätä less common for males 
 * it's evident we have less data for respondents who don't list a gender. Their wordcloud is quite sparse!
 
 #### N-grams and top words

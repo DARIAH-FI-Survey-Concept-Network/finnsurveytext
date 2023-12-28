@@ -44,7 +44,7 @@ We will look at the following question:
 
 ### Installation of package.
 
-First, install and load the `finnsurveytext` package as below:
+Once the package is installed, you can load the `finnsurveytext` package as below:
 (Other required packages such as `dplyr` and `stringr` will also be installed if they are not currently installed in your environment.)
 
 ```{r setup}
