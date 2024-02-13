@@ -549,7 +549,6 @@ fst_wordcloud <- function(data, pos_filter = NULL, max = 100) {
     dplyr::filter(!is.na(lemma)) %>%
     dplyr::filter(lemma != "na") %>%
     dplyr::count(lemma, sort = TRUE)
-  graphics::par(mar = rep(0, 4))
   wordcloud::wordcloud(
     words = wordcloud_data$lemma,
     freq = wordcloud_data$n,

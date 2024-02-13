@@ -738,7 +738,6 @@ fst_comparison_cloud <- function(data1, data2, data3 = NULL, data4 = NULL, name1
   rownames(compcloud_data) <- compcloud_data$lemma
   compcloud_data$lemma <- NULL
   compcloud_data[is.na(compcloud_data)] <- 0
-  par(mar = rep(0, 4))
   wordcloud::comparison.cloud(compcloud_data,
     max.words = max,
     random.order = FALSE,

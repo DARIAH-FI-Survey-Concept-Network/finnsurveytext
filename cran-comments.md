@@ -1,3 +1,10 @@
+## Resubmission
+This is a resubmission. In this version I have:
+
+* Removed extra spaces from Description field in DESCRIPTION file
+* Added references for package methods to Description field in DESCRIPTION field
+* Removed all instances of par() within functions. 
+
 ## devtools::check() results
 
 0 errors | 0 warnings | 0 notes

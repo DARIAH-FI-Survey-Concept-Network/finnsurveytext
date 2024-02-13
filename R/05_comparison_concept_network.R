@@ -12,7 +12,7 @@
 #'
 #' @examples
 #' cb <- conllu_cb_bullying_iso
-#' pos_filter = c("NOUN", "VERB", "ADJ", "ADV")
+#' pos_filter <- c("NOUN", "VERB", "ADJ", "ADV")
 #' e1 <- fst_cn_edges(cb, "lyödä", pos_filter = pos_filter)
 #' e2 <- fst_cn_edges(cb, "lyöminen", pos_filter = pos_filter)
 #' n1 <- fst_cn_nodes(cb, e1)
@@ -64,7 +64,7 @@ fst_cn_get_unique <- function(table1, table2, ...) {
 #'
 #' @examples
 #' cb <- conllu_cb_bullying_iso
-#' pos_filter = c("NOUN", "VERB", "ADJ", "ADV")
+#' pos_filter <- c("NOUN", "VERB", "ADJ", "ADV")
 #' e1 <- fst_cn_edges(cb, "lyödä", pos_filter = pos_filter)
 #' e2 <- fst_cn_edges(cb, "lyöminen", pos_filter = pos_filter)
 #' n1 <- fst_cn_nodes(cb, e1)
