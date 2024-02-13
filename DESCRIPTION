@@ -1,6 +1,6 @@
 Type: Package
 Package: finnsurveytext
-Title: Analyse Open-Ended Survey Responses in Finnish
+Title: "Analyse Open-Ended Survey Responses in Finnish"
 Version: 1.0.0
 Authors@R: c(
     person("Adeline", "Clarke", , email = "adelinepclarke@gmail.com", role = c("cre", "aut")),
@@ -20,9 +20,7 @@ Authors@R: c(
     person("Kimmo", "Vehkalahti", role = "ctb"), 
     person("DARIAH-FI", role = c("cph", "fnd"))
   )
-Description: Annotates Finnish textual survey responses into CoNLL-U format and 
-    analyses formatted data using single or comparison n-gram plots, wordclouds, 
-    summary tables and Concept Network plots.
+Description: Annotates Finnish textual survey responses into CoNLL-U format using Finnish treebanks from <https://universaldependencies.org/format.html> as described in 'Tokenizing, POS Tagging, Lemmatizing and Parsing UD 2.0 with UDPipe', available at <doi:10.18653/v1/K17-3009>. Formatted data is then analysed using single or comparison n-gram plots, wordclouds, summary tables and Concept Network plots. The Concept Network plots used the TextRank algorithm as described in Mihalcea, Rada & Tarau, Paul (2004) <https://www.aclweb.org/anthology/W04-3252/>.
 License: MIT + file LICENSE
 Depends: 
     R (>= 2.10)
@@ -49,5 +47,5 @@ VignetteBuilder:
     knitr
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 URL: https://dariah-fi-survey-concept-network.github.io/finnsurveytext/
