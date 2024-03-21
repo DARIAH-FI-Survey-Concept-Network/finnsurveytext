@@ -45,7 +45,7 @@ fst_cn_get_unique <- function(table1, table2, ...) {
 #'  commas.
 #' @param unique_lemmas List of unique lemmas, output of `fst_cn_get_unique()`
 #' @param name An optional "name" for the plot, default is `NULL` and a generic
-#'  title ("Textrank extracted keyword occurrences") will be used.
+#'  title ("TextRank extracted keyword occurrences") will be used.
 #' @param concept_colour Colour to display concept words, default is
 #'  `"indianred"`.
 #' @param unique_colour Colour to display unique words, default is `"darkgreen"`.
@@ -103,7 +103,7 @@ fst_cn_compare_plot <- function(edges,
       unlist()
   }
   if (is.null(name)) {
-    name <- "Textrank extracted keyword occurences"
+    name <- "TextRank extracted keyword occurences"
   }
   nodes <- nodes %>%
     dplyr::mutate(is_concept = factor(ifelse(lemma %in% concepts, 0, ifelse(lemma %in% unique_lemmas, 1, 2)),

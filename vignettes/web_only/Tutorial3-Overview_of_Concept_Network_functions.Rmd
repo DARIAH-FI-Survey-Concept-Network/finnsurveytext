@@ -20,7 +20,7 @@ This tutorial follows on from Tutorial 2 and guides you through creation of a co
 
 Our concept network function uses the TextRank algorithm which is a graph-based ranking model for text processing. Vertices represent words and co-occurrence between words is shown through edges. Word importance is determined recursively (through the unsupervised learning TextRank algorithm) where words get more weight based on how many words co-occur and the weight of these co-occurring words. 
 
-To utilise the TextRank algorithm in `finnsurveytext`, we use the `textrank` package. For further information on the package, please see [this documentation](https://cran.r-project.org/web/packages/textrank/vignettes/textrank.html). This package implements the TextRank and PageRank algorithms. (PageRank is the algorithm that Google uses to rank webpages.) You can read about the underlying Textrank algorithm [here](https://web.eecs.umich.edu/~mihalcea/papers/mihalcea.emnlp04.pdf) and about the PageRank algorithm [here](https://www.sciencedirect.com/science/article/abs/pii/S016975529800110X).  
+To utilise the TextRank algorithm in `finnsurveytext`, we use the `textrank` package. For further information on the package, please see [this documentation](https://cran.r-project.org/web/packages/textrank/vignettes/textrank.html). This package implements the TextRank and PageRank algorithms. (PageRank is the algorithm that Google uses to rank webpages.) You can read about the underlying TextRank algorithm [here](https://web.eecs.umich.edu/~mihalcea/papers/mihalcea.emnlp04.pdf) and about the PageRank algorithm [here](https://www.sciencedirect.com/science/article/abs/pii/S016975529800110X).  
 
 ### Installation of package.
 
@@ -70,7 +70,7 @@ knitr::kable(head(bullying))
 
 ## FUNCTIONS
 
-### Concept Network - Search Textrank for Concepts
+### Concept Network - Search TextRank for Concepts
 `fst_cn_search()`
 
 This function is used to find words which are related to a list of provided terms. It utilises the `textrank_keywords()` function which is part of the `textrank` package.
@@ -110,7 +110,7 @@ To run `fst_cn_search`, we provide the following arguments to the function:
 2. `concepts` is a string of concept terms to search for, separated by commas.
 3. `relevant_pos` is a list of UPOS tags for inclusion, default is c("NOUN", "VERB", "ADJ", "ADV").
 
-### Concept Network - Get Textrank Edges
+### Concept Network - Get TextRank Edges
 `fst_cn_edges()`
 
 The Get Edges function runs the search function, `fst_cn_search()` and then filters for edges (pairs of co-occurring words where one is a concept word) which are larger than the threshold (occurring enough times). The resulting dataframe is simplified in preparation for plotting.
@@ -147,7 +147,7 @@ The arguments are the same as for `fst_cn_search()` plus the `threshold`.
 4. `norm` is the method for normalising the data. Valid settings are `'number_words'` (the number of words in the responses, default), `'number_resp'` (the number of responses), or `NULL` (raw count returned). Normalisation occurs **after** the threshold (if it exists) is applied. 
 5. `pos_filter` is a list of UPOS tags for inclusion, default is `NULL`.
 
-### Concept Network - Get Textrank Nodes
+### Concept Network - Get TextRank Nodes
 `fst_cn_nodes()`
 
 This function runs the `textrank_keywords()` function which is part of the `textrank` package and returns a dataframe containing relevant lemmas and their associated PageRank. 
@@ -206,7 +206,7 @@ As `fst_cn_plot()` uses results from the previous functions, it has 4 arguments:
 1. `edges` is the output of `fst_cn_edges()`.
 2. `nodes` is the output of `fst_cn_nodes()`
 3. `concepts` is a list of terms which have been searched for, separated by commas.
-4. `title` is an optional title for plot, default is `NULL` and a generic title, ('Textrank extracted keyword occurrences') will be used.
+4. `title` is an optional title for plot, default is `NULL` and a generic title, ('TextRank extracted keyword occurrences') will be used.
 
 ### Plot Concept Network
 `fst_concept_network()`
@@ -261,7 +261,7 @@ The arguments are:
 3. `threshold` is the minimum number of occurrences threshold for 'edge' between a concept term and other word, default is NULL.
 4. `norm` is the method for normalising the data. Valid settings are `'number_words'` (the number of words in the responses, default), `'number_resp'` (the number of responses), or `NULL` (raw count returned). Normalisation occurs **after** the threshold (if it exists) is applied. 
 4. `pos_filter` is a list of UPOS tags for inclusion, default is `NULL`.
-5. `title` is an optional title for plot, default is `NULL` and a generic title, ('Textrank extracted keyword occurrences') will be used.
+5. `title` is an optional title for plot, default is `NULL` and a generic title, ('TextRank extracted keyword occurrences') will be used.
 
 ## Conclusion
 

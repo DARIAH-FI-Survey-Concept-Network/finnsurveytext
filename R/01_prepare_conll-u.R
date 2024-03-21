@@ -103,9 +103,8 @@ fst_rm_stop_punct <- function(data, stopword_list = "nltk") {
 
 #' Read In and format Finnish survey text responses
 #'
-#' `fst_prepare_conllu()` produces a dataframe (and saves as csv) containing
-#' Finnish survey text reponses in CoNLL-U format with stopwords removed.
-#'
+#' `fst_prepare_conllu()` produces a dataframe containing Finnish survey text
+#'  responses in CoNLL-U format with stopwords optionally removed.
 #' @param data A dataframe of survey responses which contains an open-ended
 #'  question.
 #' @param field The field in the dataframe which contains the open-ended

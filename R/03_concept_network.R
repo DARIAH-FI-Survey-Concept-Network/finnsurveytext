@@ -1,4 +1,4 @@
-#' Concept Network - Search textrank for concepts
+#' Concept Network - Search TextRank for concepts
 #'
 #' This function takes a string of terms (separated by commas) or a single term
 #' and, using `textrank_keywords()` from `textrank` package, filters data based
@@ -55,7 +55,7 @@ fst_cn_search <- function(data,
   return(all_concepts)
 }
 
-#' Concept Network - Get textrank edges
+#' Concept Network - Get TextRank edges
 #'
 #' This function takes a string of terms (separated by commas) or a single term
 #' and, using `fst_cn_search()` find words connected to these searched terms.
@@ -125,7 +125,7 @@ fst_cn_edges <- function(data,
   return(df)
 }
 
-#' Concept Network - Get textrank nodes
+#' Concept Network - Get TextRank nodes
 #'
 #' This function takes a string of terms (separated by commas) or a single term
 #' and, using `textrank_keywords()` from `textrank` package, filters data based
@@ -181,7 +181,7 @@ fst_cn_nodes <- function(data,
 #' @param concepts List of terms which have been searched for, separated by
 #'  commas.
 #' @param title Optional title for plot, default is `NULL` and a generic title
-#'  ("Textrank extracted keyword occurrences") will be used.
+#'  ("TextRank extracted keyword occurrences") will be used.
 #'
 #' @return Plot of Concept Network.
 #' @export
@@ -200,7 +200,7 @@ fst_cn_plot <- function(edges, nodes, concepts, title = NULL) {
       unlist()
   }
   if (is.null(title)) {
-    title <- "Concept Network of Textrank extracted keyword occurrences"
+    title <- "Concept Network of TextRank extracted keyword occurrences"
   }
   nodes <- nodes %>%
     dplyr::mutate(is_concept = factor(ifelse(lemma %in% concepts, 0, 1),
@@ -263,7 +263,7 @@ fst_cn_plot <- function(edges, nodes, concepts, title = NULL) {
 #' @param pos_filter List of UPOS tags for inclusion, default is `NULL` to
 #'  include all UPOS tags.
 #' @param title Optional title for plot, default is `NULL` and a generic title
-#'  ("Textrank extracted keyword occurrences") will be used.
+#'  ("TextRank extracted keyword occurrences") will be used.
 #'
 #' @return Plot of Concept Network.
 #' @export
