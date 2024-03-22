@@ -638,19 +638,19 @@ trigrams in that data.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/fst_freq.html">fst_freq</a></span><span class="op">(</span><span class="va">all_nltk</span>, <span class="fl">10</span>, strict <span class="op">=</span> <span class="cn">FALSE</span>, norm <span class="op">=</span> <span class="st">"number_resp"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Note:</span></span>
-<span><span class="co">#&gt;  Words with equal occurrence are presented in alphabetial order. </span></span>
+<span><span class="co">#&gt;  Words with equal occurrence are presented in alphabetical order. </span></span>
 <span><span class="co">#&gt;  With `strict` = FALSE, words occurring equally often as the `number` cutoff word will be displayed.</span></span></code></pre></div>
 <p><img src="Tutorial6-Example_of_analysis_of_an_open-ended_survey_question_files/figure-html/unnamed-chunk-6-1.png" width="768"></p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/fst_ngrams.html">fst_ngrams</a></span><span class="op">(</span><span class="va">all_nltk</span>, <span class="fl">10</span>, ngrams <span class="op">=</span> <span class="fl">2</span>, strict <span class="op">=</span> <span class="cn">FALSE</span>, norm <span class="op">=</span> <span class="st">"number_resp"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Note:</span></span>
-<span><span class="co">#&gt;  N-grams with equal occurrence are presented in alphabetial order. </span></span>
+<span><span class="co">#&gt;  N-grams with equal occurrence are presented in alphabetical order. </span></span>
 <span><span class="co">#&gt;  With `strict` = FALSE, n-grams occurring equally often as the `number` cutoff n-gram will be displayed.</span></span></code></pre></div>
 <p><img src="Tutorial6-Example_of_analysis_of_an_open-ended_survey_question_files/figure-html/unnamed-chunk-6-2.png" width="768"></p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/fst_ngrams.html">fst_ngrams</a></span><span class="op">(</span><span class="va">all_nltk</span>, <span class="fl">10</span>, ngrams <span class="op">=</span> <span class="fl">3</span>, strict <span class="op">=</span> <span class="cn">FALSE</span>, norm <span class="op">=</span> <span class="st">"number_resp"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Note:</span></span>
-<span><span class="co">#&gt;  N-grams with equal occurrence are presented in alphabetial order. </span></span>
+<span><span class="co">#&gt;  N-grams with equal occurrence are presented in alphabetical order. </span></span>
 <span><span class="co">#&gt;  With `strict` = FALSE, n-grams occurring equally often as the `number` cutoff n-gram will be displayed.</span></span></code></pre></div>
 <p><img src="Tutorial6-Example_of_analysis_of_an_open-ended_survey_question_files/figure-html/unnamed-chunk-6-3.png" width="768"></p>
 <p><strong>Remarks:</strong></p>
@@ -1102,7 +1102,7 @@ since this sample is so small)</p>
 <span><span class="co">#&gt;  If `max` is large, you may receive "warnings" indicating any words which are not plotted due to space constraints.</span></span>
 <span><span class="co">#&gt; Note: </span></span>
 <span><span class="co">#&gt;  Consider whether your data is balanced between groups being compared and whether each group contains enough data for analysis. </span></span>
-<span><span class="co">#&gt;  The number of responded in each group (including 'NAs') are listed below: </span></span>
+<span><span class="co">#&gt;  The number of responses in each group (including 'NAs') are listed below: </span></span>
 <span><span class="co">#&gt;  Female=673, Male=183, NA=89</span></span>
 <span><span class="co">#&gt; Warning in wordcloud::comparison.cloud(compcloud_data, max.words = max, :</span></span>
 <span><span class="co">#&gt; ilmastonmuutos could not be fit on page. It will not be plotted.</span></span></code></pre></div>
@@ -1118,7 +1118,7 @@ since this sample is so small)</p>
 <span><span class="co">#&gt;  If `max` is large, you may receive "warnings" indicating any words which are not plotted due to space constraints.</span></span>
 <span><span class="co">#&gt; Note: </span></span>
 <span><span class="co">#&gt;  Consider whether your data is balanced between groups being compared and whether each group contains enough data for analysis. </span></span>
-<span><span class="co">#&gt;  The number of responded in each group (including 'NAs') are listed below: </span></span>
+<span><span class="co">#&gt;  The number of responses in each group (including 'NAs') are listed below: </span></span>
 <span><span class="co">#&gt;  Female=673, Male=183</span></span></code></pre></div>
 <p><img src="Tutorial6-Example_of_analysis_of_an_open-ended_survey_question_files/figure-html/unnamed-chunk-11-2.png" width="768"></p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
@@ -1166,10 +1166,10 @@ these.</p>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; Note: </span></span>
 <span><span class="co">#&gt;  Consider whether your data is balanced between groups being compared and whether each group contains enough data for analysis. </span></span>
-<span><span class="co">#&gt;  The number of responded in each group (including 'NAs') are listed below: </span></span>
+<span><span class="co">#&gt;  The number of responses in each group (including 'NAs') are listed below: </span></span>
 <span><span class="co">#&gt;  Female=673, Male=183, NA=89</span></span>
 <span><span class="co">#&gt; Note:</span></span>
-<span><span class="co">#&gt;  Words with equal occurrence are presented in alphabetial order. </span></span>
+<span><span class="co">#&gt;  Words with equal occurrence are presented in alphabetical order. </span></span>
 <span><span class="co">#&gt;  By default, words are presented in order to the `number` cutoff word. </span></span>
 <span><span class="co">#&gt;  This means that equally-occurring later-alphabetically words beyond the cutoff will not be displayed.</span></span></code></pre></div>
 <p><img src="Tutorial6-Example_of_analysis_of_an_open-ended_survey_question_files/figure-html/unnamed-chunk-12-1.png" width="768"></p>
@@ -1186,12 +1186,12 @@ these.</p>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; Note: </span></span>
 <span><span class="co">#&gt;  Consider whether your data is balanced between groups being compared and whether each group contains enough data for analysis. </span></span>
-<span><span class="co">#&gt;  The number of responded in each group (including 'NAs') are listed below: </span></span>
+<span><span class="co">#&gt;  The number of responses in each group (including 'NAs') are listed below: </span></span>
 <span><span class="co">#&gt;  Female=673, Male=183</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Note:</span></span>
-<span><span class="co">#&gt;  Words with equal occurrence are presented in alphabetial order. </span></span>
+<span><span class="co">#&gt;  Words with equal occurrence are presented in alphabetical order. </span></span>
 <span><span class="co">#&gt;  By default, words are presented in order to the `number` cutoff word. </span></span>
 <span><span class="co">#&gt;  This means that equally-occurring later-alphabetically words beyond the cutoff will not be displayed.</span></span></code></pre></div>
 <p><img src="Tutorial6-Example_of_analysis_of_an_open-ended_survey_question_files/figure-html/unnamed-chunk-12-2.png" width="768"></p>
@@ -1210,10 +1210,10 @@ these.</p>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; Note: </span></span>
 <span><span class="co">#&gt;  Consider whether your data is balanced between groups being compared and whether each group contains enough data for analysis. </span></span>
-<span><span class="co">#&gt;  The number of responded in each group (including 'NAs') are listed below: </span></span>
+<span><span class="co">#&gt;  The number of responses in each group (including 'NAs') are listed below: </span></span>
 <span><span class="co">#&gt;  Female=673, Male=183</span></span>
 <span><span class="co">#&gt; Note:</span></span>
-<span><span class="co">#&gt;  N-grams with equal occurrence are presented in alphabetial order. </span></span>
+<span><span class="co">#&gt;  N-grams with equal occurrence are presented in alphabetical order. </span></span>
 <span><span class="co">#&gt;  By default, n-grams are presented in order to the `number` cutoff n-gram </span></span>
 <span><span class="co">#&gt;  This means that equally-occurring later-alphabetically n-grams beyond the cutoff n-gram will not be displayed.</span></span></code></pre></div>
 <p><img src="Tutorial6-Example_of_analysis_of_an_open-ended_survey_question_files/figure-html/unnamed-chunk-12-3.png" width="768"></p>

@@ -96,7 +96,7 @@ use the <code>textrank</code> package. For further information on the
 package, please see <a href="https://cran.r-project.org/web/packages/textrank/vignettes/textrank.html" class="external-link">this
 documentation</a>. This package implements the TextRank and PageRank
 algorithms. (PageRank is the algorithm that Google uses to rank
-webpages.) You can read about the underlying Textrank algorithm <a href="https://web.eecs.umich.edu/~mihalcea/papers/mihalcea.emnlp04.pdf" class="external-link">here</a>
+webpages.) You can read about the underlying TextRank algorithm <a href="https://web.eecs.umich.edu/~mihalcea/papers/mihalcea.emnlp04.pdf" class="external-link">here</a>
 and about the PageRank algorithm <a href="https://www.sciencedirect.com/science/article/abs/pii/S016975529800110X" class="external-link">here</a>.</p>
 <div class="section level3">
 <h3 id="installation-of-package-">Installation of package.<a class="anchor" aria-label="anchor" href="#installation-of-package-"></a>
@@ -296,7 +296,7 @@ the data preparation activities.</p>
 <h2 id="functions">FUNCTIONS<a class="anchor" aria-label="anchor" href="#functions"></a>
 </h2>
 <div class="section level3">
-<h3 id="concept-network---search-textrank-for-concepts">Concept Network - Search Textrank for Concepts<a class="anchor" aria-label="anchor" href="#concept-network---search-textrank-for-concepts"></a>
+<h3 id="concept-network---search-textrank-for-concepts">Concept Network - Search TextRank for Concepts<a class="anchor" aria-label="anchor" href="#concept-network---search-textrank-for-concepts"></a>
 </h3>
 <p><code><a href="../../reference/fst_cn_search.html">fst_cn_search()</a></code></p>
 <p>This function is used to find words which are related to a list of
@@ -433,7 +433,7 @@ default is c(“NOUN”, “VERB”, “ADJ”, “ADV”).</li>
 </ol>
 </div>
 <div class="section level3">
-<h3 id="concept-network---get-textrank-edges">Concept Network - Get Textrank Edges<a class="anchor" aria-label="anchor" href="#concept-network---get-textrank-edges"></a>
+<h3 id="concept-network---get-textrank-edges">Concept Network - Get TextRank Edges<a class="anchor" aria-label="anchor" href="#concept-network---get-textrank-edges"></a>
 </h3>
 <p><code><a href="../../reference/fst_cn_edges.html">fst_cn_edges()</a></code></p>
 <p>The Get Edges function runs the search function,
@@ -548,7 +548,7 @@ default is <code>NULL</code>.</li>
 </ol>
 </div>
 <div class="section level3">
-<h3 id="concept-network---get-textrank-nodes">Concept Network - Get Textrank Nodes<a class="anchor" aria-label="anchor" href="#concept-network---get-textrank-nodes"></a>
+<h3 id="concept-network---get-textrank-nodes">Concept Network - Get TextRank Nodes<a class="anchor" aria-label="anchor" href="#concept-network---get-textrank-nodes"></a>
 </h3>
 <p><code><a href="../../reference/fst_cn_nodes.html">fst_cn_nodes()</a></code></p>
 <p>This function runs the <code>textrank_keywords()</code> function
@@ -675,7 +675,7 @@ functions, it has 4 arguments:</p>
 for, separated by commas.</li>
 <li>
 <code>title</code> is an optional title for plot, default is
-<code>NULL</code> and a generic title, (‘Textrank extracted keyword
+<code>NULL</code> and a generic title, (‘TextRank extracted keyword
 occurrences’) will be used.</li>
 </ol>
 </div>
@@ -767,7 +767,7 @@ applied.</li>
 default is <code>NULL</code>.</li>
 <li>
 <code>title</code> is an optional title for plot, default is
-<code>NULL</code> and a generic title, (‘Textrank extracted keyword
+<code>NULL</code> and a generic title, (‘TextRank extracted keyword
 occurrences’) will be used.</li>
 </ol>
 </div>

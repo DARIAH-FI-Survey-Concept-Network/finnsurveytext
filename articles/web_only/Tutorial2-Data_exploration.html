@@ -593,7 +593,7 @@ regarding this decision.)</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/fst_get_top_words.html">fst_get_top_words</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">bullying</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Note:</span></span>
-<span><span class="co">#&gt;  Words with equal occurrence are presented in alphabetial order. </span></span>
+<span><span class="co">#&gt;  Words with equal occurrence are presented in alphabetical order. </span></span>
 <span><span class="co">#&gt;  By default, words are presented in order to the `number` cutoff word. </span></span>
 <span><span class="co">#&gt;  This means that equally-occurring later-alphabetically words beyond the cutoff word will not be displayed.</span></span>
 <span><span class="co">#&gt;         words occurrence</span></span>
@@ -616,7 +616,7 @@ regarding this decision.)</p>
 <span>  strict <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; Note:</span></span>
-<span><span class="co">#&gt;  Words with equal occurrence are presented in alphabetial order. </span></span>
+<span><span class="co">#&gt;  Words with equal occurrence are presented in alphabetical order. </span></span>
 <span><span class="co">#&gt;  With `strict` = FALSE, words occurring equally often as the `number` cutoff word will be displayed.</span></span>
 <span><span class="co">#&gt;         words occurrence</span></span>
 <span><span class="co">#&gt; 1       lyödä         71</span></span>
@@ -637,7 +637,7 @@ regarding this decision.)</p>
 <span></span>
 <span><span class="va">table1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/fst_get_top_words.html">fst_get_top_words</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">q11_1</span>, number <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Note:</span></span>
-<span><span class="co">#&gt;  Words with equal occurrence are presented in alphabetial order. </span></span>
+<span><span class="co">#&gt;  Words with equal occurrence are presented in alphabetical order. </span></span>
 <span><span class="co">#&gt;  By default, words are presented in order to the `number` cutoff word. </span></span>
 <span><span class="co">#&gt;  This means that equally-occurring later-alphabetically words beyond the cutoff word will not be displayed.</span></span>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">table1</span><span class="op">)</span></span></code></pre></div>
@@ -673,7 +673,7 @@ regarding this decision.)</p>
 <code class="sourceCode R"><span></span>
 <span><span class="va">table2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/fst_get_top_words.html">fst_get_top_words</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">q11_1</span>, number <span class="op">=</span> <span class="fl">5</span>, norm <span class="op">=</span> <span class="st">"number_resp"</span>, pos_filter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NOUN"</span>, <span class="st">"VERB"</span><span class="op">)</span>, strict <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Note:</span></span>
-<span><span class="co">#&gt;  Words with equal occurrence are presented in alphabetial order. </span></span>
+<span><span class="co">#&gt;  Words with equal occurrence are presented in alphabetical order. </span></span>
 <span><span class="co">#&gt;  With `strict` = FALSE, words occurring equally often as the `number` cutoff word will be displayed.</span></span>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">table2</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
@@ -765,7 +765,7 @@ function is used within the comparison functions in
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/fst_get_top_ngrams.html">fst_get_top_ngrams</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">bullying</span>, ngrams <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Note:</span></span>
-<span><span class="co">#&gt;  N-grams with equal occurrence are presented in alphabetial order. </span></span>
+<span><span class="co">#&gt;  N-grams with equal occurrence are presented in alphabetical order. </span></span>
 <span><span class="co">#&gt;  By default, n-grams are presented in order to the `number` cutoff n-gram. </span></span>
 <span><span class="co">#&gt;  This means that equally-occurring later-alphabetically n-grams beyond the cutoff n-gram will not be displayed.</span></span>
 <span><span class="co">#&gt;                   words occurrence</span></span>
@@ -782,7 +782,7 @@ function is used within the comparison functions in
 <span></span>
 <span><span class="fu"><a href="../../reference/fst_get_top_ngrams.html">fst_get_top_ngrams</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">bullying</span>, ngrams <span class="op">=</span> <span class="fl">2</span>, norm <span class="op">=</span> <span class="st">"number_words"</span>, strict <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Note:</span></span>
-<span><span class="co">#&gt;  N-grams with equal occurrence are presented in alphabetial order. </span></span>
+<span><span class="co">#&gt;  N-grams with equal occurrence are presented in alphabetical order. </span></span>
 <span><span class="co">#&gt;  With `strict` = FALSE, n-grams occurring equally often as the `number` cutoff n-gram will be displayed.</span></span>
 <span><span class="co">#&gt;                   words occurrence</span></span>
 <span><span class="co">#&gt; 1   lyöminen potkiminen      0.013</span></span>
@@ -802,7 +802,7 @@ function is used within the comparison functions in
 <span></span>
 <span><span class="va">table3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/fst_get_top_ngrams.html">fst_get_top_ngrams</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">q11_1</span>, number <span class="op">=</span> <span class="fl">15</span>, ngrams <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Note:</span></span>
-<span><span class="co">#&gt;  N-grams with equal occurrence are presented in alphabetial order. </span></span>
+<span><span class="co">#&gt;  N-grams with equal occurrence are presented in alphabetical order. </span></span>
 <span><span class="co">#&gt;  By default, n-grams are presented in order to the `number` cutoff n-gram. </span></span>
 <span><span class="co">#&gt;  This means that equally-occurring later-alphabetically n-grams beyond the cutoff n-gram will not be displayed.</span></span>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">table3</span><span class="op">)</span></span></code></pre></div>
@@ -878,7 +878,7 @@ function is used within the comparison functions in
 <code class="sourceCode R"><span></span>
 <span><span class="va">table4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/fst_get_top_ngrams.html">fst_get_top_ngrams</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">q11_1</span>, number <span class="op">=</span> <span class="fl">15</span>, ngrams <span class="op">=</span> <span class="fl">2</span>, pos_filter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NOUN"</span>, <span class="st">"VERB"</span><span class="op">)</span>, strict <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Note:</span></span>
-<span><span class="co">#&gt;  N-grams with equal occurrence are presented in alphabetial order. </span></span>
+<span><span class="co">#&gt;  N-grams with equal occurrence are presented in alphabetical order. </span></span>
 <span><span class="co">#&gt;  With `strict` = FALSE, n-grams occurring equally often as the `number` cutoff n-gram will be displayed.</span></span>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">table4</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
@@ -1076,7 +1076,7 @@ you can plot top words using <code>ngrams = 1</code>.</li>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/fst_freq.html">fst_freq</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">q11_1</span>, number <span class="op">=</span> <span class="fl">12</span>, strict <span class="op">=</span> <span class="cn">FALSE</span>, name <span class="op">=</span> <span class="st">"Q11_1"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Note:</span></span>
-<span><span class="co">#&gt;  Words with equal occurrence are presented in alphabetial order. </span></span>
+<span><span class="co">#&gt;  Words with equal occurrence are presented in alphabetical order. </span></span>
 <span><span class="co">#&gt;  With `strict` = FALSE, words occurring equally often as the `number` cutoff word will be displayed.</span></span></code></pre></div>
 <p><img src="Tutorial2-Data_exploration_files/figure-html/unnamed-chunk-10-1.png" width="576"></p>
 <p>The arguments are as defined in the component functions:</p>
@@ -1121,7 +1121,7 @@ equally frequently as the number cutoff word.</li>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/fst_ngrams.html">fst_ngrams</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">bullying</span>, number <span class="op">=</span> <span class="fl">12</span>, ngrams <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Note:</span></span>
-<span><span class="co">#&gt;  N-grams with equal occurrence are presented in alphabetial order. </span></span>
+<span><span class="co">#&gt;  N-grams with equal occurrence are presented in alphabetical order. </span></span>
 <span><span class="co">#&gt;  By default, n-grams are presented in order to the `number` cutoff n-gram. </span></span>
 <span><span class="co">#&gt;  This means that equally-occurring later-alphabetically n-grams beyond the cutoff n-gram will not be displayed.</span></span></code></pre></div>
 <p><img src="Tutorial2-Data_exploration_files/figure-html/unnamed-chunk-11-1.png" width="576"></p>

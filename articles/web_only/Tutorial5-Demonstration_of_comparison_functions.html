@@ -817,7 +817,7 @@ documentation</a>.</p>
 <span><span class="co">#&gt;  If `max` is large, you may receive "warnings" indicating any words which are not plotted due to space constraints.</span></span>
 <span><span class="co">#&gt; Note: </span></span>
 <span><span class="co">#&gt;  Consider whether your data is balanced between groups being compared and whether each group contains enough data for analysis. </span></span>
-<span><span class="co">#&gt;  The number of responded in each group (including 'NAs') are listed below: </span></span>
+<span><span class="co">#&gt;  The number of responses in each group (including 'NAs') are listed below: </span></span>
 <span><span class="co">#&gt;  Female=673, Male=183, Unspecified=89</span></span></code></pre></div>
 <p><img src="Tutorial5-Demonstration_of_comparison_functions_files/figure-html/unnamed-chunk-6-1.png" width="768"></p>
 <p>To run <code><a href="../../reference/fst_comparison_cloud.html">fst_comparison_cloud()</a></code>, we provide the following
@@ -865,7 +865,7 @@ the total number of words in the responses.</p>
 <span>  strict <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; Note:</span></span>
-<span><span class="co">#&gt;  Words with equal occurrence are presented in alphabetial order. </span></span>
+<span><span class="co">#&gt;  Words with equal occurrence are presented in alphabetical order. </span></span>
 <span><span class="co">#&gt;  With `strict` = FALSE, words occurring equally often as the `number` cutoff word will be displayed.</span></span>
 <span><span class="va">all_top10bigrams</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/fst_get_top_ngrams.html">fst_get_top_ngrams</a></span><span class="op">(</span><span class="va">all_nltk</span>,</span>
 <span>  number <span class="op">=</span> <span class="fl">10</span>,</span>
@@ -875,7 +875,7 @@ the total number of words in the responses.</p>
 <span>  strict <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; Note:</span></span>
-<span><span class="co">#&gt;  N-grams with equal occurrence are presented in alphabetial order. </span></span>
+<span><span class="co">#&gt;  N-grams with equal occurrence are presented in alphabetical order. </span></span>
 <span><span class="co">#&gt;  By default, n-grams are presented in order to the `number` cutoff n-gram. </span></span>
 <span><span class="co">#&gt;  This means that equally-occurring later-alphabetically n-grams beyond the cutoff n-gram will not be displayed.</span></span>
 <span></span>
@@ -987,7 +987,7 @@ the total number of words in the responses.</p>
 <span>  strict <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; Note:</span></span>
-<span><span class="co">#&gt;  Words with equal occurrence are presented in alphabetial order. </span></span>
+<span><span class="co">#&gt;  Words with equal occurrence are presented in alphabetical order. </span></span>
 <span><span class="co">#&gt;  By default, words are presented in order to the `number` cutoff word. </span></span>
 <span><span class="co">#&gt;  This means that equally-occurring later-alphabetically words beyond the cutoff word will not be displayed.</span></span>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">female_top10</span><span class="op">)</span></span></code></pre></div>
@@ -1048,7 +1048,7 @@ the total number of words in the responses.</p>
 <span>  strict <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; Note:</span></span>
-<span><span class="co">#&gt;  Words with equal occurrence are presented in alphabetial order. </span></span>
+<span><span class="co">#&gt;  Words with equal occurrence are presented in alphabetical order. </span></span>
 <span><span class="co">#&gt;  By default, words are presented in order to the `number` cutoff word. </span></span>
 <span><span class="co">#&gt;  This means that equally-occurring later-alphabetically words beyond the cutoff word will not be displayed.</span></span>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">male_top10</span><span class="op">)</span></span></code></pre></div>
@@ -1109,7 +1109,7 @@ the total number of words in the responses.</p>
 <span>  strict <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; Note:</span></span>
-<span><span class="co">#&gt;  Words with equal occurrence are presented in alphabetial order. </span></span>
+<span><span class="co">#&gt;  Words with equal occurrence are presented in alphabetical order. </span></span>
 <span><span class="co">#&gt;  By default, words are presented in order to the `number` cutoff word. </span></span>
 <span><span class="co">#&gt;  This means that equally-occurring later-alphabetically words beyond the cutoff word will not be displayed.</span></span>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">na_top10</span><span class="op">)</span></span></code></pre></div>
@@ -1188,10 +1188,10 @@ still appears in the other genders, just less frequently!)</p>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; Note: </span></span>
 <span><span class="co">#&gt;  Consider whether your data is balanced between groups being compared and whether each group contains enough data for analysis. </span></span>
-<span><span class="co">#&gt;  The number of responded in each group (including 'NAs') are listed below: </span></span>
+<span><span class="co">#&gt;  The number of responses in each group (including 'NAs') are listed below: </span></span>
 <span><span class="co">#&gt;  Female=672, Male=180, Unspecified=89</span></span>
 <span><span class="co">#&gt; Note:</span></span>
-<span><span class="co">#&gt;  Words with equal occurrence are presented in alphabetial order. </span></span>
+<span><span class="co">#&gt;  Words with equal occurrence are presented in alphabetical order. </span></span>
 <span><span class="co">#&gt;  By default, words are presented in order to the `number` cutoff word. </span></span>
 <span><span class="co">#&gt;  This means that equally-occurring later-alphabetically words beyond the cutoff will not be displayed.</span></span></code></pre></div>
 <p><img src="Tutorial5-Demonstration_of_comparison_functions_files/figure-html/unnamed-chunk-9-1.png" width="768"></p>
@@ -1244,10 +1244,10 @@ equally frequently as the number cutoff word.</li>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; Note: </span></span>
 <span><span class="co">#&gt;  Consider whether your data is balanced between groups being compared and whether each group contains enough data for analysis. </span></span>
-<span><span class="co">#&gt;  The number of responded in each group (including 'NAs') are listed below: </span></span>
+<span><span class="co">#&gt;  The number of responses in each group (including 'NAs') are listed below: </span></span>
 <span><span class="co">#&gt;  Female=672, Male=180, Unspecified=89</span></span>
 <span><span class="co">#&gt; Note:</span></span>
-<span><span class="co">#&gt;  N-grams with equal occurrence are presented in alphabetial order. </span></span>
+<span><span class="co">#&gt;  N-grams with equal occurrence are presented in alphabetical order. </span></span>
 <span><span class="co">#&gt;  By default, n-grams are presented in order to the `number` cutoff n-gram </span></span>
 <span><span class="co">#&gt;  This means that equally-occurring later-alphabetically n-grams beyond the cutoff n-gram will not be displayed.</span></span></code></pre></div>
 <p><img src="Tutorial5-Demonstration_of_comparison_functions_files/figure-html/unnamed-chunk-10-1.png" width="768"></p>
