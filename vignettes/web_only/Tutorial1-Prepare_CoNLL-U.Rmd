@@ -98,7 +98,7 @@ Summary of components
 As an example, the development cooperation q11_2 data could be prepared using this function call: 
 
 ```{r eval = FALSE}
-prepd_lonely <- fst_prepare_conllu(
+prepd_dev <- fst_prepare_conllu(
   dev_data,
   field = "q11_2",
   stopword_list = "none",
@@ -110,7 +110,7 @@ prepd_lonely <- fst_prepare_conllu(
 * The `field` is the name of the column in your data which contains the open-ended survey question. In this example, the responses are in question 11_2. 
 * We have chosen *not* to remove stopwords and punctuation in this example. (`stopword_list = NULL`)
 * The function also requires a Finnish language model available for [udpipe], in this case we are using the Turku Dependency Treebank, `model = "tdt"`.
-* The results in CoNLL-U format are stored in the local environment as "prepd_lonely". 
+* The results in CoNLL-U format are stored in the local environment as "prepd_dev". 
 
 ## In greater detail
 To better understand the `fst_prepare_connlu()` function, we will go through each of the functions that this one calls. These are: 

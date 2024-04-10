@@ -22,10 +22,6 @@ This repository contains an R package called finnsurveytext.
 For further details on how to use the package, please see the [package website](https://dariah-fi-survey-concept-network.github.io/finnsurveytext/index.html) which contains tutorials covering all the functions available in finnsurveytext. 
 
 A video demonstrating use of the package is available [here](https://www.helsinki.fi/fi/unitube/video/307d2df5-1a2b-4440-9562-d7d915addc35)
-
-## Installation ##
-Install the released version of finnsurveytext from CRAN:
-install.packages("finnsurveytext")
  
 ## Background ##
 DARIAH-FI is one of two components of FIN-CLARIAH which is a research infrastructure project for Social Sciences and Humanities (SSH) in Finland. DARIAH-FI involves all Finnish universities with research in SSH. 
@@ -80,7 +76,7 @@ The raw data can also be downloaded from the Finnish Social Science Data Archive
  
 ## Installation and License ##
 The package is available under the MIT license.
-Currently, the package can only be installed through this Github repository. 
+The released version of finnsurveytext can be installed from the CRAN: install.packages("finnsurveytext")
  
 ## References ##
 Fielding, J., Fielding, N., & Hughes, G. (2013). Opening up open-ended survey data using qualitative software. Quality & Quantity, 47(6), 3261–3276. https://doi.org/10.1007/s11135-012-9716-1.

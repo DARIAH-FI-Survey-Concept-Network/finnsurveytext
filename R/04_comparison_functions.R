@@ -222,7 +222,7 @@ fst_freq_compare <- function(data1, data2, data3 = NULL, data4 = NULL, number = 
     num3 <- dplyr::n_distinct(data3$doc_id)
     if (!is.null(data4)) {
       num4 <- dplyr::n_distinct(data4$doc_id)
-      message(paste0("Note: \n Consider whether your data is balanced between groups being compared and whether each group contains enough data for analysis. \n The number of responded in each group (including \'NAs\') are listed below: \n\t", name1, "=", num1, ", ", name2, "=", num2, ", ", name3, "=", num3, ", ", name4, "=", num4, "\n\n"))
+      message(paste0("Note: \n Consider whether your data is balanced between groups being compared and whether each group contains enough data for analysis. \n The number of responses in each group (including \'NAs\') are listed below: \n\t", name1, "=", num1, ", ", name2, "=", num2, ", ", name3, "=", num3, ", ", name4, "=", num4, "\n\n"))
       unique <- fst_get_unique_ngrams(top1, top2, top3, top4)
       top4_2 <- fst_join_unique(top4, unique)
       top3_2 <- fst_join_unique(top3, unique)
@@ -234,7 +234,7 @@ fst_freq_compare <- function(data1, data2, data3 = NULL, data4 = NULL, number = 
       plot1 <- fst_ngrams_compare_plot(top1_2, number = number, unique_colour = unique_colour, override_title = name1)
       fst_plot_multiple(plot1 = plot1, plot2 = plot2, plot3 = plot3, plot4 = plot4, main_title = paste("Comparison Plot of", as.character(number), "Most Common Words"))
     } else {
-      message(paste0("Note: \n Consider whether your data is balanced between groups being compared and whether each group contains enough data for analysis. \n The number of responded in each group (including \'NAs\') are listed below: \n\t", name1, "=", num1, ", ", name2, "=", num2, ", ", name3, "=", num3, "\n\n"))
+      message(paste0("Note: \n Consider whether your data is balanced between groups being compared and whether each group contains enough data for analysis. \n The number of responses in each group (including \'NAs\') are listed below: \n\t", name1, "=", num1, ", ", name2, "=", num2, ", ", name3, "=", num3, "\n\n"))
       unique <- fst_get_unique_ngrams(top1, top2, top3)
       top3_2 <- fst_join_unique(top3, unique)
       top2_2 <- fst_join_unique(top2, unique)
@@ -245,7 +245,7 @@ fst_freq_compare <- function(data1, data2, data3 = NULL, data4 = NULL, number = 
       fst_plot_multiple(plot1 = plot1, plot2 = plot2, plot3 = plot3, main_title = paste("Comparison Plot of", as.character(number), "Most Common Words"))
     }
   } else {
-    message(paste0("Note: \n Consider whether your data is balanced between groups being compared and whether each group contains enough data for analysis. \n The number of responded in each group (including \'NAs\') are listed below: \n\t", name1, "=", num1, ", ", name2, "=", num2, "\n\n"))
+    message(paste0("Note: \n Consider whether your data is balanced between groups being compared and whether each group contains enough data for analysis. \n The number of responses in each group (including \'NAs\') are listed below: \n\t", name1, "=", num1, ", ", name2, "=", num2, "\n\n"))
     unique <- fst_get_unique_ngrams(top1, top2)
     top2_2 <- fst_join_unique(top2, unique)
     top1_2 <- fst_join_unique(top1, unique)
@@ -254,9 +254,9 @@ fst_freq_compare <- function(data1, data2, data3 = NULL, data4 = NULL, number = 
     fst_plot_multiple(plot1 = plot1, plot2 = plot2, main_title = paste("Comparison Plot of", as.character(number), "Most Common Words"))
   }
   if (strict == TRUE) {
-    message("Note:\n Words with equal occurrence are presented in alphabetial order. \n By default, words are presented in order to the `number` cutoff word. \n This means that equally-occurring later-alphabetically words beyond the cutoff will not be displayed. \n\n")
+    message("Note:\n Words with equal occurrence are presented in alphabetical order. \n By default, words are presented in order to the `number` cutoff word. \n This means that equally-occurring later-alphabetically words beyond the cutoff will not be displayed. \n\n")
   } else {
-    message("Note:\n Words with equal occurrence are presented in alphabetial order. \n With `strict` = FALSE, words occurring equally often as the `number` cutoff word will be displayed. \n\n")
+    message("Note:\n Words with equal occurrence are presented in alphabetical order. \n With `strict` = FALSE, words occurring equally often as the `number` cutoff word will be displayed. \n\n")
   }
 }
 
@@ -322,13 +322,13 @@ fst_ngrams_compare <- function(data1, data2, data3 = NULL, data4 = NULL, number 
       top2 <- fst_get_top_ngrams2(data2, number = number, ngrams = ngrams, norm = norm, pos_filter = pos_filter, strict = strict)
       top1 <- fst_get_top_ngrams2(data1, number = number, ngrams = ngrams, norm = norm, pos_filter = pos_filter, strict = strict)
     } else {
-      message(paste0("Note: \n Consider whether your data is balanced between groups being compared and whether each group contains enough data for analysis. \n The number of responded in each group (including \'NAs\') are listed below: \n\t", name1, "=", num1, ", ", name2, "=", num2, ", ", name3, "=", num3, "\n\n"))
+      message(paste0("Note: \n Consider whether your data is balanced between groups being compared and whether each group contains enough data for analysis. \n The number of responses in each group (including \'NAs\') are listed below: \n\t", name1, "=", num1, ", ", name2, "=", num2, ", ", name3, "=", num3, "\n\n"))
       top3 <- fst_get_top_ngrams2(data3, number = number, ngrams = ngrams, norm = norm, pos_filter = pos_filter, strict = strict)
       top2 <- fst_get_top_ngrams2(data2, number = number, ngrams = ngrams, norm = norm, pos_filter = pos_filter, strict = strict)
       top1 <- fst_get_top_ngrams2(data1, number = number, ngrams = ngrams, norm = norm, pos_filter = pos_filter, strict = strict)
     }
   } else {
-    message(paste0("Note: \n Consider whether your data is balanced between groups being compared and whether each group contains enough data for analysis. \n The number of responded in each group (including \'NAs\') are listed below: \n\t", name1, "=", num1, ", ", name2, "=", num2, "\n\n"))
+    message(paste0("Note: \n Consider whether your data is balanced between groups being compared and whether each group contains enough data for analysis. \n The number of responses in each group (including \'NAs\') are listed below: \n\t", name1, "=", num1, ", ", name2, "=", num2, "\n\n"))
     top2 <- fst_get_top_ngrams2(data2, number = number, ngrams = ngrams, norm = norm, pos_filter = pos_filter, strict = strict)
     top1 <- fst_get_top_ngrams2(data1, number = number, ngrams = ngrams, norm = norm, pos_filter = pos_filter, strict = strict)
   }
@@ -363,9 +363,9 @@ fst_ngrams_compare <- function(data1, data2, data3 = NULL, data4 = NULL, number 
     fst_plot_multiple(plot1 = plot1, plot2 = plot2, main_title = paste("Comparison Plot of", as.character(number), "Most Common", term))
   }
   if (strict == TRUE) {
-    message("Note:\n N-grams with equal occurrence are presented in alphabetial order. \n By default, n-grams are presented in order to the `number` cutoff n-gram \n This means that equally-occurring later-alphabetically n-grams beyond the cutoff n-gram will not be displayed. \n\n")
+    message("Note:\n N-grams with equal occurrence are presented in alphabetical order. \n By default, n-grams are presented in order to the `number` cutoff n-gram \n This means that equally-occurring later-alphabetically n-grams beyond the cutoff n-gram will not be displayed. \n\n")
   } else {
-    message("Note:\n N-grams with equal occurrence are presented in alphabetial order. \n With `strict` = FALSE, n-grams occurring equally often as the `number` cutoff n-gram will be displayed. \n\n")
+    message("Note:\n N-grams with equal occurrence are presented in alphabetical order. \n With `strict` = FALSE, n-grams occurring equally often as the `number` cutoff n-gram will be displayed. \n\n")
   }
 }
 
@@ -653,7 +653,7 @@ fst_comparison_cloud <- function(data1, data2, data3 = NULL, data4 = NULL, name1
     num3 <- dplyr::n_distinct(data3$doc_id)
     if (!is.null(data4)) {
       num4 <- dplyr::n_distinct(data4$doc_id)
-      message(paste0("Note: \n Consider whether your data is balanced between groups being compared and whether each group contains enough data for analysis. \n The number of responded in each group (including \'NAs\') are listed below: \n\t", name1, "=", num1, ", ", name2, "=", num2, ", ", name3, "=", num3, ", ", name4, "=", num4, "\n\n"))
+      message(paste0("Note: \n Consider whether your data is balanced between groups being compared and whether each group contains enough data for analysis. \n The number of responses in each group (including \'NAs\') are listed below: \n\t", name1, "=", num1, ", ", name2, "=", num2, ", ", name3, "=", num3, ", ", name4, "=", num4, "\n\n"))
       if (!is.null(pos_filter)) {
         data1 <- dplyr::filter(data1, upos %in% pos_filter)
         data2 <- dplyr::filter(data2, upos %in% pos_filter)
@@ -688,7 +688,7 @@ fst_comparison_cloud <- function(data1, data2, data3 = NULL, data4 = NULL, name1
         dplyr::full_join(data3, by = "lemma") %>%
         dplyr::full_join(data4, by = "lemma")
     } else {
-      message(paste0("Note: \n Consider whether your data is balanced between groups being compared and whether each group contains enough data for analysis. \n The number of responded in each group (including \'NAs\') are listed below: \n\t", name1, "=", num1, ", ", name2, "=", num2, ", ", name3, "=", num3, "\n\n"))
+      message(paste0("Note: \n Consider whether your data is balanced between groups being compared and whether each group contains enough data for analysis. \n The number of responses in each group (including \'NAs\') are listed below: \n\t", name1, "=", num1, ", ", name2, "=", num2, ", ", name3, "=", num3, "\n\n"))
       if (!is.null(pos_filter)) {
         data1 <- dplyr::filter(data1, upos %in% pos_filter)
         data2 <- dplyr::filter(data2, upos %in% pos_filter)
@@ -716,7 +716,7 @@ fst_comparison_cloud <- function(data1, data2, data3 = NULL, data4 = NULL, name1
       compcloud_data <- dplyr::full_join(compcloud_data, data3, by = "lemma")
     }
   } else {
-    message(paste0("Note: \n Consider whether your data is balanced between groups being compared and whether each group contains enough data for analysis. \n The number of responded in each group (including \'NAs\') are listed below: \n\t", name1, "=", num1, ", ", name2, "=", num2, "\n\n"))
+    message(paste0("Note: \n Consider whether your data is balanced between groups being compared and whether each group contains enough data for analysis. \n The number of responses in each group (including \'NAs\') are listed below: \n\t", name1, "=", num1, ", ", name2, "=", num2, "\n\n"))
     if (!is.null(pos_filter)) {
       data1 <- dplyr::filter(data1, upos %in% pos_filter)
       data2 <- dplyr::filter(data2, upos %in% pos_filter)

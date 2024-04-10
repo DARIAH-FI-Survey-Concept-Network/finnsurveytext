@@ -100,7 +100,7 @@ fst_pos <- function(data) {
 
 #' Make Length Summary Table
 #'
-#' Create a  table summarising  distribution of the length of responses.
+#' Creates a table summarising  distribution of the length of responses.
 #'
 #' @param data dataframe of text in CoNLL-U format.
 #' @param desc An optional string describing respondents, default is
@@ -188,9 +188,9 @@ fst_get_top_words <- function(data,
                               strict = TRUE) {
   with_ties <- !strict
   if (strict == TRUE) {
-    message("Note:\n Words with equal occurrence are presented in alphabetial order. \n By default, words are presented in order to the `number` cutoff word. \n This means that equally-occurring later-alphabetically words beyond the cutoff word will not be displayed.\n\n")
+    message("Note:\n Words with equal occurrence are presented in alphabetical order. \n By default, words are presented in order to the `number` cutoff word. \n This means that equally-occurring later-alphabetically words beyond the cutoff word will not be displayed.\n\n")
   } else {
-    message("Note:\n Words with equal occurrence are presented in alphabetial order. \n With `strict` = FALSE, words occurring equally often as the `number` cutoff word will be displayed. \n\n")
+    message("Note:\n Words with equal occurrence are presented in alphabetical order. \n With `strict` = FALSE, words occurring equally often as the `number` cutoff word will be displayed. \n\n")
   }
   if (is.null(norm)) {
     denom <- 1
@@ -253,9 +253,9 @@ fst_get_top_words <- function(data,
 fst_get_top_ngrams <- function(data, number = 10, ngrams = 1, norm = "number_words", pos_filter = NULL, strict = TRUE) {
   with_ties <- !strict
   if (strict == TRUE) {
-    message("Note:\n N-grams with equal occurrence are presented in alphabetial order. \n By default, n-grams are presented in order to the `number` cutoff n-gram. \n This means that equally-occurring later-alphabetically n-grams beyond the cutoff n-gram will not be displayed. \n\n")
+    message("Note:\n N-grams with equal occurrence are presented in alphabetical order. \n By default, n-grams are presented in order to the `number` cutoff n-gram. \n This means that equally-occurring later-alphabetically n-grams beyond the cutoff n-gram will not be displayed. \n\n")
   } else {
-    message("Note:\n N-grams with equal occurrence are presented in alphabetial order. \n With `strict` = FALSE, n-grams occurring equally often as the `number` cutoff n-gram will be displayed. \n\n")
+    message("Note:\n N-grams with equal occurrence are presented in alphabetical order. \n With `strict` = FALSE, n-grams occurring equally often as the `number` cutoff n-gram will be displayed. \n\n")
   }
   if (is.null(norm)) {
     denom <- 1
