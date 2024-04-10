@@ -165,6 +165,14 @@ Next, we will look at the most common words (unigrams), bigrams and trigrams in 
 ```{r}
 fst_freq(all_nltk, 10, strict = FALSE, norm = "number_resp")
 fst_ngrams(all_nltk, 10, ngrams = 2, strict = FALSE, norm = "number_resp")
+knitr::kable(
+  fst_get_top_ngrams(all_nltk,
+                              number = 10,
+                              ngrams = 2,
+                              norm = "number_words",
+                              pos_filter = NULL,
+                              strict = FALSE)
+)
 fst_ngrams(all_nltk, 10, ngrams = 3, strict = FALSE, norm = "number_resp")
 ```
 
