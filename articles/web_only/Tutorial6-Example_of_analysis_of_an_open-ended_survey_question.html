@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../../index.html">finnsurveytext</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -648,6 +648,74 @@ trigrams in that data.</p>
 <span><span class="co">#&gt;  With `strict` = FALSE, n-grams occurring equally often as the `number` cutoff n-gram will be displayed.</span></span></code></pre></div>
 <p><img src="Tutorial6-Example_of_analysis_of_an_open-ended_survey_question_files/figure-html/unnamed-chunk-6-2.png" width="768"></p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../../reference/fst_get_top_ngrams.html">fst_get_top_ngrams</a></span><span class="op">(</span><span class="va">all_nltk</span>,</span>
+<span>                              number <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>                              ngrams <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>                              norm <span class="op">=</span> <span class="st">"number_words"</span>,</span>
+<span>                              pos_filter <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>                              strict <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; Note:</span></span>
+<span><span class="co">#&gt;  N-grams with equal occurrence are presented in alphabetical order. </span></span>
+<span><span class="co">#&gt;  With `strict` = FALSE, n-grams occurring equally often as the `number` cutoff n-gram will be displayed.</span></span></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="left">words</th>
+<th align="right">occurrence</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">puhdas vesi</td>
+<td align="right">0.015</td>
+</tr>
+<tr class="even">
+<td align="left">vesi puute</td>
+<td align="right">0.013</td>
+</tr>
+<tr class="odd">
+<td align="left">nälänhätä sota</td>
+<td align="right">0.010</td>
+</tr>
+<tr class="even">
+<td align="left">köyhyys nälänhätä</td>
+<td align="right">0.009</td>
+</tr>
+<tr class="odd">
+<td align="left">sota nälänhätä</td>
+<td align="right">0.008</td>
+</tr>
+<tr class="even">
+<td align="left">epätasainen jakautuminen</td>
+<td align="right">0.007</td>
+</tr>
+<tr class="odd">
+<td align="left">sota köyhyys</td>
+<td align="right">0.007</td>
+</tr>
+<tr class="even">
+<td align="left">köyhyys sota</td>
+<td align="right">0.005</td>
+</tr>
+<tr class="odd">
+<td align="left">nälänhätä köyhyys</td>
+<td align="right">0.005</td>
+</tr>
+<tr class="even">
+<td align="left">köyhyys epätasa-arvo</td>
+<td align="right">0.004</td>
+</tr>
+<tr class="odd">
+<td align="left">ilmastonmuutos köyhyys</td>
+<td align="right">0.004</td>
+</tr>
+<tr class="even">
+<td align="left">nälänhätä ilmastonmuutos</td>
+<td align="right">0.004</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/fst_ngrams.html">fst_ngrams</a></span><span class="op">(</span><span class="va">all_nltk</span>, <span class="fl">10</span>, ngrams <span class="op">=</span> <span class="fl">3</span>, strict <span class="op">=</span> <span class="cn">FALSE</span>, norm <span class="op">=</span> <span class="st">"number_resp"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Note:</span></span>
 <span><span class="co">#&gt;  N-grams with equal occurrence are presented in alphabetical order. </span></span>
@@ -694,14 +762,14 @@ meaningful than others.</li>
 function can be used to visualise the words that occur around our words
 of interest.</p>
 <p>Again, we will set <code>norm = 'number_resp'</code>.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/fst_concept_network.html">fst_concept_network</a></span><span class="op">(</span><span class="va">all_nltk</span>,</span>
 <span>  concepts <span class="op">=</span> <span class="st">"köyhyys, nälänhätä, sota"</span>,</span>
 <span>  title <span class="op">=</span> <span class="st">"Q11_3 - No threshold"</span>,</span>
 <span>  norm <span class="op">=</span> <span class="st">"number_resp"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="Tutorial6-Example_of_analysis_of_an_open-ended_survey_question_files/figure-html/unnamed-chunk-7-1.png" width="768"></p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/fst_concept_network.html">fst_concept_network</a></span><span class="op">(</span><span class="va">all_nltk</span>,</span>
 <span>  concepts <span class="op">=</span> <span class="st">"köyhyys, nälänhätä, sota"</span>,</span>
 <span>  threshold <span class="op">=</span> <span class="fl">5</span>,</span>
@@ -709,7 +777,7 @@ of interest.</p>
 <span>  norm <span class="op">=</span> <span class="st">"number_resp"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="Tutorial6-Example_of_analysis_of_an_open-ended_survey_question_files/figure-html/unnamed-chunk-7-2.png" width="768"></p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/fst_concept_network.html">fst_concept_network</a></span><span class="op">(</span><span class="va">all_nltk</span>,</span>
 <span>  concepts <span class="op">=</span> <span class="st">"köyhyys, nälänhätä, sota"</span>,</span>
 <span>  threshold <span class="op">=</span> <span class="fl">3</span>,</span>
@@ -726,14 +794,14 @@ each other in use.</li>
 in this plot.</li>
 </ul>
 <p>Now, let’s add more words in:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/fst_concept_network.html">fst_concept_network</a></span><span class="op">(</span><span class="va">all_nltk</span>,</span>
 <span>  concepts <span class="op">=</span> <span class="st">"köyhyys, nälänhätä, sota, ilmastonmuutos, puute, ihminen, vesi, epätasa-arvo"</span>,</span>
 <span>  title <span class="op">=</span> <span class="st">"Q11_3 - Lots of words"</span>,</span>
 <span>  norm <span class="op">=</span> <span class="st">"number_words"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="Tutorial6-Example_of_analysis_of_an_open-ended_survey_question_files/figure-html/unnamed-chunk-8-1.png" width="768"></p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/fst_concept_network.html">fst_concept_network</a></span><span class="op">(</span><span class="va">all_nltk</span>,</span>
 <span>  concepts <span class="op">=</span> <span class="st">"köyhyys, nälänhätä, sota, ilmastonmuutos, puute, ihminen, vesi, epätasa-arvo"</span>,</span>
 <span>  title <span class="op">=</span> <span class="st">"Q11_3 - Lots of words, threshold = 3"</span>, threshold <span class="op">=</span> <span class="fl">5</span>,</span>
@@ -748,10 +816,10 @@ words are only “connected” in a few responses.</li>
 </ul>
 <p>Now, let’s see what do people who talk about water tend to also say
 in their responses:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/fst_concept_network.html">fst_concept_network</a></span><span class="op">(</span><span class="va">all_nltk</span>, concepts <span class="op">=</span> <span class="st">"vesi"</span>, title <span class="op">=</span> <span class="st">"Q11_3 - Vesi"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Tutorial6-Example_of_analysis_of_an_open-ended_survey_question_files/figure-html/unnamed-chunk-9-1.png" width="768"></p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/fst_concept_network.html">fst_concept_network</a></span><span class="op">(</span><span class="va">all_nltk</span>, concepts <span class="op">=</span> <span class="st">"puute, puhdas, vesi"</span>, title <span class="op">=</span> <span class="st">"Q11_3 - "</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Tutorial6-Example_of_analysis_of_an_open-ended_survey_question_files/figure-html/unnamed-chunk-9-2.png" width="768"></p>
 <p><strong>Remarks:</strong></p>
@@ -776,7 +844,7 @@ please refer to “Tutorial5-Demonstration_of_comparison_functions”.</p>
 <li><code><a href="../../reference/fst_pos_compare.html">fst_pos_compare()</a></code></li>
 <li><code><a href="../../reference/fst_length_compare.html">fst_length_compare()</a></code></li>
 </ol>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../../reference/fst_summarise_compare.html">fst_summarise_compare</a></span><span class="op">(</span><span class="va">female_nltk</span>, <span class="va">male_nltk</span>, <span class="va">na_nltk</span>, <span class="va">all_nltk</span>, name1 <span class="op">=</span> <span class="st">"F"</span>, name2 <span class="op">=</span> <span class="st">"M"</span>, name3 <span class="op">=</span> <span class="st">"NA"</span>, name4 <span class="op">=</span> <span class="st">"All"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -838,7 +906,7 @@ please refer to “Tutorial5-Demonstration_of_comparison_functions”.</p>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../../reference/fst_pos_compare.html">fst_pos_compare</a></span><span class="op">(</span><span class="va">female_nltk</span>, <span class="va">male_nltk</span>, <span class="va">na_nltk</span>, <span class="va">all_nltk</span>, name1 <span class="op">=</span> <span class="st">"F"</span>, name2 <span class="op">=</span> <span class="st">"M"</span>, name3 <span class="op">=</span> <span class="st">"NA"</span>, name4 <span class="op">=</span> <span class="st">"All"</span><span class="op">)</span></span>
@@ -967,7 +1035,7 @@ please refer to “Tutorial5-Demonstration_of_comparison_functions”.</p>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../../reference/fst_length_compare.html">fst_length_compare</a></span><span class="op">(</span><span class="va">female_nltk</span>, <span class="va">male_nltk</span>, <span class="va">na_nltk</span>, <span class="va">all_nltk</span>, name1 <span class="op">=</span> <span class="st">"F"</span>, name2 <span class="op">=</span> <span class="st">"M"</span>, name3 <span class="op">=</span> <span class="st">"NA"</span>, name4 <span class="op">=</span> <span class="st">"All"</span><span class="op">)</span></span>
@@ -1091,7 +1159,7 @@ rate for females</li>
 <p>Now let’s consider the wordclouds. Let’s do comparison cloud and
 individual word clouds (we run a second comparison cloud without NA
 since this sample is so small)</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/fst_comparison_cloud.html">fst_comparison_cloud</a></span><span class="op">(</span></span>
 <span>  data1 <span class="op">=</span> <span class="va">female_nltk</span>, name1 <span class="op">=</span> <span class="st">"Female"</span>,</span>
 <span>  data2 <span class="op">=</span> <span class="va">male_nltk</span>, name2 <span class="op">=</span> <span class="st">"Male"</span>,</span>
@@ -1105,7 +1173,7 @@ since this sample is so small)</p>
 <span><span class="co">#&gt;  The number of responses in each group (including 'NAs') are listed below: </span></span>
 <span><span class="co">#&gt;  Female=673, Male=183, NA=89</span></span></code></pre></div>
 <p><img src="Tutorial6-Example_of_analysis_of_an_open-ended_survey_question_files/figure-html/unnamed-chunk-11-1.png" width="768"></p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="../../reference/fst_comparison_cloud.html">fst_comparison_cloud</a></span><span class="op">(</span></span>
 <span>  data1 <span class="op">=</span> <span class="va">female_nltk</span>, name1 <span class="op">=</span> <span class="st">"Female"</span>,</span>
@@ -1119,14 +1187,14 @@ since this sample is so small)</p>
 <span><span class="co">#&gt;  The number of responses in each group (including 'NAs') are listed below: </span></span>
 <span><span class="co">#&gt;  Female=673, Male=183</span></span></code></pre></div>
 <p><img src="Tutorial6-Example_of_analysis_of_an_open-ended_survey_question_files/figure-html/unnamed-chunk-11-2.png" width="768"></p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="../../reference/fst_wordcloud.html">fst_wordcloud</a></span><span class="op">(</span><span class="va">female_nltk</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Tutorial6-Example_of_analysis_of_an_open-ended_survey_question_files/figure-html/unnamed-chunk-11-3.png" width="768"></p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/fst_wordcloud.html">fst_wordcloud</a></span><span class="op">(</span><span class="va">male_nltk</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Tutorial6-Example_of_analysis_of_an_open-ended_survey_question_files/figure-html/unnamed-chunk-11-4.png" width="768"></p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/fst_wordcloud.html">fst_wordcloud</a></span><span class="op">(</span><span class="va">na_nltk</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Tutorial6-Example_of_analysis_of_an_open-ended_survey_question_files/figure-html/unnamed-chunk-11-5.png" width="768"></p>
 <p>Based on comparison cloud, it looks like:</p>
@@ -1151,7 +1219,7 @@ gender. Their wordcloud is quite sparse!</li>
 <p>Now we look at common words and n-grams. Here, we will exclude the
 responses with ‘NA’ for gender as we go on, as there are very few of
 these.</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/fst_freq_compare.html">fst_freq_compare</a></span><span class="op">(</span></span>
 <span>  data1 <span class="op">=</span> <span class="va">female_nltk</span>, name1 <span class="op">=</span> <span class="st">"Female"</span>,</span>
 <span>  data2 <span class="op">=</span> <span class="va">male_nltk</span>, name2 <span class="op">=</span> <span class="st">"Male"</span>,</span>
@@ -1171,7 +1239,7 @@ these.</p>
 <span><span class="co">#&gt;  By default, words are presented in order to the `number` cutoff word. </span></span>
 <span><span class="co">#&gt;  This means that equally-occurring later-alphabetically words beyond the cutoff will not be displayed.</span></span></code></pre></div>
 <p><img src="Tutorial6-Example_of_analysis_of_an_open-ended_survey_question_files/figure-html/unnamed-chunk-12-1.png" width="768"></p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="../../reference/fst_freq_compare.html">fst_freq_compare</a></span><span class="op">(</span></span>
 <span>  data1 <span class="op">=</span> <span class="va">female_nltk</span>, name1 <span class="op">=</span> <span class="st">"Female"</span>,</span>
@@ -1193,7 +1261,7 @@ these.</p>
 <span><span class="co">#&gt;  By default, words are presented in order to the `number` cutoff word. </span></span>
 <span><span class="co">#&gt;  This means that equally-occurring later-alphabetically words beyond the cutoff will not be displayed.</span></span></code></pre></div>
 <p><img src="Tutorial6-Example_of_analysis_of_an_open-ended_survey_question_files/figure-html/unnamed-chunk-12-2.png" width="768"></p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span></span>
 <span><span class="fu"><a href="../../reference/fst_ngrams_compare.html">fst_ngrams_compare</a></span><span class="op">(</span></span>
@@ -1236,7 +1304,7 @@ who mention <em>clean</em> water.</li>
 <p>Now, we’ll look at the Concept Network for the 4 top words in female
 and male responses. These words are ‘sota’, ‘köyhyys’, nälänhätä’, and
 ‘ilmastonmuutos’.</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/fst_concept_network_compare.html">fst_concept_network_compare</a></span><span class="op">(</span></span>
 <span>  data1 <span class="op">=</span> <span class="va">female_nltk</span>, name1 <span class="op">=</span> <span class="st">"Female"</span>,</span>
 <span>  data2 <span class="op">=</span> <span class="va">male_nltk</span>, name2 <span class="op">=</span> <span class="st">"Male"</span>,</span>
