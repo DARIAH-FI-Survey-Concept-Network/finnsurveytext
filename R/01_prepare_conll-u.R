@@ -5,26 +5,40 @@
 #'
 #' @param data A dataframe of survey responses which contains an open-ended
 #'  question.
-#' @param field The field in the dataframe which contains the open-ended
+#' @param question The column in the dataframe which contains the open-ended
 #'  question.
+#' @param id The column in the dataframe which contains the ids for the
+#'  responses.
 #' @param model A Finnish language model available for [udpipe], `"ftb"`
 #'  (default) or `"tdt"`.
+#' @param weight Optional, the column of the dataframe which contains the
+#'  respective weights for each response.
+#' @param dim Optional, a column (or columns) from the dataframe which contain
+#'  other information you'd like to retain (for instance, dimension columnns for
+#'  splitting the data for comparison plots).
 #'
 #' @return Dataframe of annotated text in CoNLL-U format.
 #' @export
 #'
 #' @examples
 #' \donttest{
-#' fst_format_conllu(data = child_barometer_data, field = "q7")
-#' fst_format_conllu(data = child_barometer_data, field = "q7", model = "tdt")
+#' i <- "fsd_id"
+#' fst_format_conllu(data = child, question = "q7", id = i)
+#' fst_format_conllu(data = child, question = "q7", id = i, model = "tdt")
+#' fst_format_conllu(data = child, question = "q7", id = i, weight="paino")
+#' fst_format_conllu(child, question = "q7", id = i, dim = c("bv1", "bv3"))
 #' unlink("finnish-ftb-ud-2.5-191206.udpipe")
 #' unlink("finnish-tdt-ud-2.5-191206.udpipe")
 #' }
-fst_format_conllu <- function(data, field, model = "ftb") {
+fst_format_conllu <- function(data,
+                              question,
+                              id,
+                              model = "ftb",
+                              weight = NULL,
+                              dim = NULL) {
   data <- data %>%
-    dplyr::mutate(new_col = trimws(.data[[field]])) %>%
+    dplyr::mutate(new_col = trimws(.data[[question]])) %>%
     dplyr::mutate_if(is.character, dplyr::na_if, "")
-  data <- data$new_col
   if (model == "ftb") {
     if (!file.exists("finnish-ftb-ud-2.5-191206.udpipe")) {
       udpipe::udpipe_download_model(language = "finnish-ftb")
@@ -33,7 +47,7 @@ fst_format_conllu <- function(data, field, model = "ftb") {
       file = "finnish-ftb-ud-2.5-191206.udpipe"
     )
     annotated_data <- as.data.frame(
-      udpipe::udpipe_annotate(model_ftb, x = data)
+      udpipe::udpipe_annotate(model_ftb, x = data$new_col, doc_id = data[[id]])
     )
   } else if (model == "tdt") {
     if (!file.exists("finnish-tdt-ud-2.5-191206.udpipe")) {
@@ -43,12 +57,31 @@ fst_format_conllu <- function(data, field, model = "ftb") {
       file = "finnish-tdt-ud-2.5-191206.udpipe"
     )
     annotated_data <- as.data.frame(
-      udpipe::udpipe_annotate(model_tdt, x = data)
+      udpipe::udpipe_annotate(model_tdt, x = data$new_col, doc_id = data$fsd_id)
     )
   }
-  annotated_data %>%
+  annotated_data <- annotated_data %>%
     dplyr::mutate(token = tolower(token)) %>%
     dplyr::mutate(lemma = tolower(lemma))
+  if (!is.null(weight)) {
+    weight_data <- subset(data, select= c(id, weight))
+    weight_data[[weight]] <- as.numeric((gsub(",", ".", weight_data[[weight]])))
+    annotated_data <- merge(x = annotated_data,
+                            y = weight_data,
+                            by.x = 'doc_id',
+                            by.y = id
+                            )
+  }
+  if (!is.null(dim)) {
+    dim_cols <- c(id, dim)
+    dim_data <- subset(data, select= dim_cols)
+    annotated_data <- merge(x = annotated_data,
+                            y = dim_data,
+                            by.x = 'doc_id',
+                            by.y = id
+                            )
+  }
+  annotated_data
 }
 
 #' Get available Finnish stopwords lists
@@ -128,7 +161,7 @@ fst_prepare_conllu <- function(data,
                                field,
                                model = "ftb",
                                stopword_list = "nltk") {
-  an_data <- fst_format_conllu(model = model, data = data, field = field)
+  an_data <- fst_format_conllu(data = data, field = field, model = model)
   if (stopword_list != "none") {
     an_data <- fst_rm_stop_punct(data = an_data, stopword_list = stopword_list)
   }
