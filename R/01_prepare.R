@@ -23,19 +23,19 @@
 #' @examples
 #' \donttest{
 #' i <- "fsd_id"
-#' fst_format_conllu(data = child, question = "q7", id = i)
-#' fst_format_conllu(data = child, question = "q7", id = i, model = "tdt")
-#' fst_format_conllu(data = child, question = "q7", id = i, weights="paino")
-#' fst_format_conllu(child, question = "q7", id = i, add_cols = c("bv1", "bv3"))
+#' fst_format(data = child, question = "q7", id = i)
+#' fst_format(data = child, question = "q7", id = i, model = "tdt")
+#' fst_format(data = child, question = "q7", id = i, weights="paino")
+#' fst_format(child, question = "q7", id = i, add_cols = c("bv1", "bv3"))
 #' unlink("finnish-ftb-ud-2.5-191206.udpipe")
 #' unlink("finnish-tdt-ud-2.5-191206.udpipe")
 #' }
 fst_format <- function(data,
-                              question,
-                              id,
-                              model = "ftb",
-                              weights = NULL,
-                              add_cols = NULL) {
+                       question,
+                       id,
+                       model = "ftb",
+                       weights = NULL,
+                       add_cols = NULL) {
   data <- data %>%
     dplyr::mutate(new_col = trimws(.data[[question]])) %>%
     dplyr::mutate_if(is.character, dplyr::na_if, "")
@@ -152,16 +152,26 @@ fst_rm_stop_punct <- function(data, stopword_list = "nltk") {
 #'
 #' @examples
 #' \donttest{
-#' cb <- child_barometer_data
-#' fst_prepare_conllu(data = cb, field = "q7", stopword_list = "stopwords-iso")
+#' cb <- child
+#' dev <- dev_coop
+#' fst_prepare(data = cb, question = "q7", id = 'fsd_id')
+#' fst_prepare(data = dev, question = "q11_2", id = 'fsd_id', weights = 'paino', add_cols = c('q1'))
 #' unlink("finnish-ftb-ud-2.5-191206.udpipe")
 #' unlink("finnish-tdt-ud-2.5-191206.udpipe")
 #' }
-fst_prepare_conllu <- function(data,
-                               field,
-                               model = "ftb",
-                               stopword_list = "nltk") {
-  an_data <- fst_format_conllu(data = data, field = field, model = model)
+fst_prepare <- function(data,
+                        question,
+                        id,
+                        model = "ftb",
+                        stopword_list = "nltk",
+                        weights = NULL,
+                        add_cols = NULL) {
+  an_data <- fst_format(data = data,
+                               question = question,
+                               id = id,
+                               model = model,
+                               weights = weights,
+                               add_cols = add_cols)
   if (stopword_list != "none") {
     an_data <- fst_rm_stop_punct(data = an_data, stopword_list = stopword_list)
   }

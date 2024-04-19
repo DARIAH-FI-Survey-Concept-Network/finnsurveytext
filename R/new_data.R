@@ -41,9 +41,10 @@ usethis::use_data(dev_coop)
 #' A dataframe with 414 rows and 8 columns:
 #' \describe{
 #'   \item{fsd_id}{FSD case id}
-#'   \item{bv1}{FSD case id}
-#'   \item{bv2}{FSD case id}
-#'   \item{bv9}{FSD case id}
+#'   \item{bv1}{Gender: 1 (Boy), 2 (Girl)}
+#'   \item{bv3}{Major region (NUTS2): 1 (Helsinki-Uusima), 2 (Etelä-Suomi), 3
+#'    (Länsi-Suomi), 4 (Pohjois- ja Itä-Suomi)}
+#'   \item{bv9}{Daycare before pre-school: 1 (Yes), 2 (No)}
 #'   \item{q3}{'Which things are you good at?' response text}
 #'   \item{q7}{'What do you think bullying is?' response text}
 #'   \item{q11}{'What makes you happy?' response text}
@@ -53,6 +54,6 @@ usethis::use_data(dev_coop)
 "child"
 
 child <- read.csv('//ad.helsinki.fi/home/a/adeclark/Documents/2024/surveyrep/data/childbaro2016.csv', sep = ';')
-child <- select(child, 'fsd_id', 'bv1', 'bv2', 'bv9', 'q3', 'q7', 'q11', 'paino')
+child <- select(child, 'fsd_id', 'bv1', 'bv3', 'bv9', 'q3', 'q7', 'q11', 'paino')
 
 usethis::use_data(child, overwrite = TRUE)
