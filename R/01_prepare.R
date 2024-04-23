@@ -27,6 +27,7 @@
 #' fst_format(data = child, question = "q7", id = i, model = "tdt")
 #' fst_format(data = child, question = "q7", id = i, weights="paino")
 #' fst_format(child, question = "q7", id = i, add_cols = c("bv1", "bv3"))
+#' fst_format(child, question = "q7", id = i, add_cols = "bv1, bv3")
 #' unlink("finnish-ftb-ud-2.5-191206.udpipe")
 #' unlink("finnish-tdt-ud-2.5-191206.udpipe")
 #' }
@@ -73,6 +74,11 @@ fst_format <- function(data,
                             )
   }
   if (!is.null(add_cols)) {
+    if (length(add_cols) == 1) {
+      add_cols <- add_cols %>%
+        stringr::str_extract_all(pattern = "\\w+") %>%
+        unlist()
+    }
     new_cols <- c(id, add_cols)
     add_data <- subset(data, select= new_cols)
     annotated_data <- merge(x = annotated_data,
@@ -114,7 +120,11 @@ fst_find_stopwords <- function() {
 #' text data which is already in CoNLL-U format.
 #'
 #' @param data A dataframe of Finnish text in CoNLL-U format.
-#' @param stopword_list A valid Finnish stopword list, default is `"nltk"`.
+#' @param stopword_list A valid Finnish stopword list, default is `"nltk"`,
+#'  `"manual"` can be used to indicate that a manual list will be provided.
+#' @param manual An optional boolean to indicate that a manual list will be
+#'  provided, `stopword_list = "manual"` can also or instead be used.
+#' @param manual_list A manual list of stopwords.
 #'
 #' @return A dataframe of Finnish text in CoNLL-U format without stopwords and
 #'  punctuation.
@@ -122,10 +132,32 @@ fst_find_stopwords <- function() {
 #'
 #' @examples
 #' fst_rm_stop_punct(conllu_dev_q11_3)
-#' fst_rm_stop_punct(conllu_dev_q11_1, stopword_list <- "snowball")
+#' fst_rm_stop_punct(conllu_dev_q11_1, stopword_list = "snowball")
 #' fst_rm_stop_punct(conllu_cb_bullying, "stopwords-iso")
-fst_rm_stop_punct <- function(data, stopword_list = "nltk") {
-  swords <- stopwords::stopwords("fi", stopword_list)
+#'
+#' df <- conllu_dev_q11_1
+#' mlist <- c('en', 'et', 'ei', 'emme', 'ette', 'eivät', 'minä', 'minum')
+#' mlist2 <- "en, et, ei, emme, ette, eivät, minä, minum"
+#' fst_rm_stop_punct(df, manual = TRUE, manual_list = mlist)
+#' fst_rm_stop_punct(df, stopword_list = "manual", manual_list = mlist)
+fst_rm_stop_punct <- function(data,
+                              stopword_list = "nltk",
+                              manual = FALSE,
+                              manual_list = "") {
+  if (!(manual == TRUE || stopword_list == 'manual')) {
+    swords <- stopwords::stopwords("fi", stopword_list)
+  } else {
+    if (length(manual_list) == 1) {
+      manual_list <- manual_list %>%
+        lapply(tolower) %>%
+        stringr::str_extract_all(pattern = "\\w+") %>%
+        unlist()
+    } else {
+      manual_list <- manual_list %>%
+        lapply(tolower)
+    }
+    swords <- manual_list
+  }
   output <- data %>%
     dplyr::mutate(lemma = stringr::str_replace(.data$lemma, "#", "")) %>%
     dplyr::filter(!.data$lemma %in% swords) %>%
@@ -140,22 +172,30 @@ fst_rm_stop_punct <- function(data, stopword_list = "nltk") {
 #'  responses in CoNLL-U format with stopwords optionally removed.
 #' @param data A dataframe of survey responses which contains an open-ended
 #'  question.
-#' @param field The field in the dataframe which contains the open-ended
+#' @param question The column in the dataframe which contains the open-ended
 #'  question.
+#' @param id The column in the dataframe which contains the ids for the
+#'  responses.
 #' @param model A Finnish language model available for [udpipe], `"ftb"`
 #'  (default) or `"tdt"`.
 #' @param stopword_list A valid Finnish stopword list, default is `"nltk"`, or
 #'  `"none"`.
+#' @param weights Optional, the column of the dataframe which contains the
+#'  respective weights for each response.
+#' @param add_cols Optional, a column (or columns) from the dataframe which
+#'  contain other information you'd like to retain (for instance, dimension
+#'  columnns for splitting the data for comparison plots).
 #'
 #' @return A dataframe of Finnish text in CoNLL-U format.
 #' @export
 #'
 #' @examples
 #' \donttest{
+#' i <- "fsd_id"
 #' cb <- child
 #' dev <- dev_coop
-#' fst_prepare(data = cb, question = "q7", id = 'fsd_id')
-#' fst_prepare(data = dev, question = "q11_2", id = 'fsd_id', weights = 'paino', add_cols = c('q1'))
+#' fst_prepare(data = cb, question = "q7", id = 'fsd_id', weight = 'paino')
+#' fst_prepare(data = dev, question = "q11_2", id = i, add_cols = c('q1'))
 #' unlink("finnish-ftb-ud-2.5-191206.udpipe")
 #' unlink("finnish-tdt-ud-2.5-191206.udpipe")
 #' }
@@ -165,7 +205,9 @@ fst_prepare <- function(data,
                         model = "ftb",
                         stopword_list = "nltk",
                         weights = NULL,
-                        add_cols = NULL) {
+                        add_cols = NULL,
+                        stopword_list = "manual",
+                        manual_list = mlist) {
   an_data <- fst_format(data = data,
                                question = question,
                                id = id,
@@ -173,7 +215,10 @@ fst_prepare <- function(data,
                                weights = weights,
                                add_cols = add_cols)
   if (stopword_list != "none") {
-    an_data <- fst_rm_stop_punct(data = an_data, stopword_list = stopword_list)
+    an_data <- fst_rm_stop_punct(data = an_data,
+                                 stopword_list = stopword_list,
+                                 manual = manual,
+                                 manual_list = manual_list)
   }
   an_data
 }

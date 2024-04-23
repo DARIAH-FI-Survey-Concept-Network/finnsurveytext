@@ -11,7 +11,7 @@ child_con <- conllu_cb_bullying
 fst_wordcloud_WEIGHTS_SVY <- function(data,
                                       pos_filter = NULL,
                                       max = 100,
-                                      use_weights = FALSE
+                                      use_weights = FALSE,
                                       svydesign = NULL,
                                       weight_col = NULL) {
   if (!is.null(pos_filter)) {
