@@ -1,25 +1,13 @@
-# Paino, incorporating weights into the data exploration functions
-# In this document we manually add the weights but in paino2 we will incorporate from the start.
-#
-#
-# weightingsdf <- read.csv('/Users/adelineclarke/Documents/Uni Helsinki Work/2024/data/daF2821_fin.csv', sep = ';')
-#
-# weightingsdf <- subset(weightingsdf, select= c(fsd_id, paino))
-#
-# # We're going to do a potentially problematic join here as a POC. We will need to get the CoNLL-U dataframe to include a weight or link better
-# df <- conllu_dev_q11_3
-#
-# # get the new id column
-# df$new_id <- substring(df$doc_id, 4)
-#
-# df2 = merge(x = df, y = weightingsdf, by.x = "new_id", by.y = "fsd_id")
-#
-# df2$paino <- as.numeric((gsub(",", ".", df2$paino)))
+# NOTES: Should be able to produce the same results using:
+# a) svy_dev and fst_dev_coop_2 (or svy_child and fst_child_2)
+# and b) fst_dev_coop (or fst_child)
 
+# fst-* are in the data
+child$paino <- as.numeric((gsub(",", ".", child$paino)))
+svy_child <- svydesign(id=~1, weights= ~paino, data = child)
 
-Should be able to produce the same results using
-# id <- 'paino'
-# df2$id <- as.numeric((gsub(",", ".", df2$id)))
+dev_coop$paino <- as.numeric((gsub(",", ".", dev_coop$paino)))
+svy_dev <- svydesign(id = ~1, weights = ~paino, data = dev_coop)
 
 #' Make Wordcloud VERSION2
 #'
@@ -39,7 +27,13 @@ Should be able to produce the same results using
 #' fst_wordcloud(cb, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
 #' fst_wordcloud(conllu_dev_q11_1_snow, pos_filter = "VERB", max = 50)
 #' fst_wordcloud(conllu_dev_q11_1_nltk)
-fst_wordcloud_WEIGHTS <- function(data, pos_filter = NULL, max = 100, weight_col=NULL) {
+fst_wordcloud_WEIGHTS <- function(data,
+                                  pos_filter = NULL,
+                                  max = 100,
+                                  id = "", # req'd if use_svydesign = TRUE to join
+                                  use_svydesign = FALSE, # for if you want to use svydesign for weights rather than having them in the CoNLL-U obj
+                                  use_weights = FALSE, # either from svydesign object or from CoNLLU column
+                                  weight_col=NULL) {
   if (!is.null(pos_filter)) {
     data <- dplyr::filter(data, upos %in% pos_filter)
   }

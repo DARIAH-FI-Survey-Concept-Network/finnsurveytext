@@ -23,14 +23,14 @@
 #' @examples
 #' \donttest{
 #' i <- "fsd_id"
-#' child2$paino <- as.numeric((gsub(",", ".", child$paino)))
+#' child$paino <- as.numeric((gsub(",", ".", child$paino)))
 #' svy_child <- svydesign(id=~1, weights= ~paino, data = child)
 #' fst_format_svydesign(svy_child, question = 'q7', id = 'fsd_id')
 #' fst_format_svydesign(svy_child, question = 'q7', id = i, use_weights = FALSE)
 #' fst_format_svydesign(svy_child, 'q7', 'fsd_id', add_cols = c('bv3', 'bv9'))
 #'
 #' dev_coop$paino <- as.numeric((gsub(",", ".", dev_coop$paino)))
-#' svy_dev <- svydesign(id = ~1, weights = ~'paino', data =dev_coop)
+#' svy_dev <- svydesign(id = ~1, weights = ~paino, data = dev_coop)
 #' fst_format_svydesign(svy_dev, 'q11_1', 'fsd_id', add_cols = 'q1')
 #' unlink("finnish-ftb-ud-2.5-191206.udpipe")
 #' unlink("finnish-tdt-ud-2.5-191206.udpipe")
@@ -122,14 +122,13 @@ fst_format_svydesign <- function(svydesign,
 #' @examples
 #' \donttest{
 #' i <- "fsd_id"
-#' w <- "paino"
 #' child2$paino <- as.numeric((gsub(",", ".", child$paino)))
 #' svy_child <- svydesign(id=~1, weights= ~paino, data = child)
 #' fst_prepare_svydesign(svy_child, question = "q7", id = i, use_weights = TRUE)
 #'
 #' dev_coop$paino <- as.numeric((gsub(",", ".", dev_coop$paino)))
-#' svy_dev <- svydesign(id = ~1, weights = ~'paino', data =dev_coop)
-# fst_prepare_svydesign(svy_dev, question = "q11_2", id = i, add_cols = c('q1'))
+#' svy_dev <- svydesign(id = ~1, weights = ~paino, data =dev_coop)
+#' fst_prepare_svydesign(svy_dev, question = "q11_2", id = i, add_cols = c('q1'))
 #' unlink("finnish-ftb-ud-2.5-191206.udpipe")
 #' unlink("finnish-tdt-ud-2.5-191206.udpipe")
 #' }
@@ -139,7 +138,9 @@ fst_prepare_svydesign <- function(svydesign,
                                   model = "ftb",
                                   stopword_list = "nltk",
                                   use_weights = TRUE,
-                                  add_cols = NULL) {
+                                  add_cols = NULL,
+                                  manual = FALSE,
+                                  manual_list = "") {
   an_data <- fst_format_svydesign(svydesign = svydesign,
                                   question = question,
                                   id = id,
@@ -147,7 +148,10 @@ fst_prepare_svydesign <- function(svydesign,
                                   use_weights = use_weights,
                                   add_cols = add_cols)
   if (stopword_list != "none") {
-    an_data <- fst_rm_stop_punct(data = an_data, stopword_list = stopword_list)
+    an_data <- fst_rm_stop_punct(data = an_data,
+                                 stopword_list = stopword_list,
+                                 manual = manual,
+                                 manual_list = manual_list)
   }
   an_data
 }

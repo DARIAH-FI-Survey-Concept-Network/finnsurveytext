@@ -58,7 +58,7 @@ fst_format <- function(data,
       file = "finnish-tdt-ud-2.5-191206.udpipe"
     )
     annotated_data <- as.data.frame(
-      udpipe::udpipe_annotate(model_tdt, x = data$new_col, doc_id = data$fsd_id)
+      udpipe::udpipe_annotate(model_tdt, x = data$new_col, doc_id = data[[id]])
     )
   }
   annotated_data <- annotated_data %>%
@@ -206,8 +206,8 @@ fst_prepare <- function(data,
                         stopword_list = "nltk",
                         weights = NULL,
                         add_cols = NULL,
-                        stopword_list = "manual",
-                        manual_list = mlist) {
+                        manual = FALSE,
+                        manual_list = "") {
   an_data <- fst_format(data = data,
                                question = question,
                                id = id,
