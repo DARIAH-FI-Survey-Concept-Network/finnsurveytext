@@ -9,31 +9,83 @@ svy_child <- svydesign(id=~1, weights= ~paino, data = child)
 dev_coop$paino <- as.numeric((gsub(",", ".", dev_coop$paino)))
 svy_dev <- svydesign(id = ~1, weights = ~paino, data = dev_coop)
 
-#' Make Wordcloud VERSION2
+
+### READY ###
+
+#' Add weights to CoNLL-U data
+#'
+#' This function takes data in CoNLL-U format and a svydesign (from survey
+#' packge) object with weights in it and merges the weights into the formatted
+#' data.
+#'
+#' @param data A dataframe of text in CoNLL-U format
+#' @param svydesign A svydesign object containing the raw data which produced
+#'  the `data`
+#' @param id ID column from raw data, must match the `docid` in formatted `data`
+#'
+#' @return A dataframe of text in CoNLL-U format plus a `'weight'` column
+#' @export
+#'
+#' @examples
+#' child$paino <- as.numeric((gsub(",", ".", child$paino)))
+#' svy_child <- svydesign(id=~1, weights= ~paino, data = child)
+#' fst_use_svydesign(data = fst_child_2, svydesign = svy_child, id = 'fsd_id')
+#'
+#' dev_coop$paino <- as.numeric((gsub(",", ".", dev_coop$paino)))
+#' svy_dev <- svydesign(id = ~1, weights = ~paino, data = dev_coop)
+#' fst_use_svydesign(data = fst_dev_coop_2, svydesign = svy_dev, id = 'fsd_id')
+fst_use_svydesign <- function(data, svydesign, id) {
+  weight_data <- svydesign$allprob
+  colnames(weight_data) <- c("weight")
+  weight_data['weight'] = 1/weight_data['weight']
+  data2 <- svydesign$variables %>%
+    dplyr::select(all_of(id))
+  weight_data2 <- dplyr::bind_cols(data2, weight_data)
+  annotated_data <- merge(x = data,
+                          y = weight_data2,
+                          by.x = 'doc_id',
+                          by.y = id
+  )
+}
+
+### READY ###
+
+#' Make Wordcloud
 #'
 #' Creates a wordcloud from CoNLL-U data of frequently-occurring words, INCLUDING WEIGHTS.
 #'
 #' @param data A dataframe of text in CoNLL-U format.
 #' @param pos_filter List of UPOS tags for inclusion, default is `NULL` which
 #'  means all word types included.
-#' @param max The maximum number of words to display, default is `100`
+#' @param max The maximum number of words to display, default is `100`.
+#' @param use_svydesign_weights Option to weight words in the wordcloud using
+#'  weights from  a svydesign object containing the raw data, default is `FALSE`
+#' @param id ID column from raw data, required if `use_svydesign_weights = TRUE`
+#'  and must match the `docid` in formatted `data`.
+#' @param use_column_weights Option to weight words in the wordcloud using
+#'  weights from  formatted data which includes addition `weight` column,
+#'  default is `FALSE`.
 #'
 #' @return A wordcloud from the data.
 #' @export
 #'
 #' @examples
-#' cb <- conllu_cb_bullying_iso
-#' fst_wordcloud(cb)
-#' fst_wordcloud(cb, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
-#' fst_wordcloud(conllu_dev_q11_1_snow, pos_filter = "VERB", max = 50)
-#' fst_wordcloud(conllu_dev_q11_1_nltk)
-fst_wordcloud_WEIGHTS <- function(data,
-                                  pos_filter = NULL,
-                                  max = 100,
-                                  id = "", # req'd if use_svydesign = TRUE to join
-                                  use_svydesign = FALSE, # for if you want to use svydesign for weights rather than having them in the CoNLL-U obj
-                                  use_weights = FALSE, # either from svydesign object or from CoNLLU column
-                                  weight_col=NULL) {
+#' fst_wordcloud(fst_child)
+#' fst_wordcloud(fst_child, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+#' fst_wordcloud(fst_child, use_column_weights = TRUE)
+#' i <- 'fsd_id'
+#' s <- svy_child
+#' fst_wordcloud(fst_child, use_svydesign_weights = TRUE, id = i, svydesign = s)
+fst_wordcloud <- function(data,
+                          pos_filter = NULL,
+                          max = 100,
+                          use_svydesign_weights = FALSE,
+                          id = "",
+                          svydesign = NULL,
+                          use_column_weights = FALSE) {
+  if (use_svydesign_weights == TRUE) {
+    fst_use_svydesign(data = data, svydesign = svydesign, id = id)
+  }
   if (!is.null(pos_filter)) {
     data <- dplyr::filter(data, upos %in% pos_filter)
   }
@@ -41,10 +93,12 @@ fst_wordcloud_WEIGHTS <- function(data,
     dplyr::filter(.data$dep_rel != "punct") %>%
     dplyr::filter(!is.na(lemma)) %>%
     dplyr::filter(lemma != "na")
-  if (is.null(weight_col)) {
-    wordcloud_data <- dplyr::count(wordcloud_data, lemma, sort = TRUE)
+  if (use_svydesign_weights == TRUE) {
+    wordcloud_data <- dplyr::count(wordcloud_data, lemma, sort = TRUE, wt = weight)
+  } else if (use_column_weights == TRUE) {
+    wordcloud_data <- dplyr::count(wordcloud_data, lemma, sort = TRUE, wt = weight)
   } else {
-    wordcloud_data <- dplyr::count(wordcloud_data, lemma, sort = TRUE, wt = !!as.name(weight_col))
+    wordcloud_data <- dplyr::count(wordcloud_data, lemma, sort = TRUE)
   }
   wordcloud::wordcloud(
     words = wordcloud_data$lemma,
@@ -55,6 +109,9 @@ fst_wordcloud_WEIGHTS <- function(data,
     colors = RColorBrewer::brewer.pal(8, "Dark2")
   )
 }
+
+
+### BELOW IS NOT READY ###
 
 #' Make Top Words Table WEIGHTS
 #'
