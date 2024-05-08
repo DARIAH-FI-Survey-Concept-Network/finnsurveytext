@@ -1,7 +1,7 @@
 #' Get unique n-grams
 #'
 #' Takes at least two tables of n-grams and frequencies (either output of
-#' `fst_get_top_words()` or `fst_get_top_ngrams()`) and finds n-grams unique to
+#' `fst_freq_table()` or `fst_ngrams_table()`) and finds n-grams unique to
 #'  one table.
 #'
 #' @param table1 The first table.

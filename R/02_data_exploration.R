@@ -156,42 +156,100 @@ fst_length_summary <- function(data,
   }
   word_df
 }
-
+#' Add weights to CoNLL-U data
+#'
+#' This function takes data in CoNLL-U format and a svydesign (from survey
+#' packge) object with weights in it and merges the weights into the formatted
+#' data.
+#'
+#' @param data A dataframe of text in CoNLL-U format
+#' @param svydesign A svydesign object containing the raw data which produced
+#'  the `data`
+#' @param id ID column from raw data, must match the `docid` in formatted `data`
+#'
+#' @return A dataframe of text in CoNLL-U format plus a `'weight'` column
+#' @export
+#'
+#' @examples
+#' child$paino <- as.numeric((gsub(",", ".", child$paino)))
+#' svy_child <- svydesign(id=~1, weights= ~paino, data = child)
+#' fst_use_svydesign(data = fst_child_2, svydesign = svy_child, id = 'fsd_id')
+#'
+#' dev_coop$paino <- as.numeric((gsub(",", ".", dev_coop$paino)))
+#' svy_dev <- svydesign(id = ~1, weights = ~paino, data = dev_coop)
+#' fst_use_svydesign(data = fst_dev_coop_2, svydesign = svy_dev, id = 'fsd_id')
+fst_use_svydesign <- function(data, svydesign, id) {
+  weight_data <- svydesign$allprob
+  colnames(weight_data) <- c("weight")
+  weight_data['weight'] = 1/weight_data['weight']
+  data2 <- svydesign$variables %>%
+    dplyr::select(all_of(id))
+  weight_data2 <- dplyr::bind_cols(data2, weight_data)
+  annotated_data <- merge(x = data,
+                          y = weight_data2,
+                          by.x = 'doc_id',
+                          by.y = id
+  )
+}
 
 #' Make Top Words Table
 #'
 #' Creates a table of the most frequently-occurring words (unigrams) within the
+#' data. Optionally, weights can be provided either through a `weight` column in
+#' the formatted data, or from a `svydesign` object with the raw (preformatted)
 #' data.
 #'
 #' @param data A dataframe of text in CoNLL-U format.
 #' @param number The number of top words to return, default is `10`.
 #' @param norm The method for normalising the data. Valid settings are
-#'  `"number_words"` (the number of words in the responses, default),
-#'  `"number_resp"` (the number of responses), or `NULL` (raw count returned).
+#'  `"number_words"` (the number of words in the responses), `"number_resp"`
+#'  (the number of responses), or `NULL` (raw count returned, default, also used
+#'  when weights are applied).
 #' @param pos_filter List of UPOS tags for inclusion, default is `NULL` which
 #'  means all word types included.
 #' @param strict Whether to strictly cut-off at `number` (ties are
 #'  alphabetically ordered), default is `TRUE`.
+#' @param use_svydesign_weights Option to weight words in the wordcloud using
+#'  weights from  a svydesign object containing the raw data, default is `FALSE`
+#' @param id ID column from raw data, required if `use_svydesign_weights = TRUE`
+#'  and must match the `docid` in formatted `data`.
+#' @param svydesign A svydesign object which contains the raw data and weights.
+#' @param use_column_weights Option to weight words in the wordcloud using
+#'  weights from  formatted data which includes addition `weight` column,
+#'  default is `FALSE`
 #'
 #' @return A table of the most frequently occurring words in the data.
 #' @export
 #'
 #' @examples
-#' fst_get_top_words(conllu_dev_q11_1_nltk, number = 15, strict = FALSE)
-#' cb <- conllu_cb_bullying
 #' pf <- c("NOUN", "VERB", "ADJ", "ADV")
-#' fst_get_top_words(cb, number = 5, norm = "number_resp", pos_filter = pf)
-fst_get_top_words <- function(data,
-                              number = 10,
-                              norm = "number_words",
-                              pos_filter = NULL,
-                              strict = TRUE) {
+#' fst_freq_table(fst_child, number = 15, strict = FALSE, pos_filter = pf)
+#' fst_freq_table(fst_child, norm = 'number_words')
+#' fst_freq_table(fst_child, use_column_weights = TRUE)
+#' c2 <- fst_child_2
+#' child$paino <- as.numeric((gsub(",", ".", child$paino)))
+#' s <- svydesign(id=~1, weights= ~paino, data = child)
+#' i <- 'fsd_id'
+#' fst_freq_table(c2, use_svydesign_weights = TRUE, svydesign = s, id = i)
+fst_freq_table <- function(data,
+                           number = 10,
+                           norm = NULL,
+                           pos_filter = NULL,
+                           strict = TRUE,
+                           use_svydesign_weights = FALSE,
+                           id = "",
+                           svydesign = NULL,
+                           use_column_weights = FALSE) {
+  if (use_svydesign_weights == TRUE) {
+    data <- fst_use_svydesign(data = data, svydesign = svydesign, id = id)
+  }
   with_ties <- !strict
   if (strict == TRUE) {
     message("Note:\n Words with equal occurrence are presented in alphabetical order. \n By default, words are presented in order to the `number` cutoff word. \n This means that equally-occurring later-alphabetically words beyond the cutoff word will not be displayed.\n\n")
   } else {
     message("Note:\n Words with equal occurrence are presented in alphabetical order. \n With `strict` = FALSE, words occurring equally often as the `number` cutoff word will be displayed. \n\n")
   }
+
   if (is.null(norm)) {
     denom <- 1
   } else if (norm == "number_words") {
@@ -203,21 +261,24 @@ fst_get_top_words <- function(data,
   } else if (norm == "number_resp") {
     denom <- dplyr::n_distinct(data$doc_id)
   } else {
-    message("NOTE: A recognised normalisation method has not been provided. \n Function has defaulted to normalisation method 'number_of_words'")
-    data %>%
-      dplyr::filter(.data$dep_rel != "punct") %>%
-      dplyr::filter(!is.na(lemma)) %>%
-      dplyr::filter(lemma != "na")
-    denom <- nrow(data)
+    message("NOTE: A recognised normalisation method has not been provided. \n Function has defaulted to provide raw counts.")
+    denom <- 1
   }
   if (!is.null(pos_filter)) {
     data <- dplyr::filter(data, .data$upos %in% pos_filter)
   }
-  data %>%
+  data <- data %>%
     dplyr::filter(.data$dep_rel != "punct") %>%
     dplyr::filter(!is.na(lemma)) %>%
-    dplyr::filter(lemma != "na") %>%
-    dplyr::count(lemma, sort = TRUE) %>%
+    dplyr::filter(lemma != "na")
+  if (use_svydesign_weights == TRUE) {
+    data <- dplyr::count(data, lemma, sort = TRUE, wt = weight)
+  } else if (use_column_weights == TRUE) {
+    data <- dplyr::count(data, lemma, sort = TRUE, wt = weight)
+  } else {
+    data <- dplyr::count(data, lemma, sort = TRUE)
+  }
+  data %>%
     dplyr::mutate(n = round(n / denom, 3)) %>%
     dplyr::slice_max(n, n = number, with_ties = with_ties) %>%
     dplyr::mutate(lemma = reorder(lemma, n)) %>%
@@ -227,30 +288,55 @@ fst_get_top_words <- function(data,
 #' Make Top N-grams Table
 #'
 #' Creates a table of the most frequently-occurring n-grams within the
-#' data.
+#' data. Optionally, weights can be provided either through a `weight` column
+#' in the formatted data, or from a `svydesign` object with the raw
+#' (preformatted) data.
 #'
 #' @param data A dataframe of text in CoNLL-U format.
 #' @param number The number of n-grams to return, default is `10`.
 #' @param ngrams The type of n-grams to return, default is `1`.
 #' @param norm The method for normalising the data. Valid settings are
-#'  `"number_words"` (the number of words in the responses, default),
-#'  `"number_resp"` (the number of responses), or `NULL` (raw count returned).
+#'  `"number_words"` (the number of words in the responses), `"number_resp"`
+#'  (the number of responses), or `NULL` (raw count returned, default, also used
+#'  when weights are applied).
 #' @param pos_filter List of UPOS tags for inclusion, default is `NULL` which
 #'  means all word types included.
 #' @param strict Whether to strictly cut-off at `number` (ties are
 #'  alphabetically ordered), default is `TRUE`.
+#' @param use_svydesign_weights Option to weight words in the wordcloud using
+#'  weights from  a svydesign object containing the raw data, default is `FALSE`
+#' @param id ID column from raw data, required if `use_svydesign_weights = TRUE`
+#'  and must match the `docid` in formatted `data`.
+#' @param svydesign A svydesign object which contains the raw data and weights.
+#' @param use_column_weights Option to weight words in the wordcloud using
+#'  weights from  formatted data which includes addition `weight` column,
+#'  default is `FALSE`
 #'
 #' @return A table of the most frequently occurring n-grams in the data.
 #' @export
 #'
 #' @examples
-#' q11_1 <- conllu_dev_q11_1_nltk
-#' fst_get_top_ngrams(q11_1, norm = NULL)
-#' fst_get_top_ngrams(q11_1, number = 10, ngrams = 1, norm = "number_resp")
-#' cb <- conllu_cb_bullying
-#' pf <- c("NOUN", "VERB", "ADJ", "ADV")
-#' fst_get_top_ngrams(cb, number = 15, pos_filter = pf)
-fst_get_top_ngrams <- function(data, number = 10, ngrams = 1, norm = "number_words", pos_filter = NULL, strict = TRUE) {
+#' fst_ngrams_table(fst_child, norm = NULL)
+#' fst_ngrams_table(fst_child, ngrams = 2, norm = "number_resp")
+#' c2 <- fst_child_2
+#' child$paino <- as.numeric((gsub(",", ".", child$paino)))
+#' s <- svydesign(id=~1, weights= ~paino, data = child)
+#' i <- 'fsd_id'
+#' fst_ngrams_table(c2, use_svydesign_weights = TRUE, svydesign = s, id = i)
+#' fst_ngrams_table(fst_child, use_column_weights = TRUE, ngrams = 3)
+fst_ngrams_table <- function(data,
+                             number = 10,
+                             ngrams = 1,
+                             norm = "number_words",
+                             pos_filter = NULL,
+                             strict = TRUE,
+                             use_svydesign_weights = FALSE,
+                             id = "",
+                             svydesign = NULL,
+                             use_column_weights = FALSE) {
+  if (use_svydesign_weights == TRUE) {
+    data <- fst_use_svydesign(data = data, svydesign = svydesign, id = id)
+  }
   with_ties <- !strict
   if (strict == TRUE) {
     message("Note:\n N-grams with equal occurrence are presented in alphabetical order. \n By default, n-grams are presented in order to the `number` cutoff n-gram. \n This means that equally-occurring later-alphabetically n-grams beyond the cutoff n-gram will not be displayed. \n\n")
@@ -267,23 +353,28 @@ fst_get_top_ngrams <- function(data, number = 10, ngrams = 1, norm = "number_wor
     denom <- nrow(data)
   } else if (norm == "number_resp") {
     denom <- dplyr::n_distinct(data$doc_id)
+  } else if (norm == "use_weights") {
+    denom <- 1
   } else {
-    message("NOTE: A recognised normalisation method has not been provided. \n Function has defaulted to normalisation method 'number_of_words'")
-    data %>%
-      dplyr::filter(.data$dep_rel != "punct") %>%
-      dplyr::filter(!is.na(lemma)) %>%
-      dplyr::filter(lemma != "na")
-    denom <- nrow(data)
+    message("NOTE: A recognised normalisation method has not been provided. \n Function has defaulted to provide raw counts.")
+    denom <- 1
   }
   if (!is.null(pos_filter)) {
     data <- dplyr::filter(data, .data$upos %in% pos_filter)
   }
-  data %>%
+  data <- data %>%
     dplyr::filter(.data$dep_rel != "punct") %>%
     dplyr::filter(!is.na(lemma)) %>%
     dplyr::filter(lemma != "na") %>%
-    dplyr::mutate(words = udpipe::txt_nextgram(lemma, n = ngrams)) %>%
-    dplyr::count(words, sort = TRUE) %>%
+    dplyr::mutate(words = udpipe::txt_nextgram(lemma, n = ngrams))
+  if (use_svydesign_weights == TRUE) {
+    data <- dplyr::count(data, words, sort = TRUE, wt = weight)
+  } else if (use_column_weights == TRUE) {
+    data <- dplyr::count(data, words, sort = TRUE, wt = weight)
+  } else {
+    data <- dplyr::count(data, words, sort = TRUE)
+  }
+  data %>%
     dplyr::mutate(n = round(n / denom, 3)) %>%
     dplyr::slice_max(n, n = number, with_ties = with_ties) %>%
     dplyr::mutate(words = reorder(words, n)) %>%
@@ -294,33 +385,54 @@ fst_get_top_ngrams <- function(data, number = 10, ngrams = 1, norm = "number_wor
 
 #' Make Top N-grams Table 2
 #'
-#' Creates a table of the most frequently-occurring ngrams within the
-#' data. Equivalent to `fst_get_top_ngrams()` but does not print message.
+#' Creates a table of the most frequently-occurring n-grams within the
+#' data. Optionally, weights can be provided either through a `weight` column
+#' in the formatted data, or from a `svydesign` object with the raw
+#' (preformatted) data.
+#' Equivalent to `fst_get_top_ngrams` but doesn't print message about ties.
 #'
 #' @param data A dataframe of text in CoNLL-U format.
 #' @param number The number of n-grams to return, default is `10`.
 #' @param ngrams The type of n-grams to return, default is `1`.
 #' @param norm The method for normalising the data. Valid settings are
-#'  `'number_words'` (the number of words in the responses, default),
-#'  `'number_resp'` (the number of responses), or `NULL` (raw count returned).
+#'  `"number_words"` (the number of words in the responses, default),
+#'  `"number_resp"` (the number of responses), or `NULL` (raw count returned).
 #' @param pos_filter List of UPOS tags for inclusion, default is `NULL` which
 #'  means all word types included.
 #' @param strict Whether to strictly cut-off at `number` (ties are
 #'  alphabetically ordered), default is `TRUE`.
+#' @param use_svydesign_weights Option to weight words in the wordcloud using
+#'  weights from  a svydesign object containing the raw data, default is `FALSE`
+#' @param id ID column from raw data, required if `use_svydesign_weights = TRUE`
+#'  and must match the `docid` in formatted `data`.
+#' @param svydesign A svydesign object which contains the raw data and weights.
+#' @param use_column_weights Option to weight words in the wordcloud using
+#'  weights from  formatted data which includes addition `weight` column,
+#'  default is `FALSE`
 #'
 #' @return A table of the most frequently occurring n-grams in the data.
 #' @export
 #'
 #' @examples
-#' fst_get_top_ngrams2(conllu_dev_q11_1_nltk)
-#' fst_get_top_ngrams2(conllu_dev_q11_1_nltk, number = 10, ngrams = 1)
-fst_get_top_ngrams2 <- function(data,
+#' fst_ngrams_table2(fst_child, norm = NULL)
+#' fst_ngrams_table2(fst_child, ngrams = 2, norm = "number_resp")
+fst_ngrams_table2 <- function(data,
                                 number = 10,
                                 ngrams = 1,
                                 norm = "number_words",
                                 pos_filter = NULL,
-                                strict = TRUE) {
+                                strict = TRUE,
+                                use_svydesign_weights = FALSE,
+                                id = "",
+                                svydesign = NULL,
+                                use_column_weights = FALSE) {
+  if (use_svydesign_weights == TRUE) {
+    data <- fst_use_svydesign(data = data, svydesign = svydesign, id = id)
+  }
   with_ties <- !strict
+  if (strict == TRUE) {
+  } else {
+  }
   if (is.null(norm)) {
     denom <- 1
   } else if (norm == "number_words") {
@@ -331,23 +443,28 @@ fst_get_top_ngrams2 <- function(data,
     denom <- nrow(data)
   } else if (norm == "number_resp") {
     denom <- dplyr::n_distinct(data$doc_id)
+  } else if (norm == "use_weights") {
+    denom <- 1
   } else {
-    message("NOTE: A recognised normalisation method has not been provided. \n Function has defaulted to normalisation method 'number_of_words'")
-    data %>%
-      dplyr::filter(.data$dep_rel != "punct") %>%
-      dplyr::filter(!is.na(lemma)) %>%
-      dplyr::filter(lemma != "na")
-    denom <- nrow(data)
+    message("NOTE: A recognised normalisation method has not been provided. \n Function has defaulted to provide raw counts.")
+    denom <- 1
   }
   if (!is.null(pos_filter)) {
     data <- dplyr::filter(data, .data$upos %in% pos_filter)
   }
-  data %>%
+  data <- data %>%
     dplyr::filter(.data$dep_rel != "punct") %>%
     dplyr::filter(!is.na(lemma)) %>%
     dplyr::filter(lemma != "na") %>%
-    dplyr::mutate(words = udpipe::txt_nextgram(lemma, n = ngrams)) %>%
-    dplyr::count(words, sort = TRUE) %>%
+    dplyr::mutate(words = udpipe::txt_nextgram(lemma, n = ngrams))
+  if (use_svydesign_weights == TRUE) {
+    data <- dplyr::count(data, words, sort = TRUE, wt = weight)
+  } else if (use_column_weights == TRUE) {
+    data <- dplyr::count(data, words, sort = TRUE, wt = weight)
+  } else {
+    data <- dplyr::count(data, words, sort = TRUE)
+  }
+  data %>%
     dplyr::mutate(n = round(n / denom, 3)) %>%
     dplyr::slice_max(n, n = number, with_ties = with_ties) %>%
     dplyr::mutate(words = reorder(words, n)) %>%
@@ -370,14 +487,9 @@ fst_get_top_ngrams2 <- function(data,
 #' @export
 #'
 #' @examples
-#' cb <- conllu_cb_bullying
 #' pf <- c("NOUN", "VERB", "ADJ", "ADV")
-#' top_bullying_words <- fst_get_top_words(cb, number = 15, pos_filter = pf)
-#' fst_freq_plot(top_bullying_words, number = 5, name = "Bullying")
-#'
-#' q11_1 <- conllu_dev_q11_1_nltk
-#' q11_1_ngrams <- fst_get_top_ngrams(q11_1, number = 10, ngrams = 1)
-#' fst_freq_plot(q11_1_ngrams)
+#' top_words <- fst_freq_table(fst_child, number = 15, pos_filter = pf)
+#' fst_freq_plot(top_words, number = 15, name = "Bullying")
 fst_freq_plot <- function(table, number = NULL, name = NULL) {
   table %>%
     ggplot2::ggplot(ggplot2::aes(occurrence, words)) +
@@ -406,13 +518,8 @@ fst_freq_plot <- function(table, number = NULL, name = NULL) {
 #' @export
 #'
 #' @examples
-#' topn_f <- fst_get_top_ngrams(conllu_dev_q11_1_f_nltk)
-#' topn_m <- fst_get_top_ngrams(conllu_dev_q11_1_m_nltk)
-#' topn_na <- fst_get_top_ngrams(conllu_dev_q11_1_na_nltk)
-#' fst_ngrams_plot(topn_f, ngrams = 2, name = "Female")
-#' fst_ngrams_plot(topn_f, ngrams = 1, number = 15)
-#' fst_ngrams_plot(topn_m, ngrams = 2, number = 15)
-#' fst_ngrams_plot(topn_na, ngrams = 2)
+#' top_bigrams <- fst_ngrams_table(fst_child, ngrams = 2, number = 15)
+#' fst_ngrams_plot(top_bigrams, ngrams = 2, number = 15, name = "Children")
 fst_ngrams_plot <- function(table, number = NULL, ngrams = 1, name = NULL) {
   if (ngrams == 1) {
     term <- "Words"
@@ -435,7 +542,9 @@ fst_ngrams_plot <- function(table, number = NULL, ngrams = 1, name = NULL) {
 #' Find and Plot Top Words
 #'
 #' Creates a plot of the most frequently-occurring words (unigrams) within the
-#' data.
+#' data. Optionally, weights can be provided either through a `weight` column
+#' in the formatted data, or from a `svydesign` object with the raw
+#' (preformatted) data.
 #'
 #' @param data A dataframe of text in CoNLL-U format.
 #' @param number The number of top words to return, default is `10`.
@@ -448,27 +557,45 @@ fst_ngrams_plot <- function(table, number = NULL, ngrams = 1, name = NULL) {
 #'  alphabetically ordered), default is `TRUE`.
 #' @param name An optional "name" for the plot to add to title, default is
 #'  `NULL`.
+#' @param use_svydesign_weights Option to weight words in the wordcloud using
+#'  weights from  a svydesign object containing the raw data, default is `FALSE`
+#' @param id ID column from raw data, required if `use_svydesign_weights = TRUE`
+#'  and must match the `docid` in formatted `data`.
+#' @param svydesign A svydesign object which contains the raw data and weights.
+#' @param use_column_weights Option to weight words in the wordcloud using
+#'  weights from  formatted data which includes addition `weight` column,
+#'  default is `FALSE`
 #'
 #' @return Plot of top words.
 #' @export
 #'
 #' @examples
-#' q11_1 <- conllu_dev_q11_1
-#' n1 <- "number_resp"
-#' fst_freq(q11_1, number = 12, norm = n1, strict = FALSE, name = "All")
-#' fst_freq(q11_1, number = 15, name = "Not Spec")
+#' fst_freq(fst_child, number = 12, norm = 'number_resp',  name = "All")
+#' fst_freq(fst_child, use_column_weights = TRUE)
+#' child$paino <- as.numeric((gsub(",", ".", child$paino)))
+#' s <- svydesign(id=~1, weights= ~paino, data = child)
+#' i <- 'fsd_id'
+#' fst_freq(fst_child_2, use_svydesign_weights = TRUE, svydesign = s, id = i)
 fst_freq <- function(data,
                      number = 10,
-                     norm = "number_words",
+                     norm = NULL,
                      pos_filter = NULL,
                      strict = TRUE,
-                     name = NULL) {
-  words <- fst_get_top_words(
+                     name = NULL,
+                     use_svydesign_weights = FALSE,
+                     id = "",
+                     svydesign = NULL,
+                     use_column_weights = FALSE) {
+  words <- fst_freq_table(
     data = data,
     number = number,
     norm = norm,
     pos_filter = pos_filter,
-    strict = strict
+    strict = strict,
+    use_svydesign_weights = use_svydesign_weights,
+    id = id,
+    svydesign = svydesign,
+    use_column_weights = use_column_weights
   )
   fst_freq_plot(table = words, number = number, name = name)
 }
@@ -476,7 +603,9 @@ fst_freq <- function(data,
 #' Find and Plot Top N-grams
 #'
 #' Creates a plot of the most frequently-occurring n-grams within the
-#' data.
+#' data. Optionally, weights can be provided either through a `weight` column
+#' in the formatted data, or from a `svydesign` object with the raw
+#' (preformatted) data.
 #'
 #' @param data A dataframe of text in CoNLL-U format.
 #' @param number The number of top words to return, default is `10`.
@@ -490,28 +619,47 @@ fst_freq <- function(data,
 #'  alphabetically ordered), default is `TRUE`.
 #' @param name An optional "name" for the plot to add to title, default is
 #'  `NULL`.
+#' @param use_svydesign_weights Option to weight words in the wordcloud using
+#'  weights from  a svydesign object containing the raw data, default is `FALSE`
+#' @param id ID column from raw data, required if `use_svydesign_weights = TRUE`
+#'  and must match the `docid` in formatted `data`.
+#' @param svydesign A svydesign object which contains the raw data and weights.
+#' @param use_column_weights Option to weight words in the wordcloud using
+#'  weights from  formatted data which includes addition `weight` column,
+#'  default is `FALSE`
 #'
 #' @return Plot of top n-grams
 #' @export
 #'
 #' @examples
-#' q11_1 <- conllu_dev_q11_1
-#' fst_ngrams(q11_1, 12, ngrams = 2, norm = NULL, strict = FALSE, name = "All")
-#' fst_ngrams(conllu_dev_q11_1_na, number = 15, ngrams = 3, name = "Not Spec")
+#' fst_ngrams(fst_child, 12, ngrams = 2, strict = FALSE, name = "All")
+#' c <- fst_child_2
+#' child$paino <- as.numeric((gsub(",", ".", child$paino)))
+#' s <- svydesign(id=~1, weights= ~paino, data = child)
+#' i <- 'fsd_id'
+#' fst_ngrams(c, ngrams = 3, use_svydesign_weights = T, svydesign = s, id = i)
 fst_ngrams <- function(data,
                        number = 10,
                        ngrams = 1,
-                       norm = "number_words",
+                       norm = NULL,
                        pos_filter = NULL,
                        strict = TRUE,
-                       name = NULL) {
-  ngram_list <- fst_get_top_ngrams(
+                       name = NULL,
+                       use_svydesign_weights = FALSE,
+                       id = "",
+                       svydesign = NULL,
+                       use_column_weights = FALSE) {
+  ngram_list <- fst_ngrams_table(
     data = data,
     number = number,
     ngrams = ngrams,
     norm = norm,
     pos_filter = pos_filter,
-    strict = strict
+    strict = strict,
+    use_svydesign_weights = use_svydesign_weights,
+    id = id,
+    svydesign = svydesign,
+    use_column_weights = use_column_weights
   )
   fst_ngrams_plot(
     table = ngram_list,
@@ -522,33 +670,63 @@ fst_ngrams <- function(data,
 }
 
 
+
 #' Make Wordcloud
 #'
 #' Creates a wordcloud from CoNLL-U data of frequently-occurring words.
+#' Optionally, weights can be provided either through a `weight` column in the
+#' formatted data, or from a `svydesign` object with the raw (preformatted)
+#' data.
 #'
 #' @param data A dataframe of text in CoNLL-U format.
 #' @param pos_filter List of UPOS tags for inclusion, default is `NULL` which
 #'  means all word types included.
-#' @param max The maximum number of words to display, default is `100`
+#' @param max The maximum number of words to display, default is `100`.
+#' @param use_svydesign_weights Option to weight words in the wordcloud using
+#'  weights from  a svydesign object containing the raw data, default is `FALSE`
+#' @param id ID column from raw data, required if `use_svydesign_weights = TRUE`
+#'  and must match the `docid` in formatted `data`.
+#' @param svydesign A svydesign object which contains the raw data and weights.
+#' @param use_column_weights Option to weight words in the wordcloud using
+#'  weights from  formatted data which includes addition `weight` column,
+#'  default is `FALSE`.
 #'
 #' @return A wordcloud from the data.
 #' @export
 #'
 #' @examples
-#' cb <- conllu_cb_bullying_iso
-#' fst_wordcloud(cb)
-#' fst_wordcloud(cb, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
-#' fst_wordcloud(conllu_dev_q11_1_snow, pos_filter = "VERB", max = 50)
-#' fst_wordcloud(conllu_dev_q11_1_nltk)
-fst_wordcloud <- function(data, pos_filter = NULL, max = 100) {
+#' fst_wordcloud(fst_child)
+#' fst_wordcloud(fst_child, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+#' fst_wordcloud(fst_child, use_column_weights = TRUE)
+#' i <- 'fsd_id'
+#' c <- fst_child_2
+#' child$paino <- as.numeric((gsub(",", ".", child$paino)))
+#' s <- svydesign(id=~1, weights= ~paino, data = child)
+#' fst_wordcloud(c, use_svydesign_weights = TRUE, id = i, svydesign = s)
+fst_wordcloud <- function(data,
+                          pos_filter = NULL,
+                          max = 100,
+                          use_svydesign_weights = FALSE,
+                          id = "",
+                          svydesign = NULL,
+                          use_column_weights = FALSE) {
+  if (use_svydesign_weights == TRUE) {
+    data <- fst_use_svydesign(data = data, svydesign = svydesign, id = id)
+  }
   if (!is.null(pos_filter)) {
     data <- dplyr::filter(data, upos %in% pos_filter)
   }
   wordcloud_data <- data %>%
     dplyr::filter(.data$dep_rel != "punct") %>%
     dplyr::filter(!is.na(lemma)) %>%
-    dplyr::filter(lemma != "na") %>%
-    dplyr::count(lemma, sort = TRUE)
+    dplyr::filter(lemma != "na")
+  if (use_svydesign_weights == TRUE) {
+    wordcloud_data <- dplyr::count(wordcloud_data, lemma, sort = TRUE, wt = weight)
+  } else if (use_column_weights == TRUE) {
+    wordcloud_data <- dplyr::count(wordcloud_data, lemma, sort = TRUE, wt = weight)
+  } else {
+    wordcloud_data <- dplyr::count(wordcloud_data, lemma, sort = TRUE)
+  }
   wordcloud::wordcloud(
     words = wordcloud_data$lemma,
     freq = wordcloud_data$n,
