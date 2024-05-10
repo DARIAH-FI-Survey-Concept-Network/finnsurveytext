@@ -12,14 +12,9 @@
 #' @export
 #'
 #' @examples
-#' top_f <- fst_get_top_words(conllu_dev_q11_1_f_nltk)
-#' top_m <- fst_get_top_words(conllu_dev_q11_1_m_nltk)
-#' top_na <- fst_get_top_words(conllu_dev_q11_1_na_nltk)
-#' topn_f <- fst_get_top_ngrams(conllu_dev_q11_1_f_nltk)
-#' topn_m <- fst_get_top_ngrams(conllu_dev_q11_1_m_nltk)
-#' topn_na <- fst_get_top_ngrams(conllu_dev_q11_1_na_nltk)
-#' fst_get_unique_ngrams(top_f, top_m, top_na)
-#' fst_get_unique_ngrams(topn_f, topn_m, topn_na)
+#' top_child <- fst_freq_table(fst_child)
+#' top_dev <- fst_freq_table(fst_dev_coop)
+#' fst_get_unique_ngrams(top_child, top_dev)
 fst_get_unique_ngrams <- function(table1, table2, ...) {
   df <- rbind(table1, table2, ...)
   df <- df %>%
@@ -35,10 +30,10 @@ fst_get_unique_ngrams <- function(table1, table2, ...) {
 #' Merge N-grams table with unique words
 #'
 #' Merges list of unique words from `fst_get_unique_ngrams()` with output of
-#' `fst_get_top_ngrams()` or `fst_get_top_words()` so that unique words can be
+#' `fst_freq_table()` or `fst_ngrams_table()` so that unique words can be
 #' displayed on comparison plots.
 #'
-#' @param table Output of `fst_get_top_words()` or `fst_get_top_ngrams()`.
+#' @param table Output of `fst_freq_table()` or `fst_ngrams_table()`.
 #' @param unique_table Output of `fst_get_unique_ngrams()`.
 #'
 #' @return A table of top n-grams, frequency, and whether the n-gram is
@@ -46,16 +41,11 @@ fst_get_unique_ngrams <- function(table1, table2, ...) {
 #' @export
 #'
 #' @examples
-#' top_f <- fst_get_top_words(conllu_dev_q11_1_f_nltk)
-#' top_m <- fst_get_top_words(conllu_dev_q11_1_m_nltk)
-#' top_na <- fst_get_top_words(conllu_dev_q11_1_na_nltk)
-#' topn_f <- fst_get_top_ngrams(conllu_dev_q11_1_f_nltk)
-#' topn_m <- fst_get_top_ngrams(conllu_dev_q11_1_m_nltk)
-#' topn_na <- fst_get_top_ngrams(conllu_dev_q11_1_na_nltk)
-#' unique_words <- fst_get_unique_ngrams(top_f, top_m, top_na)
-#' unique_ngrams <- fst_get_unique_ngrams(topn_f, topn_m, topn_na)
-#' fst_join_unique(top_f, unique_words)
-#' fst_join_unique(topn_m, unique_ngrams)
+#' top_child <- fst_freq_table(fst_child)
+#' top_dev <- fst_freq_table(fst_dev_coop)
+#' unique_words <- fst_get_unique_ngrams(top_child, top_dev)
+#' fst_join_unique(top_child, unique_words)
+#' fst_join_unique(top_dev, unique_words)
 fst_join_unique <- function(table, unique_table) {
   table <- table %>% dplyr::left_join(unique_table, by = "words")
   table
