@@ -417,15 +417,15 @@ fst_ngrams_table <- function(data,
 #' fst_ngrams_table2(fst_child, norm = NULL)
 #' fst_ngrams_table2(fst_child, ngrams = 2, norm = "number_resp")
 fst_ngrams_table2 <- function(data,
-                                number = 10,
-                                ngrams = 1,
-                                norm = NULL,
-                                pos_filter = NULL,
-                                strict = TRUE,
-                                use_svydesign_weights = FALSE,
-                                id = "",
-                                svydesign = NULL,
-                                use_column_weights = FALSE) {
+                              number = 10,
+                              ngrams = 1,
+                              norm = NULL,
+                              pos_filter = NULL,
+                              strict = TRUE,
+                              use_svydesign_weights = FALSE,
+                              id = "",
+                              svydesign = NULL,
+                              use_column_weights = FALSE) {
   if (use_svydesign_weights == TRUE) {
     data <- fst_use_svydesign(data = data, svydesign = svydesign, id = id)
   }

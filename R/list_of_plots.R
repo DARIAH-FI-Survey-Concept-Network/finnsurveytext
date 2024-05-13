@@ -161,26 +161,27 @@ split_and_get_top_words_AND_PLOT <- function(data,
   }
   names(list_of_top_words_tables) <- names[[field]]
   names2 <- names[[field]]
-  list_of_plots <- list()
-  for (i in 1:length(list_of_top_words_tables)) {
+  n <- length(list_of_top_words_tables)
+  list_of_plots <- vector('list', n)
+  num_rows <- ceiling(n/3)
+  for (i in 1:n) {
     table <- list_of_top_words_tables[[i]]
-    plot <- fst_ngrams_compare_plot(table) #, name = c(field, ' = ', names2[i])) # FIX THIS, want it to say "BV1 = 1 Most Common Words"
-    list_of_plots <- append(list_of_plots, plot)
+    list_of_plots[[i]] <- fst_ngrams_compare_plot(table, override_title = paste(field, '=', names2[i])) # FIX THIS, want it to say "BV1 = 1 Most Common Words"
   }
-  list_of_plots
-  # gridExtra::grid.arrange(grobs = list_of_plots, ncol = 2)
+  # list_of_plots
+  do.call(gridExtra::grid.arrange, list_of_plots)
 }
 
-xyz <- split_and_get_top_words_AND_PLOT(fst_child, 'bv1')
-xyz
-gridExtra::grid.arrange(grobs = xyz, ncol = 2)
-
-
-list_of_top_words_tables <- efgh
-i <- 1
-table <- list_of_top_words_tables[[i]]
-plot <- fst_ngrams_compare_plot(table) # FIX THIS, want it to say "BV1 = 1 Most Common Words"
-plot
-list_of_plots <- list()
-list_of_plots <- append(list_of_plots, plot)
-list_of_plots
+# xyz <- split_and_get_top_words_AND_PLOT(fst_child, 'bv1')
+# xyz
+# gridExtra::grid.arrange(grobs = xyz, ncol = 2)
+#
+#
+# list_of_top_words_tables <- efgh
+# i <- 1
+# table <- list_of_top_words_tables[[i]]
+# plot <- fst_ngrams_compare_plot(table) # FIX THIS, want it to say "BV1 = 1 Most Common Words"
+# plot
+# list_of_plots <- list()
+# list_of_plots <- append(list_of_plots, plot)
+# list_of_plots
