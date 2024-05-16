@@ -9,8 +9,8 @@
 #' @export
 #'
 #' @examples
-#' fst_summarise_short(conllu_cb_bullying_iso)
-#' fst_summarise_short(conllu_dev_q11_2_nltk)
+#' fst_summarise_short(fst_child)
+#' fst_summarise_short(fst_dev_coop)
 fst_summarise_short <- function(data) {
   data %>%
     dplyr::summarize(
@@ -35,8 +35,8 @@ fst_summarise_short <- function(data) {
 #' @export
 #'
 #' @examples
-#' fst_summarise(conllu_dev_q11_1)
-#' fst_summarise(conllu_dev_q11_2_nltk, "Q11_2")
+#' fst_summarise(fst_child)
+#' fst_summarise(fst_dev_coop, "Q11_3")
 fst_summarise <- function(data, desc = "All respondents") {
   no_resp_count <- length(which(data$sentence %in% c("NA", "na")))
   df <- data %>%
@@ -66,8 +66,8 @@ fst_summarise <- function(data, desc = "All respondents") {
 #' @export
 #'
 #' @examples
-#' fst_pos(conllu_cb_bullying_iso)
-#' fst_pos(conllu_dev_q11_3_nltk)
+#' fst_pos(fst_child)
+#' fst_pos(fst_dev_coop)
 fst_pos <- function(data) {
   denom <- nrow(data)
   pos_table <- data %>%
@@ -112,8 +112,8 @@ fst_pos <- function(data) {
 #' @export
 #'
 #' @examples
-#' fst_length_summary(conllu_dev_q11_1, incl_sentences = FALSE)
-#' fst_length_summary(conllu_dev_q11_1, desc = "Female")
+#' fst_length_summary(fst_child, incl_sentences = FALSE)
+#' fst_length_summary(fst_dev_coop, desc = "Q11_3")
 fst_length_summary <- function(data,
                                desc = "All respondents",
                                incl_sentences = TRUE) {
@@ -156,7 +156,8 @@ fst_length_summary <- function(data,
   }
   word_df
 }
-#' Add weights to CoNLL-U data
+
+#' Add svydeesign weights to CoNLL-U data
 #'
 #' This function takes data in CoNLL-U format and a svydesign (from survey
 #' packge) object with weights in it and merges the weights into the formatted
