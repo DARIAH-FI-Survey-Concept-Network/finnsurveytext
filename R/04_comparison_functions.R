@@ -104,7 +104,12 @@ fst_join_unique <- function(table, unique_table) {
 #' top_dev_u <- fst_join_unique(top_dev, unique_words)
 #' fst_ngrams_compare_plot(top_child_u, ngrams = 1, name = "Child")
 #' fst_ngrams_compare_plot(top_dev_u, ngrams = 1, name = "Dev")
-fst_ngrams_compare_plot <- function(table, number = 10, ngrams = 1, unique_colour = "indianred", name = NULL, override_title = NULL) {
+fst_ngrams_compare_plot <- function(table,
+                                    number = 10,
+                                    ngrams = 1,
+                                    unique_colour = "indianred",
+                                    name = NULL,
+                                    override_title = NULL) {
   colours <- c("yes" = unique_colour, "no" = "grey50")
   if (ngrams == 1) {
     term <- "Words"
@@ -343,31 +348,27 @@ fst_ngrams_compare <- function(data,
 
 #' Compare parts-of-speech
 #'
-#' Compare words in responses based on part-of-speech tagging for between 2 and
-#' 4 sets of prepared data.
+#' Count each POS type for different groups of participants. Data is
+#' split based on different values in the `field` column of formatted data.
+#' Results will be shown within the plots pane.
 #'
-#' @param data1 A dataframe of text in CoNLL-U format for the first group.
-#' @param data2 A dataframe of text in CoNLL-U format for the second group.
-#' @param data3 An optional dataframe of text in CoNLL-U format for the third
-#'  group, default is `NULL`.
-#' @param data4 An optional dataframe of text in CoNLL-U format for the fourth
-#'  group, default is `NULL`.
-#' @param name1 An optional "name" for the first group, default is `"Group 1"`.
-#' @param name2 An optional "name" for the second group, default is `"Group 2"`.
-#' @param name3 An optional "name" for the third group, default is `"Group 3"`.
-#' @param name4 An optional "name" for the fourth group, default is `"Group 4"`.
+#' @param data A dataframe of text in CoNLL-U format with additional `field`
+#'  column for splitting data.
+#' @param field Column in `data` used for splitting groups
+#' @param exclude_nulls Whether to include NULLs in `field` column, default is
+#'  `FALSE`
+#' @param rename_nulls What to fill NULL values with if `exclude_nulls = FALSE`.
 #'
 #' @return Table of POS tag counts for the groups.
 #' @export
 #'
 #' @examples
-#' f <- conllu_dev_q11_1_f_nltk
-#' m <- conllu_dev_q11_1_m_nltk
-#' na <- conllu_dev_q11_1_na_nltk
-#' all <- conllu_dev_q11_1_nltk
-#' fst_pos_compare(f, m, na, all, "Female", "Male", "Not Spec.", "All")
-#' fst_pos_compare(f, m, name1 = "Female", name2 = "Male")
-fst_pos_compare <- function(data1, data2, data3 = NULL, data4 = NULL, name1 = "Group 1", name2 = "Group 2", name3 = "Group 3", name4 = "Group 4") {
+#' fst_pos_compare(fst_child, 'bv1')
+#' fst_pos_compare(fst_dev_coop, 'q2')
+fst_pos_compare <- function(data,
+                            field,
+                            exclude_nulls = FALSE,
+                            rename_nulls = 'null_data') {
   pos_lookup <- data.frame(
     "UPOS" = c(
       "ADJ", "ADP", "ADV", "AUX", "CCONJ", "DET",
@@ -387,142 +388,70 @@ fst_pos_compare <- function(data1, data2, data3 = NULL, data4 = NULL, name1 = "G
       " symbol", " verb", " other"
     )
   )
-  if (!is.null(data3)) {
-    if (!is.null(data4)) {
-      denom4 <- nrow(data4)
-      name4_2 <- paste(name4, "Count")
-      name4_3 <- paste(name4, "Prop")
-      pos_table4 <- data4 %>%
-        dplyr::count(upos, sort = TRUE) %>%
-        dplyr::mutate(!!name4_3 := round(n / denom4, 3)) %>%
-        dplyr::rename(!!name4_2 := n) %>%
-        dplyr::rename(UPOS = upos)
-      denom3 <- nrow(data3)
-      name3_2 <- paste(name3, "Count")
-      name3_3 <- paste(name3, "Prop")
-      pos_table3 <- data3 %>%
-        dplyr::count(upos, sort = TRUE) %>%
-        dplyr::mutate(!!name3_3 := round(n / denom3, 3)) %>%
-        dplyr::rename(!!name3_2 := n) %>%
-        dplyr::rename(UPOS = upos)
-      denom2 <- nrow(data2)
-      name2_2 <- paste(name2, "Count")
-      name2_3 <- paste(name2, "Prop")
-      pos_table2 <- data2 %>%
-        dplyr::count(upos, sort = TRUE) %>%
-        dplyr::mutate(!!name2_3 := round(n / denom2, 3)) %>%
-        dplyr::rename(!!name2_2 := n) %>%
-        dplyr::rename(UPOS = upos)
-      denom1 <- nrow(data1)
-      name1_2 <- paste(name1, "Count")
-      name1_3 <- paste(name1, "Prop")
-      pos_table1 <- data1 %>%
-        dplyr::count(upos, sort = TRUE) %>%
-        dplyr::mutate(!!name1_3 := round(n / denom1, 3)) %>%
-        dplyr::rename(!!name1_2 := n) %>%
-        dplyr::rename(UPOS = upos)
-      df <- merge(x = pos_lookup, y = pos_table1, by = "UPOS") %>%
-        merge(pos_table2, by = "UPOS") %>%
-        merge(pos_table3, by = "UPOS") %>%
-        merge(pos_table4, by = "UPOS")
-    } else {
-      denom3 <- nrow(data3)
-      name3_2 <- paste(name3, "Count")
-      name3_3 <- paste(name3, "Prop")
-      pos_table3 <- data3 %>%
-        dplyr::count(upos, sort = TRUE) %>%
-        dplyr::mutate(!!name3_3 := round(n / denom3, 3)) %>%
-        dplyr::rename(!!name3 := n) %>%
-        dplyr::rename(UPOS = upos)
-      denom2 <- nrow(data2)
-      name2_2 <- paste(name2, "Count")
-      name2_3 <- paste(name2, "Prop")
-      pos_table2 <- data2 %>%
-        dplyr::count(upos, sort = TRUE) %>%
-        dplyr::mutate(!!name2_3 := round(n / denom2, 3)) %>%
-        dplyr::rename(!!name2_2 := n) %>%
-        dplyr::rename(UPOS = upos)
-      denom1 <- nrow(data1)
-      name1_2 <- paste(name1, "Count")
-      name1_3 <- paste(name1, "Prop")
-      pos_table1 <- data1 %>%
-        dplyr::count(upos, sort = TRUE) %>%
-        dplyr::mutate(!!name1_3 := round(n / denom1, 3)) %>%
-        dplyr::rename(!!name1_2 := n) %>%
-        dplyr::rename(UPOS = upos)
-      df <- merge(x = pos_lookup, y = pos_table1, by = "UPOS") %>%
-        merge(pos_table2, by = "UPOS") %>%
-        merge(pos_table3, by = "UPOS")
-    }
+  if (exclude_nulls == TRUE) {
+    data <- data %>% tidyr::drop_na(field)
   } else {
-    denom2 <- nrow(data2)
-    name2_2 <- paste(name2, "Count")
-    name2_3 <- paste(name2, "Prop")
-    pos_table2 <- data2 %>%
-      dplyr::count(upos, sort = TRUE) %>%
-      dplyr::mutate(!!name2_3 := round(n / denom2, 3)) %>%
-      dplyr::rename(!!name2_2 := n) %>%
-      dplyr::rename(UPOS = upos)
-    denom1 <- nrow(data1)
-    name1_2 <- paste(name1, "Count")
-    name1_3 <- paste(name1, "Prop")
-    pos_table1 <- data1 %>%
-      dplyr::count(upos, sort = TRUE) %>%
-      dplyr::mutate(!!name1_3 := round(n / denom1, 3)) %>%
-      dplyr::rename(!!name1_2 := n) %>%
-      dplyr::rename(UPOS = upos)
-    df <- merge(x = pos_lookup, y = pos_table1, by = "UPOS") %>%
-      merge(pos_table2, by = "UPOS")
+    data[is.na(data)] <- rename_nulls
   }
+  group_data <- data %>% dplyr::group_by_at(field)
+  split_data <- dplyr::group_split(group_data)
+  names <- dplyr:: group_keys(group_data)
+  names(split_data) <- names[[field]]
+  names_list <- names[[field]]
+  list_of_pos <- list()
+  list_of_pos <- append(list_of_pos, list(pos_lookup))
+  for (i in 1:length(split_data)) {
+    data <- split_data[[i]]
+    pos <- fst_pos(data) %>%
+      dplyr::rename(!!paste0(as.character(names_list[i]), "-Count") := Count) %>%
+      dplyr::rename(!!paste0(as.character(names_list[i]), "-Prop") := Proportion) %>%
+      subset(select = -c(UPOS, UPOS_Name) )
+    list_of_pos <- append(list_of_pos, list(pos))
+  }
+  df <- dplyr::bind_cols(list_of_pos)
   df
 }
 
-
-
 #' Make comparison summary
 #'
-#' Compare text responses for between 2 and 4 sets of prepared data.
+#' Compare text responses for different groups of participants. Data is
+#' split based on different values in the `field` column of formatted data.
+#' Results will be shown within the plots pane.
 #'
-#' @param data1 A dataframe of text in CoNLL-U format for the first group.
-#' @param data2 A dataframe of text in CoNLL-U format for the second group.
-#' @param data3 An optional dataframe of text in CoNLL-U format for the third
-#'  group, default is `NULL`.
-#' @param data4 An optional dataframe of text in CoNLL-U format for the fourth
-#'  group, default is `NULL`.
-#' @param name1 A string describing data1, default is `"Group 1"`.
-#' @param name2 A string describing data2, default is `"Group 2"`.
-#' @param name3 A string describing data3, default is `"Group 3"`.
-#' @param name4 A string describing data4, default is `"Group 4"`.
+#' @param data A dataframe of text in CoNLL-U format with additional `field`
+#'  column for splitting data.
+#' @param field Column in `data` used for splitting groups
+#' @param exclude_nulls Whether to include NULLs in `field` column, default is
+#'  `FALSE`
+#' @param rename_nulls What to fill NULL values with if `exclude_nulls = FALSE`.
 #'
 #' @return Summary table of responses between groups.
 #' @export
 #'
 #' @examples
-#' f <- conllu_dev_q11_1_f_nltk
-#' m <- conllu_dev_q11_1_m_nltk
-#' na <- conllu_dev_q11_1_na_nltk
-#' all <- conllu_dev_q11_1_nltk
-#' fst_summarise_compare(m, f, na, all, "Male", "Female", "Not Spec.", "All")
-#' fst_summarise_compare(m, f, name1 = "Male", name2 = "Female")
-fst_summarise_compare <- function(data1, data2, data3 = NULL, data4 = NULL, name1 = "Group 1", name2 = "Group 2", name3 = "Group 3", name4 = "Group 4") {
-  if (!is.null(data3)) {
-    if (!is.null(data4)) {
-      sum4 <- fst_summarise(data4, name4)
-      sum3 <- fst_summarise(data3, name3)
-      sum2 <- fst_summarise(data2, name2)
-      sum1 <- fst_summarise(data1, name1)
-      df <- rbind(sum1, sum2, sum3, sum4)
-    } else {
-      sum3 <- fst_summarise(data3, name3)
-      sum2 <- fst_summarise(data2, name2)
-      sum1 <- fst_summarise(data1, name1)
-      df <- rbind(sum1, sum2, sum3)
-    }
+#' fst_summarise_compare(fst_child, 'bv1')
+#' fst_summarise_compare(fst_dev_coop, 'q2')
+fst_summarise_compare <- function(data,
+                                  field,
+                                  exclude_nulls = FALSE,
+                                  rename_nulls = 'null_data') {
+  if (exclude_nulls == TRUE) {
+    data <- data %>% tidyr::drop_na(field)
   } else {
-    sum2 <- fst_summarise(data2, name2)
-    sum1 <- fst_summarise(data1, name1)
-    df <- rbind(sum1, sum2)
+    data[is.na(data)] <- rename_nulls
   }
+  group_data <- data %>% dplyr::group_by_at(field)
+  split_data <- dplyr::group_split(group_data)
+  names <- dplyr:: group_keys(group_data)
+  names(split_data) <- names[[field]]
+  names_list <- names[[field]]
+  list_of_sum <- list()
+  for (i in 1:length(split_data)) {
+    data <- split_data[[i]]
+    sum <- fst_summarise(data, as.character(names_list[i]))
+    list_of_sum <- append(list_of_sum, list(sum))
+  }
+  df <- data.table::rbindlist(list_of_sum)
   df
 }
 
@@ -530,50 +459,47 @@ fst_summarise_compare <- function(data1, data2, data3 = NULL, data4 = NULL, name
 
 #' Compare response lengths
 #'
-#' Compare length of text responses for between 2 and 4 sets of prepared data.
+#' Compare length of text responses for different groups of participants. Data
+#' is split based on different values in the `field` column of formatted data.
+#' Results will be shown within the plots pane.
 #'
-#' @param data1 A dataframe of text in CoNLL-U format for the first group.
-#' @param data2 A dataframe of text in CoNLL-U format for the second group.
-#' @param data3 An optional dataframe of text in CoNLL-U format for the third
-#'  group, default is `NULL`.
-#' @param data4 An optional dataframe of text in CoNLL-U format for the fourth
-#'  group, default is `NULL`.
-#' @param name1 A string describing data1, default is `"Group 1"`.
-#' @param name2 A string describing data2, default is `"Group 2"`.
-#' @param name3 A string describing data3, default is `"Group 3"`.
-#' @param name4 A string describing data4, default is `"Group 4"`.
+#' @param data A dataframe of text in CoNLL-U format with additional `field`
+#'  column for splitting data.
+#' @param field Column in `data` used for splitting groups
 #' @param incl_sentences Whether to include sentence data in table, default is
 #'  `TRUE`.
+#' @param exclude_nulls Whether to include NULLs in `field` column, default is
+#'  `FALSE`
+#' @param rename_nulls What to fill NULL values with if `exclude_nulls = FALSE`.
 #'
 #' @return Dataframe summarising response lengths.
 #' @export
 #'
 #' @examples
-#' f <- conllu_dev_q11_1_f_nltk
-#' m <- conllu_dev_q11_1_m_nltk
-#' na <- conllu_dev_q11_1_na_nltk
-#' all <- conllu_dev_q11_1_nltk
-#' fst_length_compare(f, m, na, all, "Female", "Male", "Not Spec", "All")
-#' fst_length_compare(f, m, name1 = "F", name2 = "M", incl_sentences = FALSE)
-fst_length_compare <- function(data1, data2, data3 = NULL, data4 = NULL, name1 = "Group 1", name2 = "Group 2", name3 = "Group 3", name4 = "Group 4", incl_sentences = TRUE) {
-  if (!is.null(data3)) {
-    if (!is.null(data4)) {
-      sum4 <- fst_length_summary(data4, name4, incl_sentences = incl_sentences)
-      sum3 <- fst_length_summary(data3, name3, incl_sentences = incl_sentences)
-      sum2 <- fst_length_summary(data2, name2, incl_sentences = incl_sentences)
-      sum1 <- fst_length_summary(data1, name1, incl_sentences = incl_sentences)
-      df <- rbind(sum1, sum2, sum3, sum4)
-    } else {
-      sum3 <- fst_length_summary(data3, name3, incl_sentences = incl_sentences)
-      sum2 <- fst_length_summary(data2, name2, incl_sentences = incl_sentences)
-      sum1 <- fst_length_summary(data1, name1, incl_sentences = incl_sentences)
-      df <- rbind(sum1, sum2, sum3)
-    }
+#' fst_length_compare(fst_child, 'bv1')
+#' fst_length_compare(fst_dev_coop, 'q3', incl_sentences = FALSE)
+fst_length_compare <- function(data,
+                               field,
+                               incl_sentences = TRUE,
+                               exclude_nulls = FALSE,
+                               rename_nulls = 'null_data') {
+  if (exclude_nulls == TRUE) {
+    data <- data %>% tidyr::drop_na(field)
   } else {
-    sum2 <- fst_length_summary(data2, name2, incl_sentences = incl_sentences)
-    sum1 <- fst_length_summary(data1, name1, incl_sentences = incl_sentences)
-    df <- rbind(sum1, sum2)
+    data[is.na(data)] <- rename_nulls
   }
+  group_data <- data %>% dplyr::group_by_at(field)
+  split_data <- dplyr::group_split(group_data)
+  names <- dplyr:: group_keys(group_data)
+  names(split_data) <- names[[field]]
+  names_list <- names[[field]]
+  list_of_len <- list()
+  for (i in 1:length(split_data)) {
+    data <- split_data[[i]]
+    len <- fst_length_summary(data, as.character(names_list[i]), incl_sentences = incl_sentences)
+    list_of_len <- append(list_of_len, list(len))
+  }
+  df <- data.table::rbindlist(list_of_len)
   df
 }
 

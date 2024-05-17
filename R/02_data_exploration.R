@@ -92,7 +92,7 @@ fst_pos <- function(data) {
       " symbol", " verb", " other"
     )
   )
-  df <- merge(x = pos_lookup, y = pos_table, by = "UPOS")
+  df <- merge(x = pos_lookup, y = pos_table, by = "UPOS", all.x = TRUE)
   df %>%
     dplyr::rename(Count = n) %>%
     dplyr::mutate(Proportion = round(Count / denom, 3))
@@ -133,7 +133,7 @@ fst_length_summary <- function(data,
     dplyr::summarize(
       "Description" = paste0(desc, "- Words"),
       "Respondents" = dplyr::n_distinct(doc_id),
-      "Mean" = mean(data$number_of_words),
+      "Mean" = round(mean(data$number_of_words), 3),
       "Minimum" = min(data$number_of_words),
       "Q1" = quantile(data$number_of_words, 0.25),
       "Median" = median(data$number_of_words),
@@ -145,7 +145,7 @@ fst_length_summary <- function(data,
       dplyr::summarize(
         "Description" = paste0(desc, "- Sentences"),
         "Respondents" = dplyr::n_distinct(doc_id),
-        "Mean" = mean(data$number_sentences),
+        "Mean" = round(mean(data$number_sentences), 3),
         "Minimum" = min(data$number_sentences),
         "Q1" = quantile(data$number_sentences, 0.25),
         "Median" = median(data$number_sentences),
