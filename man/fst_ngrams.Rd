@@ -8,10 +8,14 @@ fst_ngrams(
   data,
   number = 10,
   ngrams = 1,
-  norm = "number_words",
+  norm = NULL,
   pos_filter = NULL,
   strict = TRUE,
-  name = NULL
+  name = NULL,
+  use_svydesign_weights = FALSE,
+  id = "",
+  svydesign = NULL,
+  use_column_weights = FALSE
 )
 }
 \arguments{
@@ -33,16 +37,33 @@ alphabetically ordered), default is `TRUE`.}
 
 \item{name}{An optional "name" for the plot to add to title, default is
 `NULL`.}
+
+\item{use_svydesign_weights}{Option to weight words in the wordcloud using
+weights from  a svydesign object containing the raw data, default is `FALSE`}
+
+\item{id}{ID column from raw data, required if `use_svydesign_weights = TRUE`
+and must match the `docid` in formatted `data`.}
+
+\item{svydesign}{A svydesign object which contains the raw data and weights.}
+
+\item{use_column_weights}{Option to weight words in the wordcloud using
+weights from  formatted data which includes addition `weight` column,
+default is `FALSE`}
 }
 \value{
 Plot of top n-grams
 }
 \description{
 Creates a plot of the most frequently-occurring n-grams within the
-data.
+data. Optionally, weights can be provided either through a `weight` column
+in the formatted data, or from a `svydesign` object with the raw
+(preformatted) data.
 }
 \examples{
-q11_1 <- conllu_dev_q11_1
-fst_ngrams(q11_1, 12, ngrams = 2, norm = NULL, strict = FALSE, name = "All")
-fst_ngrams(conllu_dev_q11_1_na, number = 15, ngrams = 3, name = "Not Spec")
+fst_ngrams(fst_child, 12, ngrams = 2, strict = FALSE, name = "All")
+c <- fst_child_2
+child$paino <- as.numeric((gsub(",", ".", child$paino)))
+s <- svydesign(id=~1, weights= ~paino, data = child)
+i <- 'fsd_id'
+fst_ngrams(c, ngrams = 3, use_svydesign_weights = T, svydesign = s, id = i)
 }

@@ -21,12 +21,7 @@ Plot of top words.
 Plots most common words.
 }
 \examples{
-cb <- conllu_cb_bullying
 pf <- c("NOUN", "VERB", "ADJ", "ADV")
-top_bullying_words <- fst_get_top_words(cb, number = 15, pos_filter = pf)
-fst_freq_plot(top_bullying_words, number = 5, name = "Bullying")
-
-q11_1 <- conllu_dev_q11_1_nltk
-q11_1_ngrams <- fst_get_top_ngrams(q11_1, number = 10, ngrams = 1)
-fst_freq_plot(q11_1_ngrams)
+top_words <- fst_freq_table(fst_child, number = 15, pos_filter = pf)
+fst_freq_plot(top_words, number = 15, name = "Bullying")
 }

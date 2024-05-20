@@ -21,6 +21,6 @@ response count and proportion, total number of words, the number of unique
 words, and the number of unique lemmas.
 }
 \examples{
-fst_summarise(conllu_dev_q11_1)
-fst_summarise(conllu_dev_q11_2_nltk, "Q11_2")
+fst_summarise(fst_child)
+fst_summarise(fst_dev_coop, "Q11_3")
 }

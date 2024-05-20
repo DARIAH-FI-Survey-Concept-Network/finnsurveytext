@@ -235,7 +235,6 @@ fst_freq_compare <- function(data,
                                                     unique_colour = unique_colour,
                                                     override_title = paste(field, '=', names2[i]))
     }
-    # list_of_plots
     do.call(gridExtra::grid.arrange, list_of_plots)
   }
 
@@ -503,142 +502,96 @@ fst_length_compare <- function(data,
   df
 }
 
-
-
-
 #' Make comparison cloud
 #'
 #' Creates a comparison wordcloud showing words that occur differently between
-#' each group.
+#' each group. Data is split based on different values in the `field` column of
+#' formatted data. Results will be shown within the plots pane.
 #'
-#' @param data1 A dataframe of text in CoNLL-U format for the first group.
-#' @param data2 A dataframe of text in CoNLL-U format for the second group.
-#' @param data3 An optional dataframe of text in CoNLL-U format for the third
-#'  group, default is `NULL`.
-#' @param data4 An optional dataframe of text in CoNLL-U format for the fourth
-#'  group, default is `NULL`.
-#' @param name1 A string describing data1, default is `Group 1`.
-#' @param name2 A string describing data2, default is `Group 2`.
-#' @param name3 A string describing data3, default is `Group 3`.
-#' @param name4 A string describing data4, default is `Group 4`.
+#' @param data A dataframe of text in CoNLL-U format with additional `field`
+#'  column for splitting data.
+#' @param field Column in `data` used for splitting groups
 #' @param pos_filter List of UPOS tags for inclusion, default is `NULL` which
 #'  means all word types included.
 #' @param max The maximum number of words to display, default is `100`.
+#' @param exclude_nulls Whether to include NULLs in `field` column, default is
+#'  `FALSE`
+#' @param rename_nulls What to fill NULL values with if `exclude_nulls = FALSE`.
 #'
 #' @return A comparison cloud from wordcloud package.
 #' @export
 #'
 #' @examples
-#' d1 <- conllu_dev_q11_1_nltk
-#' d2 <- conllu_dev_q11_3_nltk
-#' pf1 <- c("NOUN", "VERB", "ADJ", "ADV")
-#' fst_comparison_cloud(d1, d2, pos_filter = pf1)
-#'
-#' f <- conllu_dev_q11_1_f_nltk
-#' m <- conllu_dev_q11_1_m_nltk
-#' na <- conllu_dev_q11_1_na_nltk
-#' n1 <- "Female"
-#' n2 <- "Male"
-#' n3 <- "NA"
-#' fst_comparison_cloud(f, m, na, name1 = n1, name2 = n2, name3 = n3, max = 400)
-#' fst_comparison_cloud(f, m, na, name1 = n1, name2 = n2, name3 = n3, max = 100)
-fst_comparison_cloud <- function(data1, data2, data3 = NULL, data4 = NULL, name1 = "Group 1", name2 = "Group 2", name3 = "Group 3", name4 = "Group 4", pos_filter = NULL, max = 100) {
-  message("Notes on use of fst_comparison_cloud: \n If `max` is large, you may receive \"warnings\" indicating any words which are not plotted due to space constraints.\n\n")
-  num1 <- dplyr::n_distinct(data1$doc_id)
-  num2 <- dplyr::n_distinct(data2$doc_id)
-  if (!is.null(data3)) {
-    num3 <- dplyr::n_distinct(data3$doc_id)
-    if (!is.null(data4)) {
-      num4 <- dplyr::n_distinct(data4$doc_id)
-      message(paste0("Note: \n Consider whether your data is balanced between groups being compared and whether each group contains enough data for analysis. \n The number of responses in each group (including \'NAs\') are listed below: \n\t", name1, "=", num1, ", ", name2, "=", num2, ", ", name3, "=", num3, ", ", name4, "=", num4, "\n\n"))
-      if (!is.null(pos_filter)) {
-        data1 <- dplyr::filter(data1, upos %in% pos_filter)
-        data2 <- dplyr::filter(data2, upos %in% pos_filter)
-        data3 <- dplyr::filter(data3, upos %in% pos_filter)
-        data4 <- dplyr::filter(data4, upos %in% pos_filter)
-      }
-      data1 <- data1 %>%
-        dplyr::filter(.data$dep_rel != "punct") %>%
-        dplyr::filter(!is.na(lemma)) %>%
-        dplyr::filter(lemma != "na") %>%
-        dplyr::count(lemma, sort = TRUE) %>%
-        dplyr::rename(!!name1 := n)
-      data2 <- data2 %>%
-        dplyr::filter(.data$dep_rel != "punct") %>%
-        dplyr::filter(!is.na(lemma)) %>%
-        dplyr::filter(lemma != "na") %>%
-        dplyr::count(lemma, sort = TRUE) %>%
-        dplyr::rename(!!name2 := n)
-      data3 <- data3 %>%
-        dplyr::filter(.data$dep_rel != "punct") %>%
-        dplyr::filter(!is.na(lemma)) %>%
-        dplyr::filter(lemma != "na") %>%
-        dplyr::count(lemma, sort = TRUE) %>%
-        dplyr::rename(!!name3 := n)
-      data4 <- data4 %>%
-        dplyr::filter(.data$dep_rel != "punct") %>%
-        dplyr::filter(!is.na(lemma)) %>%
-        dplyr::filter(lemma != "na") %>%
-        dplyr::count(lemma, sort = TRUE) %>%
-        dplyr::rename(!!name4 := n)
-      compcloud_data <- dplyr::full_join(data1, data2, by = "lemma") %>%
-        dplyr::full_join(data3, by = "lemma") %>%
-        dplyr::full_join(data4, by = "lemma")
-    } else {
-      message(paste0("Note: \n Consider whether your data is balanced between groups being compared and whether each group contains enough data for analysis. \n The number of responses in each group (including \'NAs\') are listed below: \n\t", name1, "=", num1, ", ", name2, "=", num2, ", ", name3, "=", num3, "\n\n"))
-      if (!is.null(pos_filter)) {
-        data1 <- dplyr::filter(data1, upos %in% pos_filter)
-        data2 <- dplyr::filter(data2, upos %in% pos_filter)
-        data3 <- dplyr::filter(data3, upos %in% pos_filter)
-      }
-      data1 <- data1 %>%
-        dplyr::filter(.data$dep_rel != "punct") %>%
-        dplyr::filter(!is.na(lemma)) %>%
-        dplyr::filter(lemma != "na") %>%
-        dplyr::count(lemma, sort = TRUE) %>%
-        dplyr::rename(!!name1 := n)
-      data2 <- data2 %>%
-        dplyr::filter(.data$dep_rel != "punct") %>%
-        dplyr::filter(!is.na(lemma)) %>%
-        dplyr::filter(lemma != "na") %>%
-        dplyr::count(lemma, sort = TRUE) %>%
-        dplyr::rename(!!name2 := n)
-      data3 <- data3 %>%
-        dplyr::filter(.data$dep_rel != "punct") %>%
-        dplyr::filter(!is.na(lemma)) %>%
-        dplyr::filter(lemma != "na") %>%
-        dplyr::count(lemma, sort = TRUE) %>%
-        dplyr::rename(!!name3 := n)
-      compcloud_data <- dplyr::full_join(data1, data2, by = "lemma")
-      compcloud_data <- dplyr::full_join(compcloud_data, data3, by = "lemma")
+#' fst_comparison_cloud(fst_child, 'bv1', max = 50)
+#' fst_child_3 <- within(fst_child, rm(weight))
+#' child$paino <- as.numeric((gsub(",", ".", child$paino)))
+#' s <- svydesign(id=~1, weights= ~paino, data = child)
+#' i <- 'fsd_id'
+#' fst_comparison_cloud(fst_child_3, 'bv1', use_svydesign_weights = TRUE, id = i, svydesign = s)
+#' fst_comparison_cloud(fst_dev_coop, 'q3', use_column_weights = TRUE)
+fst_comparison_cloud <- function(data,
+                                 field,
+                                 pos_filter = NULL,
+                                 max = 100,
+                                 use_svydesign_weights = FALSE,
+                                 id = "",
+                                 svydesign = NULL,
+                                 use_column_weights = FALSE,
+                                 exclude_nulls = FALSE,
+                                 rename_nulls = "null_data") {
+  #message("Notes on use of fst_comparison_cloud: \n If `max` is large, you may receive \"warnings\" indicating any words which are not plotted due to space constraints.\n\n")
+  if (exclude_nulls == TRUE) {
+    data <- data %>% tidyr::drop_na(field)
+  } else {
+    data[is.na(data)] <- rename_nulls
+  }
+  if (use_svydesign_weights == TRUE) {
+    data <- fst_use_svydesign(data = data, svydesign = svydesign, id = id)
+  }
+  if (!is.null(pos_filter)) {
+    data <- dplyr::filter(data, upos %in% pos_filter)
+  }
+  data <- data %>%
+    dplyr::filter(.data$dep_rel != "punct") %>%
+    dplyr::filter(!is.na(lemma)) %>%
+    dplyr::filter(lemma != "na")
+  group_data <- data %>% dplyr::group_by_at(field)
+  split_data <- dplyr::group_split(group_data)
+  names <- dplyr:: group_keys(group_data)
+  names(split_data) <- names[[field]]
+  names_list <- names[[field]]
+  wordcloud_data <- list()
+  if (use_svydesign_weights == TRUE) {
+    for (i in 1:length(split_data)) {
+      data1 <- split_data[[i]]
+      words_counts <- dplyr::count(data1, lemma, sort = TRUE, wt = weight) %>%
+        dplyr::rename(!!paste0(as.character(names_list[i]), "Weighted Freq") := n)
+      wordcloud_data <- append(wordcloud_data, list(words_counts))
+    }
+  } else if (use_column_weights == TRUE) {
+    for (i in 1:length(split_data)) {
+      data1 <- split_data[[i]]
+      words_counts <- dplyr::count(data1, lemma, sort = TRUE, wt = weight) %>%
+        dplyr::rename(!!paste0(as.character(names_list[i]), "-Weighted Freq") := n)
+      wordcloud_data <- append(wordcloud_data, list(words_counts))
     }
   } else {
-    message(paste0("Note: \n Consider whether your data is balanced between groups being compared and whether each group contains enough data for analysis. \n The number of responses in each group (including \'NAs\') are listed below: \n\t", name1, "=", num1, ", ", name2, "=", num2, "\n\n"))
-    if (!is.null(pos_filter)) {
-      data1 <- dplyr::filter(data1, upos %in% pos_filter)
-      data2 <- dplyr::filter(data2, upos %in% pos_filter)
+    for (i in 1:length(split_data)) {
+      data1 <- split_data[[i]]
+      words_counts <- dplyr::count(data1, lemma, sort = TRUE)%>%
+        dplyr::rename(!!paste0(as.character(names_list[i]), "-Freq") := n)
+      wordcloud_data <- append(wordcloud_data, list(words_counts))
     }
-    data1 <- data1 %>%
-      dplyr::filter(.data$dep_rel != "punct") %>%
-      dplyr::filter(!is.na(lemma)) %>%
-      dplyr::filter(lemma != "na") %>%
-      dplyr::count(lemma, sort = TRUE) %>%
-      dplyr::rename(!!name1 := n)
-    data2 <- data2 %>%
-      dplyr::filter(.data$dep_rel != "punct") %>%
-      dplyr::filter(!is.na(lemma)) %>%
-      dplyr::filter(lemma != "na") %>%
-      dplyr::count(lemma, sort = TRUE) %>%
-      dplyr::rename(!!name2 := n)
-    compcloud_data <- dplyr::full_join(data1, data2, by = "lemma")
   }
+  compcloud_data <- wordcloud_data %>% reduce(full_join, by = "lemma")
+  compcloud_data <- as.data.frame(compcloud_data)
   rownames(compcloud_data) <- compcloud_data$lemma
   compcloud_data$lemma <- NULL
   compcloud_data[is.na(compcloud_data)] <- 0
   wordcloud::comparison.cloud(compcloud_data,
-    max.words = max,
-    random.order = FALSE,
-    rot.per = 0.35,
-    colors = RColorBrewer::brewer.pal(8, "Dark2")
+                              max.words = max,
+                              random.order = FALSE,
+                              rot.per = 0.35,
+                              colors = RColorBrewer::brewer.pal(8, "Dark2")
   )
 }

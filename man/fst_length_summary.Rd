@@ -19,9 +19,9 @@ fst_length_summary(data, desc = "All respondents", incl_sentences = TRUE)
 Table summarising distribution of lengths of responses.
 }
 \description{
-Create a  table summarising  distribution of the length of responses.
+Creates a table summarising  distribution of the length of responses.
 }
 \examples{
-fst_length_summary(conllu_dev_q11_1, incl_sentences = FALSE)
-fst_length_summary(conllu_dev_q11_1, desc = "Female")
+fst_length_summary(fst_child, incl_sentences = FALSE)
+fst_length_summary(fst_dev_coop, desc = "Q11_3")
 }

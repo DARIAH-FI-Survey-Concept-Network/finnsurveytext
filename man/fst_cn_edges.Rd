@@ -2,7 +2,7 @@
 % Please edit documentation in R/03_concept_network.R
 \name{fst_cn_edges}
 \alias{fst_cn_edges}
-\title{Concept Network - Get textrank edges}
+\title{Concept Network - Get TextRank edges}
 \usage{
 fst_cn_edges(
   data,
@@ -40,7 +40,6 @@ term.
 }
 \examples{
 con <- "kiusata, lyöminen"
-cb <- conllu_cb_bullying_iso
-fst_cn_edges(cb, con, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
-fst_cn_edges(cb, "lyöminen", threshold = 2, norm = 'number_resp')
+fst_cn_edges(fst_child, con, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+fst_cn_edges(fst_child, "lyöminen", threshold = 2, norm = "number_resp")
 }

@@ -94,9 +94,6 @@ fst_format_svydesign <- function(svydesign,
   annotated_data
 }
 
-
-
-
 #' Read In and format Finnish survey text responses from svydesign object
 #'
 #' `fst_prepare_svydesign()` produces a dataframe containing Finnish survey text
@@ -155,5 +152,3 @@ fst_prepare_svydesign <- function(svydesign,
   }
   an_data
 }
-
-

@@ -670,8 +670,6 @@ fst_ngrams <- function(data,
   )
 }
 
-
-
 #' Make Wordcloud
 #'
 #' Creates a wordcloud from CoNLL-U data of frequently-occurring words.

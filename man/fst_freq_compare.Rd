@@ -5,70 +5,75 @@
 \title{Compare and plot top words}
 \usage{
 fst_freq_compare(
-  data1,
-  data2,
-  data3 = NULL,
-  data4 = NULL,
+  data,
+  field,
   number = 10,
-  norm = "number_words",
+  norm = NULL,
   pos_filter = NULL,
-  name1 = "Group 1",
-  name2 = "Group 2",
-  name3 = "Group 3",
-  name4 = "Group 4",
-  unique_colour = "indianred",
-  strict = TRUE
+  strict = TRUE,
+  use_svydesign_weights = FALSE,
+  id = "",
+  svydesign = NULL,
+  use_column_weights = FALSE,
+  exclude_nulls = FALSE,
+  rename_nulls = "null_data",
+  unique_colour = "indianred"
 )
 }
 \arguments{
-\item{data1}{A dataframe of text in CoNLL-U format for the first plot.}
+\item{data}{A dataframe of text in CoNLL-U format with additional `field`
+column for splitting data.}
 
-\item{data2}{A dataframe of text in CoNLL-U format for the second plot.}
+\item{field}{Column in `data` used for splitting groups}
 
-\item{data3}{An optional dataframe of text in CoNLL-U format for the third
-plot, default is `NULL`.}
-
-\item{data4}{An optional dataframe of text in CoNLL-U format for the fourth
-plot, default is `NULL`.}
-
-\item{number}{The number of top words to return, default is `10`.}
+\item{number}{The number of n-grams to return, default is `10`.}
 
 \item{norm}{The method for normalising the data. Valid settings are
-`"number_words"` (the number of words in the responses, default),
-`"number_resp"` (the number of responses), or `NULL` (raw count returned).}
+`"number_words"` (the number of words in the responses), `"number_resp"`
+(the number of responses), or `NULL` (raw count returned, default, also used
+when weights are applied).}
 
 \item{pos_filter}{List of UPOS tags for inclusion, default is `NULL` which
 means all word types included.}
 
-\item{name1}{An optional "name" for the first plot, default is `"Group 1"`.}
+\item{strict}{Whether to strictly cut-off at `number` (ties are
+alphabetically ordered), default is `TRUE`.}
 
-\item{name2}{An optional "name" for the second plot, default is `"Group 2"`.}
+\item{use_svydesign_weights}{Option to weight words in the wordcloud using
+weights from  a svydesign object containing the raw data, default is `FALSE`}
 
-\item{name3}{An optional "name" for the third plot, default is `"Group 3"`.}
+\item{id}{ID column from raw data, required if `use_svydesign_weights = TRUE`
+and must match the `docid` in formatted `data`.}
 
-\item{name4}{An optional "name" for the fourth plot, default is `"Group 4"`.}
+\item{svydesign}{A svydesign object which contains the raw data and weights.}
+
+\item{use_column_weights}{Option to weight words in the wordcloud using
+weights from  formatted data which includes addition `weight` column,
+default is `FALSE`}
+
+\item{exclude_nulls}{Whether to include NULLs in `field` column, default is
+`FALSE`}
+
+\item{rename_nulls}{What to fill NULL values with if `exclude_nulls = FALSE`.}
 
 \item{unique_colour}{Colour to display unique words, default is
 `"indianred"`.}
 
-\item{strict}{Whether to strictly cut-off at `number` (ties are
-alphabetically ordered), default is `TRUE`.}
+\item{data4}{An optional dataframe of text in CoNLL-U format for the fourth}
 }
 \value{
-Between 2 and 4 plots of Top n-grams in the plots pane with unique
-n-grams highlighted.
+Plots of most frequent words in the plots pane with unique words
+ highlighted.
 }
 \description{
-Find top and unique top words for between 2 and 4 sets of prepared data.
-Results will be shown within the plots pane. If 2 or 3 plots, they will be in
-a single row, if there are 4 plots, they will be in 2 rows of 2.
+Find top and unique top words for different groups of participants. Data is
+split based on different values in the `field` column of formatted data.
+Results will be shown within the plots pane.
 }
 \examples{
-f <- conllu_dev_q11_1_f_nltk
-m <- conllu_dev_q11_1_m_nltk
-na <- conllu_dev_q11_1_na_nltk
-fst_freq_compare(f, m, number = 10)
-fst_freq_compare(f, m, na, number = 5, norm = "number_resp")
-fst_freq_compare(f, m, na, name1 = "F", name2 = "M", name3 = "NA")
-fst_freq_compare(f, m, na, strict = FALSE)
+fst_freq_compare(fst_child, 'bv1', number = 10, norm = "number_resp")
+fst_freq_compare(fst_child, 'bv1', number = 10, norm = NULL)
+fst_child_3 <- within(fst_child, rm(weight))
+fst_freq_compare(fst_child_3, 'bv1', number = 10, use_svydesign_weights = TRUE, id = 'fsd_id', svydesign = svy_child)
+fst_freq_compare(fst_child, 'bv1', number = 10, use_column_weights = TRUE, strict = FALSE, unique_colour = 'purple')
 }

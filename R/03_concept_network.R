@@ -15,8 +15,8 @@
 #' @examples
 #' con <- "kiusata, lyöminen, lyödä, potkia"
 #' pf <- c("NOUN", "VERB", "ADJ", "ADV")
-#' fst_cn_search(conllu_cb_bullying_iso, concepts = con, pos_filter = pf)
-#' fst_cn_search(conllu_cb_bullying_iso, concepts = con)
+#' fst_cn_search(fst_child, concepts = con, pos_filter = pf)
+#' fst_cn_search(fst_child, concepts = con)
 fst_cn_search <- function(data,
                           concepts,
                           pos_filter = NULL) {
@@ -79,9 +79,8 @@ fst_cn_search <- function(data,
 #'
 #' @examples
 #' con <- "kiusata, lyöminen"
-#' cb <- conllu_cb_bullying_iso
-#' fst_cn_edges(cb, con, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
-#' fst_cn_edges(cb, "lyöminen", threshold = 2, norm = "number_resp")
+#' fst_cn_edges(fst_child, con, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+#' fst_cn_edges(fst_child, "lyöminen", threshold = 2, norm = "number_resp")
 fst_cn_edges <- function(data,
                          concepts,
                          threshold = NULL,
@@ -143,7 +142,7 @@ fst_cn_edges <- function(data,
 #'
 #' @examples
 #' con <- "kiusata, lyöminen"
-#' cb <- conllu_cb_bullying_iso
+#' cb <- fst_child
 #' edges <- fst_cn_edges(cb, con, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
 #' fst_cn_nodes(cb, edges, c("NOUN", "VERB", "ADJ", "ADV"))
 fst_cn_nodes <- function(data,
@@ -167,8 +166,6 @@ fst_cn_nodes <- function(data,
   return(df)
 }
 
-
-
 #' Plot Concept Network
 #'
 #' Creates a Concept Network plot from a list of edges and nodes (and their
@@ -188,7 +185,7 @@ fst_cn_nodes <- function(data,
 #'
 #' @examples
 #' con <- "kiusata, lyöminen"
-#' cb <- conllu_cb_bullying_iso
+#' cb <- fst_child
 #' edges <- fst_cn_edges(cb, con, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
 #' nodes <- fst_cn_nodes(cb, edges, c("NOUN", "VERB", "ADJ", "ADV"))
 #' fst_cn_plot(edges = edges, nodes = nodes, concepts = con)
@@ -269,7 +266,7 @@ fst_cn_plot <- function(edges, nodes, concepts, title = NULL) {
 #' @export
 #'
 #' @examples
-#' data <- conllu_cb_bullying_iso
+#' data <- fst_child
 #' con <- "kiusata, lyöminen"
 #' pf <- c("NOUN", "VERB", "ADJ", "ADV")
 #' title <- "Bullying Concept Network"

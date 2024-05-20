@@ -4,7 +4,15 @@
 \alias{fst_wordcloud}
 \title{Make Wordcloud}
 \usage{
-fst_wordcloud(data, pos_filter = NULL, max = 100)
+fst_wordcloud(
+  data,
+  pos_filter = NULL,
+  max = 100,
+  use_svydesign_weights = FALSE,
+  id = "",
+  svydesign = NULL,
+  use_column_weights = FALSE
+)
 }
 \arguments{
 \item{data}{A dataframe of text in CoNLL-U format.}
@@ -12,18 +20,36 @@ fst_wordcloud(data, pos_filter = NULL, max = 100)
 \item{pos_filter}{List of UPOS tags for inclusion, default is `NULL` which
 means all word types included.}
 
-\item{max}{The maximum number of words to display, default is `100`}
+\item{max}{The maximum number of words to display, default is `100`.}
+
+\item{use_svydesign_weights}{Option to weight words in the wordcloud using
+weights from  a svydesign object containing the raw data, default is `FALSE`}
+
+\item{id}{ID column from raw data, required if `use_svydesign_weights = TRUE`
+and must match the `docid` in formatted `data`.}
+
+\item{svydesign}{A svydesign object which contains the raw data and weights.}
+
+\item{use_column_weights}{Option to weight words in the wordcloud using
+weights from  formatted data which includes addition `weight` column,
+default is `FALSE`.}
 }
 \value{
 A wordcloud from the data.
 }
 \description{
 Creates a wordcloud from CoNLL-U data of frequently-occurring words.
+Optionally, weights can be provided either through a `weight` column in the
+formatted data, or from a `svydesign` object with the raw (preformatted)
+data.
 }
 \examples{
-cb <- conllu_cb_bullying_iso
-fst_wordcloud(cb)
-fst_wordcloud(cb, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
-fst_wordcloud(conllu_dev_q11_1_snow, pos_filter = "VERB", max = 50)
-fst_wordcloud(conllu_dev_q11_1_nltk)
+fst_wordcloud(fst_child)
+fst_wordcloud(fst_child, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+fst_wordcloud(fst_child, use_column_weights = TRUE)
+i <- 'fsd_id'
+c <- fst_child_2
+child$paino <- as.numeric((gsub(",", ".", child$paino)))
+s <- svydesign(id=~1, weights= ~paino, data = child)
+fst_wordcloud(c, use_svydesign_weights = TRUE, id = i, svydesign = s)
 }

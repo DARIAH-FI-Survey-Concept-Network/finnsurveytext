@@ -21,11 +21,10 @@ Takes at least two tables of nodes and pagerank (output of `fst_cn_nodes()`)
 and finds nodes unique to one table.
 }
 \examples{
-cb <- conllu_cb_bullying_iso
-pos_filter = c("NOUN", "VERB", "ADJ", "ADV")
-e1 <- fst_cn_edges(cb, "lyödä", pos_filter = pos_filter)
-e2 <- fst_cn_edges(cb, "lyöminen", pos_filter = pos_filter)
-n1 <- fst_cn_nodes(cb, e1)
-n2 <- fst_cn_nodes(cb, e2)
+pos_filter <- c("NOUN", "VERB", "ADJ", "ADV")
+e1 <- fst_cn_edges(fst_child, "lyödä", pos_filter = pos_filter)
+e2 <- fst_cn_edges(fst_child, "lyöminen", pos_filter = pos_filter)
+n1 <- fst_cn_nodes(fst_child, e1)
+n2 <- fst_cn_nodes(fst_child, e2)
 fst_cn_get_unique(n1, n2)
 }

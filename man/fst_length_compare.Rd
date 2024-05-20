@@ -5,50 +5,36 @@
 \title{Compare response lengths}
 \usage{
 fst_length_compare(
-  data1,
-  data2,
-  data3 = NULL,
-  data4 = NULL,
-  name1 = "Group 1",
-  name2 = "Group 2",
-  name3 = "Group 3",
-  name4 = "Group 4",
-  incl_sentences = TRUE
+  data,
+  field,
+  incl_sentences = TRUE,
+  exclude_nulls = FALSE,
+  rename_nulls = "null_data"
 )
 }
 \arguments{
-\item{data1}{A dataframe of text in CoNLL-U format for the first group.}
+\item{data}{A dataframe of text in CoNLL-U format with additional `field`
+column for splitting data.}
 
-\item{data2}{A dataframe of text in CoNLL-U format for the second group.}
-
-\item{data3}{An optional dataframe of text in CoNLL-U format for the third
-group, default is `NULL`.}
-
-\item{data4}{An optional dataframe of text in CoNLL-U format for the fourth
-group, default is `NULL`.}
-
-\item{name1}{A string describing data1, default is `"Group 1"`.}
-
-\item{name2}{A string describing data2, default is `"Group 2"`.}
-
-\item{name3}{A string describing data3, default is `"Group 3"`.}
-
-\item{name4}{A string describing data4, default is `"Group 4"`.}
+\item{field}{Column in `data` used for splitting groups}
 
 \item{incl_sentences}{Whether to include sentence data in table, default is
 `TRUE`.}
+
+\item{exclude_nulls}{Whether to include NULLs in `field` column, default is
+`FALSE`}
+
+\item{rename_nulls}{What to fill NULL values with if `exclude_nulls = FALSE`.}
 }
 \value{
 Dataframe summarising response lengths.
 }
 \description{
-Compare length of text responses for between 2 and 4 sets of prepared data.
+Compare length of text responses for different groups of participants. Data
+is split based on different values in the `field` column of formatted data.
+Results will be shown within the plots pane.
 }
 \examples{
-f <- conllu_dev_q11_1_f_nltk
-m <- conllu_dev_q11_1_m_nltk
-na <- conllu_dev_q11_1_na_nltk
-all <- conllu_dev_q11_1_nltk
-fst_length_compare(f, m, na, all, "Female", "Male", "Not Spec", "All")
-fst_length_compare(f, m, name1 = "F", name2 = "M", incl_sentences = FALSE)
+fst_length_compare(fst_child, 'bv1')
+fst_length_compare(fst_dev_coop, 'q3', incl_sentences = FALSE)
 }

@@ -35,16 +35,11 @@ Plot of top n-grams with unique terms highlighted.
 Plots frequency n-grams with unique n-grams highlighted.
 }
 \examples{
-top_f <- fst_get_top_words(conllu_dev_q11_1_f_nltk)
-top_m <- fst_get_top_words(conllu_dev_q11_1_m_nltk)
-top_na <- fst_get_top_words(conllu_dev_q11_1_na_nltk)
-topn_f <- fst_get_top_ngrams(conllu_dev_q11_1_f_nltk)
-topn_m <- fst_get_top_ngrams(conllu_dev_q11_1_m_nltk)
-topn_na <- fst_get_top_ngrams(conllu_dev_q11_1_na_nltk)
-unique_words <- fst_get_unique_ngrams(top_f, top_m, top_na)
-unique_ngrams <- fst_get_unique_ngrams(topn_f, topn_m, topn_na)
-top_fu <- fst_join_unique(top_f, unique_words)
-topn_mu <- fst_join_unique(topn_m, unique_ngrams)
-fst_ngrams_compare_plot(top_fu, ngrams = 1, name = "Female")
-fst_ngrams_compare_plot(topn_mu, ngrams = 2, name = "Male")
+top_child <- fst_freq_table(fst_child)
+top_dev <- fst_freq_table(fst_dev_coop)
+unique_words <- fst_get_unique_ngrams_separate(top_child, top_dev)
+top_child_u <- fst_join_unique(top_child, unique_words)
+top_dev_u <- fst_join_unique(top_dev, unique_words)
+fst_ngrams_compare_plot(top_child_u, ngrams = 1, name = "Child")
+fst_ngrams_compare_plot(top_dev_u, ngrams = 1, name = "Dev")
 }

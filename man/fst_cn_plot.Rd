@@ -17,7 +17,7 @@ their associated pagerank.}
 commas.}
 
 \item{title}{Optional title for plot, default is `NULL` and a generic title
-("Textrank extracted keyword occurrences") will be used.}
+("TextRank extracted keyword occurrences") will be used.}
 }
 \value{
 Plot of Concept Network.
@@ -28,7 +28,7 @@ respective weights).
 }
 \examples{
 con <- "kiusata, lyöminen"
-cb <- conllu_cb_bullying_iso
+cb <- fst_child
 edges <- fst_cn_edges(cb, con, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
 nodes <- fst_cn_nodes(cb, edges, c("NOUN", "VERB", "ADJ", "ADV"))
 fst_cn_plot(edges = edges, nodes = nodes, concepts = con)

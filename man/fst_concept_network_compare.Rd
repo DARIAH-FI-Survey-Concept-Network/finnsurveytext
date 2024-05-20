@@ -65,8 +65,6 @@ weights of these terms and the frequency of co-occurrences, indicating any
 words that are unique to each group's Network plot.
 }
 \examples{
-d1 <- conllu_cb_bullying
-d2 <- conllu_cb_bullying_iso
 con1 <- "lyödä, lyöminen"
-fst_concept_network_compare(d1, d2, concepts = con1)
+fst_concept_network_compare(fst_child, fst_child_2, concepts = con1)
 }

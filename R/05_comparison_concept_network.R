@@ -11,12 +11,11 @@
 #' @export
 #'
 #' @examples
-#' cb <- conllu_cb_bullying_iso
 #' pos_filter <- c("NOUN", "VERB", "ADJ", "ADV")
-#' e1 <- fst_cn_edges(cb, "lyödä", pos_filter = pos_filter)
-#' e2 <- fst_cn_edges(cb, "lyöminen", pos_filter = pos_filter)
-#' n1 <- fst_cn_nodes(cb, e1)
-#' n2 <- fst_cn_nodes(cb, e2)
+#' e1 <- fst_cn_edges(fst_child, "lyödä", pos_filter = pos_filter)
+#' e2 <- fst_cn_edges(fst_child, "lyöminen", pos_filter = pos_filter)
+#' n1 <- fst_cn_nodes(fst_child, e1)
+#' n2 <- fst_cn_nodes(fst_child, e2)
 #' fst_cn_get_unique(n1, n2)
 fst_cn_get_unique <- function(table1, table2, ...) {
   df <- rbind(table1, table2, ...)
@@ -63,12 +62,11 @@ fst_cn_get_unique <- function(table1, table2, ...) {
 #' @export
 #'
 #' @examples
-#' cb <- conllu_cb_bullying_iso
 #' pos_filter <- c("NOUN", "VERB", "ADJ", "ADV")
-#' e1 <- fst_cn_edges(cb, "lyödä", pos_filter = pos_filter)
-#' e2 <- fst_cn_edges(cb, "lyöminen", pos_filter = pos_filter)
-#' n1 <- fst_cn_nodes(cb, e1)
-#' n2 <- fst_cn_nodes(cb, e2)
+#' e1 <- fst_cn_edges(fst_child, "lyödä", pos_filter = pos_filter)
+#' e2 <- fst_cn_edges(fst_child, "lyöminen", pos_filter = pos_filter)
+#' n1 <- fst_cn_nodes(fst_child, e1)
+#' n2 <- fst_cn_nodes(fst_child, e2)
 #' u <- fst_cn_get_unique(n1, n2)
 #'
 #' fst_cn_compare_plot(e1, n1, "lyödä", unique_lemma = u)
@@ -166,10 +164,8 @@ fst_cn_compare_plot <- function(edges,
 #' @export
 #'
 #' @examples
-#' d1 <- conllu_cb_bullying
-#' d2 <- conllu_cb_bullying_iso
 #' con1 <- "lyödä, lyöminen"
-#' fst_concept_network_compare(d1, d2, concepts = con1)
+#' fst_concept_network_compare(fst_child, fst_child_2, concepts = con1)
 fst_concept_network_compare <- function(data1, data2, data3 = NULL, data4 = NULL, pos_filter = NULL, name1 = "Group 1", name2 = "Group 2", name3 = "Group 3", name4 = "Group 4", concepts, norm = "number_words", threshold = NULL) {
   if (!is.null(data3)) {
     if (!is.null(data4)) {

@@ -2,7 +2,7 @@
 % Please edit documentation in R/03_concept_network.R
 \name{fst_cn_nodes}
 \alias{fst_cn_nodes}
-\title{Concept Network - Get textrank nodes}
+\title{Concept Network - Get TextRank nodes}
 \usage{
 fst_cn_nodes(data, edges, pos_filter = NULL)
 }
@@ -26,7 +26,7 @@ search terms.
 }
 \examples{
 con <- "kiusata, lyöminen"
-cb <- conllu_cb_bullying_iso
+cb <- fst_child
 edges <- fst_cn_edges(cb, con, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
 fst_cn_nodes(cb, edges, c("NOUN", "VERB", "ADJ", "ADV"))
 }

@@ -30,7 +30,7 @@ applied before normalisation.}
 include all UPOS tags.}
 
 \item{title}{Optional title for plot, default is `NULL` and a generic title
-("Textrank extracted keyword occurrences") will be used.}
+("TextRank extracted keyword occurrences") will be used.}
 }
 \value{
 Plot of Concept Network.
@@ -43,7 +43,7 @@ Concept Network based on the calculated weights of these terms and the
 frequency of co-occurrences.
 }
 \examples{
-data <- conllu_cb_bullying_iso
+data <- fst_child
 con <- "kiusata, lyöminen"
 pf <- c("NOUN", "VERB", "ADJ", "ADV")
 title <- "Bullying Concept Network"
