@@ -15,7 +15,8 @@ fst_cn_compare_plot(
   min_edge = NULL,
   max_edge = NULL,
   min_node = NULL,
-  max_node = NULL
+  max_node = NULL,
+  title_size = 20
 )
 }
 \arguments{
@@ -65,7 +66,7 @@ e1 <- fst_cn_edges(fst_child, "lyödä", pos_filter = pos_filter)
 e2 <- fst_cn_edges(fst_child, "lyöminen", pos_filter = pos_filter)
 n1 <- fst_cn_nodes(fst_child, e1)
 n2 <- fst_cn_nodes(fst_child, e2)
-u <- fst_cn_get_unique(n1, n2)
+u <- fst_cn_get_unique_separate(n1, n2)
 
 fst_cn_compare_plot(e1, n1, "lyödä", unique_lemma = u)
 fst_cn_compare_plot(e2, n2, "lyöminen", u, unique_colour = "purple")

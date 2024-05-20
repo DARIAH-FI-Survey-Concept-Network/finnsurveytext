@@ -1,4 +1,4 @@
-#' Concept Network- Get Unique Nodes
+#' Concept Network- Get unique nodes from separate top n-grams tables
 #'
 #' Takes at least two tables of nodes and pagerank (output of `fst_cn_nodes()`)
 #' and finds nodes unique to one table.
@@ -16,8 +16,8 @@
 #' e2 <- fst_cn_edges(fst_child, "lyöminen", pos_filter = pos_filter)
 #' n1 <- fst_cn_nodes(fst_child, e1)
 #' n2 <- fst_cn_nodes(fst_child, e2)
-#' fst_cn_get_unique(n1, n2)
-fst_cn_get_unique <- function(table1, table2, ...) {
+#' fst_cn_get_unique_separate(n1, n2)
+fst_cn_get_unique_separate <- function(table1, table2, ...) {
   df <- rbind(table1, table2, ...)
   df <- df %>%
     dplyr::mutate(n = 1) %>%
@@ -28,7 +28,36 @@ fst_cn_get_unique <- function(table1, table2, ...) {
   unique
 }
 
-
+#' Concept Network- Get unique nodes from a list of top n-grams tables
+#'
+#' Takes at least two tables of nodes and pagerank (output of `fst_cn_nodes()`)
+#' and finds nodes unique to one table.
+#'
+#' @param list A list of top nodes
+#'
+#' @return Dataframe of words and whether word is unique or not.
+#' @export
+#'
+#' @examples
+#' pos_filter <- c("NOUN", "VERB", "ADJ", "ADV")
+#' e1 <- fst_cn_edges(fst_child, "lyödä", pos_filter = pos_filter)
+#' e2 <- fst_cn_edges(fst_child, "lyöminen", pos_filter = pos_filter)
+#' n1 <- fst_cn_nodes(fst_child, e1)
+#' n2 <- fst_cn_nodes(fst_child, e2)
+#' list_of_nodes <- list()
+#' list_of_nodes <- append(list_of_nodes, list(n1))
+#' list_of_nodes <- append(list_of_nodes, list(n2))
+#' fst_cn_get_unique(list_of_nodes)
+fst_cn_get_unique <- function(list) {
+  df <- data.table::rbindlist(list)
+  df <- df %>%
+    dplyr::mutate(n = 1) %>%
+    dplyr::group_by(lemma) %>%
+    dplyr::summarise(n = sum(n))
+  unique <- dplyr::filter(df, n == 1)
+  unique <- unique$lemma
+  unique
+}
 
 #' Concept Network- Plot comparison Concept Network
 #'
@@ -67,7 +96,7 @@ fst_cn_get_unique <- function(table1, table2, ...) {
 #' e2 <- fst_cn_edges(fst_child, "lyöminen", pos_filter = pos_filter)
 #' n1 <- fst_cn_nodes(fst_child, e1)
 #' n2 <- fst_cn_nodes(fst_child, e2)
-#' u <- fst_cn_get_unique(n1, n2)
+#' u <- fst_cn_get_unique_separate(n1, n2)
 #'
 #' fst_cn_compare_plot(e1, n1, "lyödä", unique_lemma = u)
 #' fst_cn_compare_plot(e2, n2, "lyöminen", u, unique_colour = "purple")
@@ -81,7 +110,8 @@ fst_cn_compare_plot <- function(edges,
                                 min_edge = NULL,
                                 max_edge = NULL,
                                 min_node = NULL,
-                                max_node = NULL) {
+                                max_node = NULL,
+                                title_size = 20) {
   if (is.null(min_edge)) {
     min_edge <- min(edges$co_occurrence)
   }
@@ -105,11 +135,11 @@ fst_cn_compare_plot <- function(edges,
   }
   nodes <- nodes %>%
     dplyr::mutate(is_concept = factor(ifelse(lemma %in% concepts, 0, ifelse(lemma %in% unique_lemmas, 1, 2)),
-      levels = c(0, 1, 2),
-      labels = c("Concept word", "Unique Word", "Common word")
+                                      levels = c(0, 1, 2),
+                                      labels = c("Concept word", "Unique Word", "Common word")
     ))
   p <- igraph::graph_from_data_frame(edges,
-    directed = FALSE, vertices = nodes
+                                     directed = FALSE, vertices = nodes
   ) %>%
     ggraph::ggraph(layout = "kk") +
     ggraph::geom_edge_link(ggplot2::aes(width = co_occurrence, alpha = co_occurrence), colour = "#6da5d3") +
@@ -122,8 +152,8 @@ fst_cn_compare_plot <- function(edges,
     ggraph::theme_graph(base_family = "sans") +
     ggplot2::labs(
       title = name
-    ) #+
-  # ggplot2::theme(legend.position = "none")
+    ) +
+    ggplot2::theme(plot.title = ggplot2::element_text(size = title_size))
   return(p)
 }
 
@@ -138,106 +168,95 @@ fst_cn_compare_plot <- function(edges,
 #' weights of these terms and the frequency of co-occurrences, indicating any
 #' words that are unique to each group's Network plot.
 #'
-#' @param data1 A dataframe of text in CoNLL-U format for the first concept
-#'  network.
-#' @param data2 A dataframe of text in CoNLL-U format for the second concept
-#'  network.
-#' @param data3 An optional dataframe of text in CoNLL-U format for the third
-#'  concept network, default is `NULL`.
-#' @param data4 An optional dataframe of text in CoNLL-U format for the fourth
-#'  concept network, default is `NULL`.
-#' @param pos_filter List of UPOS tags for inclusion, default is `NULL` which
-#'  means all word types included.
-#' @param name1 A string describing data1, default is `"Group 1"`.
-#' @param name2 A string describing data2, default is `"Group 2"`.
-#' @param name3 A string describing data3, default is `"Group 3"`.
-#' @param name4 A string describing data4, default is `"Group 4"`.
+#' @param data A dataframe of text in CoNLL-U format with additional `field`
+#'  column for splitting data.
 #' @param concepts List of terms to search for, separated by commas.
+#' @param field Column in `data` used for splitting groups
 #' @param norm The method for normalising the data. Valid settings are
 #'  `"number_words"` (the number of words in the responses, default),
 #'  `"number_resp"` (the number of responses), or `NULL` (raw count returned).
 #' @param threshold A minimum number of occurrences threshold for 'edge' between
-#'  searched term and other word, default is `NULL`.
+#'  searched term and other word, default is `NULL`. Note, the threshold is
+#'  applied before normalisation.
+#' @param pos_filter List of UPOS tags for inclusion, default is `NULL` to
+#' include all UPOS tags.
+#' @param exclude_nulls Whether to include NULLs in `field` column, default is
+#'  `FALSE`
+#' @param rename_nulls What to fill NULL values with if `exclude_nulls = FALSE`.
+#' @param title_size size to display plot title
+#' @param subtitle_size size to display title of individual concept network
 #'
-#' @return Between 2 and 4 concept network plots with concept and unique words
+#' @return Multiple concept network plots with concept and unique words
 #' highlighted.
 #' @export
 #'
 #' @examples
 #' con1 <- "lyödä, lyöminen"
-#' fst_concept_network_compare(fst_child, fst_child_2, concepts = con1)
-fst_concept_network_compare <- function(data1, data2, data3 = NULL, data4 = NULL, pos_filter = NULL, name1 = "Group 1", name2 = "Group 2", name3 = "Group 3", name4 = "Group 4", concepts, norm = "number_words", threshold = NULL) {
-  if (!is.null(data3)) {
-    if (!is.null(data4)) {
-      edges4 <- fst_cn_edges(data = data4, concepts = concepts, norm = norm, threshold = threshold, pos_filter = pos_filter)
-      edges3 <- fst_cn_edges(data = data3, concepts = concepts, norm = norm, threshold = threshold, pos_filter = pos_filter)
-      edges2 <- fst_cn_edges(data = data2, concepts = concepts, norm = norm, threshold = threshold, pos_filter = pos_filter)
-      edges1 <- fst_cn_edges(data = data1, concepts = concepts, norm = norm, threshold = threshold, pos_filter = pos_filter)
-      nodes4 <- fst_cn_nodes(data = data4, edges4, pos_filter = pos_filter)
-      nodes3 <- fst_cn_nodes(data = data3, edges3, pos_filter = pos_filter)
-      nodes2 <- fst_cn_nodes(data = data2, edges2, pos_filter = pos_filter)
-      nodes1 <- fst_cn_nodes(data = data1, edges1, pos_filter = pos_filter)
-      min_edge <- min(min(edges1$co_occurrence), min(edges2$co_occurrence), min(edges3$co_occurrence), min(edges4$co_occurrence))
-      max_edge <- max(max(edges1$co_occurrence), max(edges2$co_occurrence), max(edges3$co_occurrence), max(edges4$co_occurrence))
-      min_node <- min(min(nodes1$pagerank), min(nodes2$pagerank), min(nodes3$pagerank), min(nodes4$pagerank))
-      max_node <- max(max(nodes1$pagerank), max(nodes2$pagerank), max(nodes3$pagerank), max(nodes4$pagerank))
-    } else {
-      edges3 <- fst_cn_edges(data = data3, concepts = concepts, norm = norm, threshold = threshold, pos_filter = pos_filter)
-      edges2 <- fst_cn_edges(data = data2, concepts = concepts, norm = norm, threshold = threshold, pos_filter = pos_filter)
-      edges1 <- fst_cn_edges(data = data1, concepts = concepts, norm = norm, threshold = threshold, pos_filter = pos_filter)
-      nodes3 <- fst_cn_nodes(data = data3, edges3, pos_filter = pos_filter)
-      nodes2 <- fst_cn_nodes(data = data2, edges2, pos_filter = pos_filter)
-      nodes1 <- fst_cn_nodes(data = data1, edges1, pos_filter = pos_filter)
-      min_edge <- min(min(edges1$co_occurrence), min(edges2$co_occurrence), min(edges3$co_occurrence))
-      max_edge <- max(max(edges1$co_occurrence), max(edges2$co_occurrence), max(edges3$co_occurrence))
-      min_node <- min(min(nodes1$pagerank), min(nodes2$pagerank), min(nodes3$pagerank))
-      max_node <- max(max(nodes1$pagerank), max(nodes2$pagerank), max(nodes3$pagerank))
-    }
+#' fst_concept_network_compare(fst_child, concepts = con1, field = 'bv1')
+#' con2 <- "köyhyys, nälänhätä, sota"
+#' fst_concept_network_compare(fst_dev_coop, con2, 'q3', title_size = 18, subtitle_size = 10)
+fst_concept_network_compare <- function(data,
+                                        concepts,
+                                        field,
+                                        norm = NULL,
+                                        threshold = NULL,
+                                        pos_filter = NULL,
+                                        exclude_nulls = FALSE,
+                                        rename_nulls = 'null_data',
+                                        title_size = 20,
+                                        subtitle_size = 15){
+  if (exclude_nulls == TRUE) {
+    data <- data %>% tidyr::drop_na(field)
   } else {
-    edges2 <- fst_cn_edges(data = data2, concepts = concepts, norm = norm, threshold = threshold, pos_filter = pos_filter)
-    edges1 <- fst_cn_edges(data = data1, concepts = concepts, norm = norm, threshold = threshold, pos_filter = pos_filter)
-    nodes2 <- fst_cn_nodes(data = data2, edges2, pos_filter = pos_filter)
-    nodes1 <- fst_cn_nodes(data = data1, edges1, pos_filter = pos_filter)
-    min_edge <- min(min(edges1$co_occurrence), min(edges2$co_occurrence))
-    max_edge <- max(max(edges1$co_occurrence), max(edges2$co_occurrence))
-    min_node <- min(min(nodes1$pagerank), min(nodes2$pagerank))
-    max_node <- max(max(nodes1$pagerank), max(nodes2$pagerank))
+    data[is.na(data)] <- rename_nulls
   }
-  num1 <- dplyr::n_distinct(data1$doc_id)
-  num2 <- dplyr::n_distinct(data2$doc_id)
-  if (!is.null(data3)) {
-    num3 <- dplyr::n_distinct(data3$doc_id)
-    if (!is.null(data4)) {
-      num4 <- dplyr::n_distinct(data4$doc_id)
-      message(paste0("Note: \n Consider whether your data is balanced between groups being compared and whether each group contains enough data for analysis. \n The number of responses in each group (including \'NAs\') are listed below: \n\t", name1, "=", num1, ", ", name2, "=", num2, ", ", name3, "=", num3, ", ", name4, "=", num4, "\n\n"))
-      unique <- fst_cn_get_unique(nodes1, nodes2, nodes3, nodes4)
-      plot4 <- fst_cn_compare_plot(edges4, nodes4, name = name4, concepts = concepts, unique_lemmas = unique, min_edge = min_edge, max_edge = max_edge, min_node = min_node, max_node = max_node)
-      plot3 <- fst_cn_compare_plot(edges3, nodes3, name = name3, concepts = concepts, unique_lemmas = unique, min_edge = min_edge, max_edge = max_edge, min_node = min_node, max_node = max_node)
-      plot2 <- fst_cn_compare_plot(edges2, nodes2, name = name2, concepts = concepts, unique_lemmas = unique, min_edge = min_edge, max_edge = max_edge, min_node = min_node, max_node = max_node)
-      plot1 <- fst_cn_compare_plot(edges1, nodes1, name = name1, concepts = concepts, unique_lemmas = unique, min_edge = min_edge, max_edge = max_edge, min_node = min_node, max_node = max_node)
-      plot <- ggpubr::ggarrange(plot1, plot2, plot3, plot4, ncol = 2, nrow = 2, common.legend = TRUE, legend = "right")
-      ggpubr::annotate_figure(plot, top = ggpubr::text_grob("Comparison Plot of Concept Networks",
-        face = "bold", size = 20
-      ))
+  group_data <- data %>% dplyr::group_by_at(field)
+  split_data <- dplyr::group_split(group_data)
+  names <- dplyr:: group_keys(group_data)
+  names(split_data) <- names[[field]]
+  names2 <- names[[field]]
+  list_of_edges <- list()
+  list_of_nodes <- list()
+  list_of_plots <- list()
+  min_edge <- NULL
+  max_edge <- NULL
+  min_node <- NULL
+  max_node <- NULL
+  for (i in 1:length(split_data)) {
+    data <- split_data[[i]]
+    edges <- fst_cn_edges(data = data, concepts = concepts, norm = norm, threshold = threshold, pos_filter = pos_filter)
+    nodes <- fst_cn_nodes(data = data, edges, pos_filter = pos_filter)
+    list_of_edges <- append(list_of_edges, list(edges))
+    list_of_nodes <- append(list_of_nodes, list(nodes))
+    if (is.null(min_edge)) {
+      min_edge <- min(edges$co_occurrence)
     } else {
-      message(paste0("Note: \n Consider whether your data is balanced between groups being compared and whether each group contains enough data for analysis. \n The number of responses in each group (including \'NAs\') are listed below: \n\t", name1, "=", num1, ", ", name2, "=", num2, ", ", name3, "=", num3, "\n\n"))
-      unique <- fst_cn_get_unique(nodes1, nodes2, nodes3)
-      plot3 <- fst_cn_compare_plot(edges3, nodes3, name = name3, concepts = concepts, unique_lemmas = unique, min_edge = min_edge, max_edge = max_edge, min_node = min_node, max_node = max_node)
-      plot2 <- fst_cn_compare_plot(edges2, nodes2, name = name2, concepts = concepts, unique_lemmas = unique, min_edge = min_edge, max_edge = max_edge, min_node = min_node, max_node = max_node)
-      plot1 <- fst_cn_compare_plot(edges1, nodes1, name = name1, concepts = concepts, unique_lemmas = unique, min_edge = min_edge, max_edge = max_edge, min_node = min_node, max_node = max_node)
-      plot <- ggpubr::ggarrange(plot1, plot2, plot3, ncol = 3, nrow = 1, common.legend = TRUE, legend = "right")
-      ggpubr::annotate_figure(plot, top = ggpubr::text_grob("Comparison Plot of Concept Networks",
-        face = "bold", size = 20
-      ))
+      min_edge <- min(min_edge, min(edges$co_occurrence))
     }
-  } else {
-    message(paste0("Note: \n Consider whether your data is balanced between groups being compared and whether each group contains enough data for analysis. \n The number of responses in each group (including \'NAs\') are listed below: \n\t", name1, "=", num1, ", ", name2, "=", num2, "\n\n"))
-    unique <- fst_cn_get_unique(nodes1, nodes2)
-    plot2 <- fst_cn_compare_plot(edges2, nodes2, name = name2, concepts = concepts, unique_lemmas = unique, min_edge = min_edge, max_edge = max_edge, min_node = min_node, max_node = max_node)
-    plot1 <- fst_cn_compare_plot(edges1, nodes1, name = name1, concepts = concepts, unique_lemmas = unique, min_edge = min_edge, max_edge = max_edge, min_node = min_node, max_node = max_node)
-    plot <- ggpubr::ggarrange(plot1, plot2, ncol = 2, nrow = 1, common.legend = TRUE, legend = "right")
-    ggpubr::annotate_figure(plot, top = ggpubr::text_grob("Comparison Plot of Concept Networks",
-      face = "bold", size = 20
-    ))
+    if (is.null(max_edge)) {
+      max_edge <- max(edges$co_occurrence)
+    } else {
+      max_edge <- max(max_edge, max(edges$co_occurrence))
+    }
+    if (is.null(min_node)) {
+      min_node <- min(nodes$pagerank)
+    } else {
+      min_node <- min(min_node, min(nodes$pagerank))
+    }
+    if (is.null(max_node)) {
+      max_node <- max(nodes$pagerank)
+    } else {
+      max_node <- max(max_node, max(nodes$pagerank))
+    }
   }
+  unique <- fst_cn_get_unique(list_of_nodes)
+  for (i in 1:length(list_of_edges)) {
+    edges <- list_of_edges[[i]]
+    nodes <- list_of_nodes[[i]]
+    list_of_plots[[i]] <- fst_cn_compare_plot(edges, nodes, name = paste(field, '=', names2[i]), concepts = concepts, unique_lemmas = unique, min_edge = min_edge, max_edge = max_edge, min_node = min_node, max_node = max_node, title_size = subtitle_size)
+  }
+  plot <- ggpubr::ggarrange(plotlist = list_of_plots, common.legend = TRUE, legend = "right")
+  ggpubr::annotate_figure(plot, top = ggpubr::text_grob("Comparison Plot of Concept Networks",
+                                                        face = "bold", size = title_size
+  ))
 }

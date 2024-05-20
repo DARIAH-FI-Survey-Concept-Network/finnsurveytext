@@ -5,55 +5,48 @@
 \title{Concept Network- Compare and plot Concept Network}
 \usage{
 fst_concept_network_compare(
-  data1,
-  data2,
-  data3 = NULL,
-  data4 = NULL,
-  pos_filter = NULL,
-  name1 = "Group 1",
-  name2 = "Group 2",
-  name3 = "Group 3",
-  name4 = "Group 4",
+  data,
   concepts,
-  norm = "number_words",
-  threshold = NULL
+  field,
+  norm = NULL,
+  threshold = NULL,
+  pos_filter = NULL,
+  exclude_nulls = FALSE,
+  rename_nulls = "null_data",
+  title_size = 20,
+  subtitle_size = 15
 )
 }
 \arguments{
-\item{data1}{A dataframe of text in CoNLL-U format for the first concept
-network.}
-
-\item{data2}{A dataframe of text in CoNLL-U format for the second concept
-network.}
-
-\item{data3}{An optional dataframe of text in CoNLL-U format for the third
-concept network, default is `NULL`.}
-
-\item{data4}{An optional dataframe of text in CoNLL-U format for the fourth
-concept network, default is `NULL`.}
-
-\item{pos_filter}{List of UPOS tags for inclusion, default is `NULL` which
-means all word types included.}
-
-\item{name1}{A string describing data1, default is `"Group 1"`.}
-
-\item{name2}{A string describing data2, default is `"Group 2"`.}
-
-\item{name3}{A string describing data3, default is `"Group 3"`.}
-
-\item{name4}{A string describing data4, default is `"Group 4"`.}
+\item{data}{A dataframe of text in CoNLL-U format with additional `field`
+column for splitting data.}
 
 \item{concepts}{List of terms to search for, separated by commas.}
+
+\item{field}{Column in `data` used for splitting groups}
 
 \item{norm}{The method for normalising the data. Valid settings are
 `"number_words"` (the number of words in the responses, default),
 `"number_resp"` (the number of responses), or `NULL` (raw count returned).}
 
 \item{threshold}{A minimum number of occurrences threshold for 'edge' between
-searched term and other word, default is `NULL`.}
+searched term and other word, default is `NULL`. Note, the threshold is
+applied before normalisation.}
+
+\item{pos_filter}{List of UPOS tags for inclusion, default is `NULL` to
+include all UPOS tags.}
+
+\item{exclude_nulls}{Whether to include NULLs in `field` column, default is
+`FALSE`}
+
+\item{rename_nulls}{What to fill NULL values with if `exclude_nulls = FALSE`.}
+
+\item{title_size}{size to display plot title}
+
+\item{subtitle_size}{size to display title of individual concept network}
 }
 \value{
-Between 2 and 4 concept network plots with concept and unique words
+Multiple concept network plots with concept and unique words
 highlighted.
 }
 \description{
@@ -66,5 +59,7 @@ words that are unique to each group's Network plot.
 }
 \examples{
 con1 <- "lyödä, lyöminen"
-fst_concept_network_compare(fst_child, fst_child_2, concepts = con1)
+fst_concept_network_compare(fst_child, concepts = con1, field = 'bv1')
+con2 <- "köyhyys, nälänhätä, sota"
+fst_concept_network_compare(fst_dev_coop, con2, 'q3', title_size = 18, subtitle_size = 10)
 }
