@@ -312,7 +312,9 @@ fst_ngrams_compare <- function(data,
                               use_column_weights = FALSE,
                               exclude_nulls = FALSE,
                               rename_nulls = 'null_data',
-                              unique_colour = "indianred") {
+                              unique_colour = "indianred",
+                              title_size = 20,
+                              subtitle_size = 15) {
   if (exclude_nulls == TRUE) {
     data <- data %>% tidyr::drop_na(field)
   } else {
@@ -556,7 +558,7 @@ fst_length_compare <- function(data,
 #' fst_comparison_cloud(fst_child, 'bv1', max = 50)
 #' fst_child_3 <- within(fst_child, rm(weight))
 #' child$paino <- as.numeric((gsub(",", ".", child$paino)))
-#' s <- svydesign(id=~1, weights= ~paino, data = child)
+#' s <- survey::svydesign(id=~1, weights= ~paino, data = child)
 #' i <- 'fsd_id'
 #' fst_comparison_cloud(fst_child_3, 'bv1', use_svydesign_weights = TRUE, id = i, svydesign = s)
 #' fst_comparison_cloud(fst_dev_coop, 'q3', use_column_weights = TRUE)
@@ -614,7 +616,7 @@ fst_comparison_cloud <- function(data,
       wordcloud_data <- append(wordcloud_data, list(words_counts))
     }
   }
-  compcloud_data <- wordcloud_data %>% reduce(full_join, by = "lemma")
+  compcloud_data <- wordcloud_data %>% purrr::reduce(dplyr::full_join, by = "lemma")
   compcloud_data <- as.data.frame(compcloud_data)
   rownames(compcloud_data) <- compcloud_data$lemma
   compcloud_data$lemma <- NULL
@@ -623,6 +625,82 @@ fst_comparison_cloud <- function(data,
                               max.words = max,
                               random.order = FALSE,
                               rot.per = 0.35,
-                              colors = RColorBrewer::brewer.pal(8, "Dark2")
+                              colors = RColorBrewer::brewer.pal(8, "Dark2"),
+                              fixed.asp=TRUE
   )
 }
+
+#
+#
+# fst_wordcloud_compare <- function(data,
+#                                   field,
+#                                   pos_filter = NULL,
+#                                   max = 100,
+#                                   use_svydesign_weights = FALSE,
+#                                   id = "",
+#                                   svydesign = NULL,
+#                                   use_column_weights = FALSE,
+#                                   exclude_nulls = FALSE,
+#                                   rename_nulls = "null_data") {
+#   if (exclude_nulls == TRUE) {
+#     data <- data %>% tidyr::drop_na(field)
+#   } else {
+#     data[is.na(data)] <- rename_nulls
+#   }
+#   if (use_svydesign_weights == TRUE) {
+#     data <- fst_use_svydesign(data = data, svydesign = svydesign, id = id)
+#   }
+#   if (!is.null(pos_filter)) {
+#     data <- dplyr::filter(data, upos %in% pos_filter)
+#   }
+#   data <- data %>%
+#     dplyr::filter(.data$dep_rel != "punct") %>%
+#     dplyr::filter(!is.na(lemma)) %>%
+#     dplyr::filter(lemma != "na")
+#   group_data <- data %>% dplyr::group_by_at(field)
+#   split_data <- dplyr::group_split(group_data)
+#   names <- dplyr:: group_keys(group_data)
+#   names(split_data) <- names[[field]]
+#   names_list <- names[[field]]
+#   wordcloud_data <- list()
+#   if (use_svydesign_weights == TRUE) {
+#     for (i in 1:length(split_data)) {
+#       data1 <- split_data[[i]]
+#       words_counts <- dplyr::count(data1, lemma, sort = TRUE, wt = weight)
+#       wordcloud_data <- append(wordcloud_data, list(words_counts))
+#     }
+#   } else if (use_column_weights == TRUE) {
+#     for (i in 1:length(split_data)) {
+#       data1 <- split_data[[i]]
+#       words_counts <- dplyr::count(data1, lemma, sort = TRUE, wt = weight)
+#       wordcloud_data <- append(wordcloud_data, list(words_counts))
+#     }
+#   } else {
+#     for (i in 1:length(split_data)) {
+#       data1 <- split_data[[i]]
+#       words_counts <- dplyr::count(data1, lemma, sort = TRUE)
+#       wordcloud_data <- append(wordcloud_data, list(words_counts))
+#     }
+#   }
+#   n <- length(wordcloud_data)
+#   list_of_plots <- vector('list', n)
+#   for (i in 1:length(wordcloud_data)) {
+#     data <- wordcloud_data[[i]]
+#     wordcloud::wordcloud(
+#         words = data$lemma,
+#         freq = data$n,
+#         max.words = 100,
+#         random.order = FALSE,
+#         rot.per = 0.35,
+#         colors = RColorBrewer::brewer.pal(8, "Dark2")
+#     )
+#     list_of_plots[[i]] <- recordPlot()
+#   }
+#   plot <- do.call(gridExtra::grid.arrange, list_of_plots)
+#   title <- paste("Comparison of Wordclouds for", field)
+#   ggpubr::annotate_figure(plot, top = ggpubr::text_grob(title,
+#                                                         face = "bold", size = title_size
+#   ))
+# }
+#
+#

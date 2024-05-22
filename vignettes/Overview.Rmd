@@ -1,0 +1,24 @@
+---
+title: "Tutorial"
+author: "Adeline Clarke"
+date: "2024-05-22"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Overview of finnsurveytext
+This tutorial aims to provide a simple overview of what is included within the `finnsurveytext` package and teach you how to use the main functions included in the package. 
+
+The below table shows you all the functions that are included in the package. The functions which are bolded are the main functions which are outlined in the sections below. 
+
+| Section | Usage | Functions |
+|:---:|---|---|
+| **Data Preparation** | use the `udpipe` `R` package to clean and annotate the raw data into a standardised format (CoNLL-U) suitable for analysis. | fst_format()<br>fst_find_stopwords()<br>fst_rm_stop_punct()<br>fst_prepare()<br>**fst_prepare_svydesign()** |
+| **Data Exploration** | create wordclouds, n-gram tables and summary tables for initial insights into trends across responses. | **fst_summarise_short()**<br>**fst_summarise()**<br>**fst_pos()**<br>**fst_length_summary()**<br>fst_use_svydesign()<br>fst_freq_table<br>fst_ngrams_table()<br>fst_ngrams_table2()<br>fst_freq_plot()<br>fst_ngrams_plot()<br>**fst_freq()**<br>**fst_ngrams()**<br>**fst_wordcloud()** |
+| **Concept Network** | creation of a concept network using the `textrank` `R` package with node size indicating word importance (PageRank) <br>and edge weight showing co-occurrence of words. | fst_cn_search()<br>fst_cn_edges()<br>fst_cn_nodes()<br>fst_cn_plot()<br>**fst_concept_network()** |
+| **Comparison Functions** | corresponding Data Exploration and Concept Network functions allowing for comparison between groups of survey respondents. | **fst_pos_compare()**<br>**fst_summarise_compare()**<br>**fst_length_compare()**<br>fst_get_unique_ngrams_separate()<br>fst_get_unique_ngrams()<br>fst_join_unique()<br>fst_ngrams_compare_plot()<br>**fst_freq_compare()**<br>**fst_ngrams_compare()**<br>**fst_comparison_cloud()**<br>fst_cn_get_unique_separate()<br>fst_cn_get_unique()<br>fst_cn_compare_plot()<br>**fst_concept_network_compare()** |
+
+# https://www.tablesgenerator.com/markdown_tables
