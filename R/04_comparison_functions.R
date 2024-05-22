@@ -180,6 +180,8 @@ fst_ngrams_compare_plot <- function(table,
 #' fst_freq_compare(fst_child, 'bv1', number = 10, norm = "number_resp")
 #' fst_freq_compare(fst_child, 'bv1', number = 10, norm = NULL)
 #' fst_child_3 <- within(fst_child, rm(weight))
+#' child$paino <- as.numeric((gsub(",", ".", child$paino)))
+#' svy_child <- survey::svydesign(id=~1, weights= ~paino, data = child)
 #' fst_freq_compare(fst_child_3, 'bv1', number = 10, use_svydesign_weights = TRUE, id = 'fsd_id', svydesign = svy_child)
 #' fst_freq_compare(fst_child, 'bv1', number = 10, use_column_weights = TRUE, strict = FALSE, unique_colour = 'purple', title_size = 15, subtitle_size = 25)
 fst_freq_compare <- function(data,
@@ -295,7 +297,7 @@ fst_freq_compare <- function(data,
 #' fst_ngrams_compare(fst_child, 'bv1', ngrams = 4, number = 10, norm = "number_resp")
 #' fst_ngrams_compare(fst_child, 'bv1', ngrams = 2, number = 10, norm = NULL)
 #' child$paino <- as.numeric((gsub(",", ".", child$paino)))
-#' svy_child <- svydesign(id=~1, weights= ~paino, data = child)
+#' svy_child <- survey::svydesign(id=~1, weights= ~paino, data = child)
 #' fst_child_3 <- within(fst_child, rm(weight))
 #' fst_ngrams_compare(fst_child_3, 'bv1', number = 10, ngrams = 3, use_svydesign_weights = TRUE, id = 'fsd_id', svydesign = svy_child)
 #' fst_ngrams_compare(fst_child, 'bv1', number = 10, ngrams = 3, use_column_weights = TRUE, strict = FALSE, unique_colour = 'purple')

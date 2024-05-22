@@ -173,11 +173,11 @@ fst_length_summary <- function(data,
 #'
 #' @examples
 #' child$paino <- as.numeric((gsub(",", ".", child$paino)))
-#' svy_child <- svydesign(id=~1, weights= ~paino, data = child)
+#' svy_child <- survey::svydesign(id=~1, weights= ~paino, data = child)
 #' fst_use_svydesign(data = fst_child_2, svydesign = svy_child, id = 'fsd_id')
 #'
 #' dev_coop$paino <- as.numeric((gsub(",", ".", dev_coop$paino)))
-#' svy_dev <- svydesign(id = ~1, weights = ~paino, data = dev_coop)
+#' svy_dev <- survey::svydesign(id = ~1, weights = ~paino, data = dev_coop)
 #' fst_use_svydesign(data = fst_dev_coop_2, svydesign = svy_dev, id = 'fsd_id')
 fst_use_svydesign <- function(data, svydesign, id) {
   weight_data <- svydesign$allprob
@@ -229,7 +229,7 @@ fst_use_svydesign <- function(data, svydesign, id) {
 #' fst_freq_table(fst_child, use_column_weights = TRUE)
 #' c2 <- fst_child_2
 #' child$paino <- as.numeric((gsub(",", ".", child$paino)))
-#' s <- svydesign(id=~1, weights= ~paino, data = child)
+#' s <- survey::svydesign(id=~1, weights= ~paino, data = child)
 #' i <- 'fsd_id'
 #' fst_freq_table(c2, use_svydesign_weights = TRUE, svydesign = s, id = i)
 fst_freq_table <- function(data,
@@ -321,7 +321,7 @@ fst_freq_table <- function(data,
 #' fst_ngrams_table(fst_child, ngrams = 2, norm = "number_resp")
 #' c2 <- fst_child_2
 #' child$paino <- as.numeric((gsub(",", ".", child$paino)))
-#' s <- svydesign(id=~1, weights= ~paino, data = child)
+#' s <- survey::svydesign(id=~1, weights= ~paino, data = child)
 #' i <- 'fsd_id'
 #' fst_ngrams_table(c2, use_svydesign_weights = TRUE, svydesign = s, id = i)
 #' fst_ngrams_table(fst_child, use_column_weights = TRUE, ngrams = 3)
@@ -574,7 +574,7 @@ fst_ngrams_plot <- function(table, number = NULL, ngrams = 1, name = NULL) {
 #' fst_freq(fst_child, number = 12, norm = 'number_resp',  name = "All")
 #' fst_freq(fst_child, use_column_weights = TRUE)
 #' child$paino <- as.numeric((gsub(",", ".", child$paino)))
-#' s <- svydesign(id=~1, weights= ~paino, data = child)
+#' s <- survey::svydesign(id=~1, weights= ~paino, data = child)
 #' i <- 'fsd_id'
 #' fst_freq(fst_child_2, use_svydesign_weights = TRUE, svydesign = s, id = i)
 fst_freq <- function(data,
@@ -636,7 +636,7 @@ fst_freq <- function(data,
 #' fst_ngrams(fst_child, 12, ngrams = 2, strict = FALSE, name = "All")
 #' c <- fst_child_2
 #' child$paino <- as.numeric((gsub(",", ".", child$paino)))
-#' s <- svydesign(id=~1, weights= ~paino, data = child)
+#' s <- survey::svydesign(id=~1, weights= ~paino, data = child)
 #' i <- 'fsd_id'
 #' fst_ngrams(c, ngrams = 3, use_svydesign_weights = T, svydesign = s, id = i)
 fst_ngrams <- function(data,
@@ -700,7 +700,7 @@ fst_ngrams <- function(data,
 #' i <- 'fsd_id'
 #' c <- fst_child_2
 #' child$paino <- as.numeric((gsub(",", ".", child$paino)))
-#' s <- svydesign(id=~1, weights= ~paino, data = child)
+#' s <- survey::svydesign(id=~1, weights= ~paino, data = child)
 #' fst_wordcloud(c, use_svydesign_weights = TRUE, id = i, svydesign = s)
 fst_wordcloud <- function(data,
                           pos_filter = NULL,
