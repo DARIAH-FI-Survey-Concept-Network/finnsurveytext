@@ -157,7 +157,7 @@ fst_length_summary <- function(data,
   word_df
 }
 
-#' Add svydeesign weights to CoNLL-U data
+#' Add svydesign weights to CoNLL-U data
 #'
 #' This function takes data in CoNLL-U format and a svydesign (from survey
 #' packge) object with weights in it and merges the weights into the formatted

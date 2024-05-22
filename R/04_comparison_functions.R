@@ -103,13 +103,14 @@ fst_join_unique <- function(table, unique_table) {
 #' top_child_u <- fst_join_unique(top_child, unique_words)
 #' top_dev_u <- fst_join_unique(top_dev, unique_words)
 #' fst_ngrams_compare_plot(top_child_u, ngrams = 1, name = "Child")
-#' fst_ngrams_compare_plot(top_dev_u, ngrams = 1, name = "Dev")
+#' fst_ngrams_compare_plot(top_dev_u, ngrams = 1, name = "Dev", title_size = 10)
 fst_ngrams_compare_plot <- function(table,
                                     number = 10,
                                     ngrams = 1,
                                     unique_colour = "indianred",
                                     name = NULL,
-                                    override_title = NULL) {
+                                    override_title = NULL,
+                                    title_size = 20) {
   colours <- c("yes" = unique_colour, "no" = "grey50")
   if (ngrams == 1) {
     term <- "Words"
@@ -123,13 +124,15 @@ fst_ngrams_compare_plot <- function(table,
       ggplot2::ggplot(ggplot2::aes(occurrence, words, fill = unique_word)) +
       ggplot2::geom_col() +
       ggplot2::scale_fill_manual(values = colours, guide = "none") +
-      ggplot2::labs(y = NULL, title = paste(name, as.character(number), "Most Common", term))
+      ggplot2::labs(y = NULL, title = paste(name, as.character(number), "Most Common", term)) +
+      ggplot2::theme(plot.title = ggplot2::element_text(size = title_size))
   } else {
     table %>%
       ggplot2::ggplot(ggplot2::aes(occurrence, words, fill = unique_word)) +
       ggplot2::geom_col() +
       ggplot2::scale_fill_manual(values = colours, guide = "none") +
-      ggplot2::labs(y = NULL, title = override_title)
+      ggplot2::labs(y = NULL, title = override_title) +
+      ggplot2::theme(plot.title = ggplot2::element_text(size = title_size))
   }
 }
 
@@ -166,6 +169,8 @@ fst_ngrams_compare_plot <- function(table,
 #' @param rename_nulls What to fill NULL values with if `exclude_nulls = FALSE`.
 #' @param unique_colour Colour to display unique words, default is
 #'  `"indianred"`.
+#' @param title_size size to display plot title
+#' @param subtitle_size size to display title of individual top words plot
 #'
 #' @return Plots of most frequent words in the plots pane with unique words
 #'  highlighted.
@@ -176,7 +181,7 @@ fst_ngrams_compare_plot <- function(table,
 #' fst_freq_compare(fst_child, 'bv1', number = 10, norm = NULL)
 #' fst_child_3 <- within(fst_child, rm(weight))
 #' fst_freq_compare(fst_child_3, 'bv1', number = 10, use_svydesign_weights = TRUE, id = 'fsd_id', svydesign = svy_child)
-#' fst_freq_compare(fst_child, 'bv1', number = 10, use_column_weights = TRUE, strict = FALSE, unique_colour = 'purple')
+#' fst_freq_compare(fst_child, 'bv1', number = 10, use_column_weights = TRUE, strict = FALSE, unique_colour = 'purple', title_size = 15, subtitle_size = 25)
 fst_freq_compare <- function(data,
                              field,
                              number = 10,
@@ -189,7 +194,9 @@ fst_freq_compare <- function(data,
                              use_column_weights = FALSE,
                              exclude_nulls = FALSE,
                              rename_nulls = 'null_data',
-                             unique_colour = "indianred") {
+                             unique_colour = "indianred",
+                             title_size = 20,
+                             subtitle_size = 15) {
     if (exclude_nulls == TRUE) {
       data <- data %>% tidyr::drop_na(field)
     } else {
@@ -233,9 +240,15 @@ fst_freq_compare <- function(data,
                                                     number = number,
                                                     ngrams = 1,
                                                     unique_colour = unique_colour,
-                                                    override_title = paste(field, '=', names2[i]))
+                                                    override_title = paste(field, '=', names2[i]),
+                                                    title_size = subtitle_size)
     }
     do.call(gridExtra::grid.arrange, list_of_plots)
+    plot <- do.call(gridExtra::grid.arrange, list_of_plots)
+    title <- paste("Comparison Plot of", number, "Most Common Words")
+    ggpubr::annotate_figure(plot, top = ggpubr::text_grob(title,
+                                                          face = "bold", size = title_size
+    ))
   }
 
 #' Compare and plot top n-grams
@@ -271,6 +284,8 @@ fst_freq_compare <- function(data,
 #' @param rename_nulls What to fill NULL values with if `exclude_nulls = FALSE`.
 #' @param unique_colour Colour to display unique words, default is
 #'  `"indianred"`.
+#' @param title_size size to display plot title
+#' @param subtitle_size size to display title of individual top ngrams plot
 #'
 #' @return Plots of top n-grams in the plots pane with unique n-grams
 #'  highlighted.
@@ -279,7 +294,9 @@ fst_freq_compare <- function(data,
 #' @examples
 #' fst_ngrams_compare(fst_child, 'bv1', ngrams = 4, number = 10, norm = "number_resp")
 #' fst_ngrams_compare(fst_child, 'bv1', ngrams = 2, number = 10, norm = NULL)
-#' fst_ngrams_compare <- within(fst_child, rm(weight))
+#' child$paino <- as.numeric((gsub(",", ".", child$paino)))
+#' svy_child <- svydesign(id=~1, weights= ~paino, data = child)
+#' fst_child_3 <- within(fst_child, rm(weight))
 #' fst_ngrams_compare(fst_child_3, 'bv1', number = 10, ngrams = 3, use_svydesign_weights = TRUE, id = 'fsd_id', svydesign = svy_child)
 #' fst_ngrams_compare(fst_child, 'bv1', number = 10, ngrams = 3, use_column_weights = TRUE, strict = FALSE, unique_colour = 'purple')
 fst_ngrams_compare <- function(data,
@@ -317,7 +334,9 @@ fst_ngrams_compare <- function(data,
                                    use_svydesign_weights = use_svydesign_weights,
                                    id = id,
                                    svydesign = svydesign,
-                                   use_column_weights = use_column_weights)
+                                   use_column_weights = use_column_weights,
+                                   title_size = 20,
+                                   subtitle_size = 15)
     list_of_top_words <- append(list_of_top_words, list(top_words))
   }
   names(list_of_top_words) <- names[[field]]
@@ -339,10 +358,22 @@ fst_ngrams_compare <- function(data,
                                                   number = number,
                                                   ngrams = ngrams,
                                                   unique_colour = unique_colour,
-                                                  override_title = paste(field, '=', names2[i]))
+                                                  override_title = paste(field, '=', names2[i]),
+                                                  title_size = subtitle_size)
   }
   # list_of_plots
-  do.call(gridExtra::grid.arrange, list_of_plots)
+  plot <- do.call(gridExtra::grid.arrange, list_of_plots)
+  if (ngrams == 1) {
+    word = "Words"
+  } else if (ngrams == 2) {
+    word = "Bigrams"
+  } else {
+    word = paste0(as.character(ngrams), "-Grams")
+  }
+  title <- paste("Comparison Plot of", number, "Most Common", word)
+  ggpubr::annotate_figure(plot, top = ggpubr::text_grob(title,
+                                                        face = "bold", size = title_size
+  ))
 }
 
 #' Compare parts-of-speech
