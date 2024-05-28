@@ -68,7 +68,7 @@ The `finnsurveytext` package uses the CoNLL-U format. This tutorial demonstrates
 CoNLL-U is a popular annotation scheme often used in Natural Language Processing (NLP) tasks to tokenise and annotate text. In CoNLL-U format, the text is split into one line per word and ten features of each word are recorded including an ID,  part-of-speech tagging, the word itself (eg. 'likes'), and word lemma (eg. 'like'). 
 CoNLL stands for the Conference of Natural Language Learning and CoNLL-U format was introduced in 2014. 
 
-More information on CoNLL-U format can be found in the Universal Dependencies Project, https://universaldependencies.org/format.html. 
+More information on CoNLL-U format can be found in the [Universal Dependencies Project](https://universaldependencies.org/format.html).
 
 ## The Whole Story
 A single function, `fst_prepare_connlu()` (which calls all the data preparation functions within the package) can be used to prepare the data into the required CoNNL-U format. 
