@@ -8,6 +8,14 @@
 #' @param concepts String of terms to search for, separated by commas.
 #' @param pos_filter List of UPOS tags for inclusion, default is `NULL` to
 #' include all UPOS tags.
+#' @param use_svydesign_weights Option to weight words in the wordcloud using
+#'  weights from  a svydesign object containing the raw data, default is `FALSE`
+#' @param id ID column from raw data, required if `use_svydesign_weights = TRUE`
+#'  and must match the `docid` in formatted `data`.
+#' @param svydesign A svydesign object which contains the raw data and weights.
+#' @param use_column_weights Option to weight words in the wordcloud using
+#'  weights from  formatted data which includes addition `weight` column,
+#'  default is `FALSE`
 #'
 #' @return Dataframe of n-grams containing searched terms.
 #' @export
@@ -19,7 +27,14 @@
 #' fst_cn_search(fst_child, concepts = con)
 fst_cn_search <- function(data,
                           concepts,
-                          pos_filter = NULL) {
+                          pos_filter = NULL,
+                          use_svydesign_weights = FALSE,
+                          id = "",
+                          svydesign = NULL,
+                          use_column_weights = FALSE) {
+  if (use_svydesign_weights == TRUE) {
+    data <- fst_use_svydesign(data = data, svydesign = svydesign, id = id)
+  }
   if (is.null(pos_filter)) {
     pos_filter <- c(
       "ADJ", "ADP", "ADV", "AUX", "CCONJ", "DET", "INTJ", "NOUN",
@@ -31,7 +46,7 @@ fst_cn_search <- function(data,
     concepts <- stringr::str_extract_all(concepts, pattern = "\\w+") %>%
       unlist()
   }
-  data <- dplyr::filter(data, token != "na")
+  condata <- dplyr::filter(data, token != "na")
   data$lemma <- stringr::str_replace_all(data$lemma, "-", "@")
   x <- textrank::textrank_keywords(data$lemma,
     relevant = data$upos %in% pos_filter
@@ -74,6 +89,14 @@ fst_cn_search <- function(data,
 #'  when weights are applied).
 #' @param pos_filter List of UPOS tags for inclusion, default is `NULL` to
 #' include all UPOS tags.
+#' @param use_svydesign_weights Option to weight words in the wordcloud using
+#'  weights from  a svydesign object containing the raw data, default is `FALSE`
+#' @param id ID column from raw data, required if `use_svydesign_weights = TRUE`
+#'  and must match the `docid` in formatted `data`.
+#' @param svydesign A svydesign object which contains the raw data and weights.
+#' @param use_column_weights Option to weight words in the wordcloud using
+#'  weights from  formatted data which includes addition `weight` column,
+#'  default is `FALSE`
 #'
 #' @return Dataframe of co-occurrences between two connected words.
 #' @export
@@ -85,8 +108,12 @@ fst_cn_search <- function(data,
 fst_cn_edges <- function(data,
                          concepts,
                          threshold = NULL,
-                         norm = "number_words",
-                         pos_filter = NULL) {
+                         norm = NULL,
+                         pos_filter = NULL,
+                         use_svydesign_weights = FALSE,
+                         id = "",
+                         svydesign = NULL,
+                         use_column_weights = FALSE) {
   data <- dplyr::filter(data, token != "na")
   if (is.null(norm)) {
     denom <- 1
@@ -100,7 +127,7 @@ fst_cn_edges <- function(data,
     denom <- dplyr::n_distinct(data$doc_id)
   } else {
     message("NOTE: A recognised normalisation method has not been provided. \n
-            Function has defaulted to has defaulted to provide raw counts")
+            has defaulted to provide raw counts")
     denom <- 1
   }
   df <- data %>%
@@ -252,9 +279,8 @@ fst_cn_plot <- function(edges, nodes, concepts, title = NULL) {
 #'  searched term and other word, default is `NULL`. Note, the threshold is
 #'  applied before normalisation.
 #' @param norm The method for normalising the data. Valid settings are
-#'  `"number_words"` (the number of words in the responses), `"number_resp"`
-#'  (the number of responses), or `NULL` (raw count returned, default, also used
-#'  when weights are applied).
+#'  `"number_words"` (the number of words in the responses, default),
+#'  `"number_resp"` (the number of responses), or `NULL` (raw count returned).
 #' @param pos_filter List of UPOS tags for inclusion, default is `NULL` to
 #'  include all UPOS tags.
 #' @param title Optional title for plot, default is `NULL` and a generic title
