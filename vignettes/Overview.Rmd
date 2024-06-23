@@ -50,7 +50,7 @@ The functions in the remaining sections require your data to be pre-formatted in
 The package comes with sample data. For this demonstration, we use `dev_coop`. The raw data looks like this:
 
 ```{r echo = FALSE}
-load("~/2024/finnsurveytext_dev24/finnsurveytext/data/dev_coop.rda")
+data(dev_coop)
 knitr::kable(head(dev_coop, 5))
 ```
 
@@ -319,13 +319,155 @@ fst_concept_network <- function(data,
 
 For example, we can create the following concept network plots: 
 ```{r}
-fst_concept_network(fst_dev_coop, 
+fst_concept_network(df, 
                     concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute", 
                     )
 ```
 
 
 # 4. Comparison Functions
+
+Recall that when we preprocessed the data, we included two additional columns, gender and region, to allow for comparison between respondents based on these values. 
+
+There are counterpart comparison functions for each of the functions we have shown above. 
+
+The comparison **summary tables** are defined as follows: 
+
+```{r eval=FALSE}
+fst_pos_compare <- function(data,
+                            field,
+                            exclude_nulls = FALSE,
+                            rename_nulls = 'null_data')
+
+fst_summarise_compare <- function(data,
+                                  field,
+                                  exclude_nulls = FALSE,
+                                  rename_nulls = 'null_data')
+
+fst_length_compare <- function(data,
+                               field,
+                               incl_sentences = TRUE,
+                               exclude_nulls = FALSE,
+                               rename_nulls = 'null_data') 
+  
+```
+
+**Summary of Components**
+
+* `data` is the formatted data.
+* `field` is the column in `data` used for splitting groups
+* We can choose whether to include or exclude surveys with no response in our splitting comlumn by setting `exclude_nulls`. The default value is FALSE.
+* `rename_nulls` is what to fill empty values with if `exclude_nulls = FALSE`.
+
+Let's compare our responses based on the region of the respondent: 
+
+```{r}
+knitr::kable(fst_pos_compare(df, 'region'))
+
+knitr::kable(fst_summarise_compare(df, 'region'))
+
+knitr::kable(fst_length_compare(df, 'region'))
+```
+
+The **ngrams** comparison functions are defined similarly (with some additional new values):
+
+```{r eval=FALSE}
+fst_freq_compare <- function(data,
+                             field,
+                             number = 10,
+                             norm = NULL,
+                             pos_filter = NULL,
+                             strict = TRUE,
+                             use_svydesign_weights = FALSE,
+                             id = "",
+                             svydesign = NULL,
+                             use_column_weights = FALSE,
+                             exclude_nulls = FALSE,
+                             rename_nulls = 'null_data',
+                             unique_colour = "indianred",
+                             title_size = 20,
+                             subtitle_size = 15)
+
+
+fst_ngrams_compare <- function(data,
+                              field,
+                              number = 10,
+                              ngrams = 1,
+                              norm = NULL,
+                              pos_filter = NULL,
+                              strict = TRUE,
+                              use_svydesign_weights = FALSE,
+                              id = "",
+                              svydesign = NULL,
+                              use_column_weights = FALSE,
+                              exclude_nulls = FALSE,
+                              rename_nulls = 'null_data',
+                              unique_colour = "indianred",
+                              title_size = 20,
+                              subtitle_size = 15)
+```
+
+The **new components** are: 
+
+* `unique_colour` is chosen to differentiate values which are unique to one group of respondents, the default is "indianred"
+* `title_size` and `subtitle_size` set these, you may need to change them from the default values if any of your group names are long or if there are many groups.
+
+For the ngrams, let's compare respondents by gender. 
+
+```{r}
+fst_freq_compare(df, 'gender', use_column_weights = TRUE)
+
+fst_ngrams_compare(df, 'gender', ngrams = 2, use_column_weights = TRUE)
+```
+
+The **comparison cloud** extends the wordcloud concept. 
+
+A comparison cloud compares the relative frequency with which a term is used in two or more documents. This cloud shows words that occur more regularly in responses from a specific type of respondent. For more information about comparison clouds, you can read [this documentation](https://cran.r-project.org/web/packages/wordcloud/wordcloud.pdf).
+
+The comparison cloud is defined as follows, with settings as defined for the previous functions:
+
+```{r eval=FALSE}
+fst_comparison_cloud <- function(data,
+                                 field,
+                                 pos_filter = NULL,
+                                 max = 100,
+                                 use_svydesign_weights = FALSE,
+                                 id = "",
+                                 svydesign = NULL,
+                                 use_column_weights = FALSE,
+                                 exclude_nulls = FALSE,
+                                 rename_nulls = "null_data") 
+```
+
+Thus, we can create comparison clouds: 
+```{r}
+fst_comparison_cloud(df, 'gender', use_column_weights = TRUE)
+fst_comparison_cloud(df, 'region', use_column_weights = TRUE)
+
+```
+
+Finally we have the comparison **concept network**:
+
+```{r eval=FALSE}
+fst_concept_network_compare <- function(data,
+                                        concepts,
+                                        field,
+                                        norm = NULL,
+                                        threshold = NULL,
+                                        pos_filter = NULL,
+                                        exclude_nulls = FALSE,
+                                        rename_nulls = 'null_data',
+                                        title_size = 20,
+                                        subtitle_size = 15)
+```
+
+```{r}
+fst_concept_network_compare(df, 
+                            concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute", 
+                            'region'
+                            )
+```
+
 
 # Data
 The package comes with sample data from two surveys obtained from the Finnish Social Science Data Archive: 

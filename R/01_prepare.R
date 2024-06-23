@@ -1,7 +1,9 @@
 #' Annotate open-ended survey responses in Finnish into CoNLL-U format
 #'
-#' Creates a dataframe in CoNLL-U format from a list of strings of Finnish text
-#' using the [udpipe] package and a Finnish language model.
+#' Creates a dataframe in CoNLL-U format from a dataframe containing Finnish
+#' text from using the [udpipe] package and a Finnish language model plus any
+#' additional columns that are included such as `weights` or columns added
+#' through `add_cols`.
 #'
 #' @param data A dataframe of survey responses which contains an open-ended
 #'  question.
@@ -13,11 +15,12 @@
 #'  (default) or `"tdt"`.
 #' @param weights Optional, the column of the dataframe which contains the
 #'  respective weights for each response.
-#' @param add_cols Optional, a column (or columns) from the dataframe which contain
-#'  other information you'd like to retain (for instance, dimension columnns for
-#'  splitting the data for comparison plots).
+#' @param add_cols Optional, a column (or columns) from the dataframe which
+#'  contain other information you'd like to retain (for instance, covariate
+#'  columnns for splitting the data for comparison plots).
 #'
-#' @return Dataframe of annotated text in CoNLL-U format.
+#' @return Dataframe of annotated text in CoNLL-U format plus any additional
+#'  columns.
 #' @export
 #'
 #' @examples
@@ -93,8 +96,8 @@ fst_format <- function(data,
 
 #' Get available Finnish stopwords lists
 #'
-#' Returns a tibble containing available Finnish stopword lists, their contents,
-#' and the size of the lists.
+#' Returns a tibble containing all available Finnish stopword lists, their
+#' contents, and the size of the lists.
 #'
 #' @return A tibble containing the stopwords lists.
 #' @export
@@ -168,6 +171,12 @@ fst_rm_stop_punct <- function(data,
 
 
 #' Read In and format Finnish survey text responses
+#'
+#' Creates a dataframe in CoNLL-U format from a dataframe containing Finnish
+#' text from using the [udpipe] package and a Finnish language model plus any
+#' additional columns that are included such as `weights` or columns added
+#' through `add_cols`. Stopwords and punctuation are optionally removed if the
+#' the `stopword_list` argument is not "none".
 #'
 #' `fst_prepare_conllu()` produces a dataframe containing Finnish survey text
 #'  responses in CoNLL-U format with stopwords optionally removed.

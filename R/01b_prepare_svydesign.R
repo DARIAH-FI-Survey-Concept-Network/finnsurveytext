@@ -2,8 +2,9 @@
 #' into CoNLL-U format
 #'
 #' Creates a dataframe in CoNLL-U format from a svydesign object including
-#' Finnish open-ended responses using the [udpipe] package and a Finnish
-#' language model.
+#' Finnish text using the [udpipe] package and a Finnish language model plus
+#' weights if these are included in the svydesign object and any columns added
+#' through `add_cols`.
 #'
 #' @param svydesign A svydesign object which contains an open-ended question.
 #' @param question The column in the dataframe which contains the open-ended
@@ -17,7 +18,8 @@
 #'  contain other information you'd like to retain (for instance, dimension
 #'  columnns for splitting the data for comparison plots).
 #'
-#' @return Dataframe of annotated text in CoNLL-U format.
+#' @return Dataframe of annotated text in CoNLL-U format plus any additional
+#'  columns.
 #' @export
 #'
 #' @examples
@@ -94,6 +96,12 @@ fst_format_svydesign <- function(svydesign,
 
 #' Read In and format Finnish survey text responses from svydesign object
 #'
+#' Creates a dataframe in CoNLL-U format from a svydesign object including
+#' Finnish text using the [udpipe] package and a Finnish language model plus
+#' weights if these are included in the svydesign object and any columns added
+#' through `add_cols`.Stopwords and punctuation are optionally removed if the
+#' the `stopword_list` argument is not "none".
+#'
 #' `fst_prepare_svydesign()` produces a dataframe containing Finnish survey text
 #'  responses in CoNLL-U format with stopwords optionally removed.
 #' @param svydesign A svydesign object which contains an open-ended question.
@@ -120,8 +128,8 @@ fst_format_svydesign <- function(svydesign,
 #' svy_child <- survey::svydesign(id=~1, weights= ~paino, data = child)
 #' fst_prepare_svydesign(svy_child, question = "q7", id = i, use_weights = TRUE)
 #'
-#' svy_dev <- survey::svydesign(id = ~1, weights = ~paino, data =dev_coop)
-#' fst_prepare_svydesign(svy_dev, question = "q11_2", id = i, add_cols = c('q1'))
+#' svy_d <- survey::svydesign(id = ~1, weights = ~paino, data =dev_coop)
+#' fst_prepare_svydesign(svy_d, question = "q11_2", id = i, add_cols = c('q1'))
 #' unlink("finnish-ftb-ud-2.5-191206.udpipe")
 #' unlink("finnish-tdt-ud-2.5-191206.udpipe")
 #' }
