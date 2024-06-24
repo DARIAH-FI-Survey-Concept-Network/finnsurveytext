@@ -3,7 +3,8 @@
 #' Creates a summary table for the input CoNLL-U data which provides the total
 #' number of words, the number of unique words, and the number of unique lemmas.
 #'
-#' @param data A dataframe of text in CoNLL-U format.
+#' @param data A dataframe of text in CoNLL-U format, with optional additional
+#'  columns.
 #'
 #' @return A dataframe with summary information on word counts for the data.
 #' @export
@@ -27,17 +28,19 @@ fst_summarise_short <- function(data) {
 #' response count and proportion, total number of words, the number of unique
 #' words, and the number of unique lemmas.
 #'
-#' @param data A dataframe of text in CoNLL-U format.
-#' @param desc A string describing respondents, default is `"All respondents"`.
+#' @param data A dataframe of text in CoNLL-U format, with optional additional
+#'  columns.
+#' @param desc A string describing responses in table, default is `"All
+#'  responses"`.
 #'
-#' @return A dataframe with summary information for the data including reponse
+#' @return A dataframe with summary information for the data including response
 #'  rate and word counts.
 #' @export
 #'
 #' @examples
 #' fst_summarise(fst_child)
 #' fst_summarise(fst_dev_coop, "Q11_3")
-fst_summarise <- function(data, desc = "All respondents") {
+fst_summarise <- function(data, desc = "All responses") {
   no_resp_count <- length(which(data$sentence %in% c("NA", "na")))
   df <- data %>%
     dplyr::summarize(
@@ -59,7 +62,8 @@ fst_summarise <- function(data, desc = "All respondents") {
 #' Creates a summary table for the input CoNLL-U data which counts the number of
 #' words of each part-of-speech tag within the data.
 #'
-#' @param data A dataframe of text in CoNLL-U format.
+#' @param data A dataframe of text in CoNLL-U format, with optional additional
+#'  columns.
 #'
 #' @return A dataframe with a count and proportion of each UPOS tag in the data
 #'  and the full name of the tag.
@@ -102,9 +106,10 @@ fst_pos <- function(data) {
 #'
 #' Creates a table summarising  distribution of the length of responses.
 #'
-#' @param data dataframe of text in CoNLL-U format.
-#' @param desc An optional string describing respondents, default is
-#'  `"All respondents"`.
+#' @param data dataframe of text in CoNLL-U format, with optional additional
+#'  columns.
+#' @param desc An optional string describing responses in table, default is
+#'  `"All responses"`.
 #' @param incl_sentences Whether to include sentence data in table, default is
 #'  `TRUE`.
 #'
@@ -115,7 +120,7 @@ fst_pos <- function(data) {
 #' fst_length_summary(fst_child, incl_sentences = FALSE)
 #' fst_length_summary(fst_dev_coop, desc = "Q11_3")
 fst_length_summary <- function(data,
-                               desc = "All respondents",
+                               desc = "All responses",
                                incl_sentences = TRUE) {
   no_resp_count <- length(which(data$sentence %in% c("NA", "na")))
   data <- dplyr::select(data, doc_id, sentence) %>%
@@ -157,14 +162,15 @@ fst_length_summary <- function(data,
   word_df
 }
 
-#' Add svydesign weights to CoNLL-U data
+#' Add `svydesign` weights to CoNLL-U data
 #'
-#' This function takes data in CoNLL-U format and a svydesign (from survey
-#' packge) object with weights in it and merges the weights into the formatted
+#' This function takes data in CoNLL-U format and a `svydesign` (from `survey`
+#' package) object with weights in it and merges the weights into the formatted
 #' data.
 #'
-#' @param data A dataframe of text in CoNLL-U format
-#' @param svydesign A svydesign object containing the raw data which produced
+#' @param data A dataframe of text in CoNLL-U format, with optional additional
+#'  columns.
+#' @param svydesign A `svydesign` object containing the raw data which produced
 #'  the `data`
 #' @param id ID column from raw data, must match the `docid` in formatted `data`
 #'
@@ -198,7 +204,8 @@ fst_use_svydesign <- function(data, svydesign, id) {
 #' the formatted data, or from a `svydesign` object with the raw (preformatted)
 #' data.
 #'
-#' @param data A dataframe of text in CoNLL-U format.
+#' @param data A dataframe of text in CoNLL-U format, with optional additional
+#'  columns.
 #' @param number The number of top words to return, default is `10`.
 #' @param norm The method for normalising the data. Valid settings are
 #'  `"number_words"` (the number of words in the responses), `"number_resp"`
@@ -209,10 +216,11 @@ fst_use_svydesign <- function(data, svydesign, id) {
 #' @param strict Whether to strictly cut-off at `number` (ties are
 #'  alphabetically ordered), default is `TRUE`.
 #' @param use_svydesign_weights Option to weight words in the wordcloud using
-#'  weights from  a svydesign object containing the raw data, default is `FALSE`
+#'  weights from  a `svydesign` containing the raw data, default is `FALSE`
 #' @param id ID column from raw data, required if `use_svydesign_weights = TRUE`
 #'  and must match the `docid` in formatted `data`.
-#' @param svydesign A svydesign object which contains the raw data and weights.
+#' @param svydesign A `svydesign` which contains the raw data and weights,
+#'  required if `use_svydesign_weights = TRUE`.
 #' @param use_column_weights Option to weight words in the wordcloud using
 #'  weights from  formatted data which includes addition `weight` column,
 #'  default is `FALSE`
@@ -290,7 +298,8 @@ fst_freq_table <- function(data,
 #' in the formatted data, or from a `svydesign` object with the raw
 #' (preformatted) data.
 #'
-#' @param data A dataframe of text in CoNLL-U format.
+#' @param data A dataframe of text in CoNLL-U format, with optional additional
+#'  columns.
 #' @param number The number of n-grams to return, default is `10`.
 #' @param ngrams The type of n-grams to return, default is `1`.
 #' @param norm The method for normalising the data. Valid settings are
@@ -302,10 +311,11 @@ fst_freq_table <- function(data,
 #' @param strict Whether to strictly cut-off at `number` (ties are
 #'  alphabetically ordered), default is `TRUE`.
 #' @param use_svydesign_weights Option to weight words in the wordcloud using
-#'  weights from  a svydesign object containing the raw data, default is `FALSE`
+#'  weights from  a `svydesign` containing the raw data, default is `FALSE`
 #' @param id ID column from raw data, required if `use_svydesign_weights = TRUE`
 #'  and must match the `docid` in formatted `data`.
-#' @param svydesign A svydesign object which contains the raw data and weights.
+#' @param svydesign A `svydesign` which contains the raw data and weights,
+#'  required if `use_svydesign_weights = TRUE`.
 #' @param use_column_weights Option to weight words in the wordcloud using
 #'  weights from  formatted data which includes addition `weight` column,
 #'  default is `FALSE`
@@ -388,7 +398,8 @@ fst_ngrams_table <- function(data,
 #' (preformatted) data.
 #' Equivalent to `fst_get_top_ngrams` but doesn't print message about ties.
 #'
-#' @param data A dataframe of text in CoNLL-U format.
+#' @param data A dataframe of text in CoNLL-U format, with optional additional
+#'  columns.
 #' @param number The number of n-grams to return, default is `10`.
 #' @param ngrams The type of n-grams to return, default is `1`.
 #' @param norm The method for normalising the data. Valid settings are
@@ -399,10 +410,11 @@ fst_ngrams_table <- function(data,
 #' @param strict Whether to strictly cut-off at `number` (ties are
 #'  alphabetically ordered), default is `TRUE`.
 #' @param use_svydesign_weights Option to weight words in the wordcloud using
-#'  weights from  a svydesign object containing the raw data, default is `FALSE`
+#'  weights from a `svydesign` containing the raw data, default is `FALSE`
 #' @param id ID column from raw data, required if `use_svydesign_weights = TRUE`
 #'  and must match the `docid` in formatted `data`.
-#' @param svydesign A svydesign object which contains the raw data and weights.
+#' @param svydesign A `svydesign` which contains the raw data and weights,
+#'  required if `use_svydesign_weights = TRUE`.
 #' @param use_column_weights Option to weight words in the wordcloud using
 #'  weights from  formatted data which includes addition `weight` column,
 #'  default is `FALSE`
@@ -509,7 +521,6 @@ fst_freq_plot <- function(table, number = NULL, name = NULL) {
 #' @param ngrams The type of n-grams, default is `1`.
 #' @param name An optional "name" for the plot to add to title, default is
 #'  `NULL`.
-
 #'
 #' @return Plot of top n-grams.
 #' @export
@@ -543,7 +554,8 @@ fst_ngrams_plot <- function(table, number = NULL, ngrams = 1, name = NULL) {
 #' in the formatted data, or from a `svydesign` object with the raw
 #' (preformatted) data.
 #'
-#' @param data A dataframe of text in CoNLL-U format.
+#' @param data A dataframe of text in CoNLL-U format, with optional additional
+#'  columns.
 #' @param number The number of top words to return, default is `10`.
 #' @param norm The method for normalising the data. Valid settings are
 #'  `"number_words"` (the number of words in the responses, default),
@@ -555,10 +567,11 @@ fst_ngrams_plot <- function(table, number = NULL, ngrams = 1, name = NULL) {
 #' @param name An optional "name" for the plot to add to title, default is
 #'  `NULL`.
 #' @param use_svydesign_weights Option to weight words in the wordcloud using
-#'  weights from  a svydesign object containing the raw data, default is `FALSE`
+#'  weights from a `svydesign` containing the raw data, default is `FALSE`
 #' @param id ID column from raw data, required if `use_svydesign_weights = TRUE`
 #'  and must match the `docid` in formatted `data`.
-#' @param svydesign A svydesign object which contains the raw data and weights.
+#' @param svydesign A `svydesign` which contains the raw data and weights,
+#'  required if `use_svydesign_weights = TRUE`.
 #' @param use_column_weights Option to weight words in the wordcloud using
 #'  weights from  formatted data which includes addition `weight` column,
 #'  default is `FALSE`
@@ -603,7 +616,8 @@ fst_freq <- function(data,
 #' in the formatted data, or from a `svydesign` object with the raw
 #' (preformatted) data.
 #'
-#' @param data A dataframe of text in CoNLL-U format.
+#' @param data A dataframe of text in CoNLL-U format, with optional additional
+#'  columns.
 #' @param number The number of top words to return, default is `10`.
 #' @param ngrams The type of n-grams, default is `1`.
 #' @param norm The method for normalising the data. Valid settings are
@@ -616,10 +630,11 @@ fst_freq <- function(data,
 #' @param name An optional "name" for the plot to add to title, default is
 #'  `NULL`.
 #' @param use_svydesign_weights Option to weight words in the wordcloud using
-#'  weights from  a svydesign object containing the raw data, default is `FALSE`
+#'  weights from  a `svydesign` containing the raw data, default is `FALSE`
 #' @param id ID column from raw data, required if `use_svydesign_weights = TRUE`
 #'  and must match the `docid` in formatted `data`.
-#' @param svydesign A svydesign object which contains the raw data and weights.
+#' @param svydesign A `svydesign` which contains the raw data and weights,
+#'  required if `use_svydesign_weights = TRUE`.
 #' @param use_column_weights Option to weight words in the wordcloud using
 #'  weights from  formatted data which includes addition `weight` column,
 #'  default is `FALSE`
@@ -671,15 +686,17 @@ fst_ngrams <- function(data,
 #' formatted data, or from a `svydesign` object with the raw (preformatted)
 #' data.
 #'
-#' @param data A dataframe of text in CoNLL-U format.
+#' @param data A dataframe of text in CoNLL-U format, with optional additional
+#'  columns.
 #' @param pos_filter List of UPOS tags for inclusion, default is `NULL` which
 #'  means all word types included.
 #' @param max The maximum number of words to display, default is `100`.
 #' @param use_svydesign_weights Option to weight words in the wordcloud using
-#'  weights from  a svydesign object containing the raw data, default is `FALSE`
+#'  weights from a `svydesign` containing the raw data, default is `FALSE`
 #' @param id ID column from raw data, required if `use_svydesign_weights = TRUE`
 #'  and must match the `docid` in formatted `data`.
-#' @param svydesign A svydesign object which contains the raw data and weights.
+#' @param svydesign A `svydesign` which contains the raw data and weights,
+#'  required if `use_svydesign_weights = TRUE`.
 #' @param use_column_weights Option to weight words in the wordcloud using
 #'  weights from  formatted data which includes addition `weight` column,
 #'  default is `FALSE`.

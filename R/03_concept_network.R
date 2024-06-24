@@ -4,7 +4,8 @@
 #' and, using `textrank_keywords()` from `textrank` package, filters data based
 #' on `pos_filter` and finds words connected to search terms.
 #'
-#' @param data A dataframe of text in CoNLL-U format.
+#' @param data A dataframe of text in CoNLL-U format, with optional additional
+#'  columns.
 #' @param concepts String of terms to search for, separated by commas.
 #' @param pos_filter List of UPOS tags for inclusion, default is `NULL` to
 #' include all UPOS tags.
@@ -63,7 +64,8 @@ fst_cn_search <- function(data,
 #' connected together in an frequently-occurring n-gram containing a concept
 #' term.
 #'
-#' @param data A dataframe of text in CoNLL-U format.
+#' @param data A dataframe of text in CoNLL-U format, with optional additional
+#'  columns.
 #' @param concepts List of terms to search for, separated by commas.
 #' @param threshold A minimum number of occurrences threshold for 'edge' between
 #'  searched term and other word, default is `NULL`. Note, the threshold is
@@ -128,7 +130,8 @@ fst_cn_edges <- function(data,
 #' on `pos_filter` ranks words which are the filtered for those connected to
 #' search terms.
 #'
-#' @param data A dataframe of text in CoNLL-U format.
+#' @param data A dataframe of text in CoNLL-U format, with optional additional
+#'  columns.
 #' @param edges Output of `fst_cn_edges()`, dataframe of co-occurrences between
 #'  two words.
 #' @param pos_filter List of UPOS tags for inclusion, default is `NULL` to
@@ -246,7 +249,8 @@ fst_cn_plot <- function(edges, nodes, concepts, title = NULL) {
 #' Concept Network based on the calculated weights of these terms and the
 #' frequency of co-occurrences.
 #'
-#' @param data A dataframe of text in CoNLL-U format.
+#' @param data A dataframe of text in CoNLL-U format, with optional additional
+#'  columns.
 #' @param concepts List of terms to search for, separated by commas.
 #' @param threshold A minimum number of occurrences threshold for 'edge' between
 #'  searched term and other word, default is `NULL`. Note, the threshold is

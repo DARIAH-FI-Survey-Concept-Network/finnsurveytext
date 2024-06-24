@@ -21,7 +21,7 @@ library(finnsurveytext)
 This repository contains an R package called finnsurveytext. 
 For further details on how to use the package, please see the [package website](https://dariah-fi-survey-concept-network.github.io/finnsurveytext/index.html) which contains tutorials covering all the functions available in finnsurveytext. 
 
-A video demonstrating use of the package is available [here](https://www.helsinki.fi/fi/unitube/video/307d2df5-1a2b-4440-9562-d7d915addc35)
+A video demonstrating use of the package version 1 is available [here](https://www.helsinki.fi/fi/unitube/video/307d2df5-1a2b-4440-9562-d7d915addc35)
  
 ## Background ##
 DARIAH-FI is one of two components of FIN-CLARIAH which is a research infrastructure project for Social Sciences and Humanities (SSH) in Finland. DARIAH-FI involves all Finnish universities with research in SSH. 
@@ -38,8 +38,9 @@ This package aims to provide a useful and user friendly set of tools for social 
 ## Components ##
 There are 5 sets of functions included in the finnsurveytext package. These are: 
  
-1. Preparation functions (R/01_prepare_conll-u.R)
+1. Preparation functions (R/01_prepare.R)
     * These are functions to annotate survey data into a useful format (CoNLL-U) for analysis. There is a 'main' function within this set, `fst_prepare_conllu()` which combines the other preparation functions and can be run as a single function to prepare data for analysis. 
+    * 1b. Preparation functions for svydesign data (R/01b_prepare_svydesign.R)
 2. Data exploration functions (R/02_data_exploration.R)
     * This file contains a number of functions which can be used for exploratory data analysis such as summary tables, plotting frequently occurring words and phrases, and creating wordclouds. 
 3. Concept Network functions (R/03_concept_network.R)
@@ -61,7 +62,7 @@ The sample data comes from 2 surveys and can be found in the 'data' folder. The 
  
 The raw data can also be downloaded from the Finnish Social Science Data Archive.  
  
-1. Bullying Data
+1. Child Barometer Data
     * Source: FSD3134 Lapsibarometri 2016
     * Question: q7 ‘Kertoisitko, mitä sinun mielestäsi kiusaaminen on? (Avokysymys)’
     *	Licence: (A) openly available for all users without registration (CC BY 4.0).

@@ -1,12 +1,12 @@
 #' Get unique n-grams from separate top n-grams tables
 #'
 #' Takes at least two separate tables of n-grams and frequencies (either output
-#'  of `fst_freq_table()` or `fst_ngrams_table()`) and finds n-grams unique to
-#'  one table.
+#' of `fst_freq_table()` or `fst_ngrams_table()`) and finds n-grams unique to
+#' one table.
 #'
-#' @param table1 The first table.
-#' @param table2 The second table.
-#' @param ... Any other tables you want to include.
+#' @param table1 The first n-grams table.
+#' @param table2 The second n-grams table.
+#' @param ... Any other n-grams tables you want to include.
 #'
 #' @return Dataframe of words and whether word is unique or not.
 #' @export
@@ -29,8 +29,8 @@ fst_get_unique_ngrams_separate <- function(table1, table2, ...) {
 #' Get unique n-grams from a list of top n-grams tables
 #'
 #' Takes a list containing at least two tables of n-grams and frequencies
-#'  (either output of `fst_freq_table()` or `fst_ngrams_table()`) and finds
-#'  n-grams unique to one table.
+#' (either output of `fst_freq_table()` or `fst_ngrams_table()`) and finds
+#' n-grams unique to one table.
 #'
 #' @param list_of_top_ngrams A list of top ngrams
 #'
@@ -45,7 +45,7 @@ fst_get_unique_ngrams_separate <- function(table1, table2, ...) {
 #' list_of_top_words <- append(list_of_top_words, list(top_dev))
 #' fst_get_unique_ngrams(list_of_top_words)
 fst_get_unique_ngrams <- function(list_of_top_ngrams) {
-  df <- data.table::rbindlist(list_of_top_ngrams) #this is the row that is changed
+  df <- data.table::rbindlist(list_of_top_ngrams)
   df <- df %>%
     dplyr::mutate(n = 1) %>%
     dplyr::group_by(words) %>%
@@ -378,9 +378,9 @@ fst_ngrams_compare <- function(data,
 
 #' Compare parts-of-speech
 #'
-#' Count each POS type for different groups of participants. Data is
-#' split based on different values in the `field` column of formatted data.
-#' Results will be shown within the plots pane.
+#' Count each POS type for different groups of participants. Data is split based
+#' on different values in the `field` column of formatted data. Results will be
+#' shown within the plots pane.
 #'
 #' @param data A dataframe of text in CoNLL-U format with additional `field`
 #'  column for splitting data.
@@ -444,9 +444,9 @@ fst_pos_compare <- function(data,
 
 #' Make comparison summary
 #'
-#' Compare text responses for different groups of participants. Data is
-#' split based on different values in the `field` column of formatted data.
-#' Results will be shown within the plots pane.
+#' Compare text responses for different groups of participants. Data is split
+#' based on different values in the `field` column of formatted data. Results
+#' will be shown within the plots pane.
 #'
 #' @param data A dataframe of text in CoNLL-U format with additional `field`
 #'  column for splitting data.
