@@ -244,10 +244,10 @@ fst_freq_compare <- function(data,
                                                     override_title = paste(field, '=', names2[i]),
                                                     title_size = subtitle_size)
     }
-    do.call(gridExtra::grid.arrange, list_of_plots)
-    plot <- do.call(gridExtra::grid.arrange, list_of_plots)
+    #do.call(gridExtra::grid.arrange, list_of_plots)
+    # plot <- do.call(gridExtra::grid.arrange, list_of_plots)
     title <- paste("Comparison Plot of", number, "Most Common Words")
-    ggpubr::annotate_figure(plot, top = ggpubr::text_grob(title,
+    ggpubr::annotate_figure(do.call(gridExtra::grid.arrange, list_of_plots), top = ggpubr::text_grob(title,
                                                           face = "bold", size = title_size
     ))
   }
@@ -362,7 +362,7 @@ fst_ngrams_compare <- function(data,
                                                   title_size = subtitle_size)
   }
   # list_of_plots
-  plot <- do.call(gridExtra::grid.arrange, list_of_plots)
+  # plot <- do.call(gridExtra::grid.arrange, list_of_plots)
   if (ngrams == 1) {
     word = "Words"
   } else if (ngrams == 2) {
@@ -371,7 +371,7 @@ fst_ngrams_compare <- function(data,
     word = paste0(as.character(ngrams), "-Grams")
   }
   title <- paste("Comparison Plot of", number, "Most Common", word)
-  ggpubr::annotate_figure(plot, top = ggpubr::text_grob(title,
+  ggpubr::annotate_figure(do.call(gridExtra::grid.arrange, list_of_plots), top = ggpubr::text_grob(title,
                                                         face = "bold", size = title_size
   ))
 }

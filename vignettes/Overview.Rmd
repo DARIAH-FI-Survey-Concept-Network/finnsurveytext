@@ -356,7 +356,7 @@ fst_length_compare <- function(data,
 
 * `data` is the formatted data.
 * `field` is the column in `data` used for splitting groups
-* We can choose whether to include or exclude surveys with no response in our splitting comlumn by setting `exclude_nulls`. The default value is FALSE.
+* We can choose whether to include or exclude surveys with no response in our splitting column by setting `exclude_nulls`. The default value is FALSE.
 * `rename_nulls` is what to fill empty values with if `exclude_nulls = FALSE`.
 
 Let's compare our responses based on the region of the respondent: 
