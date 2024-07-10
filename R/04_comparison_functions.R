@@ -158,6 +158,8 @@ fst_ngrams_compare_plot <- function(table,
 #'  alphabetically ordered), default is `TRUE`.
 #' @param use_svydesign_weights Option to weight words in the wordcloud using
 #'  weights from  a svydesign object containing the raw data, default is `FALSE`
+#' @param use_svydesign_field Option to get `field` for splitting the data from
+#'  the svydesign object, default is `FALSE`
 #' @param id ID column from raw data, required if `use_svydesign_weights = TRUE`
 #'  and must match the `docid` in formatted `data`.
 #' @param svydesign A svydesign object which contains the raw data and weights.
@@ -177,12 +179,14 @@ fst_ngrams_compare_plot <- function(table,
 #' @export
 #'
 #' @examples
-#' fst_freq_compare(fst_child, 'bv1', number = 10, norm = "number_resp")
-#' fst_freq_compare(fst_child, 'bv1', number = 10, norm = NULL)
-#' fst_child_3 <- within(fst_child, rm(weight))
+#' fst_freq_compare(fst_child, 'gender', number = 10, norm = "number_resp")
+#' fst_freq_compare(fst_child, 'gender', number = 10, norm = NULL)
 #' svy_child <- survey::svydesign(id=~1, weights= ~paino, data = child)
-#' fst_freq_compare(fst_child_3, 'bv1', number = 10, use_svydesign_weights = TRUE, id = 'fsd_id', svydesign = svy_child)
-#' fst_freq_compare(fst_child, 'bv1', number = 10, use_column_weights = TRUE, strict = FALSE, unique_colour = 'purple', title_size = 15, subtitle_size = 25)
+#' c2 <- fst_child_2
+#' c <- fst_child
+#' g <- 'gender'
+#' fst_freq_compare(c2, g, 10, NULL, NULL, T, T, T, 'fsd_id', svy_child)
+#' fst_freq_compare(c, g, use_column_weights = T, strict = FALSE)
 fst_freq_compare <- function(data,
                              field,
                              number = 10,
@@ -190,6 +194,7 @@ fst_freq_compare <- function(data,
                              pos_filter = NULL,
                              strict = TRUE,
                              use_svydesign_weights = FALSE,
+                             use_svydesign_field = FALSE,
                              id = "",
                              svydesign = NULL,
                              use_column_weights = FALSE,
@@ -198,6 +203,14 @@ fst_freq_compare <- function(data,
                              unique_colour = "indianred",
                              title_size = 20,
                              subtitle_size = 15) {
+    if (use_svydesign_field == TRUE) {
+      data <- fst_use_svydesign(data,
+                                svydesign = svydesign,
+                                id = id,
+                                add_cols = field,
+                                add_weights = FALSE
+      )
+    }
     if (exclude_nulls == TRUE) {
       data <- data %>% tidyr::drop_na(field)
     } else {
@@ -274,6 +287,8 @@ fst_freq_compare <- function(data,
 #'  alphabetically ordered), default is `TRUE`.
 #' @param use_svydesign_weights Option to weight words in the wordcloud using
 #'  weights from  a svydesign object containing the raw data, default is `FALSE`
+#' @param use_svydesign_field Option to get `field` for splitting the data from
+#'  the svydesign object, default is `FALSE`
 #' @param id ID column from raw data, required if `use_svydesign_weights = TRUE`
 #'  and must match the `docid` in formatted `data`.
 #' @param svydesign A svydesign object which contains the raw data and weights.
@@ -293,12 +308,14 @@ fst_freq_compare <- function(data,
 #' @export
 #'
 #' @examples
-#' fst_ngrams_compare(fst_child, 'bv1', ngrams = 4, number = 10, norm = "number_resp")
-#' fst_ngrams_compare(fst_child, 'bv1', ngrams = 2, number = 10, norm = NULL)
+#' c <- fst_child
+#' g <- 'gender'
+#' fst_ngrams_compare(c, g, ngrams = 4, number = 10, norm = "number_resp")
+#' fst_ngrams_compare(c, g, ngrams = 2, number = 10, norm = NULL)
 #' svy_child <- survey::svydesign(id=~1, weights= ~paino, data = child)
-#' fst_child_3 <- within(fst_child, rm(weight))
-#' fst_ngrams_compare(fst_child_3, 'bv1', number = 10, ngrams = 3, use_svydesign_weights = TRUE, id = 'fsd_id', svydesign = svy_child)
-#' fst_ngrams_compare(fst_child, 'bv1', number = 10, ngrams = 3, use_column_weights = TRUE, strict = FALSE, unique_colour = 'purple')
+#' c2 <- fst_child_2
+#' fst_ngrams_compare(c2, g, 10, 3, NULL, NULL, T, T, T, 'fsd_id', svy_child)
+#' fst_ngrams_compare(c, g, 10, 2, use_column_weights = TRUE, strict = T)
 fst_ngrams_compare <- function(data,
                               field,
                               number = 10,
@@ -307,6 +324,7 @@ fst_ngrams_compare <- function(data,
                               pos_filter = NULL,
                               strict = TRUE,
                               use_svydesign_weights = FALSE,
+                              use_svydesign_field = FALSE,
                               id = "",
                               svydesign = NULL,
                               use_column_weights = FALSE,
@@ -315,6 +333,14 @@ fst_ngrams_compare <- function(data,
                               unique_colour = "indianred",
                               title_size = 20,
                               subtitle_size = 15) {
+  if (use_svydesign_field == TRUE) {
+    data <- fst_use_svydesign(data,
+                              svydesign = svydesign,
+                              id = id,
+                              add_cols = field,
+                              add_weights = FALSE
+    )
+  }
   if (exclude_nulls == TRUE) {
     data <- data %>% tidyr::drop_na(field)
   } else {
@@ -393,8 +419,8 @@ fst_ngrams_compare <- function(data,
 #' @export
 #'
 #' @examples
-#' fst_pos_compare(fst_child, 'bv1')
-#' fst_pos_compare(fst_dev_coop, 'q2')
+#' fst_pos_compare(fst_child, 'gender')
+#' fst_pos_compare(fst_dev_coop, 'region')
 fst_pos_compare <- function(data,
                             field,
                             exclude_nulls = FALSE,
@@ -459,8 +485,8 @@ fst_pos_compare <- function(data,
 #' @export
 #'
 #' @examples
-#' fst_summarise_compare(fst_child, 'bv1')
-#' fst_summarise_compare(fst_dev_coop, 'q2')
+#' fst_summarise_compare(fst_child, 'gender')
+#' fst_summarise_compare(fst_dev_coop, 'gender')
 fst_summarise_compare <- function(data,
                                   field,
                                   exclude_nulls = FALSE,
@@ -506,8 +532,8 @@ fst_summarise_compare <- function(data,
 #' @export
 #'
 #' @examples
-#' fst_length_compare(fst_child, 'bv1')
-#' fst_length_compare(fst_dev_coop, 'q3', incl_sentences = FALSE)
+#' fst_length_compare(fst_child, 'gender')
+#' fst_length_compare(fst_dev_coop, 'education_level', incl_sentences = FALSE)
 fst_length_compare <- function(data,
                                field,
                                incl_sentences = TRUE,
@@ -545,6 +571,16 @@ fst_length_compare <- function(data,
 #' @param pos_filter List of UPOS tags for inclusion, default is `NULL` which
 #'  means all word types included.
 #' @param max The maximum number of words to display, default is `100`.
+#' @param use_svydesign_weights Option to weight words in the wordcloud using
+#'  weights from  a svydesign object containing the raw data, default is `FALSE`
+#' @param use_svydesign_field Option to get `field` for splitting the data from
+#'  the svydesign object, default is `FALSE`
+#' @param id ID column from raw data, required if `use_svydesign_weights = TRUE`
+#'  and must match the `docid` in formatted `data`.
+#' @param svydesign A svydesign object which contains the raw data and weights.
+#' @param use_column_weights Option to weight words in the wordcloud using
+#'  weights from  formatted data which includes addition `weight` column,
+#'  default is `FALSE`
 #' @param exclude_nulls Whether to include NULLs in `field` column, default is
 #'  `FALSE`
 #' @param rename_nulls What to fill NULL values with if `exclude_nulls = FALSE`.
@@ -553,23 +589,31 @@ fst_length_compare <- function(data,
 #' @export
 #'
 #' @examples
-#' fst_comparison_cloud(fst_child, 'bv1', max = 50)
-#' fst_child_3 <- within(fst_child, rm(weight))
+#' fst_comparison_cloud(fst_child, 'gender', max = 50)
 #' s <- survey::svydesign(id=~1, weights= ~paino, data = child)
 #' i <- 'fsd_id'
-#' fst_comparison_cloud(fst_child_3, 'bv1', use_svydesign_weights = TRUE, id = i, svydesign = s)
-#' fst_comparison_cloud(fst_dev_coop, 'q3', use_column_weights = TRUE)
+#' c2 <- fst_child_2
+#' fst_comparison_cloud(c2, 'gender', NULL, 100, TRUE, TRUE, i, s)
+#' fst_comparison_cloud(fst_dev_coop, 'education_level', use_column_weights = T)
 fst_comparison_cloud <- function(data,
                                  field,
                                  pos_filter = NULL,
                                  max = 100,
                                  use_svydesign_weights = FALSE,
+                                 use_svydesign_field = FALSE,
                                  id = "",
                                  svydesign = NULL,
                                  use_column_weights = FALSE,
                                  exclude_nulls = FALSE,
                                  rename_nulls = "null_data") {
   #message("Notes on use of fst_comparison_cloud: \n If `max` is large, you may receive \"warnings\" indicating any words which are not plotted due to space constraints.\n\n")
+  if (use_svydesign_field == TRUE) {
+    data <- fst_use_svydesign(data = data,
+                              svydesign = svydesign,
+                              id = id,
+                              add_cols = field,
+                              add_weights = FALSE)
+  }
   if (exclude_nulls == TRUE) {
     data <- data %>% tidyr::drop_na(field)
   } else {

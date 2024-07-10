@@ -165,16 +165,22 @@ fst_length_summary <- function(data,
 #' Add `svydesign` weights to CoNLL-U data
 #'
 #' This function takes data in CoNLL-U format and a `svydesign` (from `survey`
-#' package) object with weights in it and merges the weights into the formatted
-#' data.
+#' package) object with weights in it and merges the weights, and any additional
+#' columns into the formatted data.
 #'
 #' @param data A dataframe of text in CoNLL-U format, with optional additional
 #'  columns.
 #' @param svydesign A `svydesign` object containing the raw data which produced
 #'  the `data`
 #' @param id ID column from raw data, must match the `docid` in formatted `data`
+#' @param add_cols Optional, a column (or columns) from the dataframe which
+#'  contain other information you'd need (for instance, covariate column for
+#'  splitting the data for comparison plots).
+#' @param add_weights Optional, a boolean for whether to add weights from
+#'  svydesign object, default is `TRUE`.
 #'
-#' @return A dataframe of text in CoNLL-U format plus a `'weight'` column
+#' @return A dataframe of text in CoNLL-U format plus a `'weight'` column and
+#'  optional other columns
 #' @export
 #'
 #' @examples
@@ -183,12 +189,25 @@ fst_length_summary <- function(data,
 #'
 #' svy_dev <- survey::svydesign(id = ~1, weights = ~paino, data = dev_coop)
 #' fst_use_svydesign(data = fst_dev_coop_2, svydesign = svy_dev, id = 'fsd_id')
-fst_use_svydesign <- function(data, svydesign, id) {
-  weight_data <- svydesign$allprob
-  colnames(weight_data) <- c("weight")
-  weight_data['weight'] = 1/weight_data['weight']
+fst_use_svydesign <- function(data,
+                              svydesign,
+                              id,
+                              add_cols = NULL,
+                              add_weights = TRUE) {
+  if (length(add_cols) == 1) {
+    add_cols <- add_cols %>%
+      stringr::str_extract_all(pattern = "\\w+") %>%
+      unlist()
+  }
+  if (add_weights == TRUE) {
+    weight_data <- svydesign$allprob
+    colnames(weight_data) <- c("weight")
+    weight_data['weight'] = 1/weight_data['weight']
+  } else {
+    weight_data <- NULL
+  }
   data2 <- svydesign$variables %>%
-    dplyr::select(all_of(id))
+    dplyr::select(all_of(c(id, add_cols)))
   weight_data2 <- dplyr::bind_cols(data2, weight_data)
   annotated_data <- merge(x = data,
                           y = weight_data2,
@@ -247,7 +266,10 @@ fst_freq_table <- function(data,
                            svydesign = NULL,
                            use_column_weights = FALSE) {
   if (use_svydesign_weights == TRUE) {
-    data <- fst_use_svydesign(data = data, svydesign = svydesign, id = id)
+    data <- fst_use_svydesign(data = data,
+                              svydesign = svydesign,
+                              id = id,
+                              add_cols = NULL)
   }
   with_ties <- !strict
   if (strict == TRUE) {
@@ -342,7 +364,10 @@ fst_ngrams_table <- function(data,
                              svydesign = NULL,
                              use_column_weights = FALSE) {
   if (use_svydesign_weights == TRUE) {
-    data <- fst_use_svydesign(data = data, svydesign = svydesign, id = id)
+    data <- fst_use_svydesign(data = data,
+                              svydesign = svydesign,
+                              id = id,
+                              add_cols = NULL)
   }
   with_ties <- !strict
   if (strict == TRUE) {
@@ -411,6 +436,9 @@ fst_ngrams_table <- function(data,
 #'  alphabetically ordered), default is `TRUE`.
 #' @param use_svydesign_weights Option to weight words in the wordcloud using
 #'  weights from a `svydesign` containing the raw data, default is `FALSE`
+#' @param add_cols Optional, a column (or columns) from the dataframe which
+#'  contain other information you'd need (for instance, covariate column for
+#'  splitting the data for comparison plots).
 #' @param id ID column from raw data, required if `use_svydesign_weights = TRUE`
 #'  and must match the `docid` in formatted `data`.
 #' @param svydesign A `svydesign` which contains the raw data and weights,
@@ -425,6 +453,11 @@ fst_ngrams_table <- function(data,
 #' @examples
 #' fst_ngrams_table2(fst_child, norm = NULL)
 #' fst_ngrams_table2(fst_child, ngrams = 2, norm = "number_resp")
+#' c <- fst_child_2
+#' s <- svy_child
+#' i <- 'fsd_id'
+#' T <- TRUE
+#' fst_ngrams_table2(c, 10, 2, use_svydesign_weights = T, svydesign = s, id = i)
 fst_ngrams_table2 <- function(data,
                               number = 10,
                               ngrams = 1,
@@ -436,7 +469,9 @@ fst_ngrams_table2 <- function(data,
                               svydesign = NULL,
                               use_column_weights = FALSE) {
   if (use_svydesign_weights == TRUE) {
-    data <- fst_use_svydesign(data = data, svydesign = svydesign, id = id)
+    data <- fst_use_svydesign(data = data,
+                              svydesign = svydesign,
+                              id = id)
   }
   with_ties <- !strict
   if (strict == TRUE) {

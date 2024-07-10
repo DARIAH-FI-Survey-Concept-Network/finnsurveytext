@@ -204,8 +204,8 @@ Then, we have options for weighting the words in the cloud. These will all defau
 
 * `use_svydesign_weights` should be set as TRUE if we want to use weights from within a *svydesign* object. 
 * The `id` is only required if weights are coming from a *svydesign* object 
-* The  *svydesign* object 
-* `use_svydesign_weights` should be set as TRUE if we want to use weights from the weight column as set-up during the data formatting. 
+* The  `svydesign` object 
+
 
 Here are some examples of creating wordclouds:
 ```{r}

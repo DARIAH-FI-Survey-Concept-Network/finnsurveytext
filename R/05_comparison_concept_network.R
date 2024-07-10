@@ -180,6 +180,11 @@ fst_cn_compare_plot <- function(edges,
 #'  applied before normalisation.
 #' @param pos_filter List of UPOS tags for inclusion, default is `NULL` to
 #' include all UPOS tags.
+#' @param use_svydesign_field Option to get `field` for splitting the data from
+#'  a svydesign object, default is `FALSE`
+#' @param id ID column from raw data, required if `use_svydesign_weights = TRUE`
+#'  and must match the `docid` in formatted `data`.
+#' @param svydesign A svydesign object which contains the raw data and weights.
 #' @param exclude_nulls Whether to include NULLs in `field` column, default is
 #'  `FALSE`
 #' @param rename_nulls What to fill NULL values with if `exclude_nulls = FALSE`.
@@ -192,19 +197,34 @@ fst_cn_compare_plot <- function(edges,
 #'
 #' @examples
 #' con1 <- "lyödä, lyöminen"
-#' fst_concept_network_compare(fst_child, concepts = con1, field = 'bv1')
+#' fst_concept_network_compare(fst_child, concepts = con1, field = 'gender')
+#' s <- survey::svydesign(id=~1, weights= ~paino, data = child)
+#' c2 <- fst_child_2
+#' i <- 'fsd_id'
+#' fst_concept_network_compare(c2, con1, 'gender', NULL, NULL, NULL, T, i, s)
 #' con2 <- "köyhyys, nälänhätä, sota"
-#' fst_concept_network_compare(fst_dev_coop, con2, 'q3', title_size = 18, subtitle_size = 10)
+#' fst_concept_network_compare(fst_dev_coop, con2, 'education_level')
 fst_concept_network_compare <- function(data,
                                         concepts,
                                         field,
                                         norm = NULL,
                                         threshold = NULL,
                                         pos_filter = NULL,
+                                        use_svydesign_field = FALSE,
+                                        id = "",
+                                        svydesign = NULL,
                                         exclude_nulls = FALSE,
                                         rename_nulls = 'null_data',
                                         title_size = 20,
                                         subtitle_size = 15){
+  if (use_svydesign_field == TRUE) {
+    data <- fst_use_svydesign(data,
+                              svydesign = svydesign,
+                              id = id,
+                              add_cols = field,
+                              add_weights = FALSE
+    )
+  }
   if (exclude_nulls == TRUE) {
     data <- data %>% tidyr::drop_na(field)
   } else {

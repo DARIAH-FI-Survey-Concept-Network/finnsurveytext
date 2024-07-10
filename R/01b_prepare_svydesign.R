@@ -28,10 +28,11 @@
 #' svy_child <- survey::svydesign(id=~1, weights= ~paino, data = child)
 #' fst_format_svydesign(svy_child, question = 'q7', id = 'fsd_id')
 #' fst_format_svydesign(svy_child, question = 'q7', id = i, use_weights = FALSE)
-#' fst_format_svydesign(svy_child, 'q7', 'fsd_id', add_cols = c('bv3', 'bv9'))
+#' cols <- c('gender', 'major_region')
+#' fst_format_svydesign(svy_child, 'q7', 'fsd_id', add_cols = cols)
 #'
 #' svy_dev <- survey::svydesign(id = ~1, weights = ~paino, data = dev_coop)
-#' fst_format_svydesign(svy_dev, 'q11_1', 'fsd_id', add_cols = 'q1')
+#' fst_format_svydesign(svy_dev, 'q11_1', 'fsd_id', add_cols = 'gender')
 #' unlink("finnish-ftb-ud-2.5-191206.udpipe")
 #' unlink("finnish-tdt-ud-2.5-191206.udpipe")
 #' }
@@ -129,7 +130,7 @@ fst_format_svydesign <- function(svydesign,
 #' fst_prepare_svydesign(svy_child, question = "q7", id = i, use_weights = TRUE)
 #'
 #' svy_d <- survey::svydesign(id = ~1, weights = ~paino, data =dev_coop)
-#' fst_prepare_svydesign(svy_d, question = "q11_2", id = i, add_cols = c('q1'))
+#' fst_prepare_svydesign(svy_d, question = "q11_2", id = i, add_cols = 'gender')
 #' unlink("finnish-ftb-ud-2.5-191206.udpipe")
 #' unlink("finnish-tdt-ud-2.5-191206.udpipe")
 #' }

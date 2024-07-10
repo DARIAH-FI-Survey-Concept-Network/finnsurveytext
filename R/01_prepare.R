@@ -29,8 +29,9 @@
 #' fst_format(data = child, question = "q7", id = i)
 #' fst_format(data = child, question = "q7", id = i, model = "tdt")
 #' fst_format(data = child, question = "q7", id = i, weights="paino")
-#' fst_format(child, question = "q7", id = i, add_cols = c("bv1", "bv3"))
-#' fst_format(child, question = "q7", id = i, add_cols = "bv1, bv3")
+#' cols <- c("gender", "major_region, daycare_before_school")
+#' fst_format(child, question = "q7", id = i, add_cols = cols)
+#' fst_format(child, question = "q7", id = i, add_cols = "gender, major_region")
 #' unlink("finnish-ftb-ud-2.5-191206.udpipe")
 #' unlink("finnish-tdt-ud-2.5-191206.udpipe")
 #' }
@@ -205,7 +206,7 @@ fst_rm_stop_punct <- function(data,
 #' cb <- child
 #' dev <- dev_coop
 #' fst_prepare(data = cb, question = "q7", id = 'fsd_id', weights = 'paino')
-#' fst_prepare(data = dev, question = "q11_2", id = i, add_cols = c('q1'))
+#' fst_prepare(data = dev, question = "q11_2", id = i, add_cols = c('gender'))
 #' unlink("finnish-ftb-ud-2.5-191206.udpipe")
 #' unlink("finnish-tdt-ud-2.5-191206.udpipe")
 #' }
