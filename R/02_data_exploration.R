@@ -234,13 +234,13 @@ fst_use_svydesign <- function(data,
 #'  means all word types included.
 #' @param strict Whether to strictly cut-off at `number` (ties are
 #'  alphabetically ordered), default is `TRUE`.
-#' @param use_svydesign_weights Option to weight words in the wordcloud using
+#' @param use_svydesign_weights Option to weight words in the table using
 #'  weights from  a `svydesign` containing the raw data, default is `FALSE`
 #' @param id ID column from raw data, required if `use_svydesign_weights = TRUE`
 #'  and must match the `docid` in formatted `data`.
 #' @param svydesign A `svydesign` which contains the raw data and weights,
 #'  required if `use_svydesign_weights = TRUE`.
-#' @param use_column_weights Option to weight words in the wordcloud using
+#' @param use_column_weights Option to weight words in the table using
 #'  weights from  formatted data which includes addition `weight` column,
 #'  default is `FALSE`
 #'
@@ -332,13 +332,13 @@ fst_freq_table <- function(data,
 #'  means all word types included.
 #' @param strict Whether to strictly cut-off at `number` (ties are
 #'  alphabetically ordered), default is `TRUE`.
-#' @param use_svydesign_weights Option to weight words in the wordcloud using
+#' @param use_svydesign_weights Option to weight words in the table using
 #'  weights from  a `svydesign` containing the raw data, default is `FALSE`
 #' @param id ID column from raw data, required if `use_svydesign_weights = TRUE`
 #'  and must match the `docid` in formatted `data`.
 #' @param svydesign A `svydesign` which contains the raw data and weights,
 #'  required if `use_svydesign_weights = TRUE`.
-#' @param use_column_weights Option to weight words in the wordcloud using
+#' @param use_column_weights Option to weight words in the table using
 #'  weights from  formatted data which includes addition `weight` column,
 #'  default is `FALSE`
 #'
@@ -434,7 +434,7 @@ fst_ngrams_table <- function(data,
 #'  means all word types included.
 #' @param strict Whether to strictly cut-off at `number` (ties are
 #'  alphabetically ordered), default is `TRUE`.
-#' @param use_svydesign_weights Option to weight words in the wordcloud using
+#' @param use_svydesign_weights Option to weight words in the table using
 #'  weights from a `svydesign` containing the raw data, default is `FALSE`
 #' @param add_cols Optional, a column (or columns) from the dataframe which
 #'  contain other information you'd need (for instance, covariate column for
@@ -443,7 +443,7 @@ fst_ngrams_table <- function(data,
 #'  and must match the `docid` in formatted `data`.
 #' @param svydesign A `svydesign` which contains the raw data and weights,
 #'  required if `use_svydesign_weights = TRUE`.
-#' @param use_column_weights Option to weight words in the wordcloud using
+#' @param use_column_weights Option to weight words in the table using
 #'  weights from  formatted data which includes addition `weight` column,
 #'  default is `FALSE`
 #'
@@ -601,13 +601,13 @@ fst_ngrams_plot <- function(table, number = NULL, ngrams = 1, name = NULL) {
 #'  alphabetically ordered), default is `TRUE`.
 #' @param name An optional "name" for the plot to add to title, default is
 #'  `NULL`.
-#' @param use_svydesign_weights Option to weight words in the wordcloud using
+#' @param use_svydesign_weights Option to weight words in the plot using
 #'  weights from a `svydesign` containing the raw data, default is `FALSE`
 #' @param id ID column from raw data, required if `use_svydesign_weights = TRUE`
 #'  and must match the `docid` in formatted `data`.
 #' @param svydesign A `svydesign` which contains the raw data and weights,
 #'  required if `use_svydesign_weights = TRUE`.
-#' @param use_column_weights Option to weight words in the wordcloud using
+#' @param use_column_weights Option to weight words in the plot using
 #'  weights from  formatted data which includes addition `weight` column,
 #'  default is `FALSE`
 #'
@@ -664,13 +664,13 @@ fst_freq <- function(data,
 #'  alphabetically ordered), default is `TRUE`.
 #' @param name An optional "name" for the plot to add to title, default is
 #'  `NULL`.
-#' @param use_svydesign_weights Option to weight words in the wordcloud using
+#' @param use_svydesign_weights Option to weight words in the plot using
 #'  weights from  a `svydesign` containing the raw data, default is `FALSE`
 #' @param id ID column from raw data, required if `use_svydesign_weights = TRUE`
 #'  and must match the `docid` in formatted `data`.
 #' @param svydesign A `svydesign` which contains the raw data and weights,
 #'  required if `use_svydesign_weights = TRUE`.
-#' @param use_column_weights Option to weight words in the wordcloud using
+#' @param use_column_weights Option to weight words in the plot using
 #'  weights from  formatted data which includes addition `weight` column,
 #'  default is `FALSE`
 #'
