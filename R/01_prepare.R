@@ -207,6 +207,7 @@ fst_rm_stop_punct <- function(data,
 #' dev <- dev_coop
 #' fst_prepare(data = cb, question = "q7", id = 'fsd_id', weights = 'paino')
 #' fst_prepare(data = dev, question = "q11_2", id = i, add_cols = c('gender'))
+#' fst_prepare(data = dev, question = "q11_3", id = i, add_cols = 'gender')
 #' unlink("finnish-ftb-ud-2.5-191206.udpipe")
 #' unlink("finnish-tdt-ud-2.5-191206.udpipe")
 #' }
