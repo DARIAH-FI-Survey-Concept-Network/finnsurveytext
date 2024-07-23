@@ -12,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 # Overview of finnsurveytext
 This tutorial aims to provide a simple overview of what is included within the `finnsurveytext` package and teach you how to use the main functions included in the package. 
 
-The below table shows you all the functions that are included in the package. The functions which are **bolded** are the main functions which are outlined in the sections below.  (**TO-DO** All the functions are described in detail in other vignettes named according to the 'Section' the function is from.)
+The below table shows you all the functions that are included in the package. The functions which are **bolded** are the main functions which are outlined in the sections below. 
 
 | Section | Usage | Functions |
 |:---:|---|---|
@@ -88,7 +88,7 @@ df <- fst_prepare(data = dev_coop,
 * The `question` is the name of the column in your data which contains the open-ended survey question. In this example, we're considering 'q11_3'
 * `id` is the id column in our data, which is 'fsd_id'
 * The function also requires a Finnish language model available for `udpipe`, in this case we are using the default Finnish Treebank, `model = "ftb"`. (There are two options for Finnish langage model; the other option is the Turku Dependency Treebank "tdt".)
-* By default we will remove stopwords from the "nltk" `stopword_list` in this example. (To find the relevant lists of Finnish stopwords, you can run the `fst_rm_stopwords_punct()` function.) Punctuation is also removed from the data whenever stopwords are removed.
+* By default we will remove stopwords from the "nltk" `stopword_list` in this example. (To find the relevant lists of Finnish stopwords, you can run the `fst_find_stopwords()` function.) Punctuation is also removed from the data whenever stopwords are removed.
 * Optionally, you can add a `weights` column in your formatted data. Our weights are stored in the raw data as 'paino'. 
 * Optionally, you can add other columns to your formatted data (for use in comparison functions). We include our 'gender' and 'region' columns for this reason
 * The results in CoNLL-U format are stored in the local environment as `df`. 
@@ -181,6 +181,8 @@ fst_length_summary(df)
 
 ## Identification of freqent words and phrases
 
+### Wordclouds
+
 The first of our frequent words visualisations in the wordcloud which comes from the `wordcloud` package.
 
 It is defined as follows: 
@@ -211,20 +213,21 @@ Here are some examples of creating wordclouds:
 ```{r}
 fst_wordcloud(df)
 
+```
+
+```{r}
 # We can only get weights from svydesign if they are NOT already in our formatted data. Hence we remove them for this demonstration!
 df2$weight <- NULL
 fst_wordcloud(df2, 
               pos_filter = c("NOUN", "VERB", "ADJ", "ADV"),
-              max=50, 
+              max=100, 
               use_svydesign_weights = TRUE, 
               id = 'fsd_id', 
               svydesign = svy_dev)
 
-fst_wordcloud(df, 
-              max=150, 
-              use_column_weights = TRUE)
 ```
 
+### N-gram plots
 Then, we have functions to identify and plot the most frequent words or n-grams (sets of n words in order). 
 
 ```{r eval=FALSE}
@@ -440,13 +443,12 @@ fst_comparison_cloud <- function(data,
 ```
 
 Thus, we can create comparison clouds: 
-```{r}
-fst_comparison_cloud(df, 'gender', use_column_weights = TRUE)
-fst_comparison_cloud(df, 'region', use_column_weights = TRUE)
-
+```{r, out.width = '750px', dpi=200}
+fst_comparison_cloud(df, 'gender', max = 40, use_column_weights = TRUE, exclude_nulls = TRUE)
 ```
 
-Finally we have the comparison **concept network**:
+
+Finally we have the comparison **concept network** which has the following components which should be familiar from previous functions:
 
 ```{r eval=FALSE}
 fst_concept_network_compare <- function(data,
@@ -461,13 +463,17 @@ fst_concept_network_compare <- function(data,
                                         subtitle_size = 15)
 ```
 
+We run the comparison concept network as follows: 
+
 ```{r}
 fst_concept_network_compare(df, 
                             concepts = "köyhyys, nälänhätä, sota, ilmastonmuutos, puute", 
-                            'region'
+                            'gender',
+                            exclude_nulls = TRUE
                             )
 ```
 
+For more information on the `finnsurveytext` functions, see the [package website](https://dariah-fi-survey-concept-network.github.io/finnsurveytext/) and documentation available from the [CRAN](https://CRAN.R-project.org/package=finnsurveytext). 
 
 # Data
 The package comes with sample data from two surveys obtained from the Finnish Social Science Data Archive: 

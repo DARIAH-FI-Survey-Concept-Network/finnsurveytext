@@ -771,6 +771,14 @@ fst_wordcloud <- function(data,
   } else {
     wordcloud_data <- dplyr::count(wordcloud_data, lemma, sort = TRUE)
   }
+  scale_x <- 2
+  if (max <= 50) {
+    scale_x <- 4
+  } else if (max <= 100) {
+    scale_x <- 3
+  } else {
+    scale_x <- 2
+  }
   wordcloud::wordcloud(
     words = wordcloud_data$lemma,
     freq = wordcloud_data$n,

@@ -126,7 +126,8 @@ fst_find_stopwords <- function() {
 #'
 #' @param data A dataframe of Finnish text in CoNLL-U format.
 #' @param stopword_list A valid Finnish stopword list, default is `"nltk"`,
-#'  `"manual"` can be used to indicate that a manual list will be provided.
+#'  `"manual"` can be used to indicate that a manual list will be provided, or
+#'  `"none"` if you don't want to remove stopwords.
 #' @param manual An optional boolean to indicate that a manual list will be
 #'  provided, `stopword_list = "manual"` can also or instead be used.
 #' @param manual_list A manual list of stopwords.
@@ -136,20 +137,22 @@ fst_find_stopwords <- function() {
 #' @export
 #'
 #' @examples
-#' fst_rm_stop_punct(conllu_dev_q11_3)
-#' fst_rm_stop_punct(conllu_dev_q11_1, stopword_list = "snowball")
-#' fst_rm_stop_punct(conllu_cb_bullying, "stopwords-iso")
+#' c <- fst_prepare(child, question <- 'q7')
+#' fst_rm_stop_punct(c)
+#' fst_rm_stop_punct(c, stopword_list = "snowball")
+#' fst_rm_stop_punct(c, "stopwords-iso")
 #'
-#' df <- conllu_dev_q11_1
 #' mlist <- c('en', 'et', 'ei', 'emme', 'ette', 'eivät', 'minä', 'minum')
 #' mlist2 <- "en, et, ei, emme, ette, eivät, minä, minum"
-#' fst_rm_stop_punct(df, manual = TRUE, manual_list = mlist)
-#' fst_rm_stop_punct(df, stopword_list = "manual", manual_list = mlist)
+#' fst_rm_stop_punct(c, manual = TRUE, manual_list = mlist)
+#' fst_rm_stop_punct(c, stopword_list = "manual", manual_list = mlist)
 fst_rm_stop_punct <- function(data,
                               stopword_list = "nltk",
                               manual = FALSE,
                               manual_list = "") {
-  if (!(manual == TRUE || stopword_list == 'manual')) {
+  if (stopword_list == 'none') {
+    swords <- ""
+  } else if (!(manual == TRUE || stopword_list == 'manual')) {
     swords <- stopwords::stopwords("fi", stopword_list)
   } else {
     if (length(manual_list) == 1) {
@@ -189,8 +192,9 @@ fst_rm_stop_punct <- function(data,
 #'  responses.
 #' @param model A Finnish language model available for [udpipe], `"ftb"`
 #'  (default) or `"tdt"`.
-#' @param stopword_list A valid Finnish stopword list, default is `"nltk"`, or
-#'  `"none"`.
+#' @param stopword_list A valid Finnish stopword list, default is `"nltk"`,
+#'  `"manual"` can be used to indicate that a manual list will be provided, or
+#'  `"none"` if you don't want to remove stopwords.
 #' @param weights Optional, the column of the dataframe which contains the
 #'  respective weights for each response.
 #' @param add_cols Optional, a column (or columns) from the dataframe which
@@ -226,11 +230,9 @@ fst_prepare <- function(data,
                                model = model,
                                weights = weights,
                                add_cols = add_cols)
-  if (stopword_list != "none") {
-    an_data <- fst_rm_stop_punct(data = an_data,
-                                 stopword_list = stopword_list,
-                                 manual = manual,
-                                 manual_list = manual_list)
-  }
+  an_data <- fst_rm_stop_punct(data = an_data,
+                               stopword_list = stopword_list,
+                               manual = manual,
+                               manual_list = manual_list)
   an_data
 }

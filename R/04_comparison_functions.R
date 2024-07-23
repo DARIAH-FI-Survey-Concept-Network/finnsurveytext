@@ -646,14 +646,14 @@ fst_comparison_cloud <- function(data,
     for (i in 1:length(split_data)) {
       data1 <- split_data[[i]]
       words_counts <- dplyr::count(data1, lemma, sort = TRUE, wt = weight) %>%
-        dplyr::rename(!!paste0(as.character(names_list[i]), "-Weighted Freq") := n)
+        dplyr::rename(!!paste0(as.character(names_list[i])) := n)
       wordcloud_data <- append(wordcloud_data, list(words_counts))
     }
   } else {
     for (i in 1:length(split_data)) {
       data1 <- split_data[[i]]
       words_counts <- dplyr::count(data1, lemma, sort = TRUE)%>%
-        dplyr::rename(!!paste0(as.character(names_list[i]), "-Freq") := n)
+        dplyr::rename(!!paste0(as.character(names_list[i])) := n)
       wordcloud_data <- append(wordcloud_data, list(words_counts))
     }
   }
@@ -662,11 +662,20 @@ fst_comparison_cloud <- function(data,
   rownames(compcloud_data) <- compcloud_data$lemma
   compcloud_data$lemma <- NULL
   compcloud_data[is.na(compcloud_data)] <- 0
+  scale_x <- 2
+  if (max <= 50) {
+    scale_x <- 4
+  } else if (max <= 100) {
+    scale_x <- 3
+  } else {
+    scale_x <- 2
+  }
   wordcloud::comparison.cloud(compcloud_data,
                               max.words = max,
                               random.order = FALSE,
                               rot.per = 0.35,
                               colors = RColorBrewer::brewer.pal(8, "Dark2"),
-                              fixed.asp=TRUE
+                              title.size = 2,
+                              scale = c(scale_x, 0.5)
   )
 }
