@@ -2,32 +2,26 @@
 % Please edit documentation in R/04_comparison_functions.R
 \name{fst_get_unique_ngrams}
 \alias{fst_get_unique_ngrams}
-\title{Get unique n-grams}
+\title{Get unique n-grams from a list of top n-grams tables}
 \usage{
-fst_get_unique_ngrams(table1, table2, ...)
+fst_get_unique_ngrams(list_of_top_ngrams)
 }
 \arguments{
-\item{table1}{The first table.}
-
-\item{table2}{The second table.}
-
-\item{...}{Any other tables you want to include.}
+\item{list_of_top_ngrams}{A list of top ngrams}
 }
 \value{
 Dataframe of words and whether word is unique or not.
 }
 \description{
-Takes at least two tables of n-grams and frequencies (either output of
-`fst_get_top_words()` or `fst_get_top_ngrams()`) and finds n-grams unique to
- one table.
+Takes a list containing at least two tables of n-grams and frequencies
+(either output of `fst_freq_table()` or `fst_ngrams_table()`) and finds
+n-grams unique to one table.
 }
 \examples{
-top_f <- fst_get_top_words(conllu_dev_q11_1_f_nltk)
-top_m <- fst_get_top_words(conllu_dev_q11_1_m_nltk)
-top_na <- fst_get_top_words(conllu_dev_q11_1_na_nltk)
-topn_f <- fst_get_top_ngrams(conllu_dev_q11_1_f_nltk)
-topn_m <- fst_get_top_ngrams(conllu_dev_q11_1_m_nltk)
-topn_na <- fst_get_top_ngrams(conllu_dev_q11_1_na_nltk)
-fst_get_unique_ngrams(top_f, top_m, top_na)
-fst_get_unique_ngrams(topn_f, topn_m, topn_na)
+top_child <- fst_freq_table(fst_child)
+top_dev <- fst_freq_table(fst_dev_coop)
+list_of_top_words <- list()
+list_of_top_words <- append(list_of_top_words, list(top_child))
+list_of_top_words <- append(list_of_top_words, list(top_dev))
+fst_get_unique_ngrams(list_of_top_words)
 }

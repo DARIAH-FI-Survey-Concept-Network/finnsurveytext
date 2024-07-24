@@ -7,7 +7,8 @@
 fst_pos(data)
 }
 \arguments{
-\item{data}{A dataframe of text in CoNLL-U format.}
+\item{data}{A dataframe of text in CoNLL-U format, with optional additional
+columns.}
 }
 \value{
 A dataframe with a count and proportion of each UPOS tag in the data
@@ -18,6 +19,6 @@ Creates a summary table for the input CoNLL-U data which counts the number of
 words of each part-of-speech tag within the data.
 }
 \examples{
-fst_pos(conllu_cb_bullying_iso)
-fst_pos(conllu_dev_q11_3_nltk)
+fst_pos(fst_child)
+fst_pos(fst_dev_coop)
 }

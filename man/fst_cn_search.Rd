@@ -2,12 +2,13 @@
 % Please edit documentation in R/03_concept_network.R
 \name{fst_cn_search}
 \alias{fst_cn_search}
-\title{Concept Network - Search textrank for concepts}
+\title{Concept Network - Search TextRank for concepts}
 \usage{
 fst_cn_search(data, concepts, pos_filter = NULL)
 }
 \arguments{
-\item{data}{A dataframe of text in CoNLL-U format.}
+\item{data}{A dataframe of text in CoNLL-U format, with optional additional
+columns.}
 
 \item{concepts}{String of terms to search for, separated by commas.}
 
@@ -25,6 +26,6 @@ on `pos_filter` and finds words connected to search terms.
 \examples{
 con <- "kiusata, lyöminen, lyödä, potkia"
 pf <- c("NOUN", "VERB", "ADJ", "ADV")
-fst_cn_search(conllu_cb_bullying_iso, concepts = con, pos_filter = pf)
-fst_cn_search(conllu_cb_bullying_iso, concepts = con)
+fst_cn_search(fst_child, concepts = con, pos_filter = pf)
+fst_cn_search(fst_child, concepts = con)
 }

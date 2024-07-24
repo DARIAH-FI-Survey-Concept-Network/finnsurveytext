@@ -5,61 +5,63 @@
 \title{Make comparison cloud}
 \usage{
 fst_comparison_cloud(
-  data1,
-  data2,
-  data3 = NULL,
-  data4 = NULL,
-  name1 = "Group 1",
-  name2 = "Group 2",
-  name3 = "Group 3",
-  name4 = "Group 4",
+  data,
+  field,
   pos_filter = NULL,
-  max = 100
+  max = 100,
+  use_svydesign_weights = FALSE,
+  use_svydesign_field = FALSE,
+  id = "",
+  svydesign = NULL,
+  use_column_weights = FALSE,
+  exclude_nulls = FALSE,
+  rename_nulls = "null_data"
 )
 }
 \arguments{
-\item{data1}{A dataframe of text in CoNLL-U format for the first group.}
+\item{data}{A dataframe of text in CoNLL-U format with additional `field`
+column for splitting data.}
 
-\item{data2}{A dataframe of text in CoNLL-U format for the second group.}
-
-\item{data3}{An optional dataframe of text in CoNLL-U format for the third
-group, default is `NULL`.}
-
-\item{data4}{An optional dataframe of text in CoNLL-U format for the fourth
-group, default is `NULL`.}
-
-\item{name1}{A string describing data1, default is `Group 1`.}
-
-\item{name2}{A string describing data2, default is `Group 2`.}
-
-\item{name3}{A string describing data3, default is `Group 3`.}
-
-\item{name4}{A string describing data4, default is `Group 4`.}
+\item{field}{Column in `data` used for splitting groups}
 
 \item{pos_filter}{List of UPOS tags for inclusion, default is `NULL` which
 means all word types included.}
 
 \item{max}{The maximum number of words to display, default is `100`.}
+
+\item{use_svydesign_weights}{Option to weight words in the wordcloud using
+weights from  a svydesign object containing the raw data, default is `FALSE`}
+
+\item{use_svydesign_field}{Option to get `field` for splitting the data from
+the svydesign object, default is `FALSE`}
+
+\item{id}{ID column from raw data, required if `use_svydesign_weights = TRUE`
+and must match the `docid` in formatted `data`.}
+
+\item{svydesign}{A svydesign object which contains the raw data and weights.}
+
+\item{use_column_weights}{Option to weight words in the wordcloud using
+weights from  formatted data which includes addition `weight` column,
+default is `FALSE`}
+
+\item{exclude_nulls}{Whether to include NULLs in `field` column, default is
+`FALSE`}
+
+\item{rename_nulls}{What to fill NULL values with if `exclude_nulls = FALSE`.}
 }
 \value{
 A comparison cloud from wordcloud package.
 }
 \description{
 Creates a comparison wordcloud showing words that occur differently between
-each group.
+each group. Data is split based on different values in the `field` column of
+formatted data. Results will be shown within the plots pane.
 }
 \examples{
-d1 <- conllu_dev_q11_1_nltk
-d2 <- conllu_dev_q11_3_nltk
-pf1 <- c("NOUN", "VERB", "ADJ", "ADV")
-fst_comparison_cloud(d1, d2, pos_filter = pf1)
-
-f <- conllu_dev_q11_1_f_nltk
-m <- conllu_dev_q11_1_m_nltk
-na <- conllu_dev_q11_1_na_nltk
-n1 <- "Female"
-n2 <- "Male"
-n3 <- "NA"
-fst_comparison_cloud(f, m, na, name1 = n1, name2 = n2, name3 = n3, max = 400)
-fst_comparison_cloud(f, m, na, name1 = n1, name2 = n2, name3 = n3, max = 100)
+fst_comparison_cloud(fst_child, 'gender', max = 50)
+s <- survey::svydesign(id=~1, weights= ~paino, data = child)
+i <- 'fsd_id'
+c2 <- fst_child_2
+fst_comparison_cloud(c2, 'gender', NULL, 100, TRUE, TRUE, i, s)
+fst_comparison_cloud(fst_dev_coop, 'education_level', use_column_weights = T)
 }

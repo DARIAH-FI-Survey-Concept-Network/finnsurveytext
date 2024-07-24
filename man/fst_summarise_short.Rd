@@ -7,7 +7,8 @@
 fst_summarise_short(data)
 }
 \arguments{
-\item{data}{A dataframe of text in CoNLL-U format.}
+\item{data}{A dataframe of text in CoNLL-U format, with optional additional
+columns.}
 }
 \value{
 A dataframe with summary information on word counts for the data.
@@ -17,6 +18,6 @@ Creates a summary table for the input CoNLL-U data which provides the total
 number of words, the number of unique words, and the number of unique lemmas.
 }
 \examples{
-fst_summarise_short(conllu_cb_bullying_iso)
-fst_summarise_short(conllu_dev_q11_2_nltk)
+fst_summarise_short(fst_child)
+fst_summarise_short(fst_dev_coop)
 }

@@ -7,14 +7,19 @@
 fst_freq(
   data,
   number = 10,
-  norm = "number_words",
+  norm = NULL,
   pos_filter = NULL,
   strict = TRUE,
-  name = NULL
+  name = NULL,
+  use_svydesign_weights = FALSE,
+  id = "",
+  svydesign = NULL,
+  use_column_weights = FALSE
 )
 }
 \arguments{
-\item{data}{A dataframe of text in CoNLL-U format.}
+\item{data}{A dataframe of text in CoNLL-U format, with optional additional
+columns.}
 
 \item{number}{The number of top words to return, default is `10`.}
 
@@ -30,17 +35,33 @@ alphabetically ordered), default is `TRUE`.}
 
 \item{name}{An optional "name" for the plot to add to title, default is
 `NULL`.}
+
+\item{use_svydesign_weights}{Option to weight words in the plot using
+weights from a `svydesign` containing the raw data, default is `FALSE`}
+
+\item{id}{ID column from raw data, required if `use_svydesign_weights = TRUE`
+and must match the `docid` in formatted `data`.}
+
+\item{svydesign}{A `svydesign` which contains the raw data and weights,
+required if `use_svydesign_weights = TRUE`.}
+
+\item{use_column_weights}{Option to weight words in the plot using
+weights from  formatted data which includes addition `weight` column,
+default is `FALSE`}
 }
 \value{
 Plot of top words.
 }
 \description{
 Creates a plot of the most frequently-occurring words (unigrams) within the
-data.
+data. Optionally, weights can be provided either through a `weight` column
+in the formatted data, or from a `svydesign` object with the raw
+(preformatted) data.
 }
 \examples{
-q11_1 <- conllu_dev_q11_1
-n1 <- "number_resp"
-fst_freq(q11_1, number = 12, norm = n1, strict = FALSE, name = "All")
-fst_freq(q11_1, number = 15, name = "Not Spec")
+fst_freq(fst_child, number = 12, norm = 'number_resp',  name = "All")
+fst_freq(fst_child, use_column_weights = TRUE)
+s <- survey::svydesign(id=~1, weights= ~paino, data = child)
+i <- 'fsd_id'
+fst_freq(fst_child_2, use_svydesign_weights = TRUE, svydesign = s, id = i)
 }

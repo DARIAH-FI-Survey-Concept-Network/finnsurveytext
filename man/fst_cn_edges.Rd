@@ -2,7 +2,7 @@
 % Please edit documentation in R/03_concept_network.R
 \name{fst_cn_edges}
 \alias{fst_cn_edges}
-\title{Concept Network - Get textrank edges}
+\title{Concept Network - Get TextRank edges}
 \usage{
 fst_cn_edges(
   data,
@@ -13,7 +13,8 @@ fst_cn_edges(
 )
 }
 \arguments{
-\item{data}{A dataframe of text in CoNLL-U format.}
+\item{data}{A dataframe of text in CoNLL-U format, with optional additional
+columns.}
 
 \item{concepts}{List of terms to search for, separated by commas.}
 
@@ -22,8 +23,9 @@ searched term and other word, default is `NULL`. Note, the threshold is
 applied before normalisation.}
 
 \item{norm}{The method for normalising the data. Valid settings are
-`"number_words"` (the number of words in the responses, default),
-`"number_resp"` (the number of responses), or `NULL` (raw count returned).}
+`"number_words"` (the number of words in the responses), `"number_resp"`
+(the number of responses), or `NULL` (raw count returned, default, also used
+when weights are applied).}
 
 \item{pos_filter}{List of UPOS tags for inclusion, default is `NULL` to
 include all UPOS tags.}
@@ -40,7 +42,6 @@ term.
 }
 \examples{
 con <- "kiusata, lyöminen"
-cb <- conllu_cb_bullying_iso
-fst_cn_edges(cb, con, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
-fst_cn_edges(cb, "lyöminen", threshold = 2, norm = 'number_resp')
+fst_cn_edges(fst_child, con, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+fst_cn_edges(fst_child, "lyöminen", threshold = 2, norm = "number_resp")
 }

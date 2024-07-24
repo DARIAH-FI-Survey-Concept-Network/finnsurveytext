@@ -15,7 +15,8 @@ fst_cn_compare_plot(
   min_edge = NULL,
   max_edge = NULL,
   min_node = NULL,
-  max_node = NULL
+  max_node = NULL,
+  title_size = 20
 )
 }
 \arguments{
@@ -31,7 +32,7 @@ commas.}
 \item{unique_lemmas}{List of unique lemmas, output of `fst_cn_get_unique()`}
 
 \item{name}{An optional "name" for the plot, default is `NULL` and a generic
-title ("Textrank extracted keyword occurrences") will be used.}
+title ("TextRank extracted keyword occurrences") will be used.}
 
 \item{concept_colour}{Colour to display concept words, default is
 `"indianred"`.}
@@ -60,13 +61,12 @@ respective weights) which indicates unique words in this plot in comparison
 to another Network.
 }
 \examples{
-cb <- conllu_cb_bullying_iso
-pos_filter = c("NOUN", "VERB", "ADJ", "ADV")
-e1 <- fst_cn_edges(cb, "lyödä", pos_filter = pos_filter)
-e2 <- fst_cn_edges(cb, "lyöminen", pos_filter = pos_filter)
-n1 <- fst_cn_nodes(cb, e1)
-n2 <- fst_cn_nodes(cb, e2)
-u <- fst_cn_get_unique(n1, n2)
+pos_filter <- c("NOUN", "VERB", "ADJ", "ADV")
+e1 <- fst_cn_edges(fst_child, "lyödä", pos_filter = pos_filter)
+e2 <- fst_cn_edges(fst_child, "lyöminen", pos_filter = pos_filter)
+n1 <- fst_cn_nodes(fst_child, e1)
+n2 <- fst_cn_nodes(fst_child, e2)
+u <- fst_cn_get_unique_separate(n1, n2)
 
 fst_cn_compare_plot(e1, n1, "lyödä", unique_lemma = u)
 fst_cn_compare_plot(e2, n2, "lyöminen", u, unique_colour = "purple")

@@ -23,11 +23,6 @@ Plot of top n-grams.
 Plots frequency n-grams.
 }
 \examples{
-topn_f <- fst_get_top_ngrams(conllu_dev_q11_1_f_nltk)
-topn_m <- fst_get_top_ngrams(conllu_dev_q11_1_m_nltk)
-topn_na <- fst_get_top_ngrams(conllu_dev_q11_1_na_nltk)
-fst_ngrams_plot(topn_f, ngrams = 2, name = "Female")
-fst_ngrams_plot(topn_f, ngrams = 1, number = 15)
-fst_ngrams_plot(topn_m, ngrams = 2, number = 15)
-fst_ngrams_plot(topn_na, ngrams = 2)
+top_bigrams <- fst_ngrams_table(fst_child, ngrams = 2, number = 15)
+fst_ngrams_plot(top_bigrams, ngrams = 2, number = 15, name = "Children")
 }

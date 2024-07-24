@@ -39,7 +39,8 @@ Imports:
     tibble,
     tidyr,
     udpipe,
-    wordcloud
+    wordcloud,
+    shiny
 Suggests: 
     knitr,
     rmarkdown

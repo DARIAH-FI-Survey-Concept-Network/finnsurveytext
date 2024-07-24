@@ -4,15 +4,17 @@
 \alias{fst_summarise}
 \title{Make Summary Table}
 \usage{
-fst_summarise(data, desc = "All respondents")
+fst_summarise(data, desc = "All responses")
 }
 \arguments{
-\item{data}{A dataframe of text in CoNLL-U format.}
+\item{data}{A dataframe of text in CoNLL-U format, with optional additional
+columns.}
 
-\item{desc}{A string describing respondents, default is `"All respondents"`.}
+\item{desc}{A string describing responses in table, default is `"All
+responses"`.}
 }
 \value{
-A dataframe with summary information for the data including reponse
+A dataframe with summary information for the data including response
  rate and word counts.
 }
 \description{
@@ -21,6 +23,6 @@ response count and proportion, total number of words, the number of unique
 words, and the number of unique lemmas.
 }
 \examples{
-fst_summarise(conllu_dev_q11_1)
-fst_summarise(conllu_dev_q11_2_nltk, "Q11_2")
+fst_summarise(fst_child)
+fst_summarise(fst_dev_coop, "Q11_3")
 }

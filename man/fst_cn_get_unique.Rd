@@ -2,16 +2,12 @@
 % Please edit documentation in R/05_comparison_concept_network.R
 \name{fst_cn_get_unique}
 \alias{fst_cn_get_unique}
-\title{Concept Network- Get Unique Nodes}
+\title{Concept Network- Get unique nodes from a list of top n-grams tables}
 \usage{
-fst_cn_get_unique(table1, table2, ...)
+fst_cn_get_unique(list)
 }
 \arguments{
-\item{table1}{The first table.}
-
-\item{table2}{The second table.}
-
-\item{...}{Any other tables you want to include.}
+\item{list}{A list of top nodes}
 }
 \value{
 Dataframe of words and whether word is unique or not.
@@ -21,11 +17,13 @@ Takes at least two tables of nodes and pagerank (output of `fst_cn_nodes()`)
 and finds nodes unique to one table.
 }
 \examples{
-cb <- conllu_cb_bullying_iso
-pos_filter = c("NOUN", "VERB", "ADJ", "ADV")
-e1 <- fst_cn_edges(cb, "lyödä", pos_filter = pos_filter)
-e2 <- fst_cn_edges(cb, "lyöminen", pos_filter = pos_filter)
-n1 <- fst_cn_nodes(cb, e1)
-n2 <- fst_cn_nodes(cb, e2)
-fst_cn_get_unique(n1, n2)
+pos_filter <- c("NOUN", "VERB", "ADJ", "ADV")
+e1 <- fst_cn_edges(fst_child, "lyödä", pos_filter = pos_filter)
+e2 <- fst_cn_edges(fst_child, "lyöminen", pos_filter = pos_filter)
+n1 <- fst_cn_nodes(fst_child, e1)
+n2 <- fst_cn_nodes(fst_child, e2)
+list_of_nodes <- list()
+list_of_nodes <- append(list_of_nodes, list(n1))
+list_of_nodes <- append(list_of_nodes, list(n2))
+fst_cn_get_unique(list_of_nodes)
 }

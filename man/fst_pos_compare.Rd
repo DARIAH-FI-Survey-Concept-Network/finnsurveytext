@@ -4,48 +4,28 @@
 \alias{fst_pos_compare}
 \title{Compare parts-of-speech}
 \usage{
-fst_pos_compare(
-  data1,
-  data2,
-  data3 = NULL,
-  data4 = NULL,
-  name1 = "Group 1",
-  name2 = "Group 2",
-  name3 = "Group 3",
-  name4 = "Group 4"
-)
+fst_pos_compare(data, field, exclude_nulls = FALSE, rename_nulls = "null_data")
 }
 \arguments{
-\item{data1}{A dataframe of text in CoNLL-U format for the first group.}
+\item{data}{A dataframe of text in CoNLL-U format with additional `field`
+column for splitting data.}
 
-\item{data2}{A dataframe of text in CoNLL-U format for the second group.}
+\item{field}{Column in `data` used for splitting groups}
 
-\item{data3}{An optional dataframe of text in CoNLL-U format for the third
-group, default is `NULL`.}
+\item{exclude_nulls}{Whether to include NULLs in `field` column, default is
+`FALSE`}
 
-\item{data4}{An optional dataframe of text in CoNLL-U format for the fourth
-group, default is `NULL`.}
-
-\item{name1}{An optional "name" for the first group, default is `"Group 1"`.}
-
-\item{name2}{An optional "name" for the second group, default is `"Group 2"`.}
-
-\item{name3}{An optional "name" for the third group, default is `"Group 3"`.}
-
-\item{name4}{An optional "name" for the fourth group, default is `"Group 4"`.}
+\item{rename_nulls}{What to fill NULL values with if `exclude_nulls = FALSE`.}
 }
 \value{
 Table of POS tag counts for the groups.
 }
 \description{
-Compare words in responses based on part-of-speech tagging for between 2 and
-4 sets of prepared data.
+Count each POS type for different groups of participants. Data is split based
+on different values in the `field` column of formatted data. Results will be
+shown within the plots pane.
 }
 \examples{
-f <- conllu_dev_q11_1_f_nltk
-m <- conllu_dev_q11_1_m_nltk
-na <- conllu_dev_q11_1_na_nltk
-all <- conllu_dev_q11_1_nltk
-fst_pos_compare(f, m, na, all, "Female", "Male", "Not Spec.", "All")
-fst_pos_compare(f, m, name1 = "Female", name2 = "Male")
+fst_pos_compare(fst_child, 'gender')
+fst_pos_compare(fst_dev_coop, 'region')
 }
