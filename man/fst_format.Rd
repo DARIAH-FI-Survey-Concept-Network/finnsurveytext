@@ -22,16 +22,19 @@ responses.}
 \item{weights}{Optional, the column of the dataframe which contains the
 respective weights for each response.}
 
-\item{add_cols}{Optional, a column (or columns) from the dataframe which contain
-other information you'd like to retain (for instance, dimension columnns for
-splitting the data for comparison plots).}
+\item{add_cols}{Optional, a column (or columns) from the dataframe which
+contain other information you'd like to retain (for instance, covariate
+columnns for splitting the data for comparison plots).}
 }
 \value{
-Dataframe of annotated text in CoNLL-U format.
+Dataframe of annotated text in CoNLL-U format plus any additional
+ columns.
 }
 \description{
-Creates a dataframe in CoNLL-U format from a list of strings of Finnish text
-using the [udpipe] package and a Finnish language model.
+Creates a dataframe in CoNLL-U format from a dataframe containing Finnish
+text from using the [udpipe] package and a Finnish language model plus any
+additional columns that are included such as `weights` or columns added
+through `add_cols`.
 }
 \examples{
 \donttest{
@@ -39,8 +42,9 @@ i <- "fsd_id"
 fst_format(data = child, question = "q7", id = i)
 fst_format(data = child, question = "q7", id = i, model = "tdt")
 fst_format(data = child, question = "q7", id = i, weights="paino")
-fst_format(child, question = "q7", id = i, add_cols = c("bv1", "bv3"))
-fst_format(child, question = "q7", id = i, add_cols = "bv1, bv3")
+cols <- c("gender", "major_region, daycare_before_school")
+fst_format(child, question = "q7", id = i, add_cols = cols)
+fst_format(child, question = "q7", id = i, add_cols = "gender, major_region")
 unlink("finnish-ftb-ud-2.5-191206.udpipe")
 unlink("finnish-tdt-ud-2.5-191206.udpipe")
 }

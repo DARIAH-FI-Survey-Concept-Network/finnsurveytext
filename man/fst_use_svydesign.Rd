@@ -2,32 +2,39 @@
 % Please edit documentation in R/02_data_exploration.R
 \name{fst_use_svydesign}
 \alias{fst_use_svydesign}
-\title{Add svydeesign weights to CoNLL-U data}
+\title{Add `svydesign` weights to CoNLL-U data}
 \usage{
-fst_use_svydesign(data, svydesign, id)
+fst_use_svydesign(data, svydesign, id, add_cols = NULL, add_weights = TRUE)
 }
 \arguments{
-\item{data}{A dataframe of text in CoNLL-U format}
+\item{data}{A dataframe of text in CoNLL-U format, with optional additional
+columns.}
 
-\item{svydesign}{A svydesign object containing the raw data which produced
+\item{svydesign}{A `svydesign` object containing the raw data which produced
 the `data`}
 
 \item{id}{ID column from raw data, must match the `docid` in formatted `data`}
+
+\item{add_cols}{Optional, a column (or columns) from the dataframe which
+contain other information you'd need (for instance, covariate column for
+splitting the data for comparison plots).}
+
+\item{add_weights}{Optional, a boolean for whether to add weights from
+svydesign object, default is `TRUE`.}
 }
 \value{
-A dataframe of text in CoNLL-U format plus a `'weight'` column
+A dataframe of text in CoNLL-U format plus a `'weight'` column and
+ optional other columns
 }
 \description{
-This function takes data in CoNLL-U format and a svydesign (from survey
-packge) object with weights in it and merges the weights into the formatted
-data.
+This function takes data in CoNLL-U format and a `svydesign` (from `survey`
+package) object with weights in it and merges the weights, and any additional
+columns into the formatted data.
 }
 \examples{
-child$paino <- as.numeric((gsub(",", ".", child$paino)))
-svy_child <- svydesign(id=~1, weights= ~paino, data = child)
+svy_child <- survey::svydesign(id=~1, weights= ~paino, data = child)
 fst_use_svydesign(data = fst_child_2, svydesign = svy_child, id = 'fsd_id')
 
-dev_coop$paino <- as.numeric((gsub(",", ".", dev_coop$paino)))
-svy_dev <- svydesign(id = ~1, weights = ~paino, data = dev_coop)
+svy_dev <- survey::svydesign(id = ~1, weights = ~paino, data = dev_coop)
 fst_use_svydesign(data = fst_dev_coop_2, svydesign = svy_dev, id = 'fsd_id')
 }

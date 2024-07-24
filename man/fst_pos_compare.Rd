@@ -21,11 +21,11 @@ column for splitting data.}
 Table of POS tag counts for the groups.
 }
 \description{
-Count each POS type for different groups of participants. Data is
-split based on different values in the `field` column of formatted data.
-Results will be shown within the plots pane.
+Count each POS type for different groups of participants. Data is split based
+on different values in the `field` column of formatted data. Results will be
+shown within the plots pane.
 }
 \examples{
-fst_pos_compare(fst_child, 'bv1')
-fst_pos_compare(fst_dev_coop, 'q2')
+fst_pos_compare(fst_child, 'gender')
+fst_pos_compare(fst_dev_coop, 'region')
 }

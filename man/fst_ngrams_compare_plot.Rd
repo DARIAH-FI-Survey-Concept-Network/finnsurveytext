@@ -10,7 +10,8 @@ fst_ngrams_compare_plot(
   ngrams = 1,
   unique_colour = "indianred",
   name = NULL,
-  override_title = NULL
+  override_title = NULL,
+  title_size = 20
 )
 }
 \arguments{
@@ -41,5 +42,5 @@ unique_words <- fst_get_unique_ngrams_separate(top_child, top_dev)
 top_child_u <- fst_join_unique(top_child, unique_words)
 top_dev_u <- fst_join_unique(top_dev, unique_words)
 fst_ngrams_compare_plot(top_child_u, ngrams = 1, name = "Child")
-fst_ngrams_compare_plot(top_dev_u, ngrams = 1, name = "Dev")
+fst_ngrams_compare_plot(top_dev_u, ngrams = 1, name = "Dev", title_size = 10)
 }

@@ -7,7 +7,8 @@
 fst_summarise_short(data)
 }
 \arguments{
-\item{data}{A dataframe of text in CoNLL-U format.}
+\item{data}{A dataframe of text in CoNLL-U format, with optional additional
+columns.}
 }
 \value{
 A dataframe with summary information on word counts for the data.

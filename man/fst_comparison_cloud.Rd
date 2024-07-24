@@ -10,6 +10,7 @@ fst_comparison_cloud(
   pos_filter = NULL,
   max = 100,
   use_svydesign_weights = FALSE,
+  use_svydesign_field = FALSE,
   id = "",
   svydesign = NULL,
   use_column_weights = FALSE,
@@ -28,6 +29,21 @@ means all word types included.}
 
 \item{max}{The maximum number of words to display, default is `100`.}
 
+\item{use_svydesign_weights}{Option to weight words in the wordcloud using
+weights from  a svydesign object containing the raw data, default is `FALSE`}
+
+\item{use_svydesign_field}{Option to get `field` for splitting the data from
+the svydesign object, default is `FALSE`}
+
+\item{id}{ID column from raw data, required if `use_svydesign_weights = TRUE`
+and must match the `docid` in formatted `data`.}
+
+\item{svydesign}{A svydesign object which contains the raw data and weights.}
+
+\item{use_column_weights}{Option to weight words in the wordcloud using
+weights from  formatted data which includes addition `weight` column,
+default is `FALSE`}
+
 \item{exclude_nulls}{Whether to include NULLs in `field` column, default is
 `FALSE`}
 
@@ -42,11 +58,10 @@ each group. Data is split based on different values in the `field` column of
 formatted data. Results will be shown within the plots pane.
 }
 \examples{
-fst_comparison_cloud(fst_child, 'bv1', max = 50)
-fst_child_3 <- within(fst_child, rm(weight))
-child$paino <- as.numeric((gsub(",", ".", child$paino)))
-s <- svydesign(id=~1, weights= ~paino, data = child)
+fst_comparison_cloud(fst_child, 'gender', max = 50)
+s <- survey::svydesign(id=~1, weights= ~paino, data = child)
 i <- 'fsd_id'
-fst_comparison_cloud(fst_child_3, 'bv1', use_svydesign_weights = TRUE, id = i, svydesign = s)
-fst_comparison_cloud(fst_dev_coop, 'q3', use_column_weights = TRUE)
+c2 <- fst_child_2
+fst_comparison_cloud(c2, 'gender', NULL, 100, TRUE, TRUE, i, s)
+fst_comparison_cloud(fst_dev_coop, 'education_level', use_column_weights = T)
 }

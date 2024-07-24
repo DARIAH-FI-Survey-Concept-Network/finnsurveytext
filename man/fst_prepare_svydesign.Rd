@@ -2,7 +2,7 @@
 % Please edit documentation in R/01b_prepare_svydesign.R
 \name{fst_prepare_svydesign}
 \alias{fst_prepare_svydesign}
-\title{Read In and format Finnish survey text responses from svydesign object}
+\title{Read In and format Finnish survey text responses from `svydesign` object}
 \usage{
 fst_prepare_svydesign(
   svydesign,
@@ -17,7 +17,7 @@ fst_prepare_svydesign(
 )
 }
 \arguments{
-\item{svydesign}{A svydesign object which contains an open-ended question.}
+\item{svydesign}{A `svydesign` object which contains an open-ended question.}
 
 \item{question}{The column in the dataframe which contains the open-ended
 question.}
@@ -42,19 +42,24 @@ respective weights for each response.}
 A dataframe of Finnish text in CoNLL-U format.
 }
 \description{
+Creates a dataframe in CoNLL-U format from a `svydesign` object including
+Finnish text using the [udpipe] package and a Finnish language model plus
+weights if these are included in the `svydesign` object and any columns added
+through `add_cols`.Stopwords and punctuation are optionally removed if the
+the `stopword_list` argument is not "none".
+}
+\details{
 `fst_prepare_svydesign()` produces a dataframe containing Finnish survey text
  responses in CoNLL-U format with stopwords optionally removed.
 }
 \examples{
 \donttest{
 i <- "fsd_id"
-child2$paino <- as.numeric((gsub(",", ".", child$paino)))
-svy_child <- svydesign(id=~1, weights= ~paino, data = child)
+svy_child <- survey::svydesign(id=~1, weights= ~paino, data = child)
 fst_prepare_svydesign(svy_child, question = "q7", id = i, use_weights = TRUE)
 
-dev_coop$paino <- as.numeric((gsub(",", ".", dev_coop$paino)))
-svy_dev <- svydesign(id = ~1, weights = ~paino, data =dev_coop)
-fst_prepare_svydesign(svy_dev, question = "q11_2", id = i, add_cols = c('q1'))
+svy_d <- survey::svydesign(id = ~1, weights = ~paino, data =dev_coop)
+fst_prepare_svydesign(svy_d, question = "q11_2", id = i, add_cols = 'gender')
 unlink("finnish-ftb-ud-2.5-191206.udpipe")
 unlink("finnish-tdt-ud-2.5-191206.udpipe")
 }

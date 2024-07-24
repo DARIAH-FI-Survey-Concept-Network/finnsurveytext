@@ -17,7 +17,8 @@ fst_freq_table(
 )
 }
 \arguments{
-\item{data}{A dataframe of text in CoNLL-U format.}
+\item{data}{A dataframe of text in CoNLL-U format, with optional additional
+columns.}
 
 \item{number}{The number of top words to return, default is `10`.}
 
@@ -32,15 +33,16 @@ means all word types included.}
 \item{strict}{Whether to strictly cut-off at `number` (ties are
 alphabetically ordered), default is `TRUE`.}
 
-\item{use_svydesign_weights}{Option to weight words in the wordcloud using
-weights from  a svydesign object containing the raw data, default is `FALSE`}
+\item{use_svydesign_weights}{Option to weight words in the table using
+weights from  a `svydesign` containing the raw data, default is `FALSE`}
 
 \item{id}{ID column from raw data, required if `use_svydesign_weights = TRUE`
 and must match the `docid` in formatted `data`.}
 
-\item{svydesign}{A svydesign object which contains the raw data and weights.}
+\item{svydesign}{A `svydesign` which contains the raw data and weights,
+required if `use_svydesign_weights = TRUE`.}
 
-\item{use_column_weights}{Option to weight words in the wordcloud using
+\item{use_column_weights}{Option to weight words in the table using
 weights from  formatted data which includes addition `weight` column,
 default is `FALSE`}
 }
@@ -59,8 +61,7 @@ fst_freq_table(fst_child, number = 15, strict = FALSE, pos_filter = pf)
 fst_freq_table(fst_child, norm = 'number_words')
 fst_freq_table(fst_child, use_column_weights = TRUE)
 c2 <- fst_child_2
-child$paino <- as.numeric((gsub(",", ".", child$paino)))
-s <- svydesign(id=~1, weights= ~paino, data = child)
+s <- survey::svydesign(id=~1, weights= ~paino, data = child)
 i <- 'fsd_id'
 fst_freq_table(c2, use_svydesign_weights = TRUE, svydesign = s, id = i)
 }

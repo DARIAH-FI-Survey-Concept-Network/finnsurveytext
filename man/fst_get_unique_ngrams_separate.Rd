@@ -7,19 +7,19 @@
 fst_get_unique_ngrams_separate(table1, table2, ...)
 }
 \arguments{
-\item{table1}{The first table.}
+\item{table1}{The first n-grams table.}
 
-\item{table2}{The second table.}
+\item{table2}{The second n-grams table.}
 
-\item{...}{Any other tables you want to include.}
+\item{...}{Any other n-grams tables you want to include.}
 }
 \value{
 Dataframe of words and whether word is unique or not.
 }
 \description{
 Takes at least two separate tables of n-grams and frequencies (either output
- of `fst_freq_table()` or `fst_ngrams_table()`) and finds n-grams unique to
- one table.
+of `fst_freq_table()` or `fst_ngrams_table()`) and finds n-grams unique to
+one table.
 }
 \examples{
 top_child <- fst_freq_table(fst_child)

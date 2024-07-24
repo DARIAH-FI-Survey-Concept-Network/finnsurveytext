@@ -10,8 +10,8 @@ fst_find_stopwords()
 A tibble containing the stopwords lists.
 }
 \description{
-Returns a tibble containing available Finnish stopword lists, their contents,
-and the size of the lists.
+Returns a tibble containing all available Finnish stopword lists, their
+contents, and the size of the lists.
 }
 \examples{
 fst_find_stopwords()

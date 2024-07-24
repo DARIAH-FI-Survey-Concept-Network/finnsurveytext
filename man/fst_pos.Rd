@@ -7,7 +7,8 @@
 fst_pos(data)
 }
 \arguments{
-\item{data}{A dataframe of text in CoNLL-U format.}
+\item{data}{A dataframe of text in CoNLL-U format, with optional additional
+columns.}
 }
 \value{
 A dataframe with a count and proportion of each UPOS tag in the data

@@ -26,11 +26,11 @@ column for splitting data.}
 Summary table of responses between groups.
 }
 \description{
-Compare text responses for different groups of participants. Data is
-split based on different values in the `field` column of formatted data.
-Results will be shown within the plots pane.
+Compare text responses for different groups of participants. Data is split
+based on different values in the `field` column of formatted data. Results
+will be shown within the plots pane.
 }
 \examples{
-fst_summarise_compare(fst_child, 'bv1')
-fst_summarise_compare(fst_dev_coop, 'q2')
+fst_summarise_compare(fst_child, 'gender')
+fst_summarise_compare(fst_dev_coop, 'gender')
 }

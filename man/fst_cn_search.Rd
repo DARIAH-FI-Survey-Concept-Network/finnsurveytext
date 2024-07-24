@@ -7,7 +7,8 @@
 fst_cn_search(data, concepts, pos_filter = NULL)
 }
 \arguments{
-\item{data}{A dataframe of text in CoNLL-U format.}
+\item{data}{A dataframe of text in CoNLL-U format, with optional additional
+columns.}
 
 \item{concepts}{String of terms to search for, separated by commas.}
 

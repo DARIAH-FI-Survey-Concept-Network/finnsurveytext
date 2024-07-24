@@ -2,7 +2,7 @@
 % Please edit documentation in R/01b_prepare_svydesign.R
 \name{fst_format_svydesign}
 \alias{fst_format_svydesign}
-\title{Annotate open-ended survey responses in Finnish within a svydesign object
+\title{Annotate open-ended survey responses in Finnish within a `svydesign` object
 into CoNLL-U format}
 \usage{
 fst_format_svydesign(
@@ -15,7 +15,7 @@ fst_format_svydesign(
 )
 }
 \arguments{
-\item{svydesign}{A svydesign object which contains an open-ended question.}
+\item{svydesign}{A `svydesign` object which contains an open-ended question.}
 
 \item{question}{The column in the dataframe which contains the open-ended
 question.}
@@ -26,32 +26,33 @@ responses.}
 \item{model}{A Finnish language model available for [udpipe], `"ftb"`
 (default) or `"tdt"`.}
 
-\item{use_weights}{Optional, whether to use the weights within the svydesign}
+\item{use_weights}{Optional, whether to use weights within the `svydesign`}
 
 \item{add_cols}{Optional, a column (or columns) from the dataframe which
 contain other information you'd like to retain (for instance, dimension
 columnns for splitting the data for comparison plots).}
 }
 \value{
-Dataframe of annotated text in CoNLL-U format.
+Dataframe of annotated text in CoNLL-U format plus any additional
+ columns.
 }
 \description{
-Creates a dataframe in CoNLL-U format from a svydesign object including
-Finnish open-ended responses using the [udpipe] package and a Finnish
-language model.
+Creates a dataframe in CoNLL-U format from a `svydesign` object including
+Finnish text using the [udpipe] package and a Finnish language model plus
+weights if these are included in the `svydesign` object and any columns added
+through `add_cols`.
 }
 \examples{
 \donttest{
 i <- "fsd_id"
-child$paino <- as.numeric((gsub(",", ".", child$paino)))
-svy_child <- svydesign(id=~1, weights= ~paino, data = child)
+svy_child <- survey::svydesign(id=~1, weights= ~paino, data = child)
 fst_format_svydesign(svy_child, question = 'q7', id = 'fsd_id')
 fst_format_svydesign(svy_child, question = 'q7', id = i, use_weights = FALSE)
-fst_format_svydesign(svy_child, 'q7', 'fsd_id', add_cols = c('bv3', 'bv9'))
+cols <- c('gender', 'major_region')
+fst_format_svydesign(svy_child, 'q7', 'fsd_id', add_cols = cols)
 
-dev_coop$paino <- as.numeric((gsub(",", ".", dev_coop$paino)))
-svy_dev <- svydesign(id = ~1, weights = ~paino, data = dev_coop)
-fst_format_svydesign(svy_dev, 'q11_1', 'fsd_id', add_cols = 'q1')
+svy_dev <- survey::svydesign(id = ~1, weights = ~paino, data = dev_coop)
+fst_format_svydesign(svy_dev, 'q11_1', 'fsd_id', add_cols = 'gender')
 unlink("finnish-ftb-ud-2.5-191206.udpipe")
 unlink("finnish-tdt-ud-2.5-191206.udpipe")
 }

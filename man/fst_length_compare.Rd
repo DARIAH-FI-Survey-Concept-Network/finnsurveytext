@@ -35,6 +35,6 @@ is split based on different values in the `field` column of formatted data.
 Results will be shown within the plots pane.
 }
 \examples{
-fst_length_compare(fst_child, 'bv1')
-fst_length_compare(fst_dev_coop, 'q3', incl_sentences = FALSE)
+fst_length_compare(fst_child, 'gender')
+fst_length_compare(fst_dev_coop, 'education_level', incl_sentences = FALSE)
 }

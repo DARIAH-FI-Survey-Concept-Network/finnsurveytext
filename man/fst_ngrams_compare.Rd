@@ -13,12 +13,15 @@ fst_ngrams_compare(
   pos_filter = NULL,
   strict = TRUE,
   use_svydesign_weights = FALSE,
+  use_svydesign_field = FALSE,
   id = "",
   svydesign = NULL,
   use_column_weights = FALSE,
   exclude_nulls = FALSE,
   rename_nulls = "null_data",
-  unique_colour = "indianred"
+  unique_colour = "indianred",
+  title_size = 20,
+  subtitle_size = 15
 )
 }
 \arguments{
@@ -45,6 +48,9 @@ alphabetically ordered), default is `TRUE`.}
 \item{use_svydesign_weights}{Option to weight words in the wordcloud using
 weights from  a svydesign object containing the raw data, default is `FALSE`}
 
+\item{use_svydesign_field}{Option to get `field` for splitting the data from
+the svydesign object, default is `FALSE`}
+
 \item{id}{ID column from raw data, required if `use_svydesign_weights = TRUE`
 and must match the `docid` in formatted `data`.}
 
@@ -62,6 +68,10 @@ default is `FALSE`}
 \item{unique_colour}{Colour to display unique words, default is
 `"indianred"`.}
 
+\item{title_size}{size to display plot title}
+
+\item{subtitle_size}{size to display title of individual top ngrams plot}
+
 \item{data4}{An optional dataframe of text in CoNLL-U format for the fourth}
 }
 \value{
@@ -74,9 +84,12 @@ split based on different values in the `field` column of formatted data.
 Results will be shown within the plots pane.
 }
 \examples{
-fst_ngrams_compare(fst_child, 'bv1', ngrams = 4, number = 10, norm = "number_resp")
-fst_ngrams_compare(fst_child, 'bv1', ngrams = 2, number = 10, norm = NULL)
-fst_ngrams_compare <- within(fst_child, rm(weight))
-fst_ngrams_compare(fst_child_3, 'bv1', number = 10, ngrams = 3, use_svydesign_weights = TRUE, id = 'fsd_id', svydesign = svy_child)
-fst_ngrams_compare(fst_child, 'bv1', number = 10, ngrams = 3, use_column_weights = TRUE, strict = FALSE, unique_colour = 'purple')
+c <- fst_child
+g <- 'gender'
+fst_ngrams_compare(c, g, ngrams = 4, number = 10, norm = "number_resp")
+fst_ngrams_compare(c, g, ngrams = 2, number = 10, norm = NULL)
+svy_child <- survey::svydesign(id=~1, weights= ~paino, data = child)
+c2 <- fst_child_2
+fst_ngrams_compare(c2, g, 10, 3, NULL, NULL, T, T, T, 'fsd_id', svy_child)
+fst_ngrams_compare(c, g, 10, 2, use_column_weights = TRUE, strict = T)
 }

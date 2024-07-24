@@ -4,13 +4,14 @@
 \alias{fst_length_summary}
 \title{Make Length Summary Table}
 \usage{
-fst_length_summary(data, desc = "All respondents", incl_sentences = TRUE)
+fst_length_summary(data, desc = "All responses", incl_sentences = TRUE)
 }
 \arguments{
-\item{data}{dataframe of text in CoNLL-U format.}
+\item{data}{dataframe of text in CoNLL-U format, with optional additional
+columns.}
 
-\item{desc}{An optional string describing respondents, default is
-`"All respondents"`.}
+\item{desc}{An optional string describing responses in table, default is
+`"All responses"`.}
 
 \item{incl_sentences}{Whether to include sentence data in table, default is
 `TRUE`.}

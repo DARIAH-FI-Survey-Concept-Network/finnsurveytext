@@ -11,6 +11,9 @@ fst_concept_network_compare(
   norm = NULL,
   threshold = NULL,
   pos_filter = NULL,
+  use_svydesign_field = FALSE,
+  id = "",
+  svydesign = NULL,
   exclude_nulls = FALSE,
   rename_nulls = "null_data",
   title_size = 20,
@@ -36,6 +39,14 @@ applied before normalisation.}
 \item{pos_filter}{List of UPOS tags for inclusion, default is `NULL` to
 include all UPOS tags.}
 
+\item{use_svydesign_field}{Option to get `field` for splitting the data from
+a svydesign object, default is `FALSE`}
+
+\item{id}{ID column from raw data, required if `use_svydesign_weights = TRUE`
+and must match the `docid` in formatted `data`.}
+
+\item{svydesign}{A svydesign object which contains the raw data and weights.}
+
 \item{exclude_nulls}{Whether to include NULLs in `field` column, default is
 `FALSE`}
 
@@ -59,7 +70,11 @@ words that are unique to each group's Network plot.
 }
 \examples{
 con1 <- "lyödä, lyöminen"
-fst_concept_network_compare(fst_child, concepts = con1, field = 'bv1')
+fst_concept_network_compare(fst_child, concepts = con1, field = 'gender')
+s <- survey::svydesign(id=~1, weights= ~paino, data = child)
+c2 <- fst_child_2
+i <- 'fsd_id'
+fst_concept_network_compare(c2, con1, 'gender', NULL, NULL, NULL, T, i, s)
 con2 <- "köyhyys, nälänhätä, sota"
-fst_concept_network_compare(fst_dev_coop, con2, 'q3', title_size = 18, subtitle_size = 10)
+fst_concept_network_compare(fst_dev_coop, con2, 'education_level')
 }

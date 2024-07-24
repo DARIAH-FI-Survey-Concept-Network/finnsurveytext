@@ -14,8 +14,8 @@ Dataframe of words and whether word is unique or not.
 }
 \description{
 Takes a list containing at least two tables of n-grams and frequencies
- (either output of `fst_freq_table()` or `fst_ngrams_table()`) and finds
- n-grams unique to one table.
+(either output of `fst_freq_table()` or `fst_ngrams_table()`) and finds
+n-grams unique to one table.
 }
 \examples{
 top_child <- fst_freq_table(fst_child)

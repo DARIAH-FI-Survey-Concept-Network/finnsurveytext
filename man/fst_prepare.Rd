@@ -29,8 +29,9 @@ responses.}
 \item{model}{A Finnish language model available for [udpipe], `"ftb"`
 (default) or `"tdt"`.}
 
-\item{stopword_list}{A valid Finnish stopword list, default is `"nltk"`, or
-`"none"`.}
+\item{stopword_list}{A valid Finnish stopword list, default is `"nltk"`,
+`"manual"` can be used to indicate that a manual list will be provided, or
+`"none"` if you don't want to remove stopwords.}
 
 \item{weights}{Optional, the column of the dataframe which contains the
 respective weights for each response.}
@@ -43,6 +44,13 @@ columnns for splitting the data for comparison plots).}
 A dataframe of Finnish text in CoNLL-U format.
 }
 \description{
+Creates a dataframe in CoNLL-U format from a dataframe containing Finnish
+text from using the [udpipe] package and a Finnish language model plus any
+additional columns that are included such as `weights` or columns added
+through `add_cols`. Stopwords and punctuation are optionally removed if the
+the `stopword_list` argument is not "none".
+}
+\details{
 `fst_prepare_conllu()` produces a dataframe containing Finnish survey text
  responses in CoNLL-U format with stopwords optionally removed.
 }
@@ -52,7 +60,8 @@ i <- "fsd_id"
 cb <- child
 dev <- dev_coop
 fst_prepare(data = cb, question = "q7", id = 'fsd_id', weights = 'paino')
-fst_prepare(data = dev, question = "q11_2", id = i, add_cols = c('q1'))
+fst_prepare(data = dev, question = "q11_2", id = i, add_cols = c('gender'))
+fst_prepare(data = dev, question = "q11_3", id = i, add_cols = 'gender')
 unlink("finnish-ftb-ud-2.5-191206.udpipe")
 unlink("finnish-tdt-ud-2.5-191206.udpipe")
 }

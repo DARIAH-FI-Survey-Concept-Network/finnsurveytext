@@ -7,7 +7,8 @@
 fst_cn_nodes(data, edges, pos_filter = NULL)
 }
 \arguments{
-\item{data}{A dataframe of text in CoNLL-U format.}
+\item{data}{A dataframe of text in CoNLL-U format, with optional additional
+columns.}
 
 \item{edges}{Output of `fst_cn_edges()`, dataframe of co-occurrences between
 two words.}

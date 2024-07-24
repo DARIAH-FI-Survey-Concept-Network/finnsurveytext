@@ -15,7 +15,8 @@ fst_wordcloud(
 )
 }
 \arguments{
-\item{data}{A dataframe of text in CoNLL-U format.}
+\item{data}{A dataframe of text in CoNLL-U format, with optional additional
+columns.}
 
 \item{pos_filter}{List of UPOS tags for inclusion, default is `NULL` which
 means all word types included.}
@@ -23,12 +24,13 @@ means all word types included.}
 \item{max}{The maximum number of words to display, default is `100`.}
 
 \item{use_svydesign_weights}{Option to weight words in the wordcloud using
-weights from  a svydesign object containing the raw data, default is `FALSE`}
+weights from a `svydesign` containing the raw data, default is `FALSE`}
 
 \item{id}{ID column from raw data, required if `use_svydesign_weights = TRUE`
 and must match the `docid` in formatted `data`.}
 
-\item{svydesign}{A svydesign object which contains the raw data and weights.}
+\item{svydesign}{A `svydesign` which contains the raw data and weights,
+required if `use_svydesign_weights = TRUE`.}
 
 \item{use_column_weights}{Option to weight words in the wordcloud using
 weights from  formatted data which includes addition `weight` column,
@@ -49,7 +51,6 @@ fst_wordcloud(fst_child, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
 fst_wordcloud(fst_child, use_column_weights = TRUE)
 i <- 'fsd_id'
 c <- fst_child_2
-child$paino <- as.numeric((gsub(",", ".", child$paino)))
-s <- svydesign(id=~1, weights= ~paino, data = child)
+s <- survey::svydesign(id=~1, weights= ~paino, data = child)
 fst_wordcloud(c, use_svydesign_weights = TRUE, id = i, svydesign = s)
 }

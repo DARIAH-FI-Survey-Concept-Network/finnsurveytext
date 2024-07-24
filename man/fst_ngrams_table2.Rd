@@ -18,7 +18,8 @@ fst_ngrams_table2(
 )
 }
 \arguments{
-\item{data}{A dataframe of text in CoNLL-U format.}
+\item{data}{A dataframe of text in CoNLL-U format, with optional additional
+columns.}
 
 \item{number}{The number of n-grams to return, default is `10`.}
 
@@ -34,17 +35,22 @@ means all word types included.}
 \item{strict}{Whether to strictly cut-off at `number` (ties are
 alphabetically ordered), default is `TRUE`.}
 
-\item{use_svydesign_weights}{Option to weight words in the wordcloud using
-weights from  a svydesign object containing the raw data, default is `FALSE`}
+\item{use_svydesign_weights}{Option to weight words in the table using
+weights from a `svydesign` containing the raw data, default is `FALSE`}
 
 \item{id}{ID column from raw data, required if `use_svydesign_weights = TRUE`
 and must match the `docid` in formatted `data`.}
 
-\item{svydesign}{A svydesign object which contains the raw data and weights.}
+\item{svydesign}{A `svydesign` which contains the raw data and weights,
+required if `use_svydesign_weights = TRUE`.}
 
-\item{use_column_weights}{Option to weight words in the wordcloud using
+\item{use_column_weights}{Option to weight words in the table using
 weights from  formatted data which includes addition `weight` column,
 default is `FALSE`}
+
+\item{add_cols}{Optional, a column (or columns) from the dataframe which
+contain other information you'd need (for instance, covariate column for
+splitting the data for comparison plots).}
 }
 \value{
 A table of the most frequently occurring n-grams in the data.
@@ -59,4 +65,9 @@ Equivalent to `fst_get_top_ngrams` but doesn't print message about ties.
 \examples{
 fst_ngrams_table2(fst_child, norm = NULL)
 fst_ngrams_table2(fst_child, ngrams = 2, norm = "number_resp")
+c <- fst_child_2
+s <- svy_child
+i <- 'fsd_id'
+T <- TRUE
+fst_ngrams_table2(c, 10, 2, use_svydesign_weights = T, svydesign = s, id = i)
 }
