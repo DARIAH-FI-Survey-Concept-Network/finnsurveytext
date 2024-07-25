@@ -682,6 +682,7 @@ fst_freq <- function(data,
 #' c <- fst_child_2
 #' s <- survey::svydesign(id=~1, weights= ~paino, data = child)
 #' i <- 'fsd_id'
+#' T <- TRUE
 #' fst_ngrams(c, ngrams = 3, use_svydesign_weights = T, svydesign = s, id = i)
 fst_ngrams <- function(data,
                        number = 10,

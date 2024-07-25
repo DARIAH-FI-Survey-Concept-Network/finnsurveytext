@@ -25,6 +25,7 @@ License: MIT + file LICENSE
 Depends: 
     R (>= 2.10)
 Imports: 
+    data.table,
     dplyr,
     ggplot2,
     ggpubr,
@@ -32,21 +33,23 @@ Imports:
     gridExtra,
     igraph,
     magrittr,
+    purrr,
     RColorBrewer,
+    shiny, 
     stopwords,
     stringr,
     textrank,
     tibble,
     tidyr,
     udpipe,
-    wordcloud,
-    shiny
+    wordcloud
 Suggests: 
     knitr,
-    rmarkdown
+    rmarkdown, 
+    survey
 VignetteBuilder: 
     knitr
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 URL: https://dariah-fi-survey-concept-network.github.io/finnsurveytext/

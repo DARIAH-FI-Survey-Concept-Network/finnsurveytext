@@ -63,5 +63,6 @@ s <- survey::svydesign(id=~1, weights= ~paino, data = child)
 i <- 'fsd_id'
 c2 <- fst_child_2
 fst_comparison_cloud(c2, 'gender', NULL, 100, TRUE, TRUE, i, s)
+T <- TRUE
 fst_comparison_cloud(fst_dev_coop, 'education_level', use_column_weights = T)
 }
