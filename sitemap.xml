@@ -1,213 +1,58 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/404.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/articles/ReadMe.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/articles/web_only/Tutorial1-Prepare_CoNLL-U.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/articles/web_only/Tutorial2-Data_exploration.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/articles/web_only/Tutorial3-Overview_of_Concept_Network_functions.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/articles/web_only/Tutorial4-Analysis_and_config_of_Concept_Network_functions.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/articles/web_only/Tutorial5-Demonstration_of_comparison_functions.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/articles/web_only/Tutorial6-Example_of_analysis_of_an_open-ended_survey_question.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/index.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/child_barometer_data.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/conllu_cb_bullying.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/conllu_cb_bullying_iso.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/conllu_dev_q11_1.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/conllu_dev_q11_1_f.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/conllu_dev_q11_1_f_nltk.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/conllu_dev_q11_1_m.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/conllu_dev_q11_1_m_nltk.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/conllu_dev_q11_1_na.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/conllu_dev_q11_1_na_nltk.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/conllu_dev_q11_1_nltk.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/conllu_dev_q11_1_snow.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/conllu_dev_q11_2.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/conllu_dev_q11_2_nltk.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/conllu_dev_q11_3.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/conllu_dev_q11_3_nltk.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/dev_data.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/dev_data_f.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/dev_data_m.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/dev_data_na.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_cn_compare_plot.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_cn_edges.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_cn_get_unique.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_cn_nodes.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_cn_plot.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_cn_search.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_comparison_cloud.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_concept_network.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_concept_network_compare.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_find_stopwords.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_format_conllu.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_freq.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_freq_compare.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_freq_plot.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_get_top_ngrams.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_get_top_ngrams2.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_get_top_words.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_get_unique_ngrams.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_join_unique.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_length_compare.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_length_summary.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_ngrams.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_ngrams_compare.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_ngrams_compare_plot.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_ngrams_plot.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_plot_multiple.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_pos.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_pos_compare.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_prepare_conllu.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_rm_stop_punct.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_summarise.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_summarise_compare.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_summarise_short.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_wordcloud.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/pipe.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/404.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/LICENSE-text.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/LICENSE.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/articles/PackageTutorial.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/articles/ReadMe.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/articles/index.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/authors.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/index.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/news/index.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/child.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_child.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_child_2.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_cn_compare_plot.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_cn_edges.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_cn_get_unique.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_cn_get_unique_separate.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_cn_nodes.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_cn_plot.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_cn_search.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_comparison_cloud.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_concept_network.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_concept_network_compare.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_dev_coop.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_dev_coop_2.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_find_stopwords.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_format.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_format_svydesign.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_freq.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_freq_compare.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_freq_plot.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_freq_table.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_get_unique_ngrams.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_get_unique_ngrams_separate.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_join_unique.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_length_compare.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_length_summary.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_ngrams.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_ngrams_compare.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_ngrams_compare_plot.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_ngrams_plot.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_ngrams_table.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_ngrams_table2.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_pos.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_pos_compare.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_prepare.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_prepare_svydesign.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_rm_stop_punct.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_summarise.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_summarise_compare.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_summarise_short.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_use_svydesign.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/fst_wordcloud.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/index.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/pipe.html</loc></url>
+<url><loc>https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference/runDemo.html</loc></url>
 </urlset>
+
