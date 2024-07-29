@@ -293,7 +293,7 @@ fst_freq_table(df, number = 15, strict = FALSE)
 
 Our concept network function uses the TextRank algorithm which is a graph-based ranking model for text processing. Vertices represent words and co-occurrence between words is shown through edges. Word importance is determined recursively (through the unsupervised learning TextRank algorithm) where words get more weight based on how many words co-occur and the weight of these co-occurring words.
 
-To utilise the TextRank algorithm in finnsurveytext, we use the textrank package. For further information on the package, please see [this documentation](https://cran.r-project.org/web/packages/textrank/vignettes/textrank.html). This package implements the TextRank and PageRank algorithms. (PageRank is the algorithm that Google uses to rank webpages.) You can read about the underlying TextRank algorithm [here](https://web.eecs.umich.edu/~mihalcea/papers/mihalcea.emnlp04.pdf) and about the PageRank algorithm [here](https://www.sciencedirect.com/science/article/pii/S016975529800110X).
+To utilise the TextRank algorithm in finnsurveytext, we use the textrank package. For further information on the package, please see [this documentation](https://CRAN.R-project.org/package=textrank). This package implements the TextRank and PageRank algorithms. (PageRank is the algorithm that Google uses to rank webpages.) You can read about the underlying TextRank algorithm [here](https://web.eecs.umich.edu/~mihalcea/papers/mihalcea.emnlp04.pdf) and about the PageRank algorithm [here](https://doi.org/10.1016/S0169-7552\(98\)00110-X).
 
 The main concept network function is `fst_concept_network()`. It is defined as follows: 
 
@@ -420,7 +420,7 @@ fst_ngrams_compare(df, 'gender', ngrams = 2, use_column_weights = TRUE)
 
 The **comparison cloud** extends the wordcloud concept. 
 
-A comparison cloud compares the relative frequency with which a term is used in two or more documents. This cloud shows words that occur more regularly in responses from a specific type of respondent. For more information about comparison clouds, you can read [this documentation](https://cran.r-project.org/web/packages/wordcloud/wordcloud.pdf).
+A comparison cloud compares the relative frequency with which a term is used in two or more documents. This cloud shows words that occur more regularly in responses from a specific type of respondent. For more information about comparison clouds, you can read [this documentation](https://CRAN.R-project.org/package=wordcloud).
 
 The comparison cloud is defined as follows, with settings as defined for the previous functions:
 
