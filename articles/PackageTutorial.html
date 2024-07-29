@@ -872,11 +872,11 @@ is determined recursively (through the unsupervised learning TextRank
 algorithm) where words get more weight based on how many words co-occur
 and the weight of these co-occurring words.</p>
 <p>To utilise the TextRank algorithm in finnsurveytext, we use the
-textrank package. For further information on the package, please see <a href="https://cran.r-project.org/web/packages/textrank/vignettes/textrank.html" class="external-link">this
+textrank package. For further information on the package, please see <a href="https://CRAN.R-project.org/package=textrank" class="external-link">this
 documentation</a>. This package implements the TextRank and PageRank
 algorithms. (PageRank is the algorithm that Google uses to rank
 webpages.) You can read about the underlying TextRank algorithm <a href="https://web.eecs.umich.edu/~mihalcea/papers/mihalcea.emnlp04.pdf" class="external-link">here</a>
-and about the PageRank algorithm <a href="https://www.sciencedirect.com/science/article/pii/S016975529800110X" class="external-link">here</a>.</p>
+and about the PageRank algorithm <a href="https://doi.org/10.1016/S0169-7552(98)00110-X" class="external-link">here</a>.</p>
 <p>The main concept network function is
 <code><a href="../reference/fst_concept_network.html">fst_concept_network()</a></code>. It is defined as follows:</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a>fst_concept_network <span class="ot">&lt;-</span> <span class="cf">function</span>(data,</span>
@@ -1483,7 +1483,7 @@ concept.</p>
 <p>A comparison cloud compares the relative frequency with which a term
 is used in two or more documents. This cloud shows words that occur more
 regularly in responses from a specific type of respondent. For more
-information about comparison clouds, you can read <a href="https://cran.r-project.org/web/packages/wordcloud/wordcloud.pdf" class="external-link">this
+information about comparison clouds, you can read <a href="https://CRAN.R-project.org/package=wordcloud" class="external-link">this
 documentation</a>.</p>
 <p>The comparison cloud is defined as follows, with settings as defined
 for the previous functions:</p>
