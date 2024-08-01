@@ -36,6 +36,7 @@
 <li><a class="dropdown-item" href="../../articles/web_only/InDetail1-DataPreparation.html">InDetail1-DataPreparation</a></li>
     <li><a class="dropdown-item" href="../../articles/web_only/InDetail2-DataExploration.html">InDetail2-DataExploration</a></li>
     <li><a class="dropdown-item" href="../../articles/web_only/InDetail3-ConceptNetworkOverview.html">InDetail3-ConceptNetworkOverview</a></li>
+    <li><a class="dropdown-item" href="../../articles/web_only/InDetail4-AnalysisExample1.html">InDetail4-AnalysisExample1</a></li>
     <li><a class="dropdown-item" href="../../articles/Overview-PackageTutorial.html">PackageTutorial</a></li>
     <li><a class="dropdown-item" href="../../articles/ReadMe.html">ReadMe</a></li>
   </ul>
@@ -1067,41 +1068,23 @@ them all within the one function,
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/fst_concept_network.html">fst_concept_network</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">df1</span>,</span>
-<span>  concepts <span class="op">=</span> <span class="st">"elintaso, köyhä, ihminen"</span></span>
-<span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning in min(edges$co_occurrence): no non-missing arguments to min; returning</span></span>
-<span><span class="co">#&gt; Inf</span></span>
-<span><span class="co">#&gt; Warning in max(edges$co_occurrence): no non-missing arguments to max; returning</span></span>
-<span><span class="co">#&gt; -Inf</span></span>
-<span><span class="co">#&gt; Warning in min(edges$co_occurrence): no non-missing arguments to min; returning</span></span>
-<span><span class="co">#&gt; Inf</span></span>
-<span><span class="co">#&gt; Warning in max(edges$co_occurrence): no non-missing arguments to max; returning</span></span>
-<span><span class="co">#&gt; -Inf</span></span>
-<span><span class="co">#&gt; Warning in min(nodes$pagerank): no non-missing arguments to min; returning Inf</span></span>
-<span><span class="co">#&gt; Warning in max(nodes$pagerank): no non-missing arguments to max; returning -Inf</span></span>
-<span><span class="co">#&gt; Warning: No shared levels found between `names(values)` of the manual scale and the</span></span>
-<span><span class="co">#&gt; data's <span style="color: #00BB00;">colour</span> values.</span></span></code></pre></div>
+<span>  concepts <span class="op">=</span> <span class="st">"kiusata, lyöminen"</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"Concept Network of Bullying Data"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="InDetail3-ConceptNetworkOverview_files/figure-html/unnamed-chunk-11-1.png" width="576"></p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/fst_concept_network.html">fst_concept_network</a></span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">df1</span>,</span>
-<span>  concepts <span class="op">=</span> <span class="st">"kiusata, lyöminen"</span>,</span>
-<span>  title <span class="op">=</span> <span class="st">"Concept Network of Bullying Data"</span></span>
+<span>  data <span class="op">=</span> <span class="va">df2</span>,</span>
+<span>  concepts <span class="op">=</span> <span class="st">"köyhyys, nälänhätä, sota, ilmastonmuutos, puute"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="InDetail3-ConceptNetworkOverview_files/figure-html/unnamed-chunk-11-2.png" width="576"></p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/fst_concept_network.html">fst_concept_network</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">df2</span>,</span>
-<span>  concepts <span class="op">=</span> <span class="st">"köyhyys, nälänhätä, sota, ilmastonmuutos, puute"</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<p><img src="InDetail3-ConceptNetworkOverview_files/figure-html/unnamed-chunk-11-3.png" width="576"></p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/fst_concept_network.html">fst_concept_network</a></span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">df2</span>,</span>
 <span>  concepts <span class="op">=</span> <span class="st">"köyhyys, nälänhätä, sota, ilmastonmuutos, puute"</span>,</span>
 <span>  threshold <span class="op">=</span> <span class="fl">3</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="InDetail3-ConceptNetworkOverview_files/figure-html/unnamed-chunk-11-4.png" width="576"></p>
+<p><img src="InDetail3-ConceptNetworkOverview_files/figure-html/unnamed-chunk-11-3.png" width="576"></p>
 <p>The arguments are:</p>
 <ol style="list-style-type: decimal">
 <li>
