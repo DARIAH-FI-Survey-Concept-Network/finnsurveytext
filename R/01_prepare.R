@@ -11,8 +11,9 @@
 #'  question.
 #' @param id The column in the dataframe which contains the ids for the
 #'  responses.
-#' @param model A language model available for [udpipe], such as `"ftb"`
-#'  (default) or `"tdt"` which are available for Finnish.
+#' @param model A language model available for [udpipe]. `"ftb"`
+#'  (default) or `"tdt"` are recognised as shorthand for "finnish-ftb" and
+#'  "finnish-tdt". The full list is available in the [udpipe] documentation.
 #' @param weights Optional, the column of the dataframe which contains the
 #'  respective weights for each response.
 #' @param add_cols Optional, a column (or columns) from the dataframe which
@@ -32,8 +33,10 @@
 #' cols <- c("gender", "major_region, daycare_before_school")
 #' fst_format(child, question = "q7", id = i, add_cols = cols)
 #' fst_format(child, question = "q7", id = i, add_cols = "gender, major_region")
+#' fst_format(child, question = 'q7', id = i, model = 'swedish-talbanken')
 #' unlink("finnish-ftb-ud-2.5-191206.udpipe")
 #' unlink("finnish-tdt-ud-2.5-191206.udpipe")
+#' unlink(swedish-talkbanken-ud-2.5-191206.udpipe)
 #' }
 fst_format <- function(data,
                        question,
@@ -45,6 +48,7 @@ fst_format <- function(data,
     dplyr::mutate(new_col = trimws(.data[[question]])) %>%
     dplyr::mutate_if(is.character, dplyr::na_if, "")
   if (model == "ftb") {
+    print('if')
     if (!file.exists("finnish-ftb-ud-2.5-191206.udpipe")) {
       udpipe::udpipe_download_model(language = "finnish-ftb")
     }
@@ -63,6 +67,17 @@ fst_format <- function(data,
     )
     annotated_data <- as.data.frame(
       udpipe::udpipe_annotate(model_tdt, x = data$new_col, doc_id = data[[id]])
+    )
+  } else {
+    name2 <- paste0(model, '-ud-2.5-191206.udpipe')
+    if (!file.exists(name2)) {
+      udpipe::udpipe_download_model(language = model)
+    }
+    model_2 <- udpipe::udpipe_load_model(
+      file = name2
+    )
+    annotated_data <- as.data.frame(
+      udpipe::udpipe_annotate(model_2, x = data$new_col, doc_id = data[[id]])
     )
   }
   annotated_data <- annotated_data %>%
@@ -190,8 +205,9 @@ fst_rm_stop_punct <- function(data,
 #'  question.
 #' @param id The column in the dataframe which contains the ids for the
 #'  responses.
-#' @param model A language model available for [udpipe], such as `"ftb"`
-#'  (default) or `"tdt"` which are available for Finnish.
+#' @param model A language model available for [udpipe]. `"ftb"`
+#'  (default) or `"tdt"` are recognised as shorthand for "finnish-ftb" and
+#'  "finnish-tdt". The full list is available in the [udpipe] documentation.
 #' @param stopword_list A valid Finnish stopword list, default is `"nltk"`,
 #'  `"manual"` can be used to indicate that a manual list will be provided, or
 #'  `"none"` if you don't want to remove stopwords.
@@ -212,8 +228,10 @@ fst_rm_stop_punct <- function(data,
 #' fst_prepare(data = cb, question = "q7", id = 'fsd_id', weights = 'paino')
 #' fst_prepare(data = dev, question = "q11_2", id = i, add_cols = c('gender'))
 #' fst_prepare(data = dev, question = "q11_3", id = i, add_cols = 'gender')
+#' fst_prepare(data = child, question = "q7", id = i, model = 'swedish-lines')
 #' unlink("finnish-ftb-ud-2.5-191206.udpipe")
 #' unlink("finnish-tdt-ud-2.5-191206.udpipe")
+#' unlink("swedish-lines-ud-2.5-191206.udpipe")
 #' }
 fst_prepare <- function(data,
                         question,
