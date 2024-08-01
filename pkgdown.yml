@@ -2,9 +2,12 @@ pandoc: 3.1.11
 pkgdown: 2.1.0
 pkgdown_sha: ~
 articles:
-  PackageTutorial: PackageTutorial.html
+  web_only/InDetail1-DataPreparation: web_only/InDetail1-DataPreparation.html
+  web_only/InDetail2-DataExploration: web_only/InDetail2-DataExploration.html
+  web_only/InDetail3-ConceptNetworkOverview: web_only/InDetail3-ConceptNetworkOverview.html
+  Overview-PackageTutorial: Overview-PackageTutorial.html
   ReadMe: ReadMe.html
-last_built: 2024-08-01T11:19Z
+last_built: 2024-08-01T13:45Z
 urls:
   reference: https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference
   article: https://dariah-fi-survey-concept-network.github.io/finnsurveytext/articles
