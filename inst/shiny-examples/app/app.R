@@ -1,3 +1,4 @@
+pos_list <- c("ADJ", "ADP", "ADV", "AUX", "CCONJ", "DET", "INTJ", "NOUN", "NUM", "PART", "PRON", "PROPN", "PUNCT", "SCONJ", "SYM", "VERB", "X")
 
 library(shiny)
 library(shinyjs)
@@ -69,7 +70,7 @@ ui <- fluidPage(
           fluidRow(
             actionButton("format", "Press this to format your data", class = "btn-success"),
             actionButton("showformat", "Press this to toggle whether to show your formatted data", class="btn-info"),
-            DT::DTOutput("formattedtable")
+            DT::DTOutput("formattedtable"),
           ),
         ),
       ),
@@ -104,14 +105,14 @@ ui <- fluidPage(
                    ),
                    column(6,
                           checkboxGroupInput('poswc',
-                                             'Which POS tags should we include?',
-                                             c("ADJ", "ADP", "ADV", "AUX", "CCONJ", "DET", "INTJ", "NOUN", "NUM", "PART", "PRON", "PROPN", "PUNCT", "SCONJ", "SYM", "VERB", "X"),
-                                             c("ADJ", "ADP", "ADV", "AUX", "CCONJ", "DET", "INTJ", "NOUN", "NUM", "PART", "PRON", "PROPN", "PUNCT", "SCONJ", "SYM", "VERB", "X")
+                                             'Untick any word types you want to exclude from the plot.',
+                                             pos_list,
+                                             pos_list
                           ),
                    ),
                  ),
                  fluidRow(
-                   actionButton("makewc", "Press this to make the wordcloud", class = "btn-success"),
+                   actionButton("makewc", "Press this to make (or refresh) the wordcloud", class = "btn-success"),
                    actionButton("showwc", "Press this to toggle whether to show your wordcloud", class="btn-info"),
                    plotOutput("wc")
                  ),
@@ -136,14 +137,14 @@ ui <- fluidPage(
                    ),
                    column(6,
                           checkboxGroupInput('posng',
-                                             'Which POS tags should we include?',
-                                             c("ADJ", "ADP", "ADV", "AUX", "CCONJ", "DET", "INTJ", "NOUN", "NUM", "PART", "PRON", "PROPN", "PUNCT", "SCONJ", "SYM", "VERB", "X"),
-                                             c("ADJ", "ADP", "ADV", "AUX", "CCONJ", "DET", "INTJ", "NOUN", "NUM", "PART", "PRON", "PROPN", "PUNCT", "SCONJ", "SYM", "VERB", "X"),
+                                             'Untick any word types you want to exclude from the plot.',
+                                             pos_list,
+                                             pos_list
                           ),
                    ),
                  ),
                  fluidRow(
-                   actionButton("makeng", "Press this to make the n-gram plot", class = "btn-success"),
+                   actionButton("makeng", "Press this to make (or refresh) the n-gram plot", class = "btn-success"),
                    actionButton("showng", "Press this to toggle whether to show your n-gram plot", class="btn-info"),
                    plotOutput('ng'),
                  ),
@@ -181,14 +182,14 @@ ui <- fluidPage(
                    ),
                    column(6,
                      checkboxGroupInput('poscn',
-                                        'Which POS tags should we include?',
-                                        c("ADJ", "ADP", "ADV", "AUX", "CCONJ", "DET", "INTJ", "NOUN", "NUM", "PART", "PRON", "PROPN", "PUNCT", "SCONJ", "SYM", "VERB", "X"),
-                                        c("ADJ", "ADP", "ADV", "AUX", "CCONJ", "DET", "INTJ", "NOUN", "NUM", "PART", "PRON", "PROPN", "PUNCT", "SCONJ", "SYM", "VERB", "X"),
+                                        'Untick any word types you want to exclude from the plot.',
+                                        pos_list,
+                                        pos_list
                      ),
                    ),
                  ),
                  fluidRow(
-                   actionButton("makecn", "Press this to make the concept network plot", class = "btn-success"),
+                   actionButton("makecn", "Press this to make (or refresh) the concept network plot", class = "btn-success"),
                    actionButton("showcn", "Press this to toggle whether to show your concept network plot", class="btn-info"),
                    plotOutput('cn'),
                  ),
@@ -220,7 +221,7 @@ ui <- fluidPage(
                         h3("Comparison Summary Tables"),
                         p("As previously, you can pick which summary table to show here."),
                         radioButtons('compsummarytable', "Which comparison summary table would you like to see?", c("response", "length", "part-of-speech")),
-                        actionButton("makecst", "Press this to make the table", class = "btn-success"),
+                        actionButton("makecst", "Press this to make (or refresh) the table", class = "btn-success"),
                         actionButton("showcsum", "Press this to toggle whether to show your summary table", class="btn-info"),
                         tableOutput("cst")
                ),
@@ -241,14 +242,14 @@ ui <- fluidPage(
                           ),
                           column(6,
                                  checkboxGroupInput('poscc',
-                                                    'Which POS tags should we include?',
-                                                    c("ADJ", "ADP", "ADV", "AUX", "CCONJ", "DET", "INTJ", "NOUN", "NUM", "PART", "PRON", "PROPN", "PUNCT", "SCONJ", "SYM", "VERB", "X"),
-                                                    c("ADJ", "ADP", "ADV", "AUX", "CCONJ", "DET", "INTJ", "NOUN", "NUM", "PART", "PRON", "PROPN", "PUNCT", "SCONJ", "SYM", "VERB", "X"),
+                                                    'Untick any word types you want to exclude from the plot.',
+                                                    pos_list,
+                                                    pos_list
                                  ),
                           ),
                         ),
                         fluidRow(
-                          actionButton("makecc", "Press this to make the comparison cloud", class = "btn-success"),
+                          actionButton("makecc", "Press this to make (or refresh) the comparison cloud", class = "btn-success"),
                           actionButton("showcc", "Press this to toggle whether to show your comparison cloud", class="btn-info"),
                           plotOutput("ccloud"),
                         ),
@@ -272,14 +273,14 @@ ui <- fluidPage(
                           ),
                           column(6,
                                  checkboxGroupInput('poscng',
-                                                    'Which POS tags should we include?',
-                                                    c("ADJ", "ADP", "ADV", "AUX", "CCONJ", "DET", "INTJ", "NOUN", "NUM", "PART", "PRON", "PROPN", "PUNCT", "SCONJ", "SYM", "VERB", "X"),
-                                                    c("ADJ", "ADP", "ADV", "AUX", "CCONJ", "DET", "INTJ", "NOUN", "NUM", "PART", "PRON", "PROPN", "PUNCT", "SCONJ", "SYM", "VERB", "X"),
+                                                    'Untick any word types you want to exclude from the plot.',
+                                                    pos_list,
+                                                    pos_list
                                  ),
                           ),
                         ),
                         fluidRow(
-                          actionButton("makecng", "Press this to make the n-gram plot", class = "btn-success"),
+                          actionButton("makecng", "Press this to make (or refresh) the n-gram plot", class = "btn-success"),
                           actionButton("showcng", "Press this to toggle whether to show your n-gram plot", class="btn-info"),
                           plotOutput("cng"),
                         ),
@@ -301,14 +302,14 @@ ui <- fluidPage(
                           ),
                           column(6,
                                  checkboxGroupInput('posccn',
-                                                    'Which POS tags should we include?',
-                                                    c("ADJ", "ADP", "ADV", "AUX", "CCONJ", "DET", "INTJ", "NOUN", "NUM", "PART", "PRON", "PROPN", "PUNCT", "SCONJ", "SYM", "VERB", "X"),
-                                                    c("ADJ", "ADP", "ADV", "AUX", "CCONJ", "DET", "INTJ", "NOUN", "NUM", "PART", "PRON", "PROPN", "PUNCT", "SCONJ", "SYM", "VERB", "X")
+                                                    'Untick any word types you want to exclude from the plot.',
+                                                    pos_list,
+                                                    pos_list
                                  )
                           )
                         ),
                         fluidRow(
-                          actionButton("makeccn", "Press this to make the concept network plot", class = "btn-success"),
+                          actionButton("makeccn", "Press this to make (or refresh) the concept network plot", class = "btn-success"),
                           actionButton("showccn", "Press this to toggle whether to show your concept network plot", class="btn-info"),
                           plotOutput('ccn')
                         )
@@ -413,6 +414,41 @@ server <- function(input, output, session) {
     ft()
   })
   observeEvent(input$showformat, toggle("formattedtable"))
+  pos_list2 <- reactive({
+    mydata <- ft()
+    u <- sort(unique(mydata$upos))
+    u
+  })
+  observe({
+    updateCheckboxGroupInput(session, "poswc",
+                      choices = pos_list2(),
+                      selected = pos_list2()
+    )})
+  observe({
+    updateCheckboxGroupInput(session, "posng",
+                             choices = pos_list2(),
+                             selected = pos_list2()
+    )})
+  observe({
+    updateCheckboxGroupInput(session, "poscn",
+                             choices = pos_list2(),
+                             selected = pos_list2()
+    )})
+  observe({
+    updateCheckboxGroupInput(session, "poscc",
+                             choices = pos_list2(),
+                             selected = pos_list2()
+    )})
+  observe({
+    updateCheckboxGroupInput(session, "poscng",
+                             choices = pos_list2(),
+                             selected = pos_list2()
+    )})
+  observe({
+    updateCheckboxGroupInput(session, "posccn",
+                             choices = pos_list2(),
+                             selected = pos_list2()
+    )})
   sum <- reactive({input$summarytable})
   st2 <- eventReactive(input$makest, {
     if (sum() == 'response') {
