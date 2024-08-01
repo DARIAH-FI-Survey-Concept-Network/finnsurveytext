@@ -26,8 +26,8 @@ question.}
 \item{id}{The column in the dataframe which contains the ids for the
 responses.}
 
-\item{model}{A Finnish language model available for [udpipe], `"ftb"`
-(default) or `"tdt"`.}
+\item{model}{A language model available for [udpipe], such as `"ftb"`
+(default) or `"tdt"` which are available for Finnish.}
 
 \item{stopword_list}{A valid Finnish stopword list, default is `"nltk"`,
 `"manual"` can be used to indicate that a manual list will be provided, or

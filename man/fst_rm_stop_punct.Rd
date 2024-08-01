@@ -14,7 +14,7 @@ fst_rm_stop_punct(
 \arguments{
 \item{data}{A dataframe of Finnish text in CoNLL-U format.}
 
-\item{stopword_list}{A valid Finnish stopword list, default is `"nltk"`,
+\item{stopword_list}{A valid stopword list, default is `"nltk"`,
 `"manual"` can be used to indicate that a manual list will be provided, or
 `"none"` if you don't want to remove stopwords.}
 
@@ -24,7 +24,7 @@ provided, `stopword_list = "manual"` can also or instead be used.}
 \item{manual_list}{A manual list of stopwords.}
 }
 \value{
-A dataframe of Finnish text in CoNLL-U format without stopwords and
+A dataframe of text in CoNLL-U format without stopwords and
  punctuation.
 }
 \description{

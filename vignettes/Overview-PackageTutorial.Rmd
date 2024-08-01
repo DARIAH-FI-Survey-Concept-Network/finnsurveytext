@@ -34,11 +34,11 @@ library(survey)
 
 # 1. Data Preparation
 
-The data preparation functions are used to take your raw survey data (in a dataframe or *svydesign* object within your R environment) and convert it into a standardised format ready for analysis. 
+These data preparation functions are used to take your raw survey data (in a dataframe or *svydesign* object within your R environment) and convert it into a standardised format ready for analysis. 
 
-The functions in the remaining sections require your data to be pre-formatted into this format. 
+The analysis functions in the remaining sections require your data to be pre-formatted. To learn move about the format we use, see the [Universal Dependencies Project](https://universaldependencies.org/format.html).
 
-(To learn move about the format we use, see the [Universal Dependencies Project](https://universaldependencies.org/format.html).)
+Now that `finnsurveytext` integrates with the **survey** package, there are two options for bringing your survey results into the package:
 
 ### Option 1: Data is in a dataframe
 
@@ -97,7 +97,7 @@ knitr::kable(head(df, 5))
 
 ### Option 2: Data is in a *svydesign* object
 
-The other option is to get your data from a *svydesign* object from the **survey** package. The **survey** package is a popular package used for analysising surveys. 
+The other option is to get your data from a *svydesign* object from the **survey** package. The **survey** package is a well-known package used for analysising surveys. (See package website [here](http://r-survey.r-forge.r-project.org/survey/) and on the [CRAN](https://CRAN.R-project.org/package=survey))
 
 ```{r echo = FALSE}
 svy_dev <- survey::svydesign(id = ~1, weights = ~paino, data =dev_coop)

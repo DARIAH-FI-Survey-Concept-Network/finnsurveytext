@@ -189,10 +189,6 @@ This function is run as follows:
 ```{r}
 fst_concept_network(
   data = df1,
-  concepts = "elintaso, köyhä, ihminen"
-)
-fst_concept_network(
-  data = df1,
   concepts = "kiusata, lyöminen",
   title = "Concept Network of Bullying Data"
 )
