@@ -138,7 +138,7 @@ The top words tables is able have the words normalised if you choose. The variab
 Optionally, you can indicate which POS tags to include. 
 
 In this function, you must determine what you want to do in the case of ties with the variable `strict`. Words with equal occurrence are presented in alphabetial order. By default, words are presented in order to the `number` cutoff word. This means that equally-occurring later-alphabetically words beyond the cutoff word **will not** be displayed. Alternatively, you can decide that the cutoff is not strict, in which case words occurring equally often as the `number` cutoff words **will** be displayed.
-(`fst_get_top_words()` will print a message regarding this decision.)
+(`fst_freq_table()` will print a message regarding this decision.)
 
 We run the functions as follows:
 
@@ -158,10 +158,10 @@ fst_freq_table(
 )
                            
 
-table1 <- fst_get_top_words(data = df2, number = 5)
+table1 <- fst_freq_table(data = df2, number = 5)
 knitr::kable(table1)
 
-table2 <- fst_get_top_words(data = df2, number = 5, norm = "number_resp", pos_filter = c("NOUN", "VERB"), strict = FALSE)
+table2 <- fst_freq_table(data = df2, number = 5, norm = "number_resp", pos_filter = c("NOUN", "VERB"), strict = FALSE)
 knitr::kable(table2)
 ```
 

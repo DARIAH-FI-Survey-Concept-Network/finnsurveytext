@@ -106,7 +106,7 @@ As an example, the Development Cooperation survey q11_2 data could be prepared u
 ```{r eval = FALSE}
 prepd_dev <- fst_prepare_conllu(
   dev_coop,
-  field = "q11_2",
+  question = "q11_2",
   stopword_list = "none",
   model = "tdt", 
   weights = NULL,
@@ -155,8 +155,8 @@ Our package works for two of the Finnish language models available, [Turku Depen
 The `fst_format_conllu()` function utilises the `udpipe` [package](https://cran.r-project.org/web/packages/udpipe/vignettes/udpipe-annotation.html) and can be run as follows: 
 
 ```{r}
-conllu_dev_q11_1 <- fst_format(data = dev_coop, field = "q11_1")
-conllu_cb_bullying <- fst_format(data = child, field = "q7", model = "tdt")
+conllu_dev_q11_1 <- fst_format(data = dev_coop, question = "q11_1", id = 'fsd_id')
+conllu_cb_bullying <- fst_format(data = child, question = "q7", model = "tdt", id = 'fsd_id')
 ```
 *Note: the first time you run this function, it will download the relevant treebank from udpipe for use in the annotations.*
 
