@@ -2,10 +2,17 @@ pos_list <- c("ADJ", "ADP", "ADV", "AUX", "CCONJ", "DET", "INTJ", "NOUN", "NUM",
 
 library(shiny)
 library(shinyjs)
+library(shinyBS)
+library(shinydashboard)
+
+body <- dashboardBody(
+  tags$head(tags$style("#test .modal-dialog {width: fit-content !important;}"))
+)
+
 ui <- fluidPage(
   useShinyjs(),
   titlePanel(
-    "`finnsurveytext` package demo"
+    "`finnsurveytext` package demo BETA"
   ),
   tabsetPanel(
     tabPanel("Instructions"),
@@ -114,7 +121,8 @@ ui <- fluidPage(
                  fluidRow(
                    actionButton("makewc", "Press this to make (or refresh) the wordcloud", class = "btn-success"),
                    actionButton("showwc", "Press this to toggle whether to show your wordcloud", class="btn-info"),
-                   plotOutput("wc")
+                   # plotOutput("wc")
+                   bsModal("modwc", "Your plot", "makewc", size = "large",plotOutput("wc"),downloadButton('downloadPlot', 'Download'))
                  ),
         ),
         "Frequent Words/Phrases",
@@ -495,6 +503,13 @@ server <- function(input, output, session) {
   output$wc <- renderPlot({
     wc2()
   })
+  output$downloadPlot <- downloadHandler(
+    filename = "Shinyplot.png",
+    content = function(file) {
+      png(file)
+      plotInput()
+      dev.off()
+    })
   observeEvent(input$showwc, toggle("wc"))
   pfng <- reactive({input$posng})
   mxng <- reactive({input$numberng})
