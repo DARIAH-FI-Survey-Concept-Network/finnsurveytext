@@ -274,6 +274,7 @@ compare groups.</p>
 <span>                  weights <span class="op">=</span> <span class="st">'paino'</span>,</span>
 <span>                  add_cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'gender'</span>, <span class="st">'region'</span><span class="op">)</span></span>
 <span>                  <span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] "if"</span></span></code></pre>
 <p><strong>Summary of components</strong></p>
 <ul>
 <li>
@@ -458,18 +459,18 @@ package is a well-known package used for analysising surveys. (See
 package website <a href="http://r-survey.r-forge.r-project.org/survey/" class="external-link">here</a> and on the
 <a href="https://CRAN.R-project.org/package=survey" class="external-link">CRAN</a>)</p>
 <p>The main function here is <code><a href="../reference/fst_prepare_svydesign.html">fst_prepare_svydesign()</a></code></p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co"># FUNCTION DEFINITION</span></span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>fst_prepare_svydesign <span class="ot">&lt;-</span> <span class="cf">function</span>(svydesign,</span>
-<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>                                  question,</span>
-<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>                                  id,</span>
-<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>                                  <span class="at">model =</span> <span class="st">"ftb"</span>,</span>
-<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a>                                  <span class="at">stopword_list =</span> <span class="st">"nltk"</span>,</span>
-<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a>                                  <span class="at">use_weights =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a>                                  <span class="at">add_cols =</span> <span class="cn">NULL</span>,</span>
-<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a>                                  <span class="at">manual =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a>                                  <span class="at">manual_list =</span> <span class="st">""</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="co"># FUNCTION DEFINITION</span></span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>fst_prepare_svydesign <span class="ot">&lt;-</span> <span class="cf">function</span>(svydesign,</span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>                                  question,</span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a>                                  id,</span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>                                  <span class="at">model =</span> <span class="st">"ftb"</span>,</span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a>                                  <span class="at">stopword_list =</span> <span class="st">"nltk"</span>,</span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a>                                  <span class="at">use_weights =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a>                                  <span class="at">add_cols =</span> <span class="cn">NULL</span>,</span>
+<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a>                                  <span class="at">manual =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a>                                  <span class="at">manual_list =</span> <span class="st">""</span>) </span></code></pre></div>
 <p>We can run the function as follows:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fst_prepare_svydesign.html">fst_prepare_svydesign</a></span><span class="op">(</span>svydesign <span class="op">=</span> <span class="va">svy_dev</span>,</span>
 <span>                            question <span class="op">=</span> <span class="st">'q11_3'</span>, </span>
 <span>                            id <span class="op">=</span> <span class="st">'fsd_id'</span>, </span>
@@ -645,15 +646,15 @@ themes in your survey responses.</p>
 <p>First, let’s create some summaries using <code>fst_summarise</code>,
 <code>fst_pos</code> and <code>fst_length_summary</code></p>
 <p>These functions are defined as follows:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="co"># FUNCTION DEFINITIONS</span></span>
-<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>fst_summarise <span class="ot">&lt;-</span> <span class="cf">function</span>(data, </span>
-<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>                          <span class="at">desc =</span> <span class="st">"All respondents"</span>) </span>
-<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a></span>
-<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a>fst_pos <span class="ot">&lt;-</span> <span class="cf">function</span>(data) </span>
-<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a>  </span>
-<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a>fst_length_summary <span class="ot">&lt;-</span> <span class="cf">function</span>(data,</span>
-<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a>                               <span class="at">desc =</span> <span class="st">"All respondents"</span>,</span>
-<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a>                               <span class="at">incl_sentences =</span> <span class="cn">TRUE</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="co"># FUNCTION DEFINITIONS</span></span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>fst_summarise <span class="ot">&lt;-</span> <span class="cf">function</span>(data, </span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>                          <span class="at">desc =</span> <span class="st">"All respondents"</span>) </span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a>fst_pos <span class="ot">&lt;-</span> <span class="cf">function</span>(data) </span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a>  </span>
+<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a>fst_length_summary <span class="ot">&lt;-</span> <span class="cf">function</span>(data,</span>
+<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a>                               <span class="at">desc =</span> <span class="st">"All respondents"</span>,</span>
+<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a>                               <span class="at">incl_sentences =</span> <span class="cn">TRUE</span>) </span></code></pre></div>
 <p><strong>Summary of components</strong></p>
 <ul>
 <li>
@@ -667,13 +668,13 @@ also summarise sentence length (in addition to word length), if not
 provided it will default to TRUE.</li>
 </ul>
 <p>Hence, these functions are run for our sample data as follows:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fst_summarise.html">fst_summarise</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##     Description Respondents No Response Proportion Total Words Unique Words</span></span>
 <span><span class="co">## 1 All responses         945          25       0.97        4192         1132</span></span>
 <span><span class="co">##   Unique Lemmas</span></span>
 <span><span class="co">## 1           994</span></span></code></pre>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fst_pos.html">fst_pos</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##     UPOS                  UPOS_Name Count Proportion</span></span>
 <span><span class="co">## 1    ADJ                  adjective   389      0.093</span></span>
@@ -693,7 +694,7 @@ provided it will default to TRUE.</li>
 <span><span class="co">## 15   SYM                     symbol     1      0.000</span></span>
 <span><span class="co">## 16  VERB                       verb   278      0.066</span></span>
 <span><span class="co">## 17     X                      other    12      0.003</span></span></code></pre>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fst_length_summary.html">fst_length_summary</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 2 × 8</span></span></span>
 <span><span class="co">##   Description              Respondents  Mean Minimum    Q1 Median    Q3 Maximum</span></span>
@@ -710,13 +711,13 @@ provided it will default to TRUE.</li>
 <p>The first of our frequent words visualisations in the wordcloud which
 comes from the <code>wordcloud</code> package.</p>
 <p>It is defined as follows:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>fst_wordcloud <span class="ot">&lt;-</span> <span class="cf">function</span>(data,</span>
-<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a>                          <span class="at">pos_filter =</span> <span class="cn">NULL</span>,</span>
-<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a>                          <span class="at">max =</span> <span class="dv">100</span>,</span>
-<span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a>                          <span class="at">use_svydesign_weights =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb18-5"><a href="#cb18-5" tabindex="-1"></a>                          <span class="at">id =</span> <span class="st">""</span>,</span>
-<span id="cb18-6"><a href="#cb18-6" tabindex="-1"></a>                          <span class="at">svydesign =</span> <span class="cn">NULL</span>,</span>
-<span id="cb18-7"><a href="#cb18-7" tabindex="-1"></a>                          <span class="at">use_column_weights =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a>fst_wordcloud <span class="ot">&lt;-</span> <span class="cf">function</span>(data,</span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>                          <span class="at">pos_filter =</span> <span class="cn">NULL</span>,</span>
+<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a>                          <span class="at">max =</span> <span class="dv">100</span>,</span>
+<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a>                          <span class="at">use_svydesign_weights =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a>                          <span class="at">id =</span> <span class="st">""</span>,</span>
+<span id="cb19-6"><a href="#cb19-6" tabindex="-1"></a>                          <span class="at">svydesign =</span> <span class="cn">NULL</span>,</span>
+<span id="cb19-7"><a href="#cb19-7" tabindex="-1"></a>                          <span class="at">use_column_weights =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p><strong>Summary of components</strong></p>
 <ul>
 <li>
@@ -739,10 +740,10 @@ to use weights from within a <em>svydesign</em> object.</li>
 <li>The <code>svydesign</code> object</li>
 </ul>
 <p>Here are some examples of creating wordclouds:</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fst_wordcloud.html">fst_wordcloud</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Overview-PackageTutorial_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># We can only get weights from svydesign if they are NOT already in our formatted data. Hence we remove them for this demonstration!</span></span>
 <span><span class="va">df2</span><span class="op">$</span><span class="va">weight</span> <span class="op">&lt;-</span> <span class="cn">NULL</span></span>
 <span><span class="fu"><a href="../reference/fst_wordcloud.html">fst_wordcloud</a></span><span class="op">(</span><span class="va">df2</span>, </span>
@@ -758,28 +759,28 @@ to use weights from within a <em>svydesign</em> object.</li>
 </h4>
 <p>Then, we have functions to identify and plot the most frequent words
 or n-grams (sets of n words in order).</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a>fst_freq <span class="ot">&lt;-</span> <span class="cf">function</span>(data,</span>
-<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a>                     <span class="at">number =</span> <span class="dv">10</span>,</span>
-<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a>                     <span class="at">norm =</span> <span class="cn">NULL</span>,</span>
-<span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a>                     <span class="at">pos_filter =</span> <span class="cn">NULL</span>,</span>
-<span id="cb21-5"><a href="#cb21-5" tabindex="-1"></a>                     <span class="at">strict =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb21-6"><a href="#cb21-6" tabindex="-1"></a>                     <span class="at">name =</span> <span class="cn">NULL</span>,</span>
-<span id="cb21-7"><a href="#cb21-7" tabindex="-1"></a>                     <span class="at">use_svydesign_weights =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb21-8"><a href="#cb21-8" tabindex="-1"></a>                     <span class="at">id =</span> <span class="st">""</span>,</span>
-<span id="cb21-9"><a href="#cb21-9" tabindex="-1"></a>                     <span class="at">svydesign =</span> <span class="cn">NULL</span>,</span>
-<span id="cb21-10"><a href="#cb21-10" tabindex="-1"></a>                     <span class="at">use_column_weights =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb21-11"><a href="#cb21-11" tabindex="-1"></a>  </span>
-<span id="cb21-12"><a href="#cb21-12" tabindex="-1"></a>fst_ngrams <span class="ot">&lt;-</span> <span class="cf">function</span>(data,</span>
-<span id="cb21-13"><a href="#cb21-13" tabindex="-1"></a>                       <span class="at">number =</span> <span class="dv">10</span>,</span>
-<span id="cb21-14"><a href="#cb21-14" tabindex="-1"></a>                       <span class="at">ngrams =</span> <span class="dv">1</span>,</span>
-<span id="cb21-15"><a href="#cb21-15" tabindex="-1"></a>                       <span class="at">norm =</span> <span class="cn">NULL</span>,</span>
-<span id="cb21-16"><a href="#cb21-16" tabindex="-1"></a>                       <span class="at">pos_filter =</span> <span class="cn">NULL</span>,</span>
-<span id="cb21-17"><a href="#cb21-17" tabindex="-1"></a>                       <span class="at">strict =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb21-18"><a href="#cb21-18" tabindex="-1"></a>                       <span class="at">name =</span> <span class="cn">NULL</span>,</span>
-<span id="cb21-19"><a href="#cb21-19" tabindex="-1"></a>                       <span class="at">use_svydesign_weights =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb21-20"><a href="#cb21-20" tabindex="-1"></a>                       <span class="at">id =</span> <span class="st">""</span>,</span>
-<span id="cb21-21"><a href="#cb21-21" tabindex="-1"></a>                       <span class="at">svydesign =</span> <span class="cn">NULL</span>,</span>
-<span id="cb21-22"><a href="#cb21-22" tabindex="-1"></a>                       <span class="at">use_column_weights =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a>fst_freq <span class="ot">&lt;-</span> <span class="cf">function</span>(data,</span>
+<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a>                     <span class="at">number =</span> <span class="dv">10</span>,</span>
+<span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a>                     <span class="at">norm =</span> <span class="cn">NULL</span>,</span>
+<span id="cb22-4"><a href="#cb22-4" tabindex="-1"></a>                     <span class="at">pos_filter =</span> <span class="cn">NULL</span>,</span>
+<span id="cb22-5"><a href="#cb22-5" tabindex="-1"></a>                     <span class="at">strict =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb22-6"><a href="#cb22-6" tabindex="-1"></a>                     <span class="at">name =</span> <span class="cn">NULL</span>,</span>
+<span id="cb22-7"><a href="#cb22-7" tabindex="-1"></a>                     <span class="at">use_svydesign_weights =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb22-8"><a href="#cb22-8" tabindex="-1"></a>                     <span class="at">id =</span> <span class="st">""</span>,</span>
+<span id="cb22-9"><a href="#cb22-9" tabindex="-1"></a>                     <span class="at">svydesign =</span> <span class="cn">NULL</span>,</span>
+<span id="cb22-10"><a href="#cb22-10" tabindex="-1"></a>                     <span class="at">use_column_weights =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb22-11"><a href="#cb22-11" tabindex="-1"></a>  </span>
+<span id="cb22-12"><a href="#cb22-12" tabindex="-1"></a>fst_ngrams <span class="ot">&lt;-</span> <span class="cf">function</span>(data,</span>
+<span id="cb22-13"><a href="#cb22-13" tabindex="-1"></a>                       <span class="at">number =</span> <span class="dv">10</span>,</span>
+<span id="cb22-14"><a href="#cb22-14" tabindex="-1"></a>                       <span class="at">ngrams =</span> <span class="dv">1</span>,</span>
+<span id="cb22-15"><a href="#cb22-15" tabindex="-1"></a>                       <span class="at">norm =</span> <span class="cn">NULL</span>,</span>
+<span id="cb22-16"><a href="#cb22-16" tabindex="-1"></a>                       <span class="at">pos_filter =</span> <span class="cn">NULL</span>,</span>
+<span id="cb22-17"><a href="#cb22-17" tabindex="-1"></a>                       <span class="at">strict =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb22-18"><a href="#cb22-18" tabindex="-1"></a>                       <span class="at">name =</span> <span class="cn">NULL</span>,</span>
+<span id="cb22-19"><a href="#cb22-19" tabindex="-1"></a>                       <span class="at">use_svydesign_weights =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb22-20"><a href="#cb22-20" tabindex="-1"></a>                       <span class="at">id =</span> <span class="st">""</span>,</span>
+<span id="cb22-21"><a href="#cb22-21" tabindex="-1"></a>                       <span class="at">svydesign =</span> <span class="cn">NULL</span>,</span>
+<span id="cb22-22"><a href="#cb22-22" tabindex="-1"></a>                       <span class="at">use_column_weights =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p><strong>Summary of components</strong></p>
 <ul>
 <li>
@@ -820,14 +821,14 @@ to use weights from within a <em>svydesign</em> object.</li>
 to use weights from the weight column as set-up during the data
 formatting.</li>
 </ul>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fst_freq.html">fst_freq</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Note:</span></span>
 <span><span class="co">##  Words with equal occurrence are presented in alphabetical order. </span></span>
 <span><span class="co">##  By default, words are presented in order to the `number` cutoff word. </span></span>
 <span><span class="co">##  This means that equally-occurring later-alphabetically words beyond the cutoff word will not be displayed.</span></span></code></pre>
 <p><img src="Overview-PackageTutorial_files/figure-html/unnamed-chunk-16-1.png" width="700"></p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fst_ngrams.html">fst_ngrams</a></span><span class="op">(</span><span class="va">df</span>, </span>
 <span>           number <span class="op">=</span> <span class="fl">9</span>, </span>
 <span>           ngrams <span class="op">=</span> <span class="fl">2</span>, </span>
@@ -837,7 +838,7 @@ formatting.</li>
 <span><span class="co">##  N-grams with equal occurrence are presented in alphabetical order. </span></span>
 <span><span class="co">##  With `strict` = FALSE, n-grams occurring equally often as the `number` cutoff n-gram will be displayed.</span></span></code></pre>
 <p><img src="Overview-PackageTutorial_files/figure-html/unnamed-chunk-16-2.png" width="700"></p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fst_freq.html">fst_freq</a></span><span class="op">(</span><span class="va">df</span>,</span>
 <span>         number <span class="op">=</span> <span class="fl">5</span>, </span>
 <span>         strict <span class="op">=</span> <span class="cn">FALSE</span>,<span class="op">)</span></span></code></pre></div>
@@ -847,7 +848,7 @@ formatting.</li>
 <p><img src="Overview-PackageTutorial_files/figure-html/unnamed-chunk-16-3.png" width="700"></p>
 <p>(<code><a href="../reference/fst_freq_table.html">fst_freq_table()</a></code> and <code><a href="../reference/fst_ngrams_table.html">fst_ngrams_table()</a></code>
 can be used to instead create tables of the top words.)</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fst_freq_table.html">fst_freq_table</a></span><span class="op">(</span><span class="va">df</span>, number <span class="op">=</span> <span class="fl">15</span>, strict <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Note:</span></span>
 <span><span class="co">##  Words with equal occurrence are presented in alphabetical order. </span></span>
@@ -888,12 +889,12 @@ webpages.) You can read about the underlying TextRank algorithm <a href="https:/
 and about the PageRank algorithm <a href="https://doi.org/10.1016/S0169-7552(98)00110-X" class="external-link">here</a>.</p>
 <p>The main concept network function is
 <code><a href="../reference/fst_concept_network.html">fst_concept_network()</a></code>. It is defined as follows:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a>fst_concept_network <span class="ot">&lt;-</span> <span class="cf">function</span>(data,</span>
-<span id="cb31-2"><a href="#cb31-2" tabindex="-1"></a>                                concepts,</span>
-<span id="cb31-3"><a href="#cb31-3" tabindex="-1"></a>                                <span class="at">threshold =</span> <span class="cn">NULL</span>,</span>
-<span id="cb31-4"><a href="#cb31-4" tabindex="-1"></a>                                <span class="at">norm =</span> <span class="cn">NULL</span>,</span>
-<span id="cb31-5"><a href="#cb31-5" tabindex="-1"></a>                                <span class="at">pos_filter =</span> <span class="cn">NULL</span>,</span>
-<span id="cb31-6"><a href="#cb31-6" tabindex="-1"></a>                                <span class="at">title =</span> <span class="cn">NULL</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a>fst_concept_network <span class="ot">&lt;-</span> <span class="cf">function</span>(data,</span>
+<span id="cb32-2"><a href="#cb32-2" tabindex="-1"></a>                                concepts,</span>
+<span id="cb32-3"><a href="#cb32-3" tabindex="-1"></a>                                <span class="at">threshold =</span> <span class="cn">NULL</span>,</span>
+<span id="cb32-4"><a href="#cb32-4" tabindex="-1"></a>                                <span class="at">norm =</span> <span class="cn">NULL</span>,</span>
+<span id="cb32-5"><a href="#cb32-5" tabindex="-1"></a>                                <span class="at">pos_filter =</span> <span class="cn">NULL</span>,</span>
+<span id="cb32-6"><a href="#cb32-6" tabindex="-1"></a>                                <span class="at">title =</span> <span class="cn">NULL</span>) </span></code></pre></div>
 <p><strong>Summary of components</strong></p>
 <ul>
 <li>
@@ -921,7 +922,7 @@ inclusion. The default is NULL.</li>
 occurrences”) will be used.</li>
 </ul>
 <p>For example, we can create the following concept network plots:</p>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fst_concept_network.html">fst_concept_network</a></span><span class="op">(</span><span class="va">df</span>, </span>
 <span>                    concepts <span class="op">=</span> <span class="st">"köyhyys, nälänhätä, sota, ilmastonmuutos, puute"</span>, </span>
 <span>                    <span class="op">)</span></span></code></pre></div>
@@ -937,21 +938,21 @@ based on these values.</p>
 we have shown above.</p>
 <p>The comparison <strong>summary tables</strong> are defined as
 follows:</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a>fst_pos_compare <span class="ot">&lt;-</span> <span class="cf">function</span>(data,</span>
-<span id="cb33-2"><a href="#cb33-2" tabindex="-1"></a>                            field,</span>
-<span id="cb33-3"><a href="#cb33-3" tabindex="-1"></a>                            <span class="at">exclude_nulls =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb33-4"><a href="#cb33-4" tabindex="-1"></a>                            <span class="at">rename_nulls =</span> <span class="st">'null_data'</span>)</span>
-<span id="cb33-5"><a href="#cb33-5" tabindex="-1"></a></span>
-<span id="cb33-6"><a href="#cb33-6" tabindex="-1"></a>fst_summarise_compare <span class="ot">&lt;-</span> <span class="cf">function</span>(data,</span>
-<span id="cb33-7"><a href="#cb33-7" tabindex="-1"></a>                                  field,</span>
-<span id="cb33-8"><a href="#cb33-8" tabindex="-1"></a>                                  <span class="at">exclude_nulls =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb33-9"><a href="#cb33-9" tabindex="-1"></a>                                  <span class="at">rename_nulls =</span> <span class="st">'null_data'</span>)</span>
-<span id="cb33-10"><a href="#cb33-10" tabindex="-1"></a></span>
-<span id="cb33-11"><a href="#cb33-11" tabindex="-1"></a>fst_length_compare <span class="ot">&lt;-</span> <span class="cf">function</span>(data,</span>
-<span id="cb33-12"><a href="#cb33-12" tabindex="-1"></a>                               field,</span>
-<span id="cb33-13"><a href="#cb33-13" tabindex="-1"></a>                               <span class="at">incl_sentences =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb33-14"><a href="#cb33-14" tabindex="-1"></a>                               <span class="at">exclude_nulls =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb33-15"><a href="#cb33-15" tabindex="-1"></a>                               <span class="at">rename_nulls =</span> <span class="st">'null_data'</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a>fst_pos_compare <span class="ot">&lt;-</span> <span class="cf">function</span>(data,</span>
+<span id="cb34-2"><a href="#cb34-2" tabindex="-1"></a>                            field,</span>
+<span id="cb34-3"><a href="#cb34-3" tabindex="-1"></a>                            <span class="at">exclude_nulls =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb34-4"><a href="#cb34-4" tabindex="-1"></a>                            <span class="at">rename_nulls =</span> <span class="st">'null_data'</span>)</span>
+<span id="cb34-5"><a href="#cb34-5" tabindex="-1"></a></span>
+<span id="cb34-6"><a href="#cb34-6" tabindex="-1"></a>fst_summarise_compare <span class="ot">&lt;-</span> <span class="cf">function</span>(data,</span>
+<span id="cb34-7"><a href="#cb34-7" tabindex="-1"></a>                                  field,</span>
+<span id="cb34-8"><a href="#cb34-8" tabindex="-1"></a>                                  <span class="at">exclude_nulls =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb34-9"><a href="#cb34-9" tabindex="-1"></a>                                  <span class="at">rename_nulls =</span> <span class="st">'null_data'</span>)</span>
+<span id="cb34-10"><a href="#cb34-10" tabindex="-1"></a></span>
+<span id="cb34-11"><a href="#cb34-11" tabindex="-1"></a>fst_length_compare <span class="ot">&lt;-</span> <span class="cf">function</span>(data,</span>
+<span id="cb34-12"><a href="#cb34-12" tabindex="-1"></a>                               field,</span>
+<span id="cb34-13"><a href="#cb34-13" tabindex="-1"></a>                               <span class="at">incl_sentences =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb34-14"><a href="#cb34-14" tabindex="-1"></a>                               <span class="at">exclude_nulls =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb34-15"><a href="#cb34-15" tabindex="-1"></a>                               <span class="at">rename_nulls =</span> <span class="st">'null_data'</span>) </span></code></pre></div>
 <p><strong>Summary of Components</strong></p>
 <ul>
 <li>
@@ -968,7 +969,7 @@ default value is FALSE.</li>
 </ul>
 <p>Let’s compare our responses based on the region of the
 respondent:</p>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="fu"><a href="../reference/fst_pos_compare.html">fst_pos_compare</a></span><span class="op">(</span><span class="va">df</span>, <span class="st">'region'</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <colgroup>
@@ -1240,7 +1241,7 @@ respondent:</p>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="fu"><a href="../reference/fst_summarise_compare.html">fst_summarise_compare</a></span><span class="op">(</span><span class="va">df</span>, <span class="st">'region'</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <colgroup>
@@ -1309,7 +1310,7 @@ respondent:</p>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="fu"><a href="../reference/fst_length_compare.html">fst_length_compare</a></span><span class="op">(</span><span class="va">df</span>, <span class="st">'region'</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <colgroup>
@@ -1437,39 +1438,39 @@ respondent:</p>
 </table>
 <p>The <strong>ngrams</strong> comparison functions are defined
 similarly (with some additional new values):</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a>fst_freq_compare <span class="ot">&lt;-</span> <span class="cf">function</span>(data,</span>
-<span id="cb37-2"><a href="#cb37-2" tabindex="-1"></a>                             field,</span>
-<span id="cb37-3"><a href="#cb37-3" tabindex="-1"></a>                             <span class="at">number =</span> <span class="dv">10</span>,</span>
-<span id="cb37-4"><a href="#cb37-4" tabindex="-1"></a>                             <span class="at">norm =</span> <span class="cn">NULL</span>,</span>
-<span id="cb37-5"><a href="#cb37-5" tabindex="-1"></a>                             <span class="at">pos_filter =</span> <span class="cn">NULL</span>,</span>
-<span id="cb37-6"><a href="#cb37-6" tabindex="-1"></a>                             <span class="at">strict =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb37-7"><a href="#cb37-7" tabindex="-1"></a>                             <span class="at">use_svydesign_weights =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb37-8"><a href="#cb37-8" tabindex="-1"></a>                             <span class="at">id =</span> <span class="st">""</span>,</span>
-<span id="cb37-9"><a href="#cb37-9" tabindex="-1"></a>                             <span class="at">svydesign =</span> <span class="cn">NULL</span>,</span>
-<span id="cb37-10"><a href="#cb37-10" tabindex="-1"></a>                             <span class="at">use_column_weights =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb37-11"><a href="#cb37-11" tabindex="-1"></a>                             <span class="at">exclude_nulls =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb37-12"><a href="#cb37-12" tabindex="-1"></a>                             <span class="at">rename_nulls =</span> <span class="st">'null_data'</span>,</span>
-<span id="cb37-13"><a href="#cb37-13" tabindex="-1"></a>                             <span class="at">unique_colour =</span> <span class="st">"indianred"</span>,</span>
-<span id="cb37-14"><a href="#cb37-14" tabindex="-1"></a>                             <span class="at">title_size =</span> <span class="dv">20</span>,</span>
-<span id="cb37-15"><a href="#cb37-15" tabindex="-1"></a>                             <span class="at">subtitle_size =</span> <span class="dv">15</span>)</span>
-<span id="cb37-16"><a href="#cb37-16" tabindex="-1"></a></span>
-<span id="cb37-17"><a href="#cb37-17" tabindex="-1"></a></span>
-<span id="cb37-18"><a href="#cb37-18" tabindex="-1"></a>fst_ngrams_compare <span class="ot">&lt;-</span> <span class="cf">function</span>(data,</span>
-<span id="cb37-19"><a href="#cb37-19" tabindex="-1"></a>                              field,</span>
-<span id="cb37-20"><a href="#cb37-20" tabindex="-1"></a>                              <span class="at">number =</span> <span class="dv">10</span>,</span>
-<span id="cb37-21"><a href="#cb37-21" tabindex="-1"></a>                              <span class="at">ngrams =</span> <span class="dv">1</span>,</span>
-<span id="cb37-22"><a href="#cb37-22" tabindex="-1"></a>                              <span class="at">norm =</span> <span class="cn">NULL</span>,</span>
-<span id="cb37-23"><a href="#cb37-23" tabindex="-1"></a>                              <span class="at">pos_filter =</span> <span class="cn">NULL</span>,</span>
-<span id="cb37-24"><a href="#cb37-24" tabindex="-1"></a>                              <span class="at">strict =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb37-25"><a href="#cb37-25" tabindex="-1"></a>                              <span class="at">use_svydesign_weights =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb37-26"><a href="#cb37-26" tabindex="-1"></a>                              <span class="at">id =</span> <span class="st">""</span>,</span>
-<span id="cb37-27"><a href="#cb37-27" tabindex="-1"></a>                              <span class="at">svydesign =</span> <span class="cn">NULL</span>,</span>
-<span id="cb37-28"><a href="#cb37-28" tabindex="-1"></a>                              <span class="at">use_column_weights =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb37-29"><a href="#cb37-29" tabindex="-1"></a>                              <span class="at">exclude_nulls =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb37-30"><a href="#cb37-30" tabindex="-1"></a>                              <span class="at">rename_nulls =</span> <span class="st">'null_data'</span>,</span>
-<span id="cb37-31"><a href="#cb37-31" tabindex="-1"></a>                              <span class="at">unique_colour =</span> <span class="st">"indianred"</span>,</span>
-<span id="cb37-32"><a href="#cb37-32" tabindex="-1"></a>                              <span class="at">title_size =</span> <span class="dv">20</span>,</span>
-<span id="cb37-33"><a href="#cb37-33" tabindex="-1"></a>                              <span class="at">subtitle_size =</span> <span class="dv">15</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a>fst_freq_compare <span class="ot">&lt;-</span> <span class="cf">function</span>(data,</span>
+<span id="cb38-2"><a href="#cb38-2" tabindex="-1"></a>                             field,</span>
+<span id="cb38-3"><a href="#cb38-3" tabindex="-1"></a>                             <span class="at">number =</span> <span class="dv">10</span>,</span>
+<span id="cb38-4"><a href="#cb38-4" tabindex="-1"></a>                             <span class="at">norm =</span> <span class="cn">NULL</span>,</span>
+<span id="cb38-5"><a href="#cb38-5" tabindex="-1"></a>                             <span class="at">pos_filter =</span> <span class="cn">NULL</span>,</span>
+<span id="cb38-6"><a href="#cb38-6" tabindex="-1"></a>                             <span class="at">strict =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb38-7"><a href="#cb38-7" tabindex="-1"></a>                             <span class="at">use_svydesign_weights =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb38-8"><a href="#cb38-8" tabindex="-1"></a>                             <span class="at">id =</span> <span class="st">""</span>,</span>
+<span id="cb38-9"><a href="#cb38-9" tabindex="-1"></a>                             <span class="at">svydesign =</span> <span class="cn">NULL</span>,</span>
+<span id="cb38-10"><a href="#cb38-10" tabindex="-1"></a>                             <span class="at">use_column_weights =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb38-11"><a href="#cb38-11" tabindex="-1"></a>                             <span class="at">exclude_nulls =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb38-12"><a href="#cb38-12" tabindex="-1"></a>                             <span class="at">rename_nulls =</span> <span class="st">'null_data'</span>,</span>
+<span id="cb38-13"><a href="#cb38-13" tabindex="-1"></a>                             <span class="at">unique_colour =</span> <span class="st">"indianred"</span>,</span>
+<span id="cb38-14"><a href="#cb38-14" tabindex="-1"></a>                             <span class="at">title_size =</span> <span class="dv">20</span>,</span>
+<span id="cb38-15"><a href="#cb38-15" tabindex="-1"></a>                             <span class="at">subtitle_size =</span> <span class="dv">15</span>)</span>
+<span id="cb38-16"><a href="#cb38-16" tabindex="-1"></a></span>
+<span id="cb38-17"><a href="#cb38-17" tabindex="-1"></a></span>
+<span id="cb38-18"><a href="#cb38-18" tabindex="-1"></a>fst_ngrams_compare <span class="ot">&lt;-</span> <span class="cf">function</span>(data,</span>
+<span id="cb38-19"><a href="#cb38-19" tabindex="-1"></a>                              field,</span>
+<span id="cb38-20"><a href="#cb38-20" tabindex="-1"></a>                              <span class="at">number =</span> <span class="dv">10</span>,</span>
+<span id="cb38-21"><a href="#cb38-21" tabindex="-1"></a>                              <span class="at">ngrams =</span> <span class="dv">1</span>,</span>
+<span id="cb38-22"><a href="#cb38-22" tabindex="-1"></a>                              <span class="at">norm =</span> <span class="cn">NULL</span>,</span>
+<span id="cb38-23"><a href="#cb38-23" tabindex="-1"></a>                              <span class="at">pos_filter =</span> <span class="cn">NULL</span>,</span>
+<span id="cb38-24"><a href="#cb38-24" tabindex="-1"></a>                              <span class="at">strict =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb38-25"><a href="#cb38-25" tabindex="-1"></a>                              <span class="at">use_svydesign_weights =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb38-26"><a href="#cb38-26" tabindex="-1"></a>                              <span class="at">id =</span> <span class="st">""</span>,</span>
+<span id="cb38-27"><a href="#cb38-27" tabindex="-1"></a>                              <span class="at">svydesign =</span> <span class="cn">NULL</span>,</span>
+<span id="cb38-28"><a href="#cb38-28" tabindex="-1"></a>                              <span class="at">use_column_weights =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb38-29"><a href="#cb38-29" tabindex="-1"></a>                              <span class="at">exclude_nulls =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb38-30"><a href="#cb38-30" tabindex="-1"></a>                              <span class="at">rename_nulls =</span> <span class="st">'null_data'</span>,</span>
+<span id="cb38-31"><a href="#cb38-31" tabindex="-1"></a>                              <span class="at">unique_colour =</span> <span class="st">"indianred"</span>,</span>
+<span id="cb38-32"><a href="#cb38-32" tabindex="-1"></a>                              <span class="at">title_size =</span> <span class="dv">20</span>,</span>
+<span id="cb38-33"><a href="#cb38-33" tabindex="-1"></a>                              <span class="at">subtitle_size =</span> <span class="dv">15</span>)</span></code></pre></div>
 <p>The <strong>new components</strong> are:</p>
 <ul>
 <li>
@@ -1481,10 +1482,10 @@ you may need to change them from the default values if any of your group
 names are long or if there are many groups.</li>
 </ul>
 <p>For the ngrams, let’s compare respondents by gender.</p>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fst_freq_compare.html">fst_freq_compare</a></span><span class="op">(</span><span class="va">df</span>, <span class="st">'gender'</span>, use_column_weights <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Overview-PackageTutorial_files/figure-html/unnamed-chunk-23-1.png" width="700"></p>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fst_ngrams_compare.html">fst_ngrams_compare</a></span><span class="op">(</span><span class="va">df</span>, <span class="st">'gender'</span>, ngrams <span class="op">=</span> <span class="fl">2</span>, use_column_weights <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Overview-PackageTutorial_files/figure-html/unnamed-chunk-23-2.png" width="700"></p>
 <p>The <strong>comparison cloud</strong> extends the wordcloud
@@ -1496,35 +1497,35 @@ information about comparison clouds, you can read <a href="https://CRAN.R-projec
 documentation</a>.</p>
 <p>The comparison cloud is defined as follows, with settings as defined
 for the previous functions:</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a>fst_comparison_cloud <span class="ot">&lt;-</span> <span class="cf">function</span>(data,</span>
-<span id="cb40-2"><a href="#cb40-2" tabindex="-1"></a>                                 field,</span>
-<span id="cb40-3"><a href="#cb40-3" tabindex="-1"></a>                                 <span class="at">pos_filter =</span> <span class="cn">NULL</span>,</span>
-<span id="cb40-4"><a href="#cb40-4" tabindex="-1"></a>                                 <span class="at">max =</span> <span class="dv">100</span>,</span>
-<span id="cb40-5"><a href="#cb40-5" tabindex="-1"></a>                                 <span class="at">use_svydesign_weights =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb40-6"><a href="#cb40-6" tabindex="-1"></a>                                 <span class="at">id =</span> <span class="st">""</span>,</span>
-<span id="cb40-7"><a href="#cb40-7" tabindex="-1"></a>                                 <span class="at">svydesign =</span> <span class="cn">NULL</span>,</span>
-<span id="cb40-8"><a href="#cb40-8" tabindex="-1"></a>                                 <span class="at">use_column_weights =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb40-9"><a href="#cb40-9" tabindex="-1"></a>                                 <span class="at">exclude_nulls =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb40-10"><a href="#cb40-10" tabindex="-1"></a>                                 <span class="at">rename_nulls =</span> <span class="st">"null_data"</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a>fst_comparison_cloud <span class="ot">&lt;-</span> <span class="cf">function</span>(data,</span>
+<span id="cb41-2"><a href="#cb41-2" tabindex="-1"></a>                                 field,</span>
+<span id="cb41-3"><a href="#cb41-3" tabindex="-1"></a>                                 <span class="at">pos_filter =</span> <span class="cn">NULL</span>,</span>
+<span id="cb41-4"><a href="#cb41-4" tabindex="-1"></a>                                 <span class="at">max =</span> <span class="dv">100</span>,</span>
+<span id="cb41-5"><a href="#cb41-5" tabindex="-1"></a>                                 <span class="at">use_svydesign_weights =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb41-6"><a href="#cb41-6" tabindex="-1"></a>                                 <span class="at">id =</span> <span class="st">""</span>,</span>
+<span id="cb41-7"><a href="#cb41-7" tabindex="-1"></a>                                 <span class="at">svydesign =</span> <span class="cn">NULL</span>,</span>
+<span id="cb41-8"><a href="#cb41-8" tabindex="-1"></a>                                 <span class="at">use_column_weights =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb41-9"><a href="#cb41-9" tabindex="-1"></a>                                 <span class="at">exclude_nulls =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb41-10"><a href="#cb41-10" tabindex="-1"></a>                                 <span class="at">rename_nulls =</span> <span class="st">"null_data"</span>) </span></code></pre></div>
 <p>Thus, we can create comparison clouds:</p>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fst_comparison_cloud.html">fst_comparison_cloud</a></span><span class="op">(</span><span class="va">df</span>, <span class="st">'gender'</span>, max <span class="op">=</span> <span class="fl">40</span>, use_column_weights <span class="op">=</span> <span class="cn">TRUE</span>, exclude_nulls <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Overview-PackageTutorial_files/figure-html/unnamed-chunk-25-1.png" width="750px"></p>
 <p>Finally we have the comparison <strong>concept network</strong> which
 has the following components which should be familiar from previous
 functions:</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a>fst_concept_network_compare <span class="ot">&lt;-</span> <span class="cf">function</span>(data,</span>
-<span id="cb42-2"><a href="#cb42-2" tabindex="-1"></a>                                        concepts,</span>
-<span id="cb42-3"><a href="#cb42-3" tabindex="-1"></a>                                        field,</span>
-<span id="cb42-4"><a href="#cb42-4" tabindex="-1"></a>                                        <span class="at">norm =</span> <span class="cn">NULL</span>,</span>
-<span id="cb42-5"><a href="#cb42-5" tabindex="-1"></a>                                        <span class="at">threshold =</span> <span class="cn">NULL</span>,</span>
-<span id="cb42-6"><a href="#cb42-6" tabindex="-1"></a>                                        <span class="at">pos_filter =</span> <span class="cn">NULL</span>,</span>
-<span id="cb42-7"><a href="#cb42-7" tabindex="-1"></a>                                        <span class="at">exclude_nulls =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb42-8"><a href="#cb42-8" tabindex="-1"></a>                                        <span class="at">rename_nulls =</span> <span class="st">'null_data'</span>,</span>
-<span id="cb42-9"><a href="#cb42-9" tabindex="-1"></a>                                        <span class="at">title_size =</span> <span class="dv">20</span>,</span>
-<span id="cb42-10"><a href="#cb42-10" tabindex="-1"></a>                                        <span class="at">subtitle_size =</span> <span class="dv">15</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" tabindex="-1"></a>fst_concept_network_compare <span class="ot">&lt;-</span> <span class="cf">function</span>(data,</span>
+<span id="cb43-2"><a href="#cb43-2" tabindex="-1"></a>                                        concepts,</span>
+<span id="cb43-3"><a href="#cb43-3" tabindex="-1"></a>                                        field,</span>
+<span id="cb43-4"><a href="#cb43-4" tabindex="-1"></a>                                        <span class="at">norm =</span> <span class="cn">NULL</span>,</span>
+<span id="cb43-5"><a href="#cb43-5" tabindex="-1"></a>                                        <span class="at">threshold =</span> <span class="cn">NULL</span>,</span>
+<span id="cb43-6"><a href="#cb43-6" tabindex="-1"></a>                                        <span class="at">pos_filter =</span> <span class="cn">NULL</span>,</span>
+<span id="cb43-7"><a href="#cb43-7" tabindex="-1"></a>                                        <span class="at">exclude_nulls =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb43-8"><a href="#cb43-8" tabindex="-1"></a>                                        <span class="at">rename_nulls =</span> <span class="st">'null_data'</span>,</span>
+<span id="cb43-9"><a href="#cb43-9" tabindex="-1"></a>                                        <span class="at">title_size =</span> <span class="dv">20</span>,</span>
+<span id="cb43-10"><a href="#cb43-10" tabindex="-1"></a>                                        <span class="at">subtitle_size =</span> <span class="dv">15</span>)</span></code></pre></div>
 <p>We run the comparison concept network as follows:</p>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fst_concept_network_compare.html">fst_concept_network_compare</a></span><span class="op">(</span><span class="va">df</span>, </span>
 <span>                            concepts <span class="op">=</span> <span class="st">"köyhyys, nälänhätä, sota, ilmastonmuutos, puute"</span>, </span>
 <span>                            <span class="st">'gender'</span>,</span>
