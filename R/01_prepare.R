@@ -11,8 +11,8 @@
 #'  question.
 #' @param id The column in the dataframe which contains the ids for the
 #'  responses.
-#' @param model A Finnish language model available for [udpipe], `"ftb"`
-#'  (default) or `"tdt"`.
+#' @param model A language model available for [udpipe], such as `"ftb"`
+#'  (default) or `"tdt"` which are available for Finnish.
 #' @param weights Optional, the column of the dataframe which contains the
 #'  respective weights for each response.
 #' @param add_cols Optional, a column (or columns) from the dataframe which
@@ -125,14 +125,14 @@ fst_find_stopwords <- function() {
 #' text data which is already in CoNLL-U format.
 #'
 #' @param data A dataframe of Finnish text in CoNLL-U format.
-#' @param stopword_list A valid Finnish stopword list, default is `"nltk"`,
+#' @param stopword_list A valid stopword list, default is `"nltk"`,
 #'  `"manual"` can be used to indicate that a manual list will be provided, or
 #'  `"none"` if you don't want to remove stopwords.
 #' @param manual An optional boolean to indicate that a manual list will be
 #'  provided, `stopword_list = "manual"` can also or instead be used.
 #' @param manual_list A manual list of stopwords.
 #'
-#' @return A dataframe of Finnish text in CoNLL-U format without stopwords and
+#' @return A dataframe of text in CoNLL-U format without stopwords and
 #'  punctuation.
 #' @export
 #'
@@ -190,8 +190,8 @@ fst_rm_stop_punct <- function(data,
 #'  question.
 #' @param id The column in the dataframe which contains the ids for the
 #'  responses.
-#' @param model A Finnish language model available for [udpipe], `"ftb"`
-#'  (default) or `"tdt"`.
+#' @param model A language model available for [udpipe], such as `"ftb"`
+#'  (default) or `"tdt"` which are available for Finnish.
 #' @param stopword_list A valid Finnish stopword list, default is `"nltk"`,
 #'  `"manual"` can be used to indicate that a manual list will be provided, or
 #'  `"none"` if you don't want to remove stopwords.

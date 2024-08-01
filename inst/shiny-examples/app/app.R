@@ -7,6 +7,7 @@ ui <- fluidPage(
     "`finnsurveytext` package demo"
   ),
   tabsetPanel(
+    tabPanel("Instructions"),
     tabPanel("Prepare Data",
       navlistPanel(
         id = 'tabset1',
@@ -99,7 +100,7 @@ ui <- fluidPage(
                  fluidRow(
                    column(6,
                           numericInput('maxwc', 'What is the maximum number of words to show?', 100),
-                          radioButtons('weightswc', 'Do you want to weight responses in wordcloud?', c('no weights', 'weights from formatted data', 'weights from svydesign object'), 'no weights')
+                          radioButtons('weightswc', 'Do you want to weight responses in wordcloud?', c('no weights', 'weights from formatted data'), 'no weights')
                    ),
                    column(6,
                           checkboxGroupInput('poswc',
@@ -130,7 +131,7 @@ ui <- fluidPage(
                           radioButtons('strictng', 'How should we deal with ties?', c('strict cut-off, show first-occurring alphabetically', 'show ties')),
                           numericInput('numberng', 'How many words/phrases should we show?', 10),
                           radioButtons('normng', 'Should we normalise the data?', c("NULL (pick this also if you want to use weights)", "number of words", "number of responses")),
-                          radioButtons('weightsng', 'Do you want to weight responses in table?', c('no weights', 'weights from formatted data', 'weights from svydesign object'), 'no weights'),
+                          radioButtons('weightsng', 'Do you want to weight responses in table?', c('no weights', 'weights from formatted data'), 'no weights'),
                           textInput('nameng', 'Would you like to add a name to plot title?', ''),
                    ),
                    column(6,
@@ -207,7 +208,7 @@ ui <- fluidPage(
                       p("Recall that when you preprocessed the data, you were given the
              option to include additional columns. These columns can now be used
              to allow for comparison between respondents based on these values."),
-                      p("On the left, you can pick which column to used to split
+                      p("On the left, you can pick which column to use to split
                         the data, and also indicate what to do with responses which have a null in
                         this splitting column.")
                       )
@@ -236,7 +237,7 @@ ui <- fluidPage(
                         fluidRow(
                           column(6,
                                  numericInput('maxcc', 'What is the maximum number of words to show?', 100),
-                                 radioButtons('weightscc', 'Do you want to weight responses in wordcloud?', c('no weights', 'weights from formatted data', 'weights from svydesign object'), 'no weights'),
+                                 radioButtons('weightscc', 'Do you want to weight responses in wordcloud?', c('no weights', 'weights from formatted data'), 'no weights'),
                           ),
                           column(6,
                                  checkboxGroupInput('poscc',
@@ -267,7 +268,7 @@ ui <- fluidPage(
                                  radioButtons('strictcng', 'How should we deal with ties?', c('strict cut-off, show first-occurring alphabetically', 'show ties')),
                                  numericInput('numbercng', 'How many words/phrases should we show?', 10),
                                  radioButtons('normcng', 'Should we normalise the data?', c("NULL (pick this also if you want to use weights)", "number of words", "number of responses")),
-                                 radioButtons('weightscng', 'Do you want to weight responses in table?', c('no weights', 'weights from formatted data', 'weights from svydesign object'), 'no weights'),
+                                 radioButtons('weightscng', 'Do you want to weight responses in table?', c('no weights', 'weights from formatted data'), 'no weights'),
                           ),
                           column(6,
                                  checkboxGroupInput('poscng',
