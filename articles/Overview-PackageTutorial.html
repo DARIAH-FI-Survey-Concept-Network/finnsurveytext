@@ -145,16 +145,13 @@ into your R environment and loaded into the environment.</p>
 <div class="section level2">
 <h2 id="data-preparation">1. Data Preparation<a class="anchor" aria-label="anchor" href="#data-preparation"></a>
 </h2>
-<p>These data preparation functions are used to take your raw survey
-data (in a dataframe or <em>svydesign</em> object within your R
-environment) and convert it into a standardised format ready for
-analysis.</p>
-<p>The analysis functions in the remaining sections require your data to
-be pre-formatted. To learn move about the format we use, see the <a href="https://universaldependencies.org/format.html" class="external-link">Universal
-Dependencies Project</a>.</p>
-<p>Now that <code>finnsurveytext</code> integrates with the
-<strong>survey</strong> package, there are two options for bringing your
-survey results into the package:</p>
+<p>The data preparation functions are used to take your raw survey data
+(in a dataframe or <em>svydesign</em> object within your R environment)
+and convert it into a standardised format ready for analysis.</p>
+<p>The functions in the remaining sections require your data to be
+pre-formatted into this format.</p>
+<p>(To learn move about the format we use, see the <a href="https://universaldependencies.org/format.html" class="external-link">Universal
+Dependencies Project</a>.)</p>
 <div class="section level4">
 <h4 id="option-1-data-is-in-a-dataframe">Option 1: Data is in a dataframe<a class="anchor" aria-label="anchor" href="#option-1-data-is-in-a-dataframe"></a>
 </h4>
@@ -455,9 +452,7 @@ ylikansoittuminen</td>
 </h4>
 <p>The other option is to get your data from a <em>svydesign</em> object
 from the <strong>survey</strong> package. The <strong>survey</strong>
-package is a well-known package used for analysising surveys. (See
-package website <a href="http://r-survey.r-forge.r-project.org/survey/" class="external-link">here</a> and on the
-<a href="https://CRAN.R-project.org/package=survey" class="external-link">CRAN</a>)</p>
+package is a popular package used for analysising surveys.</p>
 <p>The main function here is <code><a href="../reference/fst_prepare_svydesign.html">fst_prepare_svydesign()</a></code></p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="co"># FUNCTION DEFINITION</span></span>
 <span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>fst_prepare_svydesign <span class="ot">&lt;-</span> <span class="cf">function</span>(svydesign,</span>
