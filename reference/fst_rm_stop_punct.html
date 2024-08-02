@@ -54,6 +54,7 @@ text data which is already in CoNLL-U format.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">fst_rm_stop_punct</span><span class="op">(</span></span>
 <span>  <span class="va">data</span>,</span>
 <span>  stopword_list <span class="op">=</span> <span class="st">"nltk"</span>,</span>
+<span>  language <span class="op">=</span> <span class="st">"fi"</span>,</span>
 <span>  manual <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  manual_list <span class="op">=</span> <span class="st">""</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -70,7 +71,12 @@ text data which is already in CoNLL-U format.</p>
 <dt id="arg-stopword-list">stopword_list<a class="anchor" aria-label="anchor" href="#arg-stopword-list"></a></dt>
 <dd><p>A valid stopword list, default is `"nltk"`,
 `"manual"` can be used to indicate that a manual list will be provided, or
-`"none"` if you don't want to remove stopwords.</p></dd>
+`"none"` if you don't want to remove stopwords, known as 'source' in
+`stopwords::stopwords`</p></dd>
+
+
+<dt id="arg-language">language<a class="anchor" aria-label="anchor" href="#arg-language"></a></dt>
+<dd><p>two-letter ISO code of the language for the stopword list</p></dd>
 
 
 <dt id="arg-manual">manual<a class="anchor" aria-label="anchor" href="#arg-manual"></a></dt>
