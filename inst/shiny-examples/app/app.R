@@ -1,14 +1,25 @@
+pos_list <- c("ADJ", "ADP", "ADV", "AUX", "CCONJ", "DET", "INTJ", "NOUN", "NUM", "PART", "PRON", "PROPN", "PUNCT", "SCONJ", "SYM", "VERB", "X")
 
 library(shiny)
 library(shinyjs)
+library(shinyBS)
+library(shinydashboard)
+
+body <- dashboardBody(
+  tags$head(tags$style("#test .modal-dialog {width: fit-content !important;}"))
+)
+
 ui <- fluidPage(
   useShinyjs(),
   titlePanel(
-    "`finnsurveytext` package demo"
+    "`finnsurveytext` package demo BETA"
   ),
   tabsetPanel(
+    tabPanel("Instructions",
+             includeHTML("instructionspage.html")
+    ),
     tabPanel("Prepare Data",
-      navlistPanel(
+      navlistPanel(widths = c(2, 10),
         id = 'tabset1',
         "Load Data",
         tabPanel("Load Data",
@@ -68,13 +79,13 @@ ui <- fluidPage(
           fluidRow(
             actionButton("format", "Press this to format your data", class = "btn-success"),
             actionButton("showformat", "Press this to toggle whether to show your formatted data", class="btn-info"),
-            DT::DTOutput("formattedtable")
+            DT::DTOutput("formattedtable"),
           ),
         ),
       ),
     ),
     tabPanel("Explore Data",
-      navlistPanel(
+      navlistPanel(widths = c(2, 10),
         id = "tabset2",
         "Summary Tables",
         tabPanel("Summary Tables",
@@ -99,20 +110,21 @@ ui <- fluidPage(
                  fluidRow(
                    column(6,
                           numericInput('maxwc', 'What is the maximum number of words to show?', 100),
-                          radioButtons('weightswc', 'Do you want to weight responses in wordcloud?', c('no weights', 'weights from formatted data', 'weights from svydesign object'), 'no weights')
+                          radioButtons('weightswc', 'Do you want to weight responses in wordcloud?', c('no weights', 'weights from formatted data'), 'no weights')
                    ),
                    column(6,
                           checkboxGroupInput('poswc',
-                                             'Which POS tags should we include?',
-                                             c("ADJ", "ADP", "ADV", "AUX", "CCONJ", "DET", "INTJ", "NOUN", "NUM", "PART", "PRON", "PROPN", "PUNCT", "SCONJ", "SYM", "VERB", "X"),
-                                             c("ADJ", "ADP", "ADV", "AUX", "CCONJ", "DET", "INTJ", "NOUN", "NUM", "PART", "PRON", "PROPN", "PUNCT", "SCONJ", "SYM", "VERB", "X")
+                                             'Untick any word types you want to exclude from the plot.',
+                                             pos_list,
+                                             pos_list
                           ),
                    ),
                  ),
                  fluidRow(
-                   actionButton("makewc", "Press this to make the wordcloud", class = "btn-success"),
+                   actionButton("makewc", "Press this to make (or refresh) the wordcloud", class = "btn-success"),
                    actionButton("showwc", "Press this to toggle whether to show your wordcloud", class="btn-info"),
-                   plotOutput("wc")
+                   # plotOutput("wc")
+                   bsModal("modwc", "Your plot", "makewc", size = "large",plotOutput("wc"),downloadButton('downloadPlot', 'Download'))
                  ),
         ),
         "Frequent Words/Phrases",
@@ -130,19 +142,19 @@ ui <- fluidPage(
                           radioButtons('strictng', 'How should we deal with ties?', c('strict cut-off, show first-occurring alphabetically', 'show ties')),
                           numericInput('numberng', 'How many words/phrases should we show?', 10),
                           radioButtons('normng', 'Should we normalise the data?', c("NULL (pick this also if you want to use weights)", "number of words", "number of responses")),
-                          radioButtons('weightsng', 'Do you want to weight responses in table?', c('no weights', 'weights from formatted data', 'weights from svydesign object'), 'no weights'),
+                          radioButtons('weightsng', 'Do you want to weight responses in table?', c('no weights', 'weights from formatted data'), 'no weights'),
                           textInput('nameng', 'Would you like to add a name to plot title?', ''),
                    ),
                    column(6,
                           checkboxGroupInput('posng',
-                                             'Which POS tags should we include?',
-                                             c("ADJ", "ADP", "ADV", "AUX", "CCONJ", "DET", "INTJ", "NOUN", "NUM", "PART", "PRON", "PROPN", "PUNCT", "SCONJ", "SYM", "VERB", "X"),
-                                             c("ADJ", "ADP", "ADV", "AUX", "CCONJ", "DET", "INTJ", "NOUN", "NUM", "PART", "PRON", "PROPN", "PUNCT", "SCONJ", "SYM", "VERB", "X"),
+                                             'Untick any word types you want to exclude from the plot.',
+                                             pos_list,
+                                             pos_list
                           ),
                    ),
                  ),
                  fluidRow(
-                   actionButton("makeng", "Press this to make the n-gram plot", class = "btn-success"),
+                   actionButton("makeng", "Press this to make (or refresh) the n-gram plot", class = "btn-success"),
                    actionButton("showng", "Press this to toggle whether to show your n-gram plot", class="btn-info"),
                    plotOutput('ng'),
                  ),
@@ -180,14 +192,14 @@ ui <- fluidPage(
                    ),
                    column(6,
                      checkboxGroupInput('poscn',
-                                        'Which POS tags should we include?',
-                                        c("ADJ", "ADP", "ADV", "AUX", "CCONJ", "DET", "INTJ", "NOUN", "NUM", "PART", "PRON", "PROPN", "PUNCT", "SCONJ", "SYM", "VERB", "X"),
-                                        c("ADJ", "ADP", "ADV", "AUX", "CCONJ", "DET", "INTJ", "NOUN", "NUM", "PART", "PRON", "PROPN", "PUNCT", "SCONJ", "SYM", "VERB", "X"),
+                                        'Untick any word types you want to exclude from the plot.',
+                                        pos_list,
+                                        pos_list
                      ),
                    ),
                  ),
                  fluidRow(
-                   actionButton("makecn", "Press this to make the concept network plot", class = "btn-success"),
+                   actionButton("makecn", "Press this to make (or refresh) the concept network plot", class = "btn-success"),
                    actionButton("showcn", "Press this to toggle whether to show your concept network plot", class="btn-info"),
                    plotOutput('cn'),
                  ),
@@ -207,19 +219,19 @@ ui <- fluidPage(
                       p("Recall that when you preprocessed the data, you were given the
              option to include additional columns. These columns can now be used
              to allow for comparison between respondents based on these values."),
-                      p("On the left, you can pick which column to used to split
+                      p("On the left, you can pick which column to use to split
                         the data, and also indicate what to do with responses which have a null in
                         this splitting column.")
                       )
              ),
-             navlistPanel(
+             navlistPanel(widths = c(2, 10),
                id = "tabset3",
                "Comp. Tables",
                tabPanel("Comparison Summary Tables",
                         h3("Comparison Summary Tables"),
                         p("As previously, you can pick which summary table to show here."),
                         radioButtons('compsummarytable', "Which comparison summary table would you like to see?", c("response", "length", "part-of-speech")),
-                        actionButton("makecst", "Press this to make the table", class = "btn-success"),
+                        actionButton("makecst", "Press this to make (or refresh) the table", class = "btn-success"),
                         actionButton("showcsum", "Press this to toggle whether to show your summary table", class="btn-info"),
                         tableOutput("cst")
                ),
@@ -236,18 +248,18 @@ ui <- fluidPage(
                         fluidRow(
                           column(6,
                                  numericInput('maxcc', 'What is the maximum number of words to show?', 100),
-                                 radioButtons('weightscc', 'Do you want to weight responses in wordcloud?', c('no weights', 'weights from formatted data', 'weights from svydesign object'), 'no weights'),
+                                 radioButtons('weightscc', 'Do you want to weight responses in wordcloud?', c('no weights', 'weights from formatted data'), 'no weights'),
                           ),
                           column(6,
                                  checkboxGroupInput('poscc',
-                                                    'Which POS tags should we include?',
-                                                    c("ADJ", "ADP", "ADV", "AUX", "CCONJ", "DET", "INTJ", "NOUN", "NUM", "PART", "PRON", "PROPN", "PUNCT", "SCONJ", "SYM", "VERB", "X"),
-                                                    c("ADJ", "ADP", "ADV", "AUX", "CCONJ", "DET", "INTJ", "NOUN", "NUM", "PART", "PRON", "PROPN", "PUNCT", "SCONJ", "SYM", "VERB", "X"),
+                                                    'Untick any word types you want to exclude from the plot.',
+                                                    pos_list,
+                                                    pos_list
                                  ),
                           ),
                         ),
                         fluidRow(
-                          actionButton("makecc", "Press this to make the comparison cloud", class = "btn-success"),
+                          actionButton("makecc", "Press this to make (or refresh) the comparison cloud", class = "btn-success"),
                           actionButton("showcc", "Press this to toggle whether to show your comparison cloud", class="btn-info"),
                           plotOutput("ccloud"),
                         ),
@@ -267,18 +279,18 @@ ui <- fluidPage(
                                  radioButtons('strictcng', 'How should we deal with ties?', c('strict cut-off, show first-occurring alphabetically', 'show ties')),
                                  numericInput('numbercng', 'How many words/phrases should we show?', 10),
                                  radioButtons('normcng', 'Should we normalise the data?', c("NULL (pick this also if you want to use weights)", "number of words", "number of responses")),
-                                 radioButtons('weightscng', 'Do you want to weight responses in table?', c('no weights', 'weights from formatted data', 'weights from svydesign object'), 'no weights'),
+                                 radioButtons('weightscng', 'Do you want to weight responses in table?', c('no weights', 'weights from formatted data'), 'no weights'),
                           ),
                           column(6,
                                  checkboxGroupInput('poscng',
-                                                    'Which POS tags should we include?',
-                                                    c("ADJ", "ADP", "ADV", "AUX", "CCONJ", "DET", "INTJ", "NOUN", "NUM", "PART", "PRON", "PROPN", "PUNCT", "SCONJ", "SYM", "VERB", "X"),
-                                                    c("ADJ", "ADP", "ADV", "AUX", "CCONJ", "DET", "INTJ", "NOUN", "NUM", "PART", "PRON", "PROPN", "PUNCT", "SCONJ", "SYM", "VERB", "X"),
+                                                    'Untick any word types you want to exclude from the plot.',
+                                                    pos_list,
+                                                    pos_list
                                  ),
                           ),
                         ),
                         fluidRow(
-                          actionButton("makecng", "Press this to make the n-gram plot", class = "btn-success"),
+                          actionButton("makecng", "Press this to make (or refresh) the n-gram plot", class = "btn-success"),
                           actionButton("showcng", "Press this to toggle whether to show your n-gram plot", class="btn-info"),
                           plotOutput("cng"),
                         ),
@@ -300,14 +312,14 @@ ui <- fluidPage(
                           ),
                           column(6,
                                  checkboxGroupInput('posccn',
-                                                    'Which POS tags should we include?',
-                                                    c("ADJ", "ADP", "ADV", "AUX", "CCONJ", "DET", "INTJ", "NOUN", "NUM", "PART", "PRON", "PROPN", "PUNCT", "SCONJ", "SYM", "VERB", "X"),
-                                                    c("ADJ", "ADP", "ADV", "AUX", "CCONJ", "DET", "INTJ", "NOUN", "NUM", "PART", "PRON", "PROPN", "PUNCT", "SCONJ", "SYM", "VERB", "X")
+                                                    'Untick any word types you want to exclude from the plot.',
+                                                    pos_list,
+                                                    pos_list
                                  )
                           )
                         ),
                         fluidRow(
-                          actionButton("makeccn", "Press this to make the concept network plot", class = "btn-success"),
+                          actionButton("makeccn", "Press this to make (or refresh) the concept network plot", class = "btn-success"),
                           actionButton("showccn", "Press this to toggle whether to show your concept network plot", class="btn-info"),
                           plotOutput('ccn')
                         )
@@ -412,6 +424,41 @@ server <- function(input, output, session) {
     ft()
   })
   observeEvent(input$showformat, toggle("formattedtable"))
+  pos_list2 <- reactive({
+    mydata <- ft()
+    u <- sort(unique(mydata$upos))
+    u
+  })
+  observe({
+    updateCheckboxGroupInput(session, "poswc",
+                      choices = pos_list2(),
+                      selected = pos_list2()
+    )})
+  observe({
+    updateCheckboxGroupInput(session, "posng",
+                             choices = pos_list2(),
+                             selected = pos_list2()
+    )})
+  observe({
+    updateCheckboxGroupInput(session, "poscn",
+                             choices = pos_list2(),
+                             selected = pos_list2()
+    )})
+  observe({
+    updateCheckboxGroupInput(session, "poscc",
+                             choices = pos_list2(),
+                             selected = pos_list2()
+    )})
+  observe({
+    updateCheckboxGroupInput(session, "poscng",
+                             choices = pos_list2(),
+                             selected = pos_list2()
+    )})
+  observe({
+    updateCheckboxGroupInput(session, "posccn",
+                             choices = pos_list2(),
+                             selected = pos_list2()
+    )})
   sum <- reactive({input$summarytable})
   st2 <- eventReactive(input$makest, {
     if (sum() == 'response') {
@@ -458,6 +505,13 @@ server <- function(input, output, session) {
   output$wc <- renderPlot({
     wc2()
   })
+  output$downloadPlot <- downloadHandler(
+    filename = "Shinyplot.png",
+    content = function(file) {
+      png(file)
+      plotInput()
+      dev.off()
+    })
   observeEvent(input$showwc, toggle("wc"))
   pfng <- reactive({input$posng})
   mxng <- reactive({input$numberng})

@@ -66,5 +66,6 @@ fst_ngrams(fst_child, 12, ngrams = 2, strict = FALSE, name = "All")
 c <- fst_child_2
 s <- survey::svydesign(id=~1, weights= ~paino, data = child)
 i <- 'fsd_id'
+T <- TRUE
 fst_ngrams(c, ngrams = 3, use_svydesign_weights = T, svydesign = s, id = i)
 }

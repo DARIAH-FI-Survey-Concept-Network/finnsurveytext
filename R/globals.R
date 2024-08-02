@@ -1,4 +1,5 @@
 utils::globalVariables(c(
+  "all_of",
   ".data",
   ":=",
   "Count",
@@ -16,12 +17,16 @@ utils::globalVariables(c(
   "occurrence",
   "pagerank",
   "par",
+  "Proportion",
   "quantile",
   "reorder",
   "sentence",
   "token",
   "unique_word",
   "upos",
+  "UPOS",
+  "UPOS_Name",
+  "weight",
   "word1",
   "word2",
   "words"

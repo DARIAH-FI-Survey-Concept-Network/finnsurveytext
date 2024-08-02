@@ -11,8 +11,8 @@
 #'  question.
 #' @param id The column in the dataframe which contains the ids for the
 #'  responses.
-#' @param model A Finnish language model available for [udpipe], `"ftb"`
-#'  (default) or `"tdt"`.
+#' @param model A language model available for [udpipe], such as `"ftb"`
+#'  (default) or `"tdt"` which are available for Finnish.
 #' @param use_weights Optional, whether to use weights within the `svydesign`
 #' @param add_cols Optional, a column (or columns) from the dataframe which
 #'  contain other information you'd like to retain (for instance, dimension
@@ -110,8 +110,8 @@ fst_format_svydesign <- function(svydesign,
 #'  question.
 #' @param id The column in the dataframe which contains the ids for the
 #'  responses.
-#' @param model A Finnish language model available for [udpipe], `"ftb"`
-#'  (default) or `"tdt"`.
+#' @param model A language model available for [udpipe], such as `"ftb"`
+#'  (default) or `"tdt"` which are available for Finnish.
 #' @param stopword_list A valid Finnish stopword list, default is `"nltk"`, or
 #'  `"none"`.
 #' @param weights Optional, the column of the dataframe which contains the
