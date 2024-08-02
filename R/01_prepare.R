@@ -112,21 +112,22 @@ fst_format <- function(data,
 
 #' Get available Finnish stopwords lists
 #'
-#' Returns a tibble containing all available Finnish stopword lists, their
-#' contents, and the size of the lists.
-#' To find stopwords lists in other languages, consider the functions
-#' `stopwords::stopwords_getsources()` and `stopwords::stopwords_getlanguages()`
+#' Returns a tibble containing all available stopword lists for the language,
+#' their contents, and the size of the lists.
+#'
+#' @param language two-letter ISO code of the language for the stopword list
 #'
 #' @return A tibble containing the stopwords lists.
 #' @export
 #'
 #' @examples
 #' fst_find_stopwords()
-fst_find_stopwords <- function() {
+#' fst_find_stopwords(language = 'et')
+fst_find_stopwords <- function(language = 'fi') {
   Name <- sort(stopwords::stopwords_getsources()[unlist(lapply(
     stopwords::stopwords_getsources(),
     function(x) {
-      ifelse("fi" %in% stopwords::stopwords_getlanguages(x),
+      ifelse(language %in% stopwords::stopwords_getlanguages(x),
         TRUE, FALSE
       )
     }
