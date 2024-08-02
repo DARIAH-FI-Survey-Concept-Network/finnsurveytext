@@ -4,15 +4,19 @@
 \alias{fst_find_stopwords}
 \title{Get available Finnish stopwords lists}
 \usage{
-fst_find_stopwords()
+fst_find_stopwords(language = "fi")
+}
+\arguments{
+\item{language}{two-letter ISO code of the language for the stopword list}
 }
 \value{
 A tibble containing the stopwords lists.
 }
 \description{
-Returns a tibble containing all available Finnish stopword lists, their
-contents, and the size of the lists.
+Returns a tibble containing all available stopword lists for the language,
+their contents, and the size of the lists.
 }
 \examples{
 fst_find_stopwords()
+fst_find_stopwords(language = 'et')
 }

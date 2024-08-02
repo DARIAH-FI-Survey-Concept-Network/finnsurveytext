@@ -1,0 +1,126 @@
+---
+title: "UsingOtherLanguages"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{UsingOtherLanguages}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(finnsurveytext)
+library(udpipe)
+library(stopwords)
+```
+
+# How to Use `finnsurveytext` in another language!
+
+Despite the package's name, `finnsurveytext` can be used to analyse surveys in **LOTS** of different languages. This vignette aims to explain how to use `finnsurveytext` in another language with as little additional effort as possible. 
+
+The reason `finnsurveytext` can be used with other languages is that the packages it employs to process the raw survey data work in multiple languages! So we have the developers of the `udpipe` and `stopwords` packages to thank! 
+
+## Essential: Language model available for `udpipe` 
+
+The `udpipe` package is available from the [CRAN](https://CRAN.R-project.org/package=udpipe). The relevant `udpipe` function we use is `udpipe::udpipe_download_model`. You can see the list of available models in the `udpipe` [manual](https://cran.r-project.org/web/packages/udpipe/udpipe.pdf). 
+
+At the time of writing this vignette, these were: 
+
+> afrikaans-afribooms, ancient_greek-perseus, ancient_greek-proiel, arabic-padt, armenian-armtdp, basque-bdt, belarusian-hse, bulgarian-btb, buryat-bdt, catalan-ancora, chinese-gsd, chinese-gsdsimp, coptic-scriptorium, croatian-set, czech-cac, czech-cltt, czech-fictree, czech-pdt, danish-ddt, dutch-alpino, dutch-lassysmall, english-ewt, english-gum, english-lines, english-partut, estonian-edt, finnish-ftb, finnish-tdt, french-gsd, french-partut, french-sequoia, french-spoken, galician-ctg, galician-treegal, german-gsd, german-hdt, gothic-proiel, greek-gdt, hebrew-htb, hindi-hdtb, hungarian-szeged, indonesian-gsd, irish-idt, italian-isdt, italian-partut, italian-postwita, italian-twittiro, japanese-gsd, kazakh-ktb, korean-gsd, korean-kaist, kurmanji-mg, latin-ittb, latin-perseus, latin-proiel, latvian-lvtb, lithuanian-hse, maltese-mudt, marathi-ufal, north_sami-giella, norwegian-bokmaal, norwegian-nynorsk, norwegian-nynorsklia, old_church_slavonic-proiel, old_french-srcmf, persian-seraji, polish-lfg, polish-sz, portuguese-bosque, portuguese-br, portuguese-gsd, romanian-nonstandard, romanian-rrt, russian-gsd, russian-syntagrus, russian-taiga, sanskrit-ufal, scottish_gaelic-arcosg, serbian-set, slovak-snk, slovenian-ssj, slovenian-sst, spanish-ancora, spanish-gsd, swedish-lines, swedish-talbanken, tamil-ttb, telugu-mtg, turkish-imst, ukrainian-iu, upper_sorbian-ufal, urdu-udtb, uyghur-udt, vietnamese-vtb
+
+#### How to use: 
+The relevant model, eg "swedish-talbanken", should be used for the `model` input in `fst_format()` or `fst_prepare()`
+
+
+
+## Recommended: Stopwords list available for `stopwords`
+
+The `stopwords` package is available from the [CRAN](https://CRAN.R-project.org/package=stopwords). The relevant `stopwords` functions are `stopwords::stopwords`,  `stopwords::stopwords_getsources` and `stopwrds::stopwords_getlanguages`. We recommend you first identify the two-letter [ISO code](https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes) for the language you are using. You can see the list of available sources and languages in the `stopwords` [manual](https://cran.r-project.org/web/packages/stopwords/stopwords.pdf) or by running the 'get sources' and 'get languages' functions: 
+
+```{r}
+stopwords_getsources()
+stopwords::stopwords_getlanguages(source = 'nltk')
+stopwords('da', source = 'nltk')
+stopwords('da') # The default source is 'snowball'
+
+```
+Alternatively, you can use our function `fst_find_stopwords` to simplify this process. This function provides a table of lists available through the `stopwords` package for a language and provides the contents for comparison (if you have multiple options!). To run this, you need the two-letter ISO language code: 
+
+```{r}
+knitr::kable(fst_find_stopwords(language = 'lv'))
+fst_find_stopwords(language = 'no')
+```
+
+
+#### How to use: 
+The relevant language and stopword list ('source'), eg "sv" and "nltk", should be used for the `language` and `stopword_list` inputs respectively in `fst_prepare()` (or `fst_rm_stop_punct()` which is automatically called within `fst_prepare()`).
+
+### Manual list of stopwords
+If a stopword list is not available for your language, or you would like to provide your own, you can use the `manual_list` option within `fst_prepare()` (or `fst_rm_stop_punct()`) making sure to also set `manual = TRUE`. 
+
+You can also chose to not remove stopwords but you may find that you want to remove them to get more meaningful results!
+
+If you provide a manual list, you can leave `stopword_list` and `language` as their default values. 
+
+```{r eval = FALSE}
+#EXAMPLE OF PROVIDING A MANUAL LIST
+manualList <- c('en', 'et', 'ei', 'emme', 'ette', 'eivät', 'minä', 'minum')
+manualList2 <- "en, et, ei, emme, ette, eivät, minä, minum"
+
+df <- fst_prepare(data = surveydata,
+                  question = 'oe_qn',
+                  id = 'id',
+                  model = 'model-available-for-udpipe',
+                  manual_list = manualList
+                  )
+```
+
+## Example of use 1
+For example, if I had a survey in Swedish, I could chose either 'swedish-lines' or 'swedish-talbanken' based on my preferences. Noting the ISO code is 'sv', I could check my favourite stopwords list, 'nltk' and discover Swedish is there and choose to remove stopwrods from this list from my data. 
+
+```{r}
+knitr::kable(fst_find_stopwords('sv'))
+```
+```{r eval = FALSE}
+df <- fst_prepare(data = swedish_survey,
+                  question = 'swedish_question',
+                  id = 'swedish_id',
+                  model = "swedish-lines",
+                  stopword_list = "nltk",
+                  language = 'sv'
+                  )
+
+
+```
+
+
+## Example of use 2
+If I had a survey in Estonian, I could happily note that 'estonian-edt' is available for `udpipe`, find the ISO code is 'et' and discover that there is an estonian wor process the responses to the open-ended question as follows: 
+
+```{r}
+knitr::kable(fst_find_stopwords('et'))
+```
+
+
+```{r eval = FALSE}
+df <- fst_prepare(data = surveydata,
+                  question = 'oe_question',
+                  id = 'ID',
+                  model = "ftb",
+                  stopword_list = "stopwords-iso",
+                  language = 'et',
+                  weights = NULL,
+                  add_cols = NULL,
+                  manual = FALSE,
+                  manual_list = "")
+```
+
+
+The remainder of the package works the same regardless of language of survey responses. 
+

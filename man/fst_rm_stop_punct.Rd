@@ -7,6 +7,7 @@
 fst_rm_stop_punct(
   data,
   stopword_list = "nltk",
+  language = "fi",
   manual = FALSE,
   manual_list = ""
 )
@@ -16,7 +17,10 @@ fst_rm_stop_punct(
 
 \item{stopword_list}{A valid stopword list, default is `"nltk"`,
 `"manual"` can be used to indicate that a manual list will be provided, or
-`"none"` if you don't want to remove stopwords.}
+`"none"` if you don't want to remove stopwords, known as 'source' in
+`stopwords::stopwords`}
+
+\item{language}{two-letter ISO code of the language for the stopword list}
 
 \item{manual}{An optional boolean to indicate that a manual list will be
 provided, `stopword_list = "manual"` can also or instead be used.}
