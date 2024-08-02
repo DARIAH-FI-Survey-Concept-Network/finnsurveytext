@@ -15,9 +15,11 @@ ui <- fluidPage(
     "`finnsurveytext` package demo BETA"
   ),
   tabsetPanel(
-    tabPanel("Instructions"),
+    tabPanel("Instructions",
+             includeHTML("instructionspage.html")
+    ),
     tabPanel("Prepare Data",
-      navlistPanel(
+      navlistPanel(widths = c(2, 10),
         id = 'tabset1',
         "Load Data",
         tabPanel("Load Data",
@@ -83,7 +85,7 @@ ui <- fluidPage(
       ),
     ),
     tabPanel("Explore Data",
-      navlistPanel(
+      navlistPanel(widths = c(2, 10),
         id = "tabset2",
         "Summary Tables",
         tabPanel("Summary Tables",
@@ -222,7 +224,7 @@ ui <- fluidPage(
                         this splitting column.")
                       )
              ),
-             navlistPanel(
+             navlistPanel(widths = c(2, 10),
                id = "tabset3",
                "Comp. Tables",
                tabPanel("Comparison Summary Tables",
