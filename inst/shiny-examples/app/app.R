@@ -4,6 +4,9 @@ library(shiny)
 library(shinyjs)
 library(shinyBS)
 library(shinydashboard)
+library(htmlwidgets)
+library(webshot)
+
 
 body <- dashboardBody(
   tags$head(tags$style("#test .modal-dialog {width: fit-content !important;}"))
@@ -95,12 +98,12 @@ ui <- fluidPage(
                  h3("Summary Tables"),
                  radioButtons('summarytable', "Which summary table would you like to see?", c("response", "length", "part-of-speech")),
                  actionButton("makest", "Press this to make the table", class = "btn-success"),
-                 actionButton("showsum", "Press this to toggle whether to show your summary table", class="btn-info"),
                  tableOutput("st")
         ),
         "Wordcloud",
         tabPanel("Wordcloud",
                  h3("Wordcloud"),
+                 p(strong("NOTE: We are aware of a bug. Wordcloud plots are not currently able to be saved.")),
                  p("The panel creates a wordcloud which visualises the frequency of
                    words in our data (more frequent words are larger in the cloud.
                    You can exclude specific word-types using the checklist on the
@@ -122,9 +125,7 @@ ui <- fluidPage(
                  ),
                  fluidRow(
                    actionButton("makewc", "Press this to make (or refresh) the wordcloud", class = "btn-success"),
-                   actionButton("showwc", "Press this to toggle whether to show your wordcloud", class="btn-info"),
-                   # plotOutput("wc")
-                   bsModal("modwc", "Your plot", "makewc", size = "large",plotOutput("wc"),downloadButton('downloadPlot', 'Download'))
+                   bsModal("modwc", "Your plot", "makewc", size = "large",plotOutput("wc"),downloadButton('downloadwcPlot', 'Download'))
                  ),
         ),
         "Frequent Words/Phrases",
@@ -155,8 +156,7 @@ ui <- fluidPage(
                  ),
                  fluidRow(
                    actionButton("makeng", "Press this to make (or refresh) the n-gram plot", class = "btn-success"),
-                   actionButton("showng", "Press this to toggle whether to show your n-gram plot", class="btn-info"),
-                   plotOutput('ng'),
+                   bsModal("modng", "Your plot", "makeng", size = "large",plotOutput("ng"),downloadButton('downloadngPlot', 'Download'))
                  ),
 
         ),
@@ -200,8 +200,7 @@ ui <- fluidPage(
                  ),
                  fluidRow(
                    actionButton("makecn", "Press this to make (or refresh) the concept network plot", class = "btn-success"),
-                   actionButton("showcn", "Press this to toggle whether to show your concept network plot", class="btn-info"),
-                   plotOutput('cn'),
+                   bsModal("modcn", "Your plot", "makecn", size = "large",plotOutput("cn"),downloadButton('downloadcnPlot', 'Download'))
                  ),
         )
       ),
@@ -232,13 +231,13 @@ ui <- fluidPage(
                         p("As previously, you can pick which summary table to show here."),
                         radioButtons('compsummarytable', "Which comparison summary table would you like to see?", c("response", "length", "part-of-speech")),
                         actionButton("makecst", "Press this to make (or refresh) the table", class = "btn-success"),
-                        actionButton("showcsum", "Press this to toggle whether to show your summary table", class="btn-info"),
                         tableOutput("cst")
                ),
                "Comp. Cloud",
                tabPanel("Comparison Cloud",
                         h3("Comparison Cloud"),
                         p("The comparison cloud extends the wordcloud concept."),
+                        p(strong("NOTE: We are aware of a bug. Comparison Cloud plots are not currently able to be saved.")),
                         p("A comparison cloud compares the relative frequency with
                         which a term is used in two or more documents. This cloud
                         shows words that occur more regularly in responses from
@@ -260,8 +259,7 @@ ui <- fluidPage(
                         ),
                         fluidRow(
                           actionButton("makecc", "Press this to make (or refresh) the comparison cloud", class = "btn-success"),
-                          actionButton("showcc", "Press this to toggle whether to show your comparison cloud", class="btn-info"),
-                          plotOutput("ccloud"),
+                          bsModal("modcc", "Your plot", "makecc", size = "large",plotOutput("ccloud"),downloadButton('downloadccPlot', 'Download'))
                         ),
                ),
                "Comp. of Freq. Words",
@@ -291,8 +289,7 @@ ui <- fluidPage(
                         ),
                         fluidRow(
                           actionButton("makecng", "Press this to make (or refresh) the n-gram plot", class = "btn-success"),
-                          actionButton("showcng", "Press this to toggle whether to show your n-gram plot", class="btn-info"),
-                          plotOutput("cng"),
+                          bsModal("modcng", "Your plot", "makecng", size = "large",plotOutput("cng"),downloadButton('downloadcngPlot', 'Download'))
                         ),
 
                ),
@@ -320,8 +317,7 @@ ui <- fluidPage(
                         ),
                         fluidRow(
                           actionButton("makeccn", "Press this to make (or refresh) the concept network plot", class = "btn-success"),
-                          actionButton("showccn", "Press this to toggle whether to show your concept network plot", class="btn-info"),
-                          plotOutput('ccn')
+                          bsModal("modccn", "Your plot", "makeccn", size = "large",plotOutput("ccn"),downloadButton('downloadccnPlot', 'Download'))
                         )
                )
              )
@@ -409,12 +405,13 @@ server <- function(input, output, session) {
   swords2 <- reactive({input$swords})
   qns <- reactive(colnames(df()))
   ft <- eventReactive(input$format, {
-    finnsurveytext::fst_prepare(df(),
-                                question2(),
-                                id2(),
-                                mod2(),
-                                swords2(),
-                                weights2(),
+    finnsurveytext::fst_prepare(data = df(),
+                                question = question2(),
+                                id = id2(),
+                                model = mod2(),
+                                stopword_list = swords2(),
+                                language = 'fi',
+                                weights = weights2(),
                                 add_cols = addcols2(),
                                 manual = FALSE,
                                 manual_list = "")
@@ -471,7 +468,6 @@ server <- function(input, output, session) {
     }
     sumtable
   })
-  observeEvent(input$showsum, toggle("st"))
   output$st <- renderTable({
     st2()
   })
@@ -505,14 +501,16 @@ server <- function(input, output, session) {
   output$wc <- renderPlot({
     wc2()
   })
-  output$downloadPlot <- downloadHandler(
-    filename = "Shinyplot.png",
+  # output$downloadwcPlot <- downloadHandler(
+  #   filename = "Wordcloud.png",
+  #   content = function(cloud) {
+  #     file.copy(wc2(), cloud)
+  #   })
+  output$downloadwcPlot <- downloadHandler(
+    file = "Wordcloud.png",
     content = function(file) {
-      png(file)
-      plotInput()
-      dev.off()
+      htmlwidgets::saveWidget(wc2(), file="mywordcloud.html")
     })
-  observeEvent(input$showwc, toggle("wc"))
   pfng <- reactive({input$posng})
   mxng <- reactive({input$numberng})
   ng <- reactive({input$ngng})
@@ -559,6 +557,7 @@ server <- function(input, output, session) {
     }
   })
   ng2 <- eventReactive(input$makeng, {
+    suppressMessages(
     finnsurveytext::fst_ngrams(ft(),
                                number = mxng(),
                                ngrams = ng(),
@@ -571,11 +570,16 @@ server <- function(input, output, session) {
                                svydesign = NULL,
                                use_column_weights = weng_cw()
     )
+    )
   })
   output$ng <- renderPlot({
     ng2()
   })
-  observeEvent(input$showng, toggle("ng"))
+  output$downloadngPlot <- downloadHandler(
+    file = "NGramPlot.png",
+    content = function(file) {
+      ggplot2::ggsave(ng2(), filename = file)
+    })
   cons <- reactive({input$concepts})
   thres <- reactive({input$thresholdcn})
   nocn <- reactive({
@@ -603,7 +607,11 @@ server <- function(input, output, session) {
   output$cn <- renderPlot({
     cn2()
   })
-  observeEvent(input$showcn, toggle("cn"))
+  output$downloadcnPlot <- downloadHandler(
+    file = "ConceptNetwork.png",
+    content = function(file) {
+      ggplot2::ggsave(cn2(), filename = file)
+    })
   observe({
     updateSelectInput(session, "ac2",
                       choices = addcols2()
@@ -639,7 +647,6 @@ server <- function(input, output, session) {
     }
     csumtable
   })
-  observeEvent(input$showcsum, toggle("cst"))
   output$cst <- renderTable({
     cst2()
   })
@@ -678,6 +685,11 @@ server <- function(input, output, session) {
   output$ccloud <- renderPlot({
     cc2()
   })
+  output$downloadccPlot <- downloadHandler(
+    file = "CompCloud.png",
+    content = function(file) {
+      htmlwidgets::saveWidget(cc2(), file="mycompcloud.html")
+    })
   observeEvent(input$showcc, toggle("ccloud"))
   pfcng <- reactive({input$poscng})
   mxcng <- reactive({input$numbercng})
@@ -738,10 +750,11 @@ server <- function(input, output, session) {
   output$cng <- renderPlot({
     cng2()
   })
-  observeEvent(input$showcng, toggle("cng"))
-
-
-
+  output$downloadcngPlot <- downloadHandler(
+    file = "ComparisonNGramPlot.png",
+    content = function(file) {
+      ggplot2::ggsave(cng2(), filename = file)
+    })
   ccons <- reactive({input$cconcepts})
   cthres <- reactive({input$thresholdccn})
   noccn <- reactive({
@@ -772,6 +785,10 @@ server <- function(input, output, session) {
   output$ccn <- renderPlot({
     ccn2()
   })
-  observeEvent(input$showccn, toggle("ccn"))
+  output$downloadccnPlot <- downloadHandler(
+    file = "ComparisonConceptNetwork.png",
+    content = function(file) {
+      ggplot2::ggsave(ccn2(), filename = file)
+    })
 }
 shinyApp(ui, server)

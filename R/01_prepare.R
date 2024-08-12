@@ -48,7 +48,6 @@ fst_format <- function(data,
     dplyr::mutate(new_col = trimws(.data[[question]])) %>%
     dplyr::mutate_if(is.character, dplyr::na_if, "")
   if (model == "ftb") {
-    print('if')
     if (!file.exists("finnish-ftb-ud-2.5-191206.udpipe")) {
       udpipe::udpipe_download_model(language = "finnish-ftb")
     }
@@ -157,7 +156,7 @@ fst_find_stopwords <- function(language = 'fi') {
 #' @export
 #'
 #' @examples
-#' c <- fst_prepare(child, question <- 'q7')
+#' c <- fst_prepare(child, question <- 'q7', id = 'fsd_id')
 #' fst_rm_stop_punct(c)
 #' fst_rm_stop_punct(c, stopword_list = "snowball")
 #' fst_rm_stop_punct(c, "stopwords-iso")

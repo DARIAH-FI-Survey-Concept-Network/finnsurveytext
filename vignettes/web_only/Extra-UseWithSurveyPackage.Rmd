@@ -1,0 +1,66 @@
+---
+title: "Extra-UseWithSurveyPackage"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Extra-UseWithSurveyPackage}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+#library(finnsurveytext)
+library(devtools)
+load_all()
+library(survey)
+```
+
+# Introduction
+
+The new updated version of `finnsurveytext` works with `svydesign` objects which can be created with the `survey` R [package](https://cran.r-project.org/package=survey). There are two ways that svydesign objects can be used:
+
+1. As an input during the pre-processing of your data.
+2. As a way to add weights and additional columns within data exploration and comparison functions
+
+#### First, let's create a `svydesign` object for use in the package:
+
+```{r}
+svy_d <- survey::svydesign(id = ~1, 
+                           weights = ~paino, 
+                           data = dev_coop)
+```
+
+# Option 1: Formatting data using svydesign object
+
+The relevant function here is `fst_prepare_svydesign()`.
+
+### Explanation of parameters: 
+* `svydesign`: the name of the svydesign object
+* `question`: the column of 'data' that contains the open-ended question
+* `id`: the ID column in 'data'
+`model`: a Finnish language model available for udpipe, "ftb" or "tdt". (If you do not provide a value, this will default to "ftb".)
+* `stopword_list`: a list of stopwords to remove from your 'data'. (To find relevant stopwords lists, you can run `fst_find_stopwords()`. If you do not provide a value, this will default to "nltk". "manual" can be used to indicate that a manual list will be provided.)
+* `use_weights`: optional, a boolean as to whether to include weights from the svydesign. (If you do not provide a value, this will default to TRUE.)
+* `add_columns`: any columns you want to add to the formatted data from the svydesign object, such as for use in comparison functions. (If you do not provide any values, this will default to NULL.)
+* `manual`: an optional boolean to indicate that a manual list will be provided. (`stopword_list = "manual"` can also or instead be used. If you do not provide any values, this will default to FALSE.)
+* `manual_list`: the manual list of stopwords if you choose to provide one. (If you do not provide any values, this will default to an empty list.)
+
+### Let's prepare our data below: 
+
+```{r}
+df <- fst_prepare_svydesign(svydesign = svy_d,
+                            question = 'q11_3',
+                            id = 'fsd_id',
+                            model = 'tdt',
+                            stopword_list = 'snowball',
+                            use_weights = TRUE,
+                            add_cols = c('gender','region')
+                            )
+```
+

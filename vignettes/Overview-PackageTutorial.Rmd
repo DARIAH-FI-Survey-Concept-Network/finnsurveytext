@@ -1,8 +1,8 @@
 ---
-title: "PackageTutorial"
+title: "Overview-PackageTutorial"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Package Tutorial}
+  %\VignetteIndexEntry{Overview-PackageTutorial}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

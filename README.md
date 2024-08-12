@@ -6,7 +6,9 @@ A video demonstrating use of the first version of the package is available [here
 ## Background ##
 DARIAH-FI is one of two components of FIN-CLARIAH which is a research infrastructure project for Social Sciences and Humanities (SSH) in Finland. DARIAH-FI involves all Finnish universities with research in SSH. 
  
-The first version of our package, `finnsurveytext`, was the output of WP3.3 of DARIAH-FI. This is a joint work package with Tampere University, University of Eastern Finland, University of Jyvaskyla and University of Helsinki with the objective of "better use of unstructured textual data in the context of Finnish surveys." The second release is output from WP4.1.6.
+The first version of our package, `finnsurveytext`, was the output of WP3.3 of DARIAH-FI. This is a joint work package with Tampere University, University of Eastern Finland, University of Jyvaskyla and University of Helsinki with the objective of "better use of unstructured textual data in the context of Finnish surveys." 
+
+The second release is output from WP4.1.6.
  
 ## Motivation ##
 Open-ended questions are an important but challenging way to obtain informative data in surveys. Open-ended question data usually requires extra time investment (Fielding et al., 2013), but open-ended questions are particularly useful if researchers do not want to constrain respondents’ answers to pre-specified selections. Open-ended questions allow respondents to provide diverse answers based on their experience, and some answers are probably never thought of by researchers. (He & Schonlau, 2021.)
@@ -33,7 +35,8 @@ There are 5 sets of functions included in the `finnsurveytext` package. These ar
 ## Function Demos and Tutorials ##
 Tutorials accompanying each of these R scripts can be found in the 'Articles' tab within the website. These tutorials use the sample data outlined below.  
 
-A demo of the package can also be launched by running the function `finnsurveytext::runDemo()` within R. 
+A **BETA** demo of the package can also be launched by running the function finnsurveytext::runDemo() within R.
+
  
 ## Sample Data ##
 Our repository also contains sample data which can be used to demonstrate and learn the functionality of `finnsurveytext`. 
@@ -42,15 +45,15 @@ The sample data comes from 2 surveys and can be found in the 'data' folder. The 
  
 The raw data can also be downloaded from the Finnish Social Science Data Archive.  
  
-1. Bullying Data
+1. Child Barometer 2016 Data
     * Source: FSD3134 Lapsibarometri 2016
-    * Question: q7 ‘Kertoisitko, mitä sinun mielestäsi kiusaaminen on? (Avokysymys)’
+    * Open-ended questions: q3 'Missä asioissa olet hyvä? (Avokysymys)', q7 ‘Kertoisitko, mitä sinun mielestäsi kiusaaminen on? (Avokysymys)’, q11 'Mikä tekee sinut iloiseksi? (Avokysymys)'
     *	Licence: (A) openly available for all users without registration (CC BY 4.0).
     *	Link to Data: https://urn.fi/urn:nbn:fi:fsd:T-FSD3134
  
-2. Development Cooperation Data
+2. Young Peoples' Views on Development Cooperation 2012 Data
     *	Source: FSD2821 Nuorten ajatuksia kehitysyhteistyöstä 2012
-    *	Questions: q11_1 ‘Jatka lausetta: Kehitysmaa on maa, jossa… (Avokysymys)’, q11_2 ‘Jatka lausetta: Kehitysyhteistyö on toimintaa, jossa… (Avokysymys)’, q11_3’ Jatka lausetta: Maailman kolme suurinta	ongelmaa ovat… (Avokysymys)’
+    *	Open-ended questions: q11_1 ‘Jatka lausetta: Kehitysmaa on maa, jossa… (Avokysymys)’, q11_2 ‘Jatka lausetta: Kehitysyhteistyö on toimintaa, jossa… (Avokysymys)’, q11_3’ Jatka lausetta: Maailman kolme suurinta	ongelmaa ovat… (Avokysymys)’
     *	Licence: (A) openly available for all users without registration (CC BY 4.0).
     *	Link to Data: https://urn.fi/urn:nbn:fi:fsd:T-FSD2821
  
