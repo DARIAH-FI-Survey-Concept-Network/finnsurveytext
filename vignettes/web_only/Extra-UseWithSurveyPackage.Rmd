@@ -12,12 +12,12 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
 ```
 
+
 ```{r setup}
-#library(finnsurveytext)
-library(devtools)
-load_all()
+library(finnsurveytext)
 library(survey)
 ```
 
@@ -28,7 +28,9 @@ The new updated version of `finnsurveytext` works with `svydesign` objects which
 1. As an input during the pre-processing of your data.
 2. As a way to add weights and additional columns within data exploration and comparison functions
 
-#### First, let's create a `svydesign` object for use in the package:
+#### First, let's create a `svydesign` object for use in this tutorial:
+
+We will use the `dev_coop` sample dataset for the tutorial, and create a `svydesign` object from this sample data. 
 
 ```{r}
 svy_d <- survey::svydesign(id = ~1, 
@@ -62,5 +64,94 @@ df <- fst_prepare_svydesign(svydesign = svy_d,
                             use_weights = TRUE,
                             add_cols = c('gender','region')
                             )
+```
+
+The data is now formatted: 
+
+```{r}
+knitr::kable(head(df, 5))
+```
+
+# Option 2: Using `svydesign` object in data exploration
+
+The `svydesign` object can be used to *add* weights and other columns during data exploration. 
+
+First, let's create formatted data without weights and additional columns ready to use with our `svydesign` object. 
+
+```{r}
+df2 <- fst_prepare(data = dev_coop,
+                   question = 'q11_3',
+                   id = 'fsd_id',
+                   model = 'ftb',
+                   stopword_list = 'nltk',
+                   weights = NULL,
+                   add_cols = NULL)
+```
+
+Within the data analysis functions, there are 3 parameters (which are in each function) which are used to add information from the `svydesign` object. These are:
+
+* `use_svydesign_weights`: should be set as TRUE if we want to use weights from within a svydesign object.
+* `id`: only required if weights are coming from a `svydesign` object
+* `svydesign`: the  `svydesign` object
+
+Within the initial functions (the ones which are *not* used for comparison between groups) these are used to add weights from the `svydesign` object. 
+
+For example, 
+
+```{r}
+fst_wordcloud(df2, 
+              pos_filter = c("NOUN", "VERB", "ADJ", "ADV"),
+              max=50, 
+              use_svydesign_weights = TRUE, 
+              id = 'fsd_id', 
+              svydesign = svy_d)
+
+fst_freq(df2,
+         number = 10,
+         norm = NULL,
+         pos_filter = NULL,
+         strict = TRUE,
+         name = NULL,
+         use_svydesign_weights = TRUE,
+         id = "fsd_id",
+         svydesign = svy_d,
+         use_column_weights = FALSE)
+```
+
+Within the **comparison functions**, we have the following additional parameter: 
+
+* `use_svydesign_field`: set to TRUE if you want to get `field` for splitting the data from the `svydesign` object
+
+
+```{r}
+fst_ngrams_compare(fst_dev_coop_2,
+                   field = 'gender',
+                   number = 10,
+                   ngrams = 1,
+                   norm = NULL,
+                   pos_filter = NULL,
+                   strict = TRUE,
+                   use_svydesign_weights = TRUE,
+                   use_svydesign_field = TRUE,
+                   id = "fsd_id",
+                   svydesign = svy_d,
+                   use_column_weights = FALSE,
+                   exclude_nulls = TRUE,
+                   rename_nulls = 'null_data',
+                   unique_colour = "indianred",
+                   title_size = 20,
+                   subtitle_size = 15)
+```
+
+
+All of these functions call the function `fst_use_svydesign()` in the background to add the `svydesign` data to your formatted dataframe. 
+
+```{r eval=FALSE}
+# FUNCTION DEFINITION:
+fst_use_svydesign <- function(data,
+                              svydesign,
+                              id,
+                              add_cols = NULL,
+                              add_weights = TRUE)
 ```
 

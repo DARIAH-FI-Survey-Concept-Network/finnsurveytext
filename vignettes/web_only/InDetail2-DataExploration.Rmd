@@ -54,7 +54,6 @@ There are two sets of data files available within the package which could be use
 ##### 1. Child Barometer Data
 * data/fst_child.rda
 
-
 ##### 2. Development Cooperation Data
 * data/fst_dev_coop
 
