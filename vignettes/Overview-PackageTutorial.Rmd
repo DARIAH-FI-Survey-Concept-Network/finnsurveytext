@@ -9,6 +9,7 @@ vignette: >
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
 ```
 
 # Overview of finnsurveytext
@@ -49,7 +50,7 @@ data(dev_coop)
 knitr::kable(head(dev_coop, 5))
 ```
 
-We will look at q11_3 (responses to ''Jatka lausetta: Maailman kolme suurinta ongelmaa ovat... (Avokysymys)') as our open-ended survey question. We also want to include our survey weights (in 'paino' column) and bring in the genders and regions so we can use these values to compare groups. 
+We will look at question 11_3 (responses to ''Jatka lausetta: Maailman kolme suurinta ongelmaa ovat... (Avokysymys)') as our open-ended survey question. We also want to include our survey weights (in 'paino' column) and bring in the gender and region columns so we can use these values to compare groups. 
 
 The main function here is `fst_prepare()`
 
@@ -91,7 +92,7 @@ df <- fst_prepare(data = dev_coop,
 
 The formatted data looks like this: 
 ```{r echo = FALSE}
-knitr::kable(head(df, 5))
+knitr::kable(head(df, 2))
 ```
 
 
@@ -135,7 +136,7 @@ df2 <- fst_prepare_svydesign(svydesign = svy_dev,
 
 The formatted data looks like this (should look very similar to the above formatted data!): 
 ```{r echo=FALSE}
-knitr::kable(head(df2, 5))
+knitr::kable(head(df2, 2))
 ```
 
 # 2. Data Exploration
@@ -174,7 +175,7 @@ fst_pos(df)
 fst_length_summary(df)
 ```
 
-## Identification of freqent words and phrases
+## Identification of frequent words and phrases
 
 ### Wordclouds
 
@@ -182,6 +183,7 @@ The first of our frequent words visualisations in the wordcloud which comes from
 
 It is defined as follows: 
 ```{r eval = FALSE}
+# FUNCTION DEFINITION
 fst_wordcloud <- function(data,
                           pos_filter = NULL,
                           max = 100,
@@ -226,6 +228,7 @@ fst_wordcloud(df2,
 Then, we have functions to identify and plot the most frequent words or n-grams (sets of n words in order). 
 
 ```{r eval=FALSE}
+# FUNCTION DEFINITIONS
 fst_freq <- function(data,
                      number = 10,
                      norm = NULL,
@@ -298,6 +301,7 @@ To utilise the TextRank algorithm in finnsurveytext, we use the textrank package
 The main concept network function is `fst_concept_network()`. It is defined as follows: 
 
 ```{r eval=FALSE}
+# FUNCTION DEFINITIONS
 fst_concept_network <- function(data,
                                 concepts,
                                 threshold = NULL,
@@ -370,6 +374,7 @@ knitr::kable(fst_length_compare(df, 'region'))
 The **ngrams** comparison functions are defined similarly (with some additional new values):
 
 ```{r eval=FALSE}
+# FUNCTION DEFINITIONS
 fst_freq_compare <- function(data,
                              field,
                              number = 10,
@@ -425,6 +430,7 @@ A comparison cloud compares the relative frequency with which a term is used in 
 The comparison cloud is defined as follows, with settings as defined for the previous functions:
 
 ```{r eval=FALSE}
+# FUNCTION DEFINITION
 fst_comparison_cloud <- function(data,
                                  field,
                                  pos_filter = NULL,
@@ -446,6 +452,7 @@ fst_comparison_cloud(df, 'gender', max = 40, use_column_weights = TRUE, exclude_
 Finally we have the comparison **concept network** which has the following components which should be familiar from previous functions:
 
 ```{r eval=FALSE}
+# FUNCTION DEFINITION
 fst_concept_network_compare <- function(data,
                                         concepts,
                                         field,
