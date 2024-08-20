@@ -26,7 +26,7 @@ The below table shows you all the functions that are included in the package. Th
 
 # 0. Install and Load Package
 
-First, the `finnsurveytext` package needs to be installed into your R environment and loaded into the environment.
+First, the `finnsurveytext` package needs to be installed into your R environment and loaded into the environment. You may also want to load in the `survey` package if you want to use a `svydesign` object for the data and/or weights. 
 
 ```{r}
 library(finnsurveytext)
@@ -80,13 +80,13 @@ df <- fst_prepare(data = dev_coop,
 
 **Summary of components**
 
-* `data` is the dataframe of interest. In this case, we are using data that comes with the package called 'dev_coop'.
-* The `question` is the name of the column in your data which contains the open-ended survey question. In this example, we're considering 'q11_3'
-* `id` is the id column in our data, which is 'fsd_id'
-* The function also requires a Finnish language model available for `udpipe`, in this case we are using the default Finnish Treebank, `model = "ftb"`. (There are two options for Finnish langage model; the other option is the Turku Dependency Treebank "tdt".)
+* `data` is the dataframe of interest. In this case, we are using data that comes with the package called "dev_coop".
+* The `question` is the name of the column in your data which contains the open-ended survey question. In this example, we're considering "q11_3"
+* `id` is the id column in our data, which is "fsd_id"
+* The function also requires a Finnish language model available for `udpipe`, in this case we are using the default Finnish Treebank, `model = "ftb"`. (There are two options for Finnish language model; the other option is the Turku Dependency Treebank "tdt".)
 * By default we will remove stopwords from the "nltk" `stopword_list` in this example. (To find the relevant lists of Finnish stopwords, you can run the `fst_find_stopwords()` function.) Punctuation is also removed from the data whenever stopwords are removed.
-* Optionally, you can add a `weights` column in your formatted data. Our weights are stored in the raw data as 'paino'. 
-* Optionally, you can add other columns to your formatted data (for use in comparison functions). We include our 'gender' and 'region' columns for this reason
+* Optionally, you can add a `weights` column in your formatted data. Our weights are stored in the raw data as "paino". 
+* Optionally, you can add other columns to your formatted data (for use in comparison functions). We include our "gender" and "region" columns for this reason
 * The results in CoNLL-U format are stored in the local environment as `df`. 
 * (`manual` and `manual_list` are used if you want to provide your own list of stopwords to remove from the data.) 
 
@@ -98,7 +98,7 @@ knitr::kable(head(df, 2))
 
 ### Option 2: Data is in a *svydesign* object
 
-The other option is to get your data from a *svydesign* object from the **survey** package. The **survey** package is a popular package used for analysising surveys. 
+The other option is to get your data from a `svydesign` object from the `survey` package. The `survey` package is a popular package used for analysing surveys. 
 
 ```{r echo = FALSE}
 svy_dev <- survey::svydesign(id = ~1, weights = ~paino, data =dev_coop)
@@ -131,8 +131,8 @@ df2 <- fst_prepare_svydesign(svydesign = svy_dev,
 
 **The only differences between the previous function and this one are:**
 
-* `svydesign` is you *svydesign* object. In this case, we have one called 'svy_dev'
-* The *svydesign* object has a component called 'prob' which contains the inverse of the weights. Therefore, we use these by setting `use_weights = TRUE`
+* `svydesign` is your *svydesign* object. In this case, we have one called "svy_dev"
+* The *svydesign* object has a component called "prob" which contains the inverse of the weights. Therefore, we use these by setting `use_weights = TRUE`
 
 The formatted data looks like this (should look very similar to the above formatted data!): 
 ```{r echo=FALSE}
@@ -258,7 +258,7 @@ fst_ngrams <- function(data,
 * `data` is the formatted data.
 * `number` is the number of top words/ngrams to display
 * `ngrams` is the type of n-grams, default is `1`.
-* `norm` is an optional method for normalising the data. Valid settings are `"number_words"` (the number of words in the responses), `"number_resp"` (the number of responses), or `NULL` (raw count returned, **default**, also used when weights are applied).
+* `norm` is an optional method for normalising the data. Valid settings are "number_words" (the number of words in the responses), "number_resp" (the number of responses), or NULL (raw count returned, **default**, also used when weights are applied).
 * `pos_filter` is an optional list of POS tags for inclusion. The default is NULL.
 * `strict`  is whether to strictly cut-off at `number` (ties are alphabetically ordered). The default value is TRUE.
 * The `name` is an optional "name" for the plot to add to title, default is NULL.
@@ -313,9 +313,9 @@ fst_concept_network <- function(data,
 **Summary of components**
 
 * `data` is the formatted data.
-* `concepts` are the concept words around which the network is created. 
+* `concepts` are the concept words around which the network is created.
 * `threshold` is a minimum number of occurrences threshold for 'edge' between searched term and other word, default is `NULL`. Note, the threshold is applied before normalisation.
-* `norm` is an optional method for normalising the data. Valid settings are `"number_words"` (the number of words in the responses), `"number_resp"` (the number of responses), or `NULL` (raw count returned, **default**, also used when weights are applied).
+* `norm` is an optional method for normalising the data. Valid settings are "number_words" (the number of words in the responses), "number_resp" (the number of responses), or NULL (raw count returned, **default**, also used when weights are applied).
 * `pos_filter` is an optional list of POS tags for inclusion. The default is NULL.
 * `title` is an optional title for plot, default is `NULL` and a generic title ("TextRank extracted keyword occurrences") will be used.
 
@@ -418,9 +418,16 @@ The **new components** are:
 For the ngrams, let's compare respondents by gender. 
 
 ```{r}
-fst_freq_compare(df, 'gender', use_column_weights = TRUE)
+fst_freq_compare(df, 
+                 'gender', 
+                 use_column_weights = TRUE,
+                 exclude_nulls = TRUE)
 
-fst_ngrams_compare(df, 'gender', ngrams = 2, use_column_weights = TRUE)
+fst_ngrams_compare(df, 
+                   'gender', 
+                   ngrams = 2, 
+                   use_column_weights = TRUE, 
+                   exclude_nulls = TRUE)
 ```
 
 The **comparison cloud** extends the wordcloud concept. 
@@ -434,6 +441,7 @@ The comparison cloud is defined as follows, with settings as defined for the pre
 fst_comparison_cloud <- function(data,
                                  field,
                                  pos_filter = NULL,
+                                 norm = NULL,
                                  max = 100,
                                  use_svydesign_weights = FALSE,
                                  id = "",

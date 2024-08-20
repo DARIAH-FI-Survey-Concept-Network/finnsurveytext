@@ -18,7 +18,7 @@ The second release is output from WP4.1.6. The main updates in this release are:
 ## Motivation ##
 Open-ended questions are an important but challenging way to obtain informative data in surveys. Open-ended question data usually requires extra time investment (Fielding et al., 2013), but open-ended questions are particularly useful if researchers do not want to constrain respondents’ answers to pre-specified selections. Open-ended questions allow respondents to provide diverse answers based on their experience, and some answers are probably never thought of by researchers. (He & Schonlau, 2021.)
  
-There's limited support for conductive qualitative analysis on Finnish open-ended survey responses and many researchers are more confident analysing responses to closed questions within surveys.
+There's limited support for conducting qualitative analysis on Finnish open-ended survey responses and many researchers are more confident analysing responses to closed questions within surveys.
  
 This package aims to provide a useful and user friendly set of tools for social science researchers to be able to analyse and understand responses to open-ended questions within their surveys. 
  
@@ -27,6 +27,7 @@ There are 5 sets of functions included in the `finnsurveytext` package. These ar
  
 1. Preparation functions (R/01_prepare.R) and (R/01b_prepare_svydesign.R)
     * These are functions to annotate survey data into a useful format (CoNLL-U) for analysis. There is a 'main' function within this set, `fst_prepare()` which combines the other preparation functions and can be run as a single function to prepare data for analysis. 
+    * The second set of preparation functions enables the use of a `svydesign` object as input. 
 2. Data exploration functions (R/02_data_exploration.R)
     * This file contains a number of functions which can be used for exploratory data analysis such as summary tables, plotting frequently occurring words and phrases, and creating wordclouds.
 3. Concept Network functions (R/03_concept_network.R)

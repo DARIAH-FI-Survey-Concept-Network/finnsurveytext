@@ -135,33 +135,6 @@ A comparison cloud compares the relative frequency with which a term is used in 
 
 We create our comparison cloud as follows: 
 ```{r}
-fst_comparison_cloud(data = df2,
-                     field = 'gender',
-                     pos_filter = NULL,
-                     norm = NULL,
-                     max = 100,
-                     use_svydesign_weights = FALSE,
-                     use_svydesign_field = FALSE,
-                     id = "",
-                     svydesign = NULL,
-                     use_column_weights = FALSE,
-                     exclude_nulls = TRUE
-)
-
-# NORMALISED
-fst_comparison_cloud(data = df2,
-                     field = 'gender',
-                     pos_filter = NULL,
-                     norm = 'number_resp',
-                     max = 100,
-                     use_svydesign_weights = FALSE,
-                     use_svydesign_field = FALSE,
-                     id = "",
-                     svydesign = NULL,
-                     use_column_weights = FALSE,
-                     exclude_nulls = TRUE
-)
-
 # WEIGHTED
 fst_comparison_cloud(data = df2,
                      field = 'gender',
