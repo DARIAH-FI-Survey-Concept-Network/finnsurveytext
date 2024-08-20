@@ -43,7 +43,7 @@ i <- "fsd_id"
 fst_format(data = child, question = "q7", id = i)
 fst_format(data = child, question = "q7", id = i, model = "tdt")
 fst_format(data = child, question = "q7", id = i, weights="paino")
-cols <- c("gender", "major_region, daycare_before_school")
+cols <- c("gender", "major_region", "daycare_before_school")
 fst_format(child, question = "q7", id = i, add_cols = cols)
 fst_format(child, question = "q7", id = i, add_cols = "gender, major_region")
 fst_format(child, question = 'q7', id = i, model = 'swedish-talbanken')

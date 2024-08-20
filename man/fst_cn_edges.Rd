@@ -43,5 +43,6 @@ term.
 \examples{
 con <- "kiusata, lyöminen"
 fst_cn_edges(fst_child, con, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+fst_cn_edges(fst_child, con, pos_filter = 'VERB, NOUN')
 fst_cn_edges(fst_child, "lyöminen", threshold = 2, norm = "number_resp")
 }

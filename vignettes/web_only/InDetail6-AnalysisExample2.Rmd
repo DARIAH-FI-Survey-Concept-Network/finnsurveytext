@@ -246,7 +246,7 @@ fst_freq_compare(
   pos_filter = NULL,
   unique_colour = "indianred",
   strict = TRUE, 
-  use_column_weights, 
+  use_column_weights = TRUE, 
   exclude_nulls = TRUE
 )
 

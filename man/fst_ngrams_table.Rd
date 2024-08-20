@@ -59,8 +59,12 @@ in the formatted data, or from a `svydesign` object with the raw
 (preformatted) data.
 }
 \examples{
+pf <- c("NOUN", "VERB", "ADJ", "ADV")
+pf2 <- "NOUN, VERB, ADJ, ADV"
 fst_ngrams_table(fst_child, norm = NULL)
 fst_ngrams_table(fst_child, ngrams = 2, norm = "number_resp")
+fst_ngrams_table(fst_child, ngrams = 2, pos_filter = pf)
+fst_ngrams_table(fst_child, ngrams = 2, pos_filter = pf2)
 c2 <- fst_child_2
 s <- survey::svydesign(id=~1, weights= ~paino, data = child)
 i <- 'fsd_id'

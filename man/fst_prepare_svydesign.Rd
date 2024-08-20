@@ -10,6 +10,7 @@ fst_prepare_svydesign(
   id,
   model = "ftb",
   stopword_list = "nltk",
+  language = "fi",
   use_weights = TRUE,
   add_cols = NULL,
   manual = FALSE,
@@ -60,6 +61,8 @@ fst_prepare_svydesign(svy_child, question = "q7", id = i, use_weights = TRUE)
 
 svy_d <- survey::svydesign(id = ~1, weights = ~paino, data =dev_coop)
 fst_prepare_svydesign(svy_d, question = "q11_2", id = i, add_cols = 'gender')
+
+fst_prepare_svydesign(svy_d, 'q11_2', i, 'finnish-ftb', 'nltk', 'fi')
 unlink("finnish-ftb-ud-2.5-191206.udpipe")
 unlink("finnish-tdt-ud-2.5-191206.udpipe")
 }

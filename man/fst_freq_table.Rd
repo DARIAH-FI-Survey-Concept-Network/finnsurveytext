@@ -57,7 +57,9 @@ data.
 }
 \examples{
 pf <- c("NOUN", "VERB", "ADJ", "ADV")
+pf2 <- "NOUN, VERB, ADJ, ADV"
 fst_freq_table(fst_child, number = 15, strict = FALSE, pos_filter = pf)
+fst_freq_table(fst_child, number = 15, strict = FALSE, pos_filter = pf2)
 fst_freq_table(fst_child, norm = 'number_words')
 fst_freq_table(fst_child, use_column_weights = TRUE)
 c2 <- fst_child_2

@@ -29,5 +29,7 @@ search terms.
 con <- "kiusata, lyöminen"
 cb <- fst_child
 edges <- fst_cn_edges(cb, con, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+edges2 <- fst_cn_edges(cb, con, pos_filter = 'NOUN, VERB, ADJ, ADV')
 fst_cn_nodes(cb, edges, c("NOUN", "VERB", "ADJ", "ADV"))
+fst_cn_nodes(cb, edges, 'NOUN, VERB, ADJ, ADV')
 }

@@ -48,6 +48,7 @@ data.
 \examples{
 fst_wordcloud(fst_child)
 fst_wordcloud(fst_child, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+fst_wordcloud(fst_child, pos_filter = 'NOUN, VERB, ADJ')
 fst_wordcloud(fst_child, use_column_weights = TRUE)
 i <- 'fsd_id'
 c <- fst_child_2

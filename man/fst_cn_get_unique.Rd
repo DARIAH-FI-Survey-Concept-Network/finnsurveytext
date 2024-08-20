@@ -17,7 +17,7 @@ Takes at least two tables of nodes and pagerank (output of `fst_cn_nodes()`)
 and finds nodes unique to one table.
 }
 \examples{
-pos_filter <- c("NOUN", "VERB", "ADJ", "ADV")
+pos_filter <- 'NOUN, VERB, ADJ, ADV'
 e1 <- fst_cn_edges(fst_child, "lyödä", pos_filter = pos_filter)
 e2 <- fst_cn_edges(fst_child, "lyöminen", pos_filter = pos_filter)
 n1 <- fst_cn_nodes(fst_child, e1)
