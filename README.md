@@ -8,7 +8,12 @@ DARIAH-FI is one of two components of FIN-CLARIAH which is a research infrastruc
  
 The first version of our package, `finnsurveytext`, was the output of WP3.3 of DARIAH-FI. This is a joint work package with Tampere University, University of Eastern Finland, University of Jyvaskyla and University of Helsinki with the objective of "better use of unstructured textual data in the context of Finnish surveys." 
 
-The second release is output from WP4.1.6.
+The second release is output from WP4.1.6. The main updates in this release are:
+
+* integration with the `survey` package by allowing `svydesign` objects as inputs
+* the inclusion of survey response weights within tables and plots
+* simplification of splitting data into groups within the 'comparison functions'
+* enable use of package for multiple languages (not just Finnish!)
  
 ## Motivation ##
 Open-ended questions are an important but challenging way to obtain informative data in surveys. Open-ended question data usually requires extra time investment (Fielding et al., 2013), but open-ended questions are particularly useful if researchers do not want to constrain respondents’ answers to pre-specified selections. Open-ended questions allow respondents to provide diverse answers based on their experience, and some answers are probably never thought of by researchers. (He & Schonlau, 2021.)

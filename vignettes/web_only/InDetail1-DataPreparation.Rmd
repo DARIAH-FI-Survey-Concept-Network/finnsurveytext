@@ -197,14 +197,7 @@ knitr::kable(head(conllu_cb_bullying_iso))
 
 ## Conclusion
 
-Now that you have data in CoNLL-U format, this pre-processed data is ready for the analysis using `finnsurveytext` functions. For more information on these, please review the other vignettes in this package: 
-
-* Overview-PackageTutorial 
-* InDetail2-DataExploration
-* InDetail3-ConceptNetworkOverview
-* InDetail4-Further analysis and configuration of Concept Network functions
-* InDetail5-ComparisonFunctions
-* InDetail6-ExampleAnalysisofQuestion
+Now that you have data in CoNLL-U format, this pre-processed data is ready for the analysis using `finnsurveytext` functions. For more information on these, please review the other vignettes in this package.
 
 ## Citation
 

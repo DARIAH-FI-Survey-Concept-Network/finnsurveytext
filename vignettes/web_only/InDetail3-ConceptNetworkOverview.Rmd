@@ -55,8 +55,6 @@ You can read these in as follows:
 ```{r}
 df1 <- fst_child
 df2 <- fst_dev_coop
-
-knitr::kable(head(df1))
 ```
 
 ## FUNCTIONS
@@ -87,7 +85,7 @@ dev_concepts <- fst_cn_search(
 
 The resulting dataframe is formatted as below:
 ```{r}
-knitr::kable(head(df2, n = 10))
+knitr::kable(head(dev_concepts, n = 10))
 ```
 
 To run `fst_cn_search`, we provide the following arguments to the function:
@@ -117,7 +115,7 @@ dev_edges <- fst_cn_edges(
 The dataframe has a simplified format from the `fst_cn_search()` results, with only columns "to", "from" and "n" which indicates the number of occurrences.
 
 ```{r}
-knitr::kable(head(df2, n = 10))
+knitr::kable(head(dev_edges, n = 10))
 ```
 
 The arguments are the same as for `fst_cn_search()` plus the `threshold`.

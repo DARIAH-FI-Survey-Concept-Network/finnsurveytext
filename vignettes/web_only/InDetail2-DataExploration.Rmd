@@ -64,7 +64,7 @@ df1 <- fst_child
 df2 <- fst_dev_coop
 ```
 
-## FUNCTIONS
+## Summary Tables
 
 ### Get Summary Table functions
 `fst_summarise_short()` and `fst_summarise()`
