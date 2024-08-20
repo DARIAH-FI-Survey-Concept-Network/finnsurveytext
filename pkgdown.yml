@@ -7,10 +7,11 @@ articles:
   web_only/InDetail1-DataPreparation: web_only/InDetail1-DataPreparation.html
   web_only/InDetail2-DataExploration: web_only/InDetail2-DataExploration.html
   web_only/InDetail3-ConceptNetworkOverview: web_only/InDetail3-ConceptNetworkOverview.html
-  web_only/InDetail4-AnalysisExample1: web_only/InDetail4-AnalysisExample1.html
+  web_only/InDetail4-ComparisonFunctions: web_only/InDetail4-ComparisonFunctions.html
+  web_only/InDetail5-AnalysisExample1: web_only/InDetail5-AnalysisExample1.html
   Overview-PackageTutorial: Overview-PackageTutorial.html
   ReadMe: ReadMe.html
-last_built: 2024-08-13T11:20Z
+last_built: 2024-08-20T09:41Z
 urls:
   reference: https://dariah-fi-survey-concept-network.github.io/finnsurveytext/reference
   article: https://dariah-fi-survey-concept-network.github.io/finnsurveytext/articles

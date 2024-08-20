@@ -27,7 +27,8 @@ displayed on comparison plots."></head><body>
     <li><a class="dropdown-item" href="../articles/web_only/InDetail1-DataPreparation.html">InDetail1-DataPreparation</a></li>
     <li><a class="dropdown-item" href="../articles/web_only/InDetail2-DataExploration.html">InDetail2-DataExploration</a></li>
     <li><a class="dropdown-item" href="../articles/web_only/InDetail3-ConceptNetworkOverview.html">InDetail3-ConceptNetworkOverview</a></li>
-    <li><a class="dropdown-item" href="../articles/web_only/InDetail4-AnalysisExample1.html">InDetail4-AnalysisExample1</a></li>
+    <li><a class="dropdown-item" href="../articles/web_only/InDetail4-ComparisonFunctions.html">InDetail4-ComparisonFunctions</a></li>
+    <li><a class="dropdown-item" href="../articles/web_only/InDetail5-AnalysisExample1.html">InDetail5-AnalysisExample1</a></li>
     <li><a class="dropdown-item" href="../articles/Overview-PackageTutorial.html">Overview-PackageTutorial</a></li>
     <li><a class="dropdown-item" href="../articles/ReadMe.html">ReadMe</a></li>
   </ul></li>
@@ -92,29 +93,29 @@ displayed on comparison plots.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="va">unique_words</span> <span class="op">&lt;-</span> <span class="fu"><a href="fst_get_unique_ngrams_separate.html">fst_get_unique_ngrams_separate</a></span><span class="op">(</span><span class="va">top_child</span>, <span class="va">top_dev</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">fst_join_unique</span><span class="op">(</span><span class="va">top_child</span>, <span class="va">unique_words</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       words occurrence unique_word</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    toinen        118         yes</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     lyödä         71         yes</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  lyöminen         53         yes</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4      joku         46         yes</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5      paha         43         yes</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6     tehdä         34         yes</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7     sanoa         33         yes</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8    tietää         32         yes</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9     jokin         30         yes</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10    tulla         30         yes</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       words occurrence word_type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    toinen        118    Unique</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2     lyödä         71    Unique</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  lyöminen         53    Unique</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4      joku         46    Unique</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5      paha         43    Unique</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6     tehdä         34    Unique</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7     sanoa         33    Unique</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8    tietää         32    Unique</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9     jokin         30    Unique</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10    tulla         30    Unique</span>
 <span class="r-in"><span><span class="fu">fst_join_unique</span><span class="op">(</span><span class="va">top_dev</span>, <span class="va">unique_words</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             words occurrence unique_word</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1         köyhyys        258         yes</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2       nälänhätä        239         yes</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3            sota        231         yes</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  ilmastonmuutos        141         yes</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5           puute        117         yes</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6         ihminen        105         yes</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7            vesi         98         yes</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8    epätasa-arvo         87         yes</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9          ahneus         84         yes</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10          nälkä         81         yes</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             words occurrence word_type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1         köyhyys        258    Unique</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2       nälänhätä        239    Unique</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3            sota        231    Unique</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  ilmastonmuutos        141    Unique</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5           puute        117    Unique</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6         ihminen        105    Unique</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7            vesi         98    Unique</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8    epätasa-arvo         87    Unique</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9          ahneus         84    Unique</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10          nälkä         81    Unique</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

@@ -38,7 +38,8 @@
     <li><a class="dropdown-item" href="../../articles/web_only/InDetail1-DataPreparation.html">InDetail1-DataPreparation</a></li>
     <li><a class="dropdown-item" href="../../articles/web_only/InDetail2-DataExploration.html">InDetail2-DataExploration</a></li>
     <li><a class="dropdown-item" href="../../articles/web_only/InDetail3-ConceptNetworkOverview.html">InDetail3-ConceptNetworkOverview</a></li>
-    <li><a class="dropdown-item" href="../../articles/web_only/InDetail4-AnalysisExample1.html">InDetail4-AnalysisExample1</a></li>
+    <li><a class="dropdown-item" href="../../articles/web_only/InDetail4-ComparisonFunctions.html">InDetail4-ComparisonFunctions</a></li>
+    <li><a class="dropdown-item" href="../../articles/web_only/InDetail5-AnalysisExample1.html">InDetail5-AnalysisExample1</a></li>
     <li><a class="dropdown-item" href="../../articles/Overview-PackageTutorial.html">Overview-PackageTutorial</a></li>
     <li><a class="dropdown-item" href="../../articles/ReadMe.html">ReadMe</a></li>
   </ul>
@@ -137,173 +138,7 @@ the data preparation activities.</p>
 <p>You can read these in as follows:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df1</span> <span class="op">&lt;-</span> <span class="va">fst_child</span></span>
-<span><span class="va">df2</span> <span class="op">&lt;-</span> <span class="va">fst_dev_coop</span></span>
-<span></span>
-<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">df1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<table class="table">
-<colgroup>
-<col width="2%">
-<col width="4%">
-<col width="4%">
-<col width="6%">
-<col width="3%">
-<col width="3%">
-<col width="2%">
-<col width="1%">
-<col width="7%">
-<col width="31%">
-<col width="4%">
-<col width="2%">
-<col width="1%">
-<col width="4%">
-<col width="3%">
-<col width="2%">
-<col width="5%">
-<col width="7%">
-</colgroup>
-<thead><tr class="header">
-<th align="left">doc_id</th>
-<th align="right">paragraph_id</th>
-<th align="right">sentence_id</th>
-<th align="left">sentence</th>
-<th align="left">token_id</th>
-<th align="left">token</th>
-<th align="left">lemma</th>
-<th align="left">upos</th>
-<th align="left">xpos</th>
-<th align="left">feats</th>
-<th align="left">head_token_id</th>
-<th align="left">dep_rel</th>
-<th align="left">deps</th>
-<th align="left">misc</th>
-<th align="right">weight</th>
-<th align="left">gender</th>
-<th align="left">major_region</th>
-<th align="left">daycare_before_school</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td align="left">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="left">Jos kaveri tönii.</td>
-<td align="left">2</td>
-<td align="left">kaveri</td>
-<td align="left">kaveri</td>
-<td align="left">NOUN</td>
-<td align="left">N,Sg,Nom</td>
-<td align="left">Case=Nom|Number=Sing</td>
-<td align="left">3</td>
-<td align="left">nsubj</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="right">144.0909</td>
-<td align="left">boy</td>
-<td align="left">Länsi-Suomi</td>
-<td align="left">yes</td>
-</tr>
-<tr class="even">
-<td align="left">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="left">Jos kaveri tönii.</td>
-<td align="left">3</td>
-<td align="left">tönii</td>
-<td align="left">tönia</td>
-<td align="left">VERB</td>
-<td align="left">V,Act,Ind,Pres,Sg3</td>
-<td align="left">Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin|Voice=Act</td>
-<td align="left">0</td>
-<td align="left">root</td>
-<td align="left">NA</td>
-<td align="left">SpaceAfter=No</td>
-<td align="right">144.0909</td>
-<td align="left">boy</td>
-<td align="left">Länsi-Suomi</td>
-<td align="left">yes</td>
-</tr>
-<tr class="odd">
-<td align="left">1</td>
-<td align="right">1</td>
-<td align="right">2</td>
-<td align="left">Jos lyö.</td>
-<td align="left">2</td>
-<td align="left">lyö</td>
-<td align="left">lyödä</td>
-<td align="left">VERB</td>
-<td align="left">V,Act,Ind,Pres,Sg3</td>
-<td align="left">Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin|Voice=Act</td>
-<td align="left">0</td>
-<td align="left">root</td>
-<td align="left">NA</td>
-<td align="left">SpaceAfter=No</td>
-<td align="right">144.0909</td>
-<td align="left">boy</td>
-<td align="left">Länsi-Suomi</td>
-<td align="left">yes</td>
-</tr>
-<tr class="even">
-<td align="left">1</td>
-<td align="right">1</td>
-<td align="right">3</td>
-<td align="left">Jos tappelee.</td>
-<td align="left">2</td>
-<td align="left">tappelee</td>
-<td align="left">tapella</td>
-<td align="left">VERB</td>
-<td align="left">V,Act,Ind,Pres,Sg3</td>
-<td align="left">Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin|Voice=Act</td>
-<td align="left">0</td>
-<td align="left">root</td>
-<td align="left">NA</td>
-<td align="left">SpaceAfter=No</td>
-<td align="right">144.0909</td>
-<td align="left">boy</td>
-<td align="left">Länsi-Suomi</td>
-<td align="left">yes</td>
-</tr>
-<tr class="odd">
-<td align="left">10</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="left">Ei tiedä.</td>
-<td align="left">2</td>
-<td align="left">tiedä</td>
-<td align="left">tietää</td>
-<td align="left">VERB</td>
-<td align="left">V,Act,Ind,Pres,ConNeg</td>
-<td align="left">Connegative=Yes|Mood=Ind|Tense=Pres|VerbForm=Fin|Voice=Act</td>
-<td align="left">0</td>
-<td align="left">root</td>
-<td align="left">NA</td>
-<td align="left">SpaceAfter=No</td>
-<td align="right">147.6923</td>
-<td align="left">boy</td>
-<td align="left">Helsinki-Uusima</td>
-<td align="left">yes</td>
-</tr>
-<tr class="even">
-<td align="left">100</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="left">Jos lyö toista.</td>
-<td align="left">2</td>
-<td align="left">lyö</td>
-<td align="left">lyödä</td>
-<td align="left">VERB</td>
-<td align="left">V,Act,Ind,Pres,Sg3</td>
-<td align="left">Mood=Ind|Number=Sing|Person=3|Tense=Pres|VerbForm=Fin|Voice=Act</td>
-<td align="left">0</td>
-<td align="left">root</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="right">144.4717</td>
-<td align="left">girl</td>
-<td align="left">Länsi-Suomi</td>
-<td align="left">yes</td>
-</tr>
-</tbody>
-</table>
+<span><span class="va">df2</span> <span class="op">&lt;-</span> <span class="va">fst_dev_coop</span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -338,269 +173,92 @@ term.</li>
 <span><span class="op">)</span></span></code></pre></div>
 <p>The resulting dataframe is formatted as below:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">df2</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dev_concepts</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <colgroup>
-<col width="2%">
-<col width="3%">
-<col width="3%">
-<col width="21%">
-<col width="2%">
-<col width="5%">
-<col width="5%">
-<col width="1%">
-<col width="4%">
-<col width="16%">
-<col width="4%">
-<col width="2%">
-<col width="1%">
-<col width="4%">
-<col width="2%">
-<col width="2%">
-<col width="4%">
-<col width="4%">
-<col width="7%">
+<col width="45%">
+<col width="8%">
+<col width="6%">
+<col width="20%">
+<col width="18%">
 </colgroup>
 <thead><tr class="header">
-<th align="left">doc_id</th>
-<th align="right">paragraph_id</th>
-<th align="right">sentence_id</th>
-<th align="left">sentence</th>
-<th align="left">token_id</th>
-<th align="left">token</th>
-<th align="left">lemma</th>
-<th align="left">upos</th>
-<th align="left">xpos</th>
-<th align="left">feats</th>
-<th align="left">head_token_id</th>
-<th align="left">dep_rel</th>
-<th align="left">deps</th>
-<th align="left">misc</th>
-<th align="right">weight</th>
-<th align="left">gender</th>
-<th align="left">region</th>
-<th align="left">year_of_birth</th>
-<th align="left">education_level</th>
+<th align="left">keyword</th>
+<th align="right">ngram</th>
+<th align="right">freq</th>
+<th align="left">word1</th>
+<th align="left">word2</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="left">saastuminen ja luonnonvarojen liikakäyttö, nälänhätä ja
-ylikansoittuminen</td>
-<td align="left">1</td>
-<td align="left">saastuminen</td>
-<td align="left">saastuminen</td>
-<td align="left">NOUN</td>
-<td align="left">N,Sg,Nom</td>
-<td align="left">Case=Nom|Number=Sing</td>
-<td align="left">0</td>
-<td align="left">root</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="right">0.544</td>
-<td align="left">Female</td>
-<td align="left">Muu Etelä-Suomi</td>
-<td align="left">1992</td>
-<td align="left">NA</td>
+<td align="left">nälänhätä-sota</td>
+<td align="right">2</td>
+<td align="right">7</td>
+<td align="left">nälänhätä</td>
+<td align="left">sota</td>
 </tr>
 <tr class="even">
-<td align="left">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="left">saastuminen ja luonnonvarojen liikakäyttö, nälänhätä ja
-ylikansoittuminen</td>
-<td align="left">3</td>
-<td align="left">luonnonvarojen</td>
-<td align="left">luonnonvaro</td>
-<td align="left">NOUN</td>
-<td align="left">N,Pl,Gen</td>
-<td align="left">Case=Gen|Number=Plur</td>
-<td align="left">4</td>
-<td align="left">nmod</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="right">0.544</td>
-<td align="left">Female</td>
-<td align="left">Muu Etelä-Suomi</td>
-<td align="left">1992</td>
-<td align="left">NA</td>
+<td align="left">köyhyys-nälänhätä</td>
+<td align="right">2</td>
+<td align="right">6</td>
+<td align="left">köyhyys</td>
+<td align="left">nälänhätä</td>
 </tr>
 <tr class="odd">
-<td align="left">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="left">saastuminen ja luonnonvarojen liikakäyttö, nälänhätä ja
-ylikansoittuminen</td>
-<td align="left">4</td>
-<td align="left">liikakäyttö</td>
-<td align="left">liikakäyttö</td>
-<td align="left">NOUN</td>
-<td align="left">N,Sg,Nom</td>
-<td align="left">Case=Nom|Number=Sing</td>
-<td align="left">1</td>
-<td align="left">conj</td>
-<td align="left">NA</td>
-<td align="left">SpaceAfter=No</td>
-<td align="right">0.544</td>
-<td align="left">Female</td>
-<td align="left">Muu Etelä-Suomi</td>
-<td align="left">1992</td>
-<td align="left">NA</td>
+<td align="left">sota-nälänhätä-puhdas-vesi-puute</td>
+<td align="right">5</td>
+<td align="right">4</td>
+<td align="left">sota</td>
+<td align="left">nälänhätä</td>
 </tr>
 <tr class="even">
-<td align="left">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="left">saastuminen ja luonnonvarojen liikakäyttö, nälänhätä ja
-ylikansoittuminen</td>
-<td align="left">6</td>
+<td align="left">sota-nälänhätä-puhdas-vesi-puute</td>
+<td align="right">5</td>
+<td align="right">4</td>
 <td align="left">nälänhätä</td>
-<td align="left">nälänhätä</td>
-<td align="left">NOUN</td>
-<td align="left">N,Sg,Nom</td>
-<td align="left">Case=Nom|Number=Sing</td>
-<td align="left">1</td>
-<td align="left">conj</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="right">0.544</td>
-<td align="left">Female</td>
-<td align="left">Muu Etelä-Suomi</td>
-<td align="left">1992</td>
-<td align="left">NA</td>
+<td align="left">puhdas</td>
 </tr>
 <tr class="odd">
-<td align="left">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="left">saastuminen ja luonnonvarojen liikakäyttö, nälänhätä ja
-ylikansoittuminen</td>
-<td align="left">8</td>
-<td align="left">ylikansoittuminen</td>
-<td align="left">ylikansoittuminen</td>
-<td align="left">NOUN</td>
-<td align="left">N,Sg,Nom</td>
-<td align="left">Case=Nom|Number=Sing</td>
-<td align="left">1</td>
-<td align="left">conj</td>
-<td align="left">NA</td>
-<td align="left">SpacesAfter=</td>
-<td align="right">0.544</td>
-<td align="left">Female</td>
-<td align="left">Muu Etelä-Suomi</td>
-<td align="left">1992</td>
-<td align="left">NA</td>
+<td align="left">sota-nälänhätä-puhdas-vesi-puute</td>
+<td align="right">5</td>
+<td align="right">4</td>
+<td align="left">puhdas</td>
+<td align="left">vesi</td>
 </tr>
 <tr class="even">
-<td align="left">10</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="left">eliölajien hävittäminen, raha-keskeisyys,
-ylikansoittuminen</td>
-<td align="left">1</td>
-<td align="left">eliölajien</td>
-<td align="left">eliölaja</td>
-<td align="left">NOUN</td>
-<td align="left">N,Pl,Gen</td>
-<td align="left">Case=Gen|Number=Plur</td>
-<td align="left">2</td>
-<td align="left">nmod</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="right">0.544</td>
-<td align="left">Female</td>
-<td align="left">Muu Etelä-Suomi</td>
-<td align="left">1994</td>
-<td align="left">Matriculation examination</td>
+<td align="left">sota-nälänhätä-puhdas-vesi-puute</td>
+<td align="right">5</td>
+<td align="right">4</td>
+<td align="left">vesi</td>
+<td align="left">puute</td>
 </tr>
 <tr class="odd">
-<td align="left">10</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="left">eliölajien hävittäminen, raha-keskeisyys,
-ylikansoittuminen</td>
-<td align="left">2</td>
-<td align="left">hävittäminen</td>
-<td align="left">hävittäminen</td>
-<td align="left">NOUN</td>
-<td align="left">N,Sg,Nom</td>
-<td align="left">Case=Nom|Number=Sing</td>
-<td align="left">0</td>
-<td align="left">root</td>
-<td align="left">NA</td>
-<td align="left">SpaceAfter=No</td>
-<td align="right">0.544</td>
-<td align="left">Female</td>
-<td align="left">Muu Etelä-Suomi</td>
-<td align="left">1994</td>
-<td align="left">Matriculation examination</td>
+<td align="left">ilmastonmuutos-nälänhätä</td>
+<td align="right">2</td>
+<td align="right">4</td>
+<td align="left">ilmastonmuutos</td>
+<td align="left">nälänhätä</td>
 </tr>
 <tr class="even">
-<td align="left">10</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="left">eliölajien hävittäminen, raha-keskeisyys,
-ylikansoittuminen</td>
-<td align="left">4</td>
-<td align="left">raha-keskeisyys</td>
-<td align="left">raha-keskeisyys</td>
-<td align="left">NOUN</td>
-<td align="left">N,Sg,Nom</td>
-<td align="left">Case=Nom|Number=Sing</td>
-<td align="left">2</td>
-<td align="left">conj</td>
-<td align="left">NA</td>
-<td align="left">SpaceAfter=No</td>
-<td align="right">0.544</td>
-<td align="left">Female</td>
-<td align="left">Muu Etelä-Suomi</td>
-<td align="left">1994</td>
-<td align="left">Matriculation examination</td>
+<td align="left">sota-köyhyys</td>
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="left">sota</td>
+<td align="left">köyhyys</td>
 </tr>
 <tr class="odd">
-<td align="left">10</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="left">eliölajien hävittäminen, raha-keskeisyys,
-ylikansoittuminen</td>
-<td align="left">6</td>
-<td align="left">ylikansoittuminen</td>
-<td align="left">ylikansoittuminen</td>
-<td align="left">NOUN</td>
-<td align="left">N,Sg,Nom</td>
-<td align="left">Case=Nom|Number=Sing</td>
-<td align="left">2</td>
-<td align="left">conj</td>
-<td align="left">NA</td>
-<td align="left">SpacesAfter=</td>
-<td align="right">0.544</td>
-<td align="left">Female</td>
-<td align="left">Muu Etelä-Suomi</td>
-<td align="left">1994</td>
-<td align="left">Matriculation examination</td>
+<td align="left">sota-väestönkasvu</td>
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="left">sota</td>
+<td align="left">väestönkasvu</td>
 </tr>
 <tr class="even">
-<td align="left">100</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="left">nälänhätä, sota ja epätasa-arvoisuus</td>
-<td align="left">1</td>
+<td align="left">nälänhätä-huono</td>
+<td align="right">2</td>
+<td align="right">3</td>
 <td align="left">nälänhätä</td>
-<td align="left">nälänhätä</td>
-<td align="left">VERB</td>
-<td align="left">V,Act,InfA,Lat</td>
-<td align="left">Case=Lat|InfForm=1|VerbForm=Inf|Voice=Act</td>
-<td align="left">0</td>
-<td align="left">root</td>
-<td align="left">NA</td>
-<td align="left">SpaceAfter=No</td>
-<td align="right">0.624</td>
-<td align="left">Female</td>
-<td align="left">Helsinki-Uusima</td>
-<td align="left">1994</td>
-<td align="left">Matriculation examination</td>
+<td align="left">huono</td>
 </tr>
 </tbody>
 </table>
@@ -643,269 +301,63 @@ simplified in preparation for plotting.</p>
 <code><a href="../../reference/fst_cn_search.html">fst_cn_search()</a></code> results, with only columns “to”, “from” and
 “n” which indicates the number of occurrences.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">df2</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dev_edges</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
-<colgroup>
-<col width="2%">
-<col width="3%">
-<col width="3%">
-<col width="21%">
-<col width="2%">
-<col width="5%">
-<col width="5%">
-<col width="1%">
-<col width="4%">
-<col width="16%">
-<col width="4%">
-<col width="2%">
-<col width="1%">
-<col width="4%">
-<col width="2%">
-<col width="2%">
-<col width="4%">
-<col width="4%">
-<col width="7%">
-</colgroup>
 <thead><tr class="header">
-<th align="left">doc_id</th>
-<th align="right">paragraph_id</th>
-<th align="right">sentence_id</th>
-<th align="left">sentence</th>
-<th align="left">token_id</th>
-<th align="left">token</th>
-<th align="left">lemma</th>
-<th align="left">upos</th>
-<th align="left">xpos</th>
-<th align="left">feats</th>
-<th align="left">head_token_id</th>
-<th align="left">dep_rel</th>
-<th align="left">deps</th>
-<th align="left">misc</th>
-<th align="right">weight</th>
-<th align="left">gender</th>
-<th align="left">region</th>
-<th align="left">year_of_birth</th>
-<th align="left">education_level</th>
+<th align="left">from</th>
+<th align="left">to</th>
+<th align="right">co_occurrence</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="left">saastuminen ja luonnonvarojen liikakäyttö, nälänhätä ja
-ylikansoittuminen</td>
-<td align="left">1</td>
-<td align="left">saastuminen</td>
-<td align="left">saastuminen</td>
-<td align="left">NOUN</td>
-<td align="left">N,Sg,Nom</td>
-<td align="left">Case=Nom|Number=Sing</td>
-<td align="left">0</td>
-<td align="left">root</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="right">0.544</td>
-<td align="left">Female</td>
-<td align="left">Muu Etelä-Suomi</td>
-<td align="left">1992</td>
-<td align="left">NA</td>
+<td align="left">aiheuttaa</td>
+<td align="left">ilmastonmuutos</td>
+<td align="right">0.00048</td>
 </tr>
 <tr class="even">
-<td align="left">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="left">saastuminen ja luonnonvarojen liikakäyttö, nälänhätä ja
-ylikansoittuminen</td>
-<td align="left">3</td>
-<td align="left">luonnonvarojen</td>
-<td align="left">luonnonvaro</td>
-<td align="left">NOUN</td>
-<td align="left">N,Pl,Gen</td>
-<td align="left">Case=Gen|Number=Plur</td>
-<td align="left">4</td>
-<td align="left">nmod</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="right">0.544</td>
-<td align="left">Female</td>
-<td align="left">Muu Etelä-Suomi</td>
-<td align="left">1992</td>
-<td align="left">NA</td>
+<td align="left">ihminen</td>
+<td align="left">aiheuttaa</td>
+<td align="right">0.00048</td>
 </tr>
 <tr class="odd">
-<td align="left">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="left">saastuminen ja luonnonvarojen liikakäyttö, nälänhätä ja
-ylikansoittuminen</td>
-<td align="left">4</td>
-<td align="left">liikakäyttö</td>
-<td align="left">liikakäyttö</td>
-<td align="left">NOUN</td>
-<td align="left">N,Sg,Nom</td>
-<td align="left">Case=Nom|Number=Sing</td>
-<td align="left">1</td>
-<td align="left">conj</td>
-<td align="left">NA</td>
-<td align="left">SpaceAfter=No</td>
-<td align="right">0.544</td>
-<td align="left">Female</td>
-<td align="left">Muu Etelä-Suomi</td>
-<td align="left">1992</td>
-<td align="left">NA</td>
+<td align="left">ihminen</td>
+<td align="left">ihminen</td>
+<td align="right">0.00048</td>
 </tr>
 <tr class="even">
-<td align="left">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="left">saastuminen ja luonnonvarojen liikakäyttö, nälänhätä ja
-ylikansoittuminen</td>
-<td align="left">6</td>
-<td align="left">nälänhätä</td>
-<td align="left">nälänhätä</td>
-<td align="left">NOUN</td>
-<td align="left">N,Sg,Nom</td>
-<td align="left">Case=Nom|Number=Sing</td>
-<td align="left">1</td>
-<td align="left">conj</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="right">0.544</td>
-<td align="left">Female</td>
-<td align="left">Muu Etelä-Suomi</td>
-<td align="left">1992</td>
-<td align="left">NA</td>
+<td align="left">ilmastonmuutos</td>
+<td align="left">aiheuttaa</td>
+<td align="right">0.00048</td>
 </tr>
 <tr class="odd">
-<td align="left">1</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="left">saastuminen ja luonnonvarojen liikakäyttö, nälänhätä ja
-ylikansoittuminen</td>
-<td align="left">8</td>
-<td align="left">ylikansoittuminen</td>
-<td align="left">ylikansoittuminen</td>
-<td align="left">NOUN</td>
-<td align="left">N,Sg,Nom</td>
-<td align="left">Case=Nom|Number=Sing</td>
-<td align="left">1</td>
-<td align="left">conj</td>
-<td align="left">NA</td>
-<td align="left">SpacesAfter=</td>
-<td align="right">0.544</td>
-<td align="left">Female</td>
-<td align="left">Muu Etelä-Suomi</td>
-<td align="left">1992</td>
-<td align="left">NA</td>
+<td align="left">ilmastonmuutos</td>
+<td align="left">epätasa-arvo</td>
+<td align="right">0.00048</td>
 </tr>
 <tr class="even">
-<td align="left">10</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="left">eliölajien hävittäminen, raha-keskeisyys,
-ylikansoittuminen</td>
-<td align="left">1</td>
-<td align="left">eliölajien</td>
-<td align="left">eliölaja</td>
-<td align="left">NOUN</td>
-<td align="left">N,Pl,Gen</td>
-<td align="left">Case=Gen|Number=Plur</td>
-<td align="left">2</td>
-<td align="left">nmod</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="right">0.544</td>
-<td align="left">Female</td>
-<td align="left">Muu Etelä-Suomi</td>
-<td align="left">1994</td>
-<td align="left">Matriculation examination</td>
+<td align="left">ilmastonmuutos</td>
+<td align="left">ihmisoikeus</td>
+<td align="right">0.00048</td>
 </tr>
 <tr class="odd">
-<td align="left">10</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="left">eliölajien hävittäminen, raha-keskeisyys,
-ylikansoittuminen</td>
-<td align="left">2</td>
-<td align="left">hävittäminen</td>
-<td align="left">hävittäminen</td>
-<td align="left">NOUN</td>
-<td align="left">N,Sg,Nom</td>
-<td align="left">Case=Nom|Number=Sing</td>
-<td align="left">0</td>
-<td align="left">root</td>
-<td align="left">NA</td>
-<td align="left">SpaceAfter=No</td>
-<td align="right">0.544</td>
-<td align="left">Female</td>
-<td align="left">Muu Etelä-Suomi</td>
-<td align="left">1994</td>
-<td align="left">Matriculation examination</td>
+<td align="left">ilmastonmuutos</td>
+<td align="left">köyhyys</td>
+<td align="right">0.00048</td>
 </tr>
 <tr class="even">
-<td align="left">10</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="left">eliölajien hävittäminen, raha-keskeisyys,
-ylikansoittuminen</td>
-<td align="left">4</td>
-<td align="left">raha-keskeisyys</td>
-<td align="left">raha-keskeisyys</td>
-<td align="left">NOUN</td>
-<td align="left">N,Sg,Nom</td>
-<td align="left">Case=Nom|Number=Sing</td>
-<td align="left">2</td>
-<td align="left">conj</td>
-<td align="left">NA</td>
-<td align="left">SpaceAfter=No</td>
-<td align="right">0.544</td>
-<td align="left">Female</td>
-<td align="left">Muu Etelä-Suomi</td>
-<td align="left">1994</td>
-<td align="left">Matriculation examination</td>
+<td align="left">ilmastonmuutos</td>
+<td align="left">nälänhätä</td>
+<td align="right">0.00144</td>
 </tr>
 <tr class="odd">
-<td align="left">10</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="left">eliölajien hävittäminen, raha-keskeisyys,
-ylikansoittuminen</td>
-<td align="left">6</td>
-<td align="left">ylikansoittuminen</td>
-<td align="left">ylikansoittuminen</td>
-<td align="left">NOUN</td>
-<td align="left">N,Sg,Nom</td>
-<td align="left">Case=Nom|Number=Sing</td>
-<td align="left">2</td>
-<td align="left">conj</td>
-<td align="left">NA</td>
-<td align="left">SpacesAfter=</td>
-<td align="right">0.544</td>
-<td align="left">Female</td>
-<td align="left">Muu Etelä-Suomi</td>
-<td align="left">1994</td>
-<td align="left">Matriculation examination</td>
+<td align="left">ilmastonmuutos</td>
+<td align="left">sota</td>
+<td align="right">0.00048</td>
 </tr>
 <tr class="even">
-<td align="left">100</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="left">nälänhätä, sota ja epätasa-arvoisuus</td>
-<td align="left">1</td>
-<td align="left">nälänhätä</td>
-<td align="left">nälänhätä</td>
-<td align="left">VERB</td>
-<td align="left">V,Act,InfA,Lat</td>
-<td align="left">Case=Lat|InfForm=1|VerbForm=Inf|Voice=Act</td>
-<td align="left">0</td>
-<td align="left">root</td>
-<td align="left">NA</td>
-<td align="left">SpaceAfter=No</td>
-<td align="right">0.624</td>
-<td align="left">Female</td>
-<td align="left">Helsinki-Uusima</td>
-<td align="left">1994</td>
-<td align="left">Matriculation examination</td>
+<td align="left">köyhyys</td>
+<td align="left">ilmastonmuutos</td>
+<td align="right">0.00072</td>
 </tr>
 </tbody>
 </table>
