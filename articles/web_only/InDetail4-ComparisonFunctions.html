@@ -40,6 +40,7 @@
     <li><a class="dropdown-item" href="../../articles/web_only/InDetail3-ConceptNetworkOverview.html">InDetail3-ConceptNetworkOverview</a></li>
     <li><a class="dropdown-item" href="../../articles/web_only/InDetail4-ComparisonFunctions.html">InDetail4-ComparisonFunctions</a></li>
     <li><a class="dropdown-item" href="../../articles/web_only/InDetail5-AnalysisExample1.html">InDetail5-AnalysisExample1</a></li>
+    <li><a class="dropdown-item" href="../../articles/web_only/InDetail6-AnalysisExample2.html">InDetail6-AnalysisExample2</a></li>
     <li><a class="dropdown-item" href="../../articles/Overview-PackageTutorial.html">Overview-PackageTutorial</a></li>
     <li><a class="dropdown-item" href="../../articles/ReadMe.html">ReadMe</a></li>
   </ul>
@@ -50,6 +51,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../../search.json">
 </form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/DARIAH-FI-Survey-Concept-Network/finnsurveytext/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
@@ -66,7 +68,7 @@
       <h1>InDetail4-ComparisonFunctions</h1>
             
       
-
+      <small class="dont-index">Source: <a href="https://github.com/DARIAH-FI-Survey-Concept-Network/finnsurveytext/blob/main/vignettes/web_only/InDetail4-ComparisonFunctions.Rmd" class="external-link"><code>vignettes/web_only/InDetail4-ComparisonFunctions.Rmd</code></a></small>
       <div class="d-none name"><code>InDetail4-ComparisonFunctions.Rmd</code></div>
     </div>
 
@@ -511,38 +513,7 @@ information about comparison clouds, you can read <a href="https://cran.r-projec
 documentation</a>.</p>
 <p>We create our comparison cloud as follows:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../../reference/fst_comparison_cloud.html">fst_comparison_cloud</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">df2</span>,</span>
-<span>                     field <span class="op">=</span> <span class="st">'gender'</span>,</span>
-<span>                     pos_filter <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>                     norm <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>                     max <span class="op">=</span> <span class="fl">100</span>,</span>
-<span>                     use_svydesign_weights <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>                     use_svydesign_field <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>                     id <span class="op">=</span> <span class="st">""</span>,</span>
-<span>                     svydesign <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>                     use_column_weights <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>                     exclude_nulls <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<p><img src="InDetail4-ComparisonFunctions_files/figure-html/unnamed-chunk-5-1.png" width="768"></p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="co"># NORMALISED</span></span>
-<span><span class="fu"><a href="../../reference/fst_comparison_cloud.html">fst_comparison_cloud</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">df2</span>,</span>
-<span>                     field <span class="op">=</span> <span class="st">'gender'</span>,</span>
-<span>                     pos_filter <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>                     norm <span class="op">=</span> <span class="st">'number_resp'</span>,</span>
-<span>                     max <span class="op">=</span> <span class="fl">100</span>,</span>
-<span>                     use_svydesign_weights <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>                     use_svydesign_field <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>                     id <span class="op">=</span> <span class="st">""</span>,</span>
-<span>                     svydesign <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>                     use_column_weights <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>                     exclude_nulls <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<p><img src="InDetail4-ComparisonFunctions_files/figure-html/unnamed-chunk-5-2.png" width="768"></p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="co"># WEIGHTED</span></span>
+<code class="sourceCode R"><span><span class="co"># WEIGHTED</span></span>
 <span><span class="fu"><a href="../../reference/fst_comparison_cloud.html">fst_comparison_cloud</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">df2</span>,</span>
 <span>                     field <span class="op">=</span> <span class="st">'gender'</span>,</span>
 <span>                     pos_filter <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -555,7 +526,7 @@ documentation</a>.</p>
 <span>                     use_column_weights <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>                     exclude_nulls <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="InDetail4-ComparisonFunctions_files/figure-html/unnamed-chunk-5-3.png" width="768"></p>
+<p><img src="InDetail4-ComparisonFunctions_files/figure-html/unnamed-chunk-5-1.png" width="768"></p>
 <p>To run <code><a href="../../reference/fst_comparison_cloud.html">fst_comparison_cloud()</a></code>, we provide the following
 arguments to the function:</p>
 <ul>
@@ -601,7 +572,7 @@ the total number of words in the responses.</p>
 <p>For definition of <code><a href="../../reference/fst_freq_table.html">fst_freq_table()</a></code> and
 <code><a href="../../reference/fst_ngrams_table.html">fst_ngrams_table()</a></code> functions, see
 “InDetail2-DataExploration”.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">all_top10</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/fst_freq_table.html">fst_freq_table</a></span><span class="op">(</span><span class="va">df2</span>,</span>
 <span>  number <span class="op">=</span> <span class="fl">10</span>,</span>
 <span>  norm <span class="op">=</span> <span class="st">"number_words"</span>,</span>
@@ -672,7 +643,7 @@ the total number of words in the responses.</p>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">all_top10bigrams</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
@@ -730,7 +701,7 @@ the total number of words in the responses.</p>
 which create the plots in one function simply. These are
 <code><a href="../../reference/fst_freq_compare.html">fst_freq_compare()</a></code> and
 <code><a href="../../reference/fst_ngrams_compare.html">fst_ngrams_compare()</a></code>.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/fst_freq_compare.html">fst_freq_compare</a></span><span class="op">(</span></span>
 <span>  <span class="va">df2</span>,</span>
 <span>  field <span class="op">=</span> <span class="st">'gender'</span>,</span>
@@ -743,7 +714,7 @@ which create the plots in one function simply. These are
 <span>  use_column_weights <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="InDetail4-ComparisonFunctions_files/figure-html/unnamed-chunk-7-1.png" width="768"></p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="../../reference/fst_ngrams_compare.html">fst_ngrams_compare</a></span><span class="op">(</span></span>
 <span>  <span class="va">df2</span>,</span>
@@ -779,7 +750,7 @@ respondents.</p>
 terms.</p>
 <p>We run the comparison Concept Network as below. Again, we’re keeping
 the default norm.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/fst_concept_network_compare.html">fst_concept_network_compare</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">df2</span>,</span>
 <span>                            concepts <span class="op">=</span> <span class="st">'köyhyys, nälänhätä, sota, ilmastonmuutos'</span>,</span>
 <span>                            field <span class="op">=</span> <span class="st">'gender'</span>,</span>

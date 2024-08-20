@@ -31,12 +31,14 @@ data."></head><body>
     <li><a class="dropdown-item" href="../articles/web_only/InDetail3-ConceptNetworkOverview.html">InDetail3-ConceptNetworkOverview</a></li>
     <li><a class="dropdown-item" href="../articles/web_only/InDetail4-ComparisonFunctions.html">InDetail4-ComparisonFunctions</a></li>
     <li><a class="dropdown-item" href="../articles/web_only/InDetail5-AnalysisExample1.html">InDetail5-AnalysisExample1</a></li>
+    <li><a class="dropdown-item" href="../articles/web_only/InDetail6-AnalysisExample2.html">InDetail6-AnalysisExample2</a></li>
     <li><a class="dropdown-item" href="../articles/Overview-PackageTutorial.html">Overview-PackageTutorial</a></li>
     <li><a class="dropdown-item" href="../articles/ReadMe.html">ReadMe</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/DARIAH-FI-Survey-Concept-Network/finnsurveytext/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul></div>
 
 
@@ -46,7 +48,7 @@ data."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Make Top Words Table</h1>
-
+      <small class="dont-index">Source: <a href="https://github.com/DARIAH-FI-Survey-Concept-Network/finnsurveytext/blob/main/R/02_data_exploration.R" class="external-link"><code>R/02_data_exploration.R</code></a></small>
       <div class="d-none name"><code>fst_freq_table.Rd</code></div>
     </div>
 
@@ -131,7 +133,31 @@ default is `FALSE`</p></dd>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">pf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NOUN"</span>, <span class="st">"VERB"</span>, <span class="st">"ADJ"</span>, <span class="st">"ADV"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">pf2</span> <span class="op">&lt;-</span> <span class="st">"NOUN, VERB, ADJ, ADV"</span></span></span>
 <span class="r-in"><span><span class="fu">fst_freq_table</span><span class="op">(</span><span class="va">fst_child</span>, number <span class="op">=</span> <span class="fl">15</span>, strict <span class="op">=</span> <span class="cn">FALSE</span>, pos_filter <span class="op">=</span> <span class="va">pf</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Note:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  Words with equal occurrence are presented in alphabetical order. </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  With `strict` = FALSE, words occurring equally often as the `number` cutoff word will be displayed. </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         words occurrence</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1       lyödä         71</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2    lyöminen         53</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3        paha         42</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4       sanoa         33</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5       tehdä         33</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6      tietää         32</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7       tulla         29</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8       ottaa         28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9      potkia         27</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10    kiusata         26</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 potkiminen         24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12    haukkua         22</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13     kaveri         22</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14  töniminen         22</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15     toinen         17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16      tyhmä         17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17      tönia         17</span>
+<span class="r-in"><span><span class="fu">fst_freq_table</span><span class="op">(</span><span class="va">fst_child</span>, number <span class="op">=</span> <span class="fl">15</span>, strict <span class="op">=</span> <span class="cn">FALSE</span>, pos_filter <span class="op">=</span> <span class="va">pf2</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Note:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  Words with equal occurrence are presented in alphabetical order. </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  With `strict` = FALSE, words occurring equally often as the `number` cutoff word will be displayed. </span>

@@ -42,6 +42,7 @@
     <li><a class="dropdown-item" href="articles/web_only/InDetail3-ConceptNetworkOverview.html">InDetail3-ConceptNetworkOverview</a></li>
     <li><a class="dropdown-item" href="articles/web_only/InDetail4-ComparisonFunctions.html">InDetail4-ComparisonFunctions</a></li>
     <li><a class="dropdown-item" href="articles/web_only/InDetail5-AnalysisExample1.html">InDetail5-AnalysisExample1</a></li>
+    <li><a class="dropdown-item" href="articles/web_only/InDetail6-AnalysisExample2.html">InDetail6-AnalysisExample2</a></li>
     <li><a class="dropdown-item" href="articles/Overview-PackageTutorial.html">Overview-PackageTutorial</a></li>
     <li><a class="dropdown-item" href="articles/ReadMe.html">ReadMe</a></li>
   </ul>
@@ -52,6 +53,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
 </form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/DARIAH-FI-Survey-Concept-Network/finnsurveytext/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
@@ -78,7 +80,7 @@
 <h2 id="motivation">Motivation<a class="anchor" aria-label="anchor" href="#motivation"></a>
 </h2>
 <p>Open-ended questions are an important but challenging way to obtain informative data in surveys. Open-ended question data usually requires extra time investment (Fielding et al., 2013), but open-ended questions are particularly useful if researchers do not want to constrain respondents’ answers to pre-specified selections. Open-ended questions allow respondents to provide diverse answers based on their experience, and some answers are probably never thought of by researchers. (He &amp; Schonlau, 2021.)</p>
-<p>There’s limited support for conductive qualitative analysis on Finnish open-ended survey responses and many researchers are more confident analysing responses to closed questions within surveys.</p>
+<p>There’s limited support for conducting qualitative analysis on Finnish open-ended survey responses and many researchers are more confident analysing responses to closed questions within surveys.</p>
 <p>This package aims to provide a useful and user friendly set of tools for social science researchers to be able to analyse and understand responses to open-ended questions within their surveys.</p>
 </div>
 <div class="section level2">
@@ -89,6 +91,7 @@
 <li>Preparation functions (R/01_prepare.R) and (R/01b_prepare_svydesign.R)
 <ul>
 <li>These are functions to annotate survey data into a useful format (CoNLL-U) for analysis. There is a ‘main’ function within this set, <code><a href="reference/fst_prepare.html">fst_prepare()</a></code> which combines the other preparation functions and can be run as a single function to prepare data for analysis.</li>
+<li>The second set of preparation functions enables the use of a <code>svydesign</code> object as input.</li>
 </ul>
 </li>
 <li>Data exploration functions (R/02_data_exploration.R)
@@ -164,6 +167,8 @@
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
 <li><a href="https://cloud.r-project.org/package=finnsurveytext" class="external-link">View on CRAN</a></li>
+<li><a href="https://github.com/DARIAH-FI-Survey-Concept-Network/finnsurveytext/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/DARIAH-FI-Survey-Concept-Network/finnsurveytext/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
 

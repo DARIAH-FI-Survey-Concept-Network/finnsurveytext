@@ -25,12 +25,14 @@
     <li><a class="dropdown-item" href="../articles/web_only/InDetail3-ConceptNetworkOverview.html">InDetail3-ConceptNetworkOverview</a></li>
     <li><a class="dropdown-item" href="../articles/web_only/InDetail4-ComparisonFunctions.html">InDetail4-ComparisonFunctions</a></li>
     <li><a class="dropdown-item" href="../articles/web_only/InDetail5-AnalysisExample1.html">InDetail5-AnalysisExample1</a></li>
+    <li><a class="dropdown-item" href="../articles/web_only/InDetail6-AnalysisExample2.html">InDetail6-AnalysisExample2</a></li>
     <li><a class="dropdown-item" href="../articles/Overview-PackageTutorial.html">Overview-PackageTutorial</a></li>
     <li><a class="dropdown-item" href="../articles/ReadMe.html">ReadMe</a></li>
   </ul></li>
 <li class="active nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/DARIAH-FI-Survey-Concept-Network/finnsurveytext/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul></div>
 
 
@@ -40,11 +42,68 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Changelog</h1>
-
+      <small>Source: <a href="https://github.com/DARIAH-FI-Survey-Concept-Network/finnsurveytext/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="development version" id="finnsurveytext-development-version">finnsurveytext (development version)<a class="anchor" aria-label="anchor" href="#finnsurveytext-development-version"></a></h2>
+<h2 class="pkg-version" data-toc-text="2.0.0" id="finnsurveytext-200">finnsurveytext 2.0.0<a class="anchor" aria-label="anchor" href="#finnsurveytext-200"></a></h2>
+<div class="section level3">
+<h3 id="id_01_prepare-andb_prepare_svydesign-2-0-0">01_prepare and 01b_prepare_svydesign<a class="anchor" aria-label="anchor" href="#id_01_prepare-andb_prepare_svydesign-2-0-0"></a></h3>
+<ul><li>
+<code><a href="../reference/fst_format.html">fst_format()</a></code> renamed from <code>fst_format_conllu()</code>.</li>
+<li>
+<code><a href="../reference/fst_prepare.html">fst_prepare()</a></code> renamed from <code>fst_prepare_conllu()</code>.</li>
+<li>In <code><a href="../reference/fst_format.html">fst_format()</a></code> and <code><a href="../reference/fst_prepare.html">fst_prepare()</a></code> new parameters weights = NULL and add_cols = NULL, and parameter field renamed question</li>
+<li>
+<code><a href="../reference/fst_rm_stop_punct.html">fst_rm_stop_punct()</a></code> now enables user-input list of stopwords.</li>
+<li>
+<code><a href="../reference/fst_format_svydesign.html">fst_format_svydesign()</a></code> and <code><a href="../reference/fst_prepare_svydesign.html">fst_prepare_svydesign()</a></code> introduced.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="id_02_data_exploration-2-0-0">02_data_exploration<a class="anchor" aria-label="anchor" href="#id_02_data_exploration-2-0-0"></a></h3>
+<ul><li>
+<code><a href="../reference/fst_freq_table.html">fst_freq_table()</a></code> renamed from <code>fst_get_top_words()</code> to reflect naming conventions.</li>
+<li>
+<code><a href="../reference/fst_ngrams_table.html">fst_ngrams_table()</a></code> renamed from <code>fst_get_top_ngrams()</code> to reflect naming conventions.</li>
+<li>Within <code><a href="../reference/fst_freq_table.html">fst_freq_table()</a></code>, <code><a href="../reference/fst_ngrams_table.html">fst_ngrams_table()</a></code>, <code><a href="../reference/fst_freq.html">fst_freq()</a></code>, <code><a href="../reference/fst_ngrams.html">fst_ngrams()</a></code>, and <code><a href="../reference/fst_wordcloud.html">fst_wordcloud()</a></code> parameters to enable weights from svydesign object or from additional weights column in formatted data (use_svydesign_weights = FALSE, id = ““, svydesign = NULL, use_column_weights = FALSE).</li>
+<li>pos_filter parameter now accepts strings (in addition to lists of strings).</li>
+</ul></div>
+<div class="section level3">
+<h3 id="id_03_concept_network-2-0-0">03_concept_network<a class="anchor" aria-label="anchor" href="#id_03_concept_network-2-0-0"></a></h3>
+<ul><li>(No major changes.)</li>
+</ul></div>
+<div class="section level3">
+<h3 id="id_04_comparison_functions-2-0-0">04_comparison_functions<a class="anchor" aria-label="anchor" href="#id_04_comparison_functions-2-0-0"></a></h3>
+<ul><li>Data is now split into groups from one dataset (data) via a parameter called ‘field’ which is the column in formatted data that splits into groups. Each different value in this column is used to create a group which is named after the value.</li>
+<li>
+<code><a href="../reference/fst_freq_compare.html">fst_freq_compare()</a></code>, <code><a href="../reference/fst_ngrams_compare.html">fst_ngrams_compare()</a></code>, <code><a href="../reference/fst_pos_compare.html">fst_pos_compare()</a></code>, <code><a href="../reference/fst_summarise_compare.html">fst_summarise_compare()</a></code>, <code><a href="../reference/fst_length_compare.html">fst_length_compare()</a></code> and <code><a href="../reference/fst_comparison_cloud.html">fst_comparison_cloud()</a></code> now have parameters to enable inclusion/exclusion of null values when splitting data into groups (exclude_nulls = FALSE, rename_nulls = ‘null_data’)</li>
+<li>Default for ‘norm’ parameter is now NULL to support use of weights.</li>
+<li>
+<code><a href="../reference/fst_comparison_cloud.html">fst_comparison_cloud()</a></code> created.</li>
+<li>
+<code><a href="../reference/fst_freq_compare.html">fst_freq_compare()</a></code>, <code><a href="../reference/fst_ngrams_compare.html">fst_ngrams_compare()</a></code> and <code><a href="../reference/fst_comparison_cloud.html">fst_comparison_cloud()</a></code> now have parameters to enable weights from svydesign object or from additional weights column in formatted data (use_svydesign_weights = FALSE, id = ““, svydesign = NULL, use_column_weights = FALSE).</li>
+<li>
+<code><a href="../reference/fst_ngrams_compare_plot.html">fst_ngrams_compare_plot()</a></code> has new parameter title_size = 20.</li>
+<li>
+<code><a href="../reference/fst_freq_compare.html">fst_freq_compare()</a></code>, and <code><a href="../reference/fst_ngrams_compare.html">fst_ngrams_compare()</a></code> have new parameters title_size = 20 and subtitle_size = 15.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="id_05_comparison_concept_network-2-0-0">05_comparison_concept_network<a class="anchor" aria-label="anchor" href="#id_05_comparison_concept_network-2-0-0"></a></h3>
+<ul><li>As above, data split by parameter ‘field’, parameters for inclusion/exclusion of null values in ‘field’, default norm = NULL, title_size and subtitle_size parameters.</li>
+<li>
+<code><a href="../reference/fst_cn_get_unique.html">fst_cn_get_unique()</a></code> renamed <code>fst_cn_get_unique _separate()</code> and new function <code><a href="../reference/fst_cn_get_unique.html">fst_cn_get_unique()</a></code> created which finds unique ngrams in a list of ngrams tables.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="data-2-0-0">Data<a class="anchor" aria-label="anchor" href="#data-2-0-0"></a></h3>
+<ul><li>New simplified sample data.</li>
+<li>“child”: Open-ended questions and background variables for Child Barometer survey.</li>
+<li>“dev_coop*: Open-ended questions and background variables for Development Cooperation survey.</li>
+<li>fst_child: Formatted data with b/g variables and weights.</li>
+<li>fst_child_2: Formatted data without b/g variables and weights.</li>
+<li>fst_dev_coop: Formatted data with b/g variables and weights.</li>
+<li>fst_dev_coop_2: Formatted data without b/g variables and weights.</li>
+<li>Removed data: child_barometer_data, conllu_cb_bullying, conllu_cb_bullying_iso, conllu_dev_q11_1_f_nltk, conllu_dev_q11_1_f, conllu_dev_q11_1_m_nltk, conllu_dev_q11_1_m, conllu_dev_q11_1_na_nltk, conllu_dev_q11_1_na, conllu_dev_q11_1_nltk, conllu_dev_q11_1, conllu_dev_q11_2_nltk, conllu_dev_q11_2, conllu_dev_q11_3_nltk, conllu_dev_q11_3, dev_data_f, dev_data_m, dev_data_na, dev_data.</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.0.0" id="finnsurveytext-100">finnsurveytext 1.0.0<a class="anchor" aria-label="anchor" href="#finnsurveytext-100"></a></h2><p class="text-muted">CRAN release: 2024-02-16</p>

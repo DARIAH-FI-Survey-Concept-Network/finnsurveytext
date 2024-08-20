@@ -31,12 +31,14 @@ in the formatted data, or from a `svydesign` object with the raw
     <li><a class="dropdown-item" href="../articles/web_only/InDetail3-ConceptNetworkOverview.html">InDetail3-ConceptNetworkOverview</a></li>
     <li><a class="dropdown-item" href="../articles/web_only/InDetail4-ComparisonFunctions.html">InDetail4-ComparisonFunctions</a></li>
     <li><a class="dropdown-item" href="../articles/web_only/InDetail5-AnalysisExample1.html">InDetail5-AnalysisExample1</a></li>
+    <li><a class="dropdown-item" href="../articles/web_only/InDetail6-AnalysisExample2.html">InDetail6-AnalysisExample2</a></li>
     <li><a class="dropdown-item" href="../articles/Overview-PackageTutorial.html">Overview-PackageTutorial</a></li>
     <li><a class="dropdown-item" href="../articles/ReadMe.html">ReadMe</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/DARIAH-FI-Survey-Concept-Network/finnsurveytext/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul></div>
 
 
@@ -46,7 +48,7 @@ in the formatted data, or from a `svydesign` object with the raw
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Make Top N-grams Table</h1>
-
+      <small class="dont-index">Source: <a href="https://github.com/DARIAH-FI-Survey-Concept-Network/finnsurveytext/blob/main/R/02_data_exploration.R" class="external-link"><code>R/02_data_exploration.R</code></a></small>
       <div class="d-none name"><code>fst_ngrams_table.Rd</code></div>
     </div>
 
@@ -135,7 +137,9 @@ default is `FALSE`</p></dd>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">fst_ngrams_table</span><span class="op">(</span><span class="va">fst_child</span>, norm <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">pf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"NOUN"</span>, <span class="st">"VERB"</span>, <span class="st">"ADJ"</span>, <span class="st">"ADV"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">pf2</span> <span class="op">&lt;-</span> <span class="st">"NOUN, VERB, ADJ, ADV"</span></span></span>
+<span class="r-in"><span><span class="fu">fst_ngrams_table</span><span class="op">(</span><span class="va">fst_child</span>, norm <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Note:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  N-grams with equal occurrence are presented in alphabetical order. </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  By default, n-grams are presented in order to the `number` cutoff n-gram. </span>
@@ -169,6 +173,40 @@ default is `FALSE`</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8          joku toinen      0.015</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9         ottaa toinen      0.015</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10          paha mieli      0.015</span>
+<span class="r-in"><span><span class="fu">fst_ngrams_table</span><span class="op">(</span><span class="va">fst_child</span>, ngrams <span class="op">=</span> <span class="fl">2</span>, pos_filter <span class="op">=</span> <span class="va">pf</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Note:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  N-grams with equal occurrence are presented in alphabetical order. </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  By default, n-grams are presented in order to the `number` cutoff n-gram. </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  This means that equally-occurring later-alphabetically n-grams beyond the cutoff n-gram will not be displayed. </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                  words occurrence</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  lyöminen potkiminen         17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2         lyödä potkia         12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3          osata sanoa          9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4          tulla mieli          9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5         potkia lyödä          8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6         tietää lyödä          7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7           paha mieli          6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8      pyytää anteeksi          6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9           tehdä paha          6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10  töniminen lyöminen          6</span>
+<span class="r-in"><span><span class="fu">fst_ngrams_table</span><span class="op">(</span><span class="va">fst_child</span>, ngrams <span class="op">=</span> <span class="fl">2</span>, pos_filter <span class="op">=</span> <span class="va">pf2</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Note:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  N-grams with equal occurrence are presented in alphabetical order. </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  By default, n-grams are presented in order to the `number` cutoff n-gram. </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  This means that equally-occurring later-alphabetically n-grams beyond the cutoff n-gram will not be displayed. </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                  words occurrence</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  lyöminen potkiminen         17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2         lyödä potkia         12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3          osata sanoa          9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4          tulla mieli          9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5         potkia lyödä          8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6         tietää lyödä          7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7           paha mieli          6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8      pyytää anteeksi          6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9           tehdä paha          6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10  töniminen lyöminen          6</span>
 <span class="r-in"><span><span class="va">c2</span> <span class="op">&lt;-</span> <span class="va">fst_child_2</span></span></span>
 <span class="r-in"><span><span class="va">s</span> <span class="op">&lt;-</span> <span class="fu">survey</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/survey/man/svydesign.html" class="external-link">svydesign</a></span><span class="op">(</span>id<span class="op">=</span><span class="op">~</span><span class="fl">1</span>, weights<span class="op">=</span> <span class="op">~</span><span class="va">paino</span>, data <span class="op">=</span> <span class="va">child</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">i</span> <span class="op">&lt;-</span> <span class="st">'fsd_id'</span></span></span>

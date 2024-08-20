@@ -40,6 +40,7 @@
     <li><a class="dropdown-item" href="../articles/web_only/InDetail3-ConceptNetworkOverview.html">InDetail3-ConceptNetworkOverview</a></li>
     <li><a class="dropdown-item" href="../articles/web_only/InDetail4-ComparisonFunctions.html">InDetail4-ComparisonFunctions</a></li>
     <li><a class="dropdown-item" href="../articles/web_only/InDetail5-AnalysisExample1.html">InDetail5-AnalysisExample1</a></li>
+    <li><a class="dropdown-item" href="../articles/web_only/InDetail6-AnalysisExample2.html">InDetail6-AnalysisExample2</a></li>
     <li><a class="dropdown-item" href="../articles/Overview-PackageTutorial.html">Overview-PackageTutorial</a></li>
     <li><a class="dropdown-item" href="../articles/ReadMe.html">ReadMe</a></li>
   </ul>
@@ -50,6 +51,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
 </form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/DARIAH-FI-Survey-Concept-Network/finnsurveytext/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
@@ -66,7 +68,7 @@
       <h1>Overview-PackageTutorial</h1>
             
       
-
+      <small class="dont-index">Source: <a href="https://github.com/DARIAH-FI-Survey-Concept-Network/finnsurveytext/blob/main/vignettes/Overview-PackageTutorial.Rmd" class="external-link"><code>vignettes/Overview-PackageTutorial.Rmd</code></a></small>
       <div class="d-none name"><code>Overview-PackageTutorial.Rmd</code></div>
     </div>
 
@@ -132,7 +134,9 @@ survey respondents.</td>
 <h2 id="install-and-load-package">0. Install and Load Package<a class="anchor" aria-label="anchor" href="#install-and-load-package"></a>
 </h2>
 <p>First, the <code>finnsurveytext</code> package needs to be installed
-into your R environment and loaded into the environment.</p>
+into your R environment and loaded into the environment. You may also
+want to load in the <code>survey</code> package if you want to use a
+<code>svydesign</code> object for the data and/or weights.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dariah-fi-survey-concept-network.github.io/finnsurveytext/">finnsurveytext</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://r-survey.r-forge.r-project.org/survey/" class="external-link">survey</a></span><span class="op">)</span></span></code></pre></div>
@@ -270,16 +274,16 @@ values to compare groups.</p>
 <ul>
 <li>
 <code>data</code> is the dataframe of interest. In this case, we are
-using data that comes with the package called ‘dev_coop’.</li>
+using data that comes with the package called “dev_coop”.</li>
 <li>The <code>question</code> is the name of the column in your data
 which contains the open-ended survey question. In this example, we’re
-considering ‘q11_3’</li>
+considering “q11_3”</li>
 <li>
-<code>id</code> is the id column in our data, which is ‘fsd_id’</li>
+<code>id</code> is the id column in our data, which is “fsd_id”</li>
 <li>The function also requires a Finnish language model available for
 <code>udpipe</code>, in this case we are using the default Finnish
 Treebank, <code>model = "ftb"</code>. (There are two options for Finnish
-langage model; the other option is the Turku Dependency Treebank
+language model; the other option is the Turku Dependency Treebank
 “tdt”.)</li>
 <li>By default we will remove stopwords from the “nltk”
 <code>stopword_list</code> in this example. (To find the relevant lists
@@ -287,9 +291,9 @@ of Finnish stopwords, you can run the <code><a href="../reference/fst_find_stopw
 function.) Punctuation is also removed from the data whenever stopwords
 are removed.</li>
 <li>Optionally, you can add a <code>weights</code> column in your
-formatted data. Our weights are stored in the raw data as ‘paino’.</li>
+formatted data. Our weights are stored in the raw data as “paino”.</li>
 <li>Optionally, you can add other columns to your formatted data (for
-use in comparison functions). We include our ‘gender’ and ‘region’
+use in comparison functions). We include our “gender” and “region”
 columns for this reason</li>
 <li>The results in CoNLL-U format are stored in the local environment as
 <code>df</code>.</li>
@@ -384,9 +388,9 @@ ylikansoittuminen</td>
 <div class="section level4">
 <h4 id="option-2-data-is-in-a-svydesign-object">Option 2: Data is in a <em>svydesign</em> object<a class="anchor" aria-label="anchor" href="#option-2-data-is-in-a-svydesign-object"></a>
 </h4>
-<p>The other option is to get your data from a <em>svydesign</em> object
-from the <strong>survey</strong> package. The <strong>survey</strong>
-package is a popular package used for analysising surveys.</p>
+<p>The other option is to get your data from a <code>svydesign</code>
+object from the <code>survey</code> package. The <code>survey</code>
+package is a popular package used for analysing surveys.</p>
 <p>The main function here is <code><a href="../reference/fst_prepare_svydesign.html">fst_prepare_svydesign()</a></code></p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># FUNCTION DEFINITION</span></span>
 <span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>fst_prepare_svydesign <span class="ot">&lt;-</span> <span class="cf">function</span>(svydesign,</span>
@@ -410,9 +414,9 @@ package is a popular package used for analysising surveys.</p>
 one are:</strong></p>
 <ul>
 <li>
-<code>svydesign</code> is you <em>svydesign</em> object. In this
-case, we have one called ‘svy_dev’</li>
-<li>The <em>svydesign</em> object has a component called ‘prob’ which
+<code>svydesign</code> is your <em>svydesign</em> object. In this
+case, we have one called “svy_dev”</li>
+<li>The <em>svydesign</em> object has a component called “prob” which
 contains the inverse of the weights. Therefore, we use these by setting
 <code>use_weights = TRUE</code>
 </li>
@@ -664,10 +668,10 @@ display</li>
 <code>1</code>.</li>
 <li>
 <code>norm</code> is an optional method for normalising the data.
-Valid settings are <code>"number_words"</code> (the number of words in
-the responses), <code>"number_resp"</code> (the number of responses), or
-<code>NULL</code> (raw count returned, <strong>default</strong>, also
-used when weights are applied).</li>
+Valid settings are “number_words” (the number of words in the
+responses), “number_resp” (the number of responses), or NULL (raw count
+returned, <strong>default</strong>, also used when weights are
+applied).</li>
 <li>
 <code>pos_filter</code> is an optional list of POS tags for
 inclusion. The default is NULL.</li>
@@ -768,10 +772,10 @@ for ‘edge’ between searched term and other word, default is
 normalisation.</li>
 <li>
 <code>norm</code> is an optional method for normalising the data.
-Valid settings are <code>"number_words"</code> (the number of words in
-the responses), <code>"number_resp"</code> (the number of responses), or
-<code>NULL</code> (raw count returned, <strong>default</strong>, also
-used when weights are applied).</li>
+Valid settings are “number_words” (the number of words in the
+responses), “number_resp” (the number of responses), or NULL (raw count
+returned, <strong>default</strong>, also used when weights are
+applied).</li>
 <li>
 <code>pos_filter</code> is an optional list of POS tags for
 inclusion. The default is NULL.</li>
@@ -1343,10 +1347,17 @@ names are long or if there are many groups.</li>
 </ul>
 <p>For the ngrams, let’s compare respondents by gender.</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/fst_freq_compare.html">fst_freq_compare</a></span><span class="op">(</span><span class="va">df</span>, <span class="st">'gender'</span>, use_column_weights <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/fst_freq_compare.html">fst_freq_compare</a></span><span class="op">(</span><span class="va">df</span>, </span>
+<span>                 <span class="st">'gender'</span>, </span>
+<span>                 use_column_weights <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>                 exclude_nulls <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Overview-PackageTutorial_files/figure-html/unnamed-chunk-23-1.png" width="700"></p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/fst_ngrams_compare.html">fst_ngrams_compare</a></span><span class="op">(</span><span class="va">df</span>, <span class="st">'gender'</span>, ngrams <span class="op">=</span> <span class="fl">2</span>, use_column_weights <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/fst_ngrams_compare.html">fst_ngrams_compare</a></span><span class="op">(</span><span class="va">df</span>, </span>
+<span>                   <span class="st">'gender'</span>, </span>
+<span>                   ngrams <span class="op">=</span> <span class="fl">2</span>, </span>
+<span>                   use_column_weights <span class="op">=</span> <span class="cn">TRUE</span>, </span>
+<span>                   exclude_nulls <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Overview-PackageTutorial_files/figure-html/unnamed-chunk-23-2.png" width="700"></p>
 <p>The <strong>comparison cloud</strong> extends the wordcloud
 concept.</p>
@@ -1361,13 +1372,14 @@ for the previous functions:</p>
 <span id="cb31-2"><a href="#cb31-2" tabindex="-1"></a>fst_comparison_cloud <span class="ot">&lt;-</span> <span class="cf">function</span>(data,</span>
 <span id="cb31-3"><a href="#cb31-3" tabindex="-1"></a>                                 field,</span>
 <span id="cb31-4"><a href="#cb31-4" tabindex="-1"></a>                                 <span class="at">pos_filter =</span> <span class="cn">NULL</span>,</span>
-<span id="cb31-5"><a href="#cb31-5" tabindex="-1"></a>                                 <span class="at">max =</span> <span class="dv">100</span>,</span>
-<span id="cb31-6"><a href="#cb31-6" tabindex="-1"></a>                                 <span class="at">use_svydesign_weights =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb31-7"><a href="#cb31-7" tabindex="-1"></a>                                 <span class="at">id =</span> <span class="st">""</span>,</span>
-<span id="cb31-8"><a href="#cb31-8" tabindex="-1"></a>                                 <span class="at">svydesign =</span> <span class="cn">NULL</span>,</span>
-<span id="cb31-9"><a href="#cb31-9" tabindex="-1"></a>                                 <span class="at">use_column_weights =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb31-10"><a href="#cb31-10" tabindex="-1"></a>                                 <span class="at">exclude_nulls =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb31-11"><a href="#cb31-11" tabindex="-1"></a>                                 <span class="at">rename_nulls =</span> <span class="st">"null_data"</span>) </span></code></pre></div>
+<span id="cb31-5"><a href="#cb31-5" tabindex="-1"></a>                                 <span class="at">norm =</span> <span class="cn">NULL</span>,</span>
+<span id="cb31-6"><a href="#cb31-6" tabindex="-1"></a>                                 <span class="at">max =</span> <span class="dv">100</span>,</span>
+<span id="cb31-7"><a href="#cb31-7" tabindex="-1"></a>                                 <span class="at">use_svydesign_weights =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb31-8"><a href="#cb31-8" tabindex="-1"></a>                                 <span class="at">id =</span> <span class="st">""</span>,</span>
+<span id="cb31-9"><a href="#cb31-9" tabindex="-1"></a>                                 <span class="at">svydesign =</span> <span class="cn">NULL</span>,</span>
+<span id="cb31-10"><a href="#cb31-10" tabindex="-1"></a>                                 <span class="at">use_column_weights =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb31-11"><a href="#cb31-11" tabindex="-1"></a>                                 <span class="at">exclude_nulls =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb31-12"><a href="#cb31-12" tabindex="-1"></a>                                 <span class="at">rename_nulls =</span> <span class="st">"null_data"</span>) </span></code></pre></div>
 <p>Thus, we can create comparison clouds:</p>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fst_comparison_cloud.html">fst_comparison_cloud</a></span><span class="op">(</span><span class="va">df</span>, <span class="st">'gender'</span>, max <span class="op">=</span> <span class="fl">40</span>, use_column_weights <span class="op">=</span> <span class="cn">TRUE</span>, exclude_nulls <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
