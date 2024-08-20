@@ -25,9 +25,7 @@ Once the package is installed, you can load the `finnsurveytext` package as belo
 (Other required packages such as `dplyr` and `stringr` will also be installed if they are not currently installed in your environment.)
 
 ```{r setup}
-#library(finnsurveytext)
 library(finnsurveytext)
-load_all()
 ```
 
 ### The Question
