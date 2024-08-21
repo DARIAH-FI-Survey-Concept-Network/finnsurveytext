@@ -92,6 +92,7 @@ fst_join_unique <- function(table, unique_table) {
 #' @param override_title An optional title to override the automatic one for
 #'  the plot. Default is `NULL`. If `NULL`, title of plot will be `number` "Most
 #'  Common 'Term'". 'Term' is "Words", "Bigrams", or "N-Grams" where N > 2.
+#' @param title_size size to display plot title
 #'
 #' @return Plot of top n-grams with unique terms highlighted.
 #' @export
@@ -146,7 +147,6 @@ fst_ngrams_compare_plot <- function(table,
 #' @param data A dataframe of text in CoNLL-U format with additional `field`
 #'  column for splitting data.
 #' @param field Column in `data` used for splitting groups
-#' @param data4 An optional dataframe of text in CoNLL-U format for the fourth
 #' @param number The number of n-grams to return, default is `10`.
 #' @param norm The method for normalising the data. Valid settings are
 #'  `"number_words"` (the number of words in the responses), `"number_resp"`
@@ -273,7 +273,6 @@ fst_freq_compare <- function(data,
 #' @param data A dataframe of text in CoNLL-U format with additional `field`
 #'  column for splitting data.
 #' @param field Column in `data` used for splitting groups
-#' @param data4 An optional dataframe of text in CoNLL-U format for the fourth
 #' @param number The number of n-grams to return, default is `10`.
 #' @param ngrams The type of n-grams to return, default is `1`.
 #' @param norm The method for normalising the data. Valid settings are

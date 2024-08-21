@@ -132,11 +132,14 @@ fst_format_svydesign <- function(svydesign,
 #'  (default) or `"tdt"` which are available for Finnish.
 #' @param stopword_list A valid Finnish stopword list, default is `"nltk"`, or
 #'  `"none"`.
-#' @param weights Optional, the column of the dataframe which contains the
-#'  respective weights for each response.
+#' @param language two-letter ISO code for the language for the stopword list
+#' @param use_weights Optional, whether to use weights within the `svydesign`
 #' @param add_cols Optional, a column (or columns) from the dataframe which
 #'  contain other information you'd like to retain (for instance, dimension
 #'  columnns for splitting the data for comparison plots).
+#' @param manual An optional boolean to indicate that a manual list will be
+#'  provided, `stopword_list = "manual"` can also or instead be used.
+#' @param manual_list A manual list of stopwords.
 #'
 #' @return A dataframe of Finnish text in CoNLL-U format.
 #' @export

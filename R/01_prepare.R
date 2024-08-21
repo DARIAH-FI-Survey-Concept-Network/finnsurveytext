@@ -36,7 +36,7 @@
 #' fst_format(child, question = 'q7', id = i, model = 'swedish-talbanken')
 #' unlink("finnish-ftb-ud-2.5-191206.udpipe")
 #' unlink("finnish-tdt-ud-2.5-191206.udpipe")
-#' unlink(swedish-talkbanken-ud-2.5-191206.udpipe)
+#' unlink("swedish-talkbanken-ud-2.5-191206.udpipe")
 #' }
 fst_format <- function(data,
                        question,
@@ -223,6 +223,9 @@ fst_rm_stop_punct <- function(data,
 #' @param add_cols Optional, a column (or columns) from the dataframe which
 #'  contain other information you'd like to retain (for instance, dimension
 #'  columnns for splitting the data for comparison plots).
+#' @param manual An optional boolean to indicate that a manual list will be
+#'  provided, `stopword_list = "manual"` can also or instead be used.
+#' @param manual_list A manual list of stopwords.
 #'
 #' @return A dataframe of Finnish text in CoNLL-U format.
 #' @export

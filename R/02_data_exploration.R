@@ -452,9 +452,6 @@ fst_ngrams_table <- function(data,
 #'  alphabetically ordered), default is `TRUE`.
 #' @param use_svydesign_weights Option to weight words in the table using
 #'  weights from a `svydesign` containing the raw data, default is `FALSE`
-#' @param add_cols Optional, a column (or columns) from the dataframe which
-#'  contain other information you'd need (for instance, covariate column for
-#'  splitting the data for comparison plots).
 #' @param id ID column from raw data, required if `use_svydesign_weights = TRUE`
 #'  and must match the `docid` in formatted `data`.
 #' @param svydesign A `svydesign` which contains the raw data and weights,

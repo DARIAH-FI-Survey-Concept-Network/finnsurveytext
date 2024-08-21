@@ -22,7 +22,7 @@
 #'   \item{paino}{Weight}
 #' }
 #' @source <https://urn.fi/urn:nbn:fi:fsd:T-FSD2821>
-#"dev_coop"
+"dev_coop"
 
 #' Young People's Views on Development Cooperation 2012 q11_3 response data in
 #' CoNLL-U format with NTLK stopwords removed and background variables.
