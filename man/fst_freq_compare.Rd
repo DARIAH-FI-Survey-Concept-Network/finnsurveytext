@@ -68,8 +68,6 @@ default is `FALSE`}
 \item{title_size}{size to display plot title}
 
 \item{subtitle_size}{size to display title of individual top words plot}
-
-\item{data4}{An optional dataframe of text in CoNLL-U format for the fourth}
 }
 \value{
 Plots of most frequent words in the plots pane with unique words

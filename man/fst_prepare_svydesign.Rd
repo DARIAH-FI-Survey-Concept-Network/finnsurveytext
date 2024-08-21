@@ -32,12 +32,18 @@ responses.}
 \item{stopword_list}{A valid Finnish stopword list, default is `"nltk"`, or
 `"none"`.}
 
+\item{language}{two-letter ISO code for the language for the stopword list}
+
+\item{use_weights}{Optional, whether to use weights within the `svydesign`}
+
 \item{add_cols}{Optional, a column (or columns) from the dataframe which
 contain other information you'd like to retain (for instance, dimension
 columnns for splitting the data for comparison plots).}
 
-\item{weights}{Optional, the column of the dataframe which contains the
-respective weights for each response.}
+\item{manual}{An optional boolean to indicate that a manual list will be
+provided, `stopword_list = "manual"` can also or instead be used.}
+
+\item{manual_list}{A manual list of stopwords.}
 }
 \value{
 A dataframe of Finnish text in CoNLL-U format.

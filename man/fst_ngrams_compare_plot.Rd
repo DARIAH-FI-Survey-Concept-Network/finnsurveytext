@@ -28,6 +28,8 @@ fst_ngrams_compare_plot(
 \item{override_title}{An optional title to override the automatic one for
 the plot. Default is `NULL`. If `NULL`, title of plot will be `number` "Most
 Common 'Term'". 'Term' is "Words", "Bigrams", or "N-Grams" where N > 2.}
+
+\item{title_size}{size to display plot title}
 }
 \value{
 Plot of top n-grams with unique terms highlighted.

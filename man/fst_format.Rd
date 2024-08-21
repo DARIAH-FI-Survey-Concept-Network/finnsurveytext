@@ -49,6 +49,6 @@ fst_format(child, question = "q7", id = i, add_cols = "gender, major_region")
 fst_format(child, question = 'q7', id = i, model = 'swedish-talbanken')
 unlink("finnish-ftb-ud-2.5-191206.udpipe")
 unlink("finnish-tdt-ud-2.5-191206.udpipe")
-unlink(swedish-talkbanken-ud-2.5-191206.udpipe)
+unlink("swedish-talkbanken-ud-2.5-191206.udpipe")
 }
 }

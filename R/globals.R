@@ -27,6 +27,7 @@ utils::globalVariables(c(
   "UPOS",
   "UPOS_Name",
   "weight",
+  "word_type",
   "word1",
   "word2",
   "words"

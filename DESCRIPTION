@@ -30,7 +30,6 @@ Imports:
     ggplot2,
     ggpubr,
     ggraph,
-    gridExtra,
     igraph,
     magrittr,
     purrr,

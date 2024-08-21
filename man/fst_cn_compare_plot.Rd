@@ -50,6 +50,8 @@ pagerank value for a node across all Networks to be plotted together.}
 
 \item{max_node}{A numeric value for the scale of the nodes, the largest
 pagerank value for a node across all Networks to be plotted together.}
+
+\item{title_size}{size to display plot title}
 }
 \value{
 Plot of concept network with concept and unique words (nodes)

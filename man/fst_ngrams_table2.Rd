@@ -47,10 +47,6 @@ required if `use_svydesign_weights = TRUE`.}
 \item{use_column_weights}{Option to weight words in the table using
 weights from  formatted data which includes addition `weight` column,
 default is `FALSE`}
-
-\item{add_cols}{Optional, a column (or columns) from the dataframe which
-contain other information you'd need (for instance, covariate column for
-splitting the data for comparison plots).}
 }
 \value{
 A table of the most frequently occurring n-grams in the data.

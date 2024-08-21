@@ -71,8 +71,6 @@ default is `FALSE`}
 \item{title_size}{size to display plot title}
 
 \item{subtitle_size}{size to display title of individual top ngrams plot}
-
-\item{data4}{An optional dataframe of text in CoNLL-U format for the fourth}
 }
 \value{
 Plots of top n-grams in the plots pane with unique n-grams

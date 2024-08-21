@@ -85,6 +85,7 @@ fst_cn_get_unique <- function(list) {
 #'  pagerank value for a node across all Networks to be plotted together.
 #' @param max_node A numeric value for the scale of the nodes, the largest
 #'  pagerank value for a node across all Networks to be plotted together.
+#' @param title_size size to display plot title
 #'
 #' @return Plot of concept network with concept and unique words (nodes)
 #'  highlighted.
