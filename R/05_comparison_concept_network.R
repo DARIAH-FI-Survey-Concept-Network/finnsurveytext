@@ -202,9 +202,9 @@ fst_cn_compare_plot <- function(edges,
 #' s <- survey::svydesign(id=~1, weights= ~paino, data = child)
 #' c2 <- fst_child_2
 #' i <- 'fsd_id'
-#' fst_concept_network_compare(c2, con1, 'gender', NULL, NULL, NULL, T, i, s)
-#' con2 <- "köyhyys, nälänhätä, sota"
-#' fst_concept_network_compare(fst_dev_coop, con2, 'education_level')
+#' fst_concept_network_compare(c2, con1, 'gender', NULL, NULL, NULL, TRUE, i, s)
+#' con1 <- "köyhyys, nälänhätä, sota"
+#' fst_concept_network_compare(fst_dev_coop, con2, 'gender')
 fst_concept_network_compare <- function(data,
                                         concepts,
                                         field,
