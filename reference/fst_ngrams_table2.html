@@ -164,12 +164,21 @@ default is `FALSE`</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9         ottaa toinen      0.015</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10          paha mieli      0.015</span>
 <span class="r-in"><span><span class="va">c</span> <span class="op">&lt;-</span> <span class="va">fst_child_2</span></span></span>
-<span class="r-in"><span><span class="va">s</span> <span class="op">&lt;-</span> <span class="va">svy_child</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'svy_child' not found</span>
+<span class="r-in"><span><span class="va">s</span> <span class="op">&lt;-</span> <span class="fu">survey</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/survey/man/svydesign.html" class="external-link">svydesign</a></span><span class="op">(</span>id<span class="op">=</span><span class="op">~</span><span class="fl">1</span>, weights<span class="op">=</span> <span class="op">~</span><span class="va">paino</span>, data <span class="op">=</span> <span class="va">child</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">i</span> <span class="op">&lt;-</span> <span class="st">'fsd_id'</span></span></span>
 <span class="r-in"><span><span class="cn">T</span> <span class="op">&lt;-</span> <span class="cn">TRUE</span></span></span>
 <span class="r-in"><span><span class="fu">fst_ngrams_table2</span><span class="op">(</span><span class="va">c</span>, <span class="fl">10</span>, <span class="fl">2</span>, use_svydesign_weights <span class="op">=</span> <span class="cn">T</span>, svydesign <span class="op">=</span> <span class="va">s</span>, id <span class="op">=</span> <span class="va">i</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 's' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                  words occurrence</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  lyöminen potkiminen   2526.929</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2           joku lyödä   1638.069</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3         lyödä potkia   1635.803</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4          osata sanoa   1312.750</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5       haukkua toinen   1172.935</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6          sanoa jokin   1046.724</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7          tulla mieli   1028.394</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8         toinen tulla    914.070</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9          tehdä jokin    903.588</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10  töniminen lyöminen    898.814</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
