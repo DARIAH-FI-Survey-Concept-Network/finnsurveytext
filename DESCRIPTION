@@ -1,7 +1,7 @@
 Type: Package
 Package: finnsurveytext
 Title: Analyse Open-Ended Survey Responses in Finnish
-Version: 1.0.0.9000
+Version: 2.0.0
 Authors@R: c(
     person("Adeline", "Clarke", , email = "adelinepclarke@gmail.com", role = c("cre", "aut")),
     person("Krista", "Lagus", email = "krista.lagus@helsinki.fi", role = "aut"), 
