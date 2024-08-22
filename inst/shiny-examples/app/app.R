@@ -5,6 +5,7 @@ library(shinyjs)
 library(shinydashboard)
 library(htmlwidgets)
 library(DT)
+library(shinyBS)
 
 
 body <- shinydashboard::dashboardBody(
