@@ -2,10 +2,7 @@ pos_list <- c("ADJ", "ADP", "ADV", "AUX", "CCONJ", "DET", "INTJ", "NOUN", "NUM",
 
 library(shiny)
 library(shinyjs)
-library(shinyBS)
-library(shinydashboard)
 library(htmlwidgets)
-library(webshot)
 
 
 body <- dashboardBody(
@@ -356,9 +353,6 @@ server <- function(input, output, session) {
     }
     x
   })
-  # dset <- reactive({
-  #   df()
-  # })
   output$rawtable <- DT::renderDT({
     df()
   })
@@ -501,11 +495,6 @@ server <- function(input, output, session) {
   output$wc <- renderPlot({
     wc2()
   })
-  # output$downloadwcPlot <- downloadHandler(
-  #   filename = "Wordcloud.png",
-  #   content = function(cloud) {
-  #     file.copy(wc2(), cloud)
-  #   })
   output$downloadwcPlot <- downloadHandler(
     file = "Wordcloud.png",
     content = function(file) {

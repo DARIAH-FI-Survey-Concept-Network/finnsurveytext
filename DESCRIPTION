@@ -43,8 +43,10 @@ Imports:
     udpipe,
     wordcloud
 Suggests: 
+    htmlwidgets, 
     knitr,
     rmarkdown, 
+    shinyjs,
     survey
 VignetteBuilder: 
     knitr
