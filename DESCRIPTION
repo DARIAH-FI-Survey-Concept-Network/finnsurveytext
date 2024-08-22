@@ -42,6 +42,7 @@ Imports:
     udpipe,
     wordcloud
 Suggests: 
+    DT,
     htmlwidgets, 
     knitr,
     rmarkdown, 
