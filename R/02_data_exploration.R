@@ -467,7 +467,7 @@ fst_ngrams_table <- function(data,
 #' fst_ngrams_table2(fst_child, norm = NULL)
 #' fst_ngrams_table2(fst_child, ngrams = 2, norm = "number_resp")
 #' c <- fst_child_2
-#' s <- svy_child
+#' s <- survey::svydesign(id=~1, weights= ~paino, data = child)
 #' i <- 'fsd_id'
 #' T <- TRUE
 #' fst_ngrams_table2(c, 10, 2, use_svydesign_weights = T, svydesign = s, id = i)
