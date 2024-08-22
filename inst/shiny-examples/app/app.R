@@ -2,10 +2,11 @@ pos_list <- c("ADJ", "ADP", "ADV", "AUX", "CCONJ", "DET", "INTJ", "NOUN", "NUM",
 
 library(shiny)
 library(shinyjs)
+library(shinydashboard)
 library(htmlwidgets)
 
 
-body <- dashboardBody(
+body <- shinydashboard::dashboardBody(
   tags$head(tags$style("#test .modal-dialog {width: fit-content !important;}"))
 )
 

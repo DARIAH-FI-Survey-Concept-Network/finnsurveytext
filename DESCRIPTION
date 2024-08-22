@@ -34,7 +34,6 @@ Imports:
     magrittr,
     purrr,
     RColorBrewer,
-    shiny, 
     stopwords,
     stringr,
     textrank,
@@ -46,6 +45,8 @@ Suggests:
     htmlwidgets, 
     knitr,
     rmarkdown, 
+    shiny, 
+    shinydashboard,
     shinyjs,
     survey
 VignetteBuilder: 
