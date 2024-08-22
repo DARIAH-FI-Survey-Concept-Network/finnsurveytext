@@ -181,12 +181,12 @@ fst_ngrams_compare_plot <- function(table,
 #' @examples
 #' fst_freq_compare(fst_child, 'gender', number = 10, norm = "number_resp")
 #' fst_freq_compare(fst_child, 'gender', number = 10, norm = NULL)
-#' svy_child <- survey::svydesign(id=~1, weights= ~paino, data = child)
+#' s <- survey::svydesign(id=~1, weights= ~paino, data = child)
 #' c2 <- fst_child_2
 #' c <- fst_child
 #' g <- 'gender'
-#' fst_freq_compare(c2, g, 10, NULL, NULL, T, T, T, 'fsd_id', svy_child)
-#' fst_freq_compare(c, g, use_column_weights = T, strict = FALSE)
+#' fst_freq_compare(c2, g, 10, NULL, NULL, TRUE, TRUE, TRUE, 'fsd_id', s)
+#' fst_freq_compare(c, g, use_column_weights = TRUE, strict = FALSE)
 fst_freq_compare <- function(data,
                              field,
                              number = 10,
@@ -310,10 +310,10 @@ fst_freq_compare <- function(data,
 #' g <- 'gender'
 #' fst_ngrams_compare(c, g, ngrams = 4, number = 10, norm = "number_resp")
 #' fst_ngrams_compare(c, g, ngrams = 2, number = 10, norm = NULL)
-#' svy_child <- survey::svydesign(id=~1, weights= ~paino, data = child)
+#' s <- survey::svydesign(id=~1, weights= ~paino, data = child)
 #' c2 <- fst_child_2
-#' fst_ngrams_compare(c2, g, 10, 3, NULL, NULL, T, T, T, 'fsd_id', svy_child)
-#' fst_ngrams_compare(c, g, 10, 2, use_column_weights = TRUE, strict = T)
+#' fst_ngrams_compare(c2, g, 10, 3, NULL, NULL, TRUE, TRUE, TRUE, 'fsd_id', s)
+#' fst_ngrams_compare(c, g, 10, 2, use_column_weights = TRUE, strict = TRUE)
 fst_ngrams_compare <- function(data,
                               field,
                               number = 10,
