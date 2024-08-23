@@ -5,18 +5,17 @@
 \alias{child}
 \title{Child Barometer 2016 response data}
 \format{
-## `child_barometer_data`
+## `child`
 A dataframe with 414 rows and 8 columns:
 \describe{
   \item{fsd_id}{FSD case id}
-  \item{bv1}{Gender: 1 (Boy), 2 (Girl)}
-  \item{bv3}{Major region (NUTS2): 1 (Helsinki-Uusima), 2 (Etelä-Suomi), 3
-   (Länsi-Suomi), 4 (Pohjois- ja Itä-Suomi)}
-  \item{bv9}{Daycare before pre-school: 1 (Yes), 2 (No)}
   \item{q3}{'Which things are you good at?' response text}
   \item{q7}{'What do you think bullying is?' response text}
   \item{q11}{'What makes you happy?' response text}
   \item{paino}{Weight}
+  \item{gender}{Gender)}
+  \item{major_region}{Major region)}
+  \item{daycare_before_school}{Daycare before pre-school}
 }
 }
 \source{

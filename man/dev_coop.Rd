@@ -9,16 +9,14 @@
 A dataframe with 925 rows and 9 columns:
 \describe{
   \item{fsd_id}{FSD case id}
-  \item{q1}{Gender: 1 (Male), 2 (Female)}
-  \item{q2}{Year of Birth}
-  \item{q3}{Region of Residence (NUTS2): 1 (Helsinki-Uusima), 2 (Muu Etelä-
-   Suomi), 3 (Länsi-Suomi), 4 (Pohjois- ja Itä-Suomi)}
-  \item{q6}{Education level: 1 (Primary education), 2 (Matriculation
-   examination), 3 (Upper secondary vocational qualification)}
   \item{q11_1}{response text for q11_1}
   \item{q11_2}{response text for q11_2}
   \item{q11_3}{response text for q11_3}
   \item{paino}{Weight}
+  \item{gender}{Gender}
+  \item{year_of_birth}{Year of Birth}
+  \item{region}{Region of Residence}
+  \item{education_level}{Education level}
 }
 }
 \source{

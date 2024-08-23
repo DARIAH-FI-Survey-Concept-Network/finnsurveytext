@@ -24,10 +24,9 @@ A dataframe with 4192 rows and 19 columns:
   \item{deps}{Enhanced dependency graph in the form of a list of head-deprel pairs.}
   \item{misc}{Any other annotation.}
   \item{weight}{Weight}
-  \item{q1}{Gender: 1 (Male), 2 (Female)}
-  \item{q2}{Year of Birth}
-  \item{q3}{Region of Residence (NUTS2): 1 (Helsinki-Uusima), 2 (Muu Etelä-
-   Suomi), 3 (Länsi-Suomi), 4 (Pohjois- ja Itä-Suomi)}
+  \item{gender}{Gender}
+  \item{year_of_birth}{Year of Birth}
+  \item{region}{Region of Residence}
 }
 }
 \source{

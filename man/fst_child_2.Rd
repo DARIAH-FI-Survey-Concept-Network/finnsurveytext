@@ -7,7 +7,7 @@
 stopwords removed}
 \format{
 ## `fst_child_2`
-A dataframe with 1240 rows and 14 columns:
+A dataframe with 1580 rows and 14 columns:
 \describe{
   \item{doc_id}{the identifier of the document}
   \item{paragraph_id}{the identifier of the paragraph}

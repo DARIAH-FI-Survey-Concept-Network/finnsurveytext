@@ -7,7 +7,7 @@
 stopwords removed and background variables}
 \format{
 ## `fst_child`
-A dataframe with 1240 rows and 17 columns:
+A dataframe with 1580 rows and 18 columns:
 \describe{
   \item{doc_id}{the identifier of the document}
   \item{paragraph_id}{the identifier of the paragraph}
@@ -24,9 +24,9 @@ A dataframe with 1240 rows and 17 columns:
   \item{deps}{Enhanced dependency graph in the form of a list of head-deprel pairs.}
   \item{misc}{Any other annotation.}
   \item{weight}{Weight}
-  \item{bv1}{Gender: 1 (Boy), 2 (Girl)}
-  \item{bv3}{Major region (NUTS2): 1 (Helsinki-Uusima), 2 (Etelä-Suomi), 3
-   (Länsi-Suomi), 4 (Pohjois- ja Itä-Suomi)}
+  \item{gender}{Gender}
+  \item{major_region}{Major region}
+  \item{daycare_before_school}{Daycare before pre-school}
 }
 }
 \source{

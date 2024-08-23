@@ -10,16 +10,14 @@
 #' A dataframe with 925 rows and 9 columns:
 #' \describe{
 #'   \item{fsd_id}{FSD case id}
-#'   \item{q1}{Gender: 1 (Male), 2 (Female)}
-#'   \item{q2}{Year of Birth}
-#'   \item{q3}{Region of Residence (NUTS2): 1 (Helsinki-Uusima), 2 (Muu Etelä-
-#'    Suomi), 3 (Länsi-Suomi), 4 (Pohjois- ja Itä-Suomi)}
-#'   \item{q6}{Education level: 1 (Primary education), 2 (Matriculation
-#'    examination), 3 (Upper secondary vocational qualification)}
 #'   \item{q11_1}{response text for q11_1}
 #'   \item{q11_2}{response text for q11_2}
 #'   \item{q11_3}{response text for q11_3}
 #'   \item{paino}{Weight}
+#'   \item{gender}{Gender}
+#'   \item{year_of_birth}{Year of Birth}
+#'   \item{region}{Region of Residence}
+#'   \item{education_level}{Education level}
 #' }
 #' @source <https://urn.fi/urn:nbn:fi:fsd:T-FSD2821>
 "dev_coop"
@@ -49,10 +47,9 @@
 #'   \item{deps}{Enhanced dependency graph in the form of a list of head-deprel pairs.}
 #'   \item{misc}{Any other annotation.}
 #'   \item{weight}{Weight}
-#'   \item{q1}{Gender: 1 (Male), 2 (Female)}
-#'   \item{q2}{Year of Birth}
-#'   \item{q3}{Region of Residence (NUTS2): 1 (Helsinki-Uusima), 2 (Muu Etelä-
-#'    Suomi), 3 (Länsi-Suomi), 4 (Pohjois- ja Itä-Suomi)}
+#'   \item{gender}{Gender}
+#'   \item{year_of_birth}{Year of Birth}
+#'   \item{region}{Region of Residence}
 #' }
 #' @source <https://urn.fi/urn:nbn:fi:fsd:T-FSD2821>
 "fst_dev_coop"
@@ -91,18 +88,17 @@
 #' kiusaaminen on? (Avokysymys)", and q11 "Mikä tekee sinut iloiseksi?
 #' (Avokysymys)" in the FSD3134 Lapsibarometri 2016 dataset.
 #'
-#' @format ## `child_barometer_data`
+#' @format ## `child`
 #' A dataframe with 414 rows and 8 columns:
 #' \describe{
 #'   \item{fsd_id}{FSD case id}
-#'   \item{bv1}{Gender: 1 (Boy), 2 (Girl)}
-#'   \item{bv3}{Major region (NUTS2): 1 (Helsinki-Uusima), 2 (Etelä-Suomi), 3
-#'    (Länsi-Suomi), 4 (Pohjois- ja Itä-Suomi)}
-#'   \item{bv9}{Daycare before pre-school: 1 (Yes), 2 (No)}
 #'   \item{q3}{'Which things are you good at?' response text}
 #'   \item{q7}{'What do you think bullying is?' response text}
 #'   \item{q11}{'What makes you happy?' response text}
 #'   \item{paino}{Weight}
+#'   \item{gender}{Gender)}
+#'   \item{major_region}{Major region)}
+#'   \item{daycare_before_school}{Daycare before pre-school}
 #' }
 #' @source <https://urn.fi/urn:nbn:fi:fsd:T-FSD3134>
 "child"
@@ -116,7 +112,7 @@
 #' and background variables.
 #'
 #' @format ## `fst_child`
-#' A dataframe with 1240 rows and 17 columns:
+#' A dataframe with 1580 rows and 18 columns:
 #' \describe{
 #'   \item{doc_id}{the identifier of the document}
 #'   \item{paragraph_id}{the identifier of the paragraph}
@@ -133,9 +129,9 @@
 #'   \item{deps}{Enhanced dependency graph in the form of a list of head-deprel pairs.}
 #'   \item{misc}{Any other annotation.}
 #'   \item{weight}{Weight}
-#'   \item{bv1}{Gender: 1 (Boy), 2 (Girl)}
-#'   \item{bv3}{Major region (NUTS2): 1 (Helsinki-Uusima), 2 (Etelä-Suomi), 3
-#'    (Länsi-Suomi), 4 (Pohjois- ja Itä-Suomi)}
+#'   \item{gender}{Gender}
+#'   \item{major_region}{Major region}
+#'   \item{daycare_before_school}{Daycare before pre-school}
 #' }
 #' @source <https://urn.fi/urn:nbn:fi:fsd:T-FSD3134>
 "fst_child"
@@ -148,7 +144,7 @@
 #' in CoNLL-U format with NLTK stopwords and punctuation removed.
 #'
 #' @format ## `fst_child_2`
-#' A dataframe with 1240 rows and 14 columns:
+#' A dataframe with 1580 rows and 14 columns:
 #' \describe{
 #'   \item{doc_id}{the identifier of the document}
 #'   \item{paragraph_id}{the identifier of the paragraph}
