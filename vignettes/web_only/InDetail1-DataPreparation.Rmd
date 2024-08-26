@@ -204,3 +204,8 @@ Now that you have data in CoNLL-U format, this pre-processed data is ready for t
 The Office of Ombudsman for Children: Child Barometer 2016 [dataset]. Version 1.0 (2016-12-09). Finnish Social Science Data Archive [distributor]. http://urn.fi/urn:nbn:fi:fsd:T-FSD3134
 
 Finnish Children and Youth Foundation: Young People's Views on Development Cooperation 2012 [dataset]. Version 2.0 (2019-01-22). Finnish Social Science Data Archive [distributor]. http://urn.fi/urn:nbn:fi:fsd:T-FSD2821
+
+```{r echo = FALSE}
+unlink('finnish-ftb-ud-2.5-191206.udpipe')
+unlink("finnish-tdt-ud-2.5-191206.udpipe")
+```

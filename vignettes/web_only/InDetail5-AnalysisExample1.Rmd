@@ -498,3 +498,7 @@ From the above, we can see that different settings create different Concept Netw
 ## Citation
 
 Finnish Children and Youth Foundation: Young People's Views on Development Cooperation 2012 [dataset]. Version 2.0 (2019-01-22). Finnish Social Science Data Archive distributor]. http://urn.fi/urn:nbn:fi:fsd:T-FSD2821
+
+```{r echo = FALSE}
+unlink('finnish-ftb-ud-2.5-191206.udpipe')
+```

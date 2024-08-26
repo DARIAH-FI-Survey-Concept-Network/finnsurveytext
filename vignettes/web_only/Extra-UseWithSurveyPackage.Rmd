@@ -155,3 +155,7 @@ fst_use_svydesign <- function(data,
                               add_weights = TRUE)
 ```
 
+```{r echo = FALSE}
+unlink('finnish-ftb-ud-2.5-191206.udpipe')
+unlink("finnish-tdt-ud-2.5-191206.udpipe")
+```
