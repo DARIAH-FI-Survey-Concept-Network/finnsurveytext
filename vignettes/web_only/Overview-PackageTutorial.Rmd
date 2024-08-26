@@ -500,5 +500,8 @@ The package comes with sample data from two surveys obtained from the Finnish So
 * Licence: (A) openly available for all users without registration (CC BY 4.0).
 * Link to Data: https://urn.fi/urn:nbn:fi:fsd:T-FSD2821 
 
+```{r echo = FALSE}
+unlink('finnish-ftb-ud-2.5-191206.udpipe')
+```
 
 
