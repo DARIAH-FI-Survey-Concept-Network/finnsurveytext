@@ -13,7 +13,7 @@ launches the RShiny demo
 Run Shiny App Demo
 }
 \examples{
-\donttest{
-runDemo()
-}
+if(interactive(
+  runDemo()
+))
 }
