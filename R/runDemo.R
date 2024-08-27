@@ -4,9 +4,9 @@
 #' @export
 #'
 #' @examples
-#' if(interactive(
+#' \donttest{
 #'   runDemo()
-#' ))
+#' }
 runDemo <- function() {
   appDir <- system.file("shiny-examples", "app", package = "finnsurveytext")
   if (appDir == "") {
