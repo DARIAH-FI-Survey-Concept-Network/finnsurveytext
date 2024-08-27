@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../../index.html">finnsurveytext</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -118,7 +118,7 @@ further details on the functions, see the previous tutorials.</p>
 <p>The following is an excerpt from our prepared datasets:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">fst_dev_coop</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<table class="table">
+<table style="width:100%;" class="table">
 <colgroup>
 <col width="2%">
 <col width="3%">
@@ -137,8 +137,8 @@ further details on the functions, see the previous tutorials.</p>
 <col width="2%">
 <col width="2%">
 <col width="4%">
-<col width="4%">
 <col width="7%">
+<col width="4%">
 </colgroup>
 <thead><tr class="header">
 <th align="left">doc_id</th>
@@ -158,8 +158,8 @@ further details on the functions, see the previous tutorials.</p>
 <th align="right">weight</th>
 <th align="left">gender</th>
 <th align="left">region</th>
-<th align="left">year_of_birth</th>
 <th align="left">education_level</th>
+<th align="left">year_of_birth</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
@@ -180,9 +180,9 @@ ylikansoittuminen</td>
 <td align="left">NA</td>
 <td align="right">0.544</td>
 <td align="left">Female</td>
-<td align="left">Muu Etelä-Suomi</td>
-<td align="left">1992</td>
+<td align="left">Etelä-Suomi</td>
 <td align="left">NA</td>
+<td align="left">1992</td>
 </tr>
 <tr class="even">
 <td align="left">1</td>
@@ -202,9 +202,9 @@ ylikansoittuminen</td>
 <td align="left">NA</td>
 <td align="right">0.544</td>
 <td align="left">Female</td>
-<td align="left">Muu Etelä-Suomi</td>
-<td align="left">1992</td>
+<td align="left">Etelä-Suomi</td>
 <td align="left">NA</td>
+<td align="left">1992</td>
 </tr>
 <tr class="odd">
 <td align="left">1</td>
@@ -224,9 +224,9 @@ ylikansoittuminen</td>
 <td align="left">SpaceAfter=No</td>
 <td align="right">0.544</td>
 <td align="left">Female</td>
-<td align="left">Muu Etelä-Suomi</td>
-<td align="left">1992</td>
+<td align="left">Etelä-Suomi</td>
 <td align="left">NA</td>
+<td align="left">1992</td>
 </tr>
 <tr class="even">
 <td align="left">1</td>
@@ -246,9 +246,9 @@ ylikansoittuminen</td>
 <td align="left">NA</td>
 <td align="right">0.544</td>
 <td align="left">Female</td>
-<td align="left">Muu Etelä-Suomi</td>
-<td align="left">1992</td>
+<td align="left">Etelä-Suomi</td>
 <td align="left">NA</td>
+<td align="left">1992</td>
 </tr>
 <tr class="odd">
 <td align="left">1</td>
@@ -268,9 +268,9 @@ ylikansoittuminen</td>
 <td align="left">SpacesAfter=</td>
 <td align="right">0.544</td>
 <td align="left">Female</td>
-<td align="left">Muu Etelä-Suomi</td>
-<td align="left">1992</td>
+<td align="left">Etelä-Suomi</td>
 <td align="left">NA</td>
+<td align="left">1992</td>
 </tr>
 <tr class="even">
 <td align="left">10</td>
@@ -290,9 +290,9 @@ ylikansoittuminen</td>
 <td align="left">NA</td>
 <td align="right">0.544</td>
 <td align="left">Female</td>
-<td align="left">Muu Etelä-Suomi</td>
-<td align="left">1994</td>
+<td align="left">Etelä-Suomi</td>
 <td align="left">Matriculation examination</td>
+<td align="left">1994</td>
 </tr>
 <tr class="odd">
 <td align="left">10</td>
@@ -312,9 +312,9 @@ ylikansoittuminen</td>
 <td align="left">SpaceAfter=No</td>
 <td align="right">0.544</td>
 <td align="left">Female</td>
-<td align="left">Muu Etelä-Suomi</td>
-<td align="left">1994</td>
+<td align="left">Etelä-Suomi</td>
 <td align="left">Matriculation examination</td>
+<td align="left">1994</td>
 </tr>
 <tr class="even">
 <td align="left">10</td>
@@ -334,9 +334,9 @@ ylikansoittuminen</td>
 <td align="left">SpaceAfter=No</td>
 <td align="right">0.544</td>
 <td align="left">Female</td>
-<td align="left">Muu Etelä-Suomi</td>
-<td align="left">1994</td>
+<td align="left">Etelä-Suomi</td>
 <td align="left">Matriculation examination</td>
+<td align="left">1994</td>
 </tr>
 <tr class="odd">
 <td align="left">10</td>
@@ -356,9 +356,9 @@ ylikansoittuminen</td>
 <td align="left">SpacesAfter=</td>
 <td align="right">0.544</td>
 <td align="left">Female</td>
-<td align="left">Muu Etelä-Suomi</td>
-<td align="left">1994</td>
+<td align="left">Etelä-Suomi</td>
 <td align="left">Matriculation examination</td>
+<td align="left">1994</td>
 </tr>
 <tr class="even">
 <td align="left">100</td>
@@ -377,9 +377,9 @@ ylikansoittuminen</td>
 <td align="left">SpaceAfter=No</td>
 <td align="right">0.624</td>
 <td align="left">Female</td>
-<td align="left">Helsinki-Uusima</td>
-<td align="left">1994</td>
+<td align="left">Helsinki-Uusimaa</td>
 <td align="left">Matriculation examination</td>
+<td align="left">1994</td>
 </tr>
 </tbody>
 </table>

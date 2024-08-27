@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../../index.html">finnsurveytext</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -355,7 +355,19 @@ annotated grammatical examples from <a href="https://kaino.kotus.fi/visk/etusivu
 and can be run as follows:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">conllu_dev_q11_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/fst_format.html">fst_format</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dev_coop</span>, question <span class="op">=</span> <span class="st">"q11_1"</span>, id <span class="op">=</span> <span class="st">'fsd_id'</span><span class="op">)</span></span>
-<span><span class="va">conllu_cb_bullying</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/fst_format.html">fst_format</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">child</span>, question <span class="op">=</span> <span class="st">"q7"</span>, model <span class="op">=</span> <span class="st">"tdt"</span>, id <span class="op">=</span> <span class="st">'fsd_id'</span><span class="op">)</span></span></code></pre></div>
+<span><span class="co">#&gt; Downloading udpipe model from https://raw.githubusercontent.com/jwijffels/udpipe.models.ud.2.5/master/inst/udpipe-ud-2.5-191206/finnish-ftb-ud-2.5-191206.udpipe to /home/runner/work/finnsurveytext/finnsurveytext/vignettes/web_only/finnish-ftb-ud-2.5-191206.udpipe</span></span>
+<span><span class="co">#&gt;  - This model has been trained on version 2.5 of data from https://universaldependencies.org</span></span>
+<span><span class="co">#&gt;  - The model is distributed under the CC-BY-SA-NC license: https://creativecommons.org/licenses/by-nc-sa/4.0</span></span>
+<span><span class="co">#&gt;  - Visit https://github.com/jwijffels/udpipe.models.ud.2.5 for model license details.</span></span>
+<span><span class="co">#&gt;  - For a list of all models and their licenses (most models you can download with this package have either a CC-BY-SA or a CC-BY-SA-NC license) read the documentation at ?udpipe_download_model. For building your own models: visit the documentation by typing vignette('udpipe-train', package = 'udpipe')</span></span>
+<span><span class="co">#&gt; Downloading finished, model stored at '/home/runner/work/finnsurveytext/finnsurveytext/vignettes/web_only/finnish-ftb-ud-2.5-191206.udpipe'</span></span>
+<span><span class="va">conllu_cb_bullying</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/fst_format.html">fst_format</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">child</span>, question <span class="op">=</span> <span class="st">"q7"</span>, model <span class="op">=</span> <span class="st">"tdt"</span>, id <span class="op">=</span> <span class="st">'fsd_id'</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Downloading udpipe model from https://raw.githubusercontent.com/jwijffels/udpipe.models.ud.2.5/master/inst/udpipe-ud-2.5-191206/finnish-tdt-ud-2.5-191206.udpipe to /home/runner/work/finnsurveytext/finnsurveytext/vignettes/web_only/finnish-tdt-ud-2.5-191206.udpipe</span></span>
+<span><span class="co">#&gt;  - This model has been trained on version 2.5 of data from https://universaldependencies.org</span></span>
+<span><span class="co">#&gt;  - The model is distributed under the CC-BY-SA-NC license: https://creativecommons.org/licenses/by-nc-sa/4.0</span></span>
+<span><span class="co">#&gt;  - Visit https://github.com/jwijffels/udpipe.models.ud.2.5 for model license details.</span></span>
+<span><span class="co">#&gt;  - For a list of all models and their licenses (most models you can download with this package have either a CC-BY-SA or a CC-BY-SA-NC license) read the documentation at ?udpipe_download_model. For building your own models: visit the documentation by typing vignette('udpipe-train', package = 'udpipe')</span></span>
+<span><span class="co">#&gt; Downloading finished, model stored at '/home/runner/work/finnsurveytext/finnsurveytext/vignettes/web_only/finnish-tdt-ud-2.5-191206.udpipe'</span></span></code></pre></div>
 <p><em>Note: the first time you run this function, it will download the
 relevant treebank from udpipe for use in the annotations.</em></p>
 <p>The top 5 rows of the “conllu_cb_bullying” table are shown below:</p>
