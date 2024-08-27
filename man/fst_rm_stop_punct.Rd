@@ -36,7 +36,8 @@ Removes stopwords and punctuation from a dataframe containing Finnish survey
 text data which is already in CoNLL-U format.
 }
 \examples{
-c <- fst_prepare(child, question <- 'q7', id = 'fsd_id')
+\donttest{
+c <- fst_format(child, question = 'q7', id = 'fsd_id')
 fst_rm_stop_punct(c)
 fst_rm_stop_punct(c, stopword_list = "snowball")
 fst_rm_stop_punct(c, "stopwords-iso")
@@ -45,4 +46,6 @@ mlist <- c('en', 'et', 'ei', 'emme', 'ette', 'eivät', 'minä', 'minum')
 mlist2 <- "en, et, ei, emme, ette, eivät, minä, minum"
 fst_rm_stop_punct(c, manual = TRUE, manual_list = mlist)
 fst_rm_stop_punct(c, stopword_list = "manual", manual_list = mlist)
+unlink("finnish-ftb-ud-2.5-191206.udpipe")
+}
 }
