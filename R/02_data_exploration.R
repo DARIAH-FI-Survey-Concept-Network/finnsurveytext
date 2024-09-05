@@ -249,7 +249,9 @@ fst_use_svydesign <- function(data,
 #'
 #' @examples
 #' pf <- c("NOUN", "VERB", "ADJ", "ADV")
+#' pf2 <- "NOUN, VERB, ADJ, ADV"
 #' fst_freq_table(fst_child, number = 15, strict = FALSE, pos_filter = pf)
+#' fst_freq_table(fst_child, number = 15, strict = FALSE, pos_filter = pf2)
 #' fst_freq_table(fst_child, norm = 'number_words')
 #' fst_freq_table(fst_child, use_column_weights = TRUE)
 #' c2 <- fst_child_2
@@ -293,6 +295,11 @@ fst_freq_table <- function(data,
     denom <- 1
   }
   if (!is.null(pos_filter)) {
+    if (length(pos_filter) == 1) {
+      pos_filter <- pos_filter %>%
+        stringr::str_extract_all(pattern = "\\w+") %>%
+        unlist()
+    }
     data <- dplyr::filter(data, .data$upos %in% pos_filter)
   }
   data <- data %>%
@@ -346,8 +353,12 @@ fst_freq_table <- function(data,
 #' @export
 #'
 #' @examples
+#' pf <- c("NOUN", "VERB", "ADJ", "ADV")
+#' pf2 <- "NOUN, VERB, ADJ, ADV"
 #' fst_ngrams_table(fst_child, norm = NULL)
 #' fst_ngrams_table(fst_child, ngrams = 2, norm = "number_resp")
+#' fst_ngrams_table(fst_child, ngrams = 2, pos_filter = pf)
+#' fst_ngrams_table(fst_child, ngrams = 2, pos_filter = pf2)
 #' c2 <- fst_child_2
 #' s <- survey::svydesign(id=~1, weights= ~paino, data = child)
 #' i <- 'fsd_id'
@@ -392,6 +403,11 @@ fst_ngrams_table <- function(data,
     denom <- 1
   }
   if (!is.null(pos_filter)) {
+    if (length(pos_filter) == 1) {
+      pos_filter <- pos_filter %>%
+        stringr::str_extract_all(pattern = "\\w+") %>%
+        unlist()
+    }
     data <- dplyr::filter(data, .data$upos %in% pos_filter)
   }
   data <- data %>%
@@ -436,9 +452,6 @@ fst_ngrams_table <- function(data,
 #'  alphabetically ordered), default is `TRUE`.
 #' @param use_svydesign_weights Option to weight words in the table using
 #'  weights from a `svydesign` containing the raw data, default is `FALSE`
-#' @param add_cols Optional, a column (or columns) from the dataframe which
-#'  contain other information you'd need (for instance, covariate column for
-#'  splitting the data for comparison plots).
 #' @param id ID column from raw data, required if `use_svydesign_weights = TRUE`
 #'  and must match the `docid` in formatted `data`.
 #' @param svydesign A `svydesign` which contains the raw data and weights,
@@ -454,7 +467,7 @@ fst_ngrams_table <- function(data,
 #' fst_ngrams_table2(fst_child, norm = NULL)
 #' fst_ngrams_table2(fst_child, ngrams = 2, norm = "number_resp")
 #' c <- fst_child_2
-#' s <- svy_child
+#' s <- survey::svydesign(id=~1, weights= ~paino, data = child)
 #' i <- 'fsd_id'
 #' T <- TRUE
 #' fst_ngrams_table2(c, 10, 2, use_svydesign_weights = T, svydesign = s, id = i)
@@ -494,6 +507,11 @@ fst_ngrams_table2 <- function(data,
     denom <- 1
   }
   if (!is.null(pos_filter)) {
+    if (length(pos_filter) == 1) {
+      pos_filter <- pos_filter %>%
+        stringr::str_extract_all(pattern = "\\w+") %>%
+        unlist()
+    }
     data <- dplyr::filter(data, .data$upos %in% pos_filter)
   }
   data <- data %>%
@@ -522,7 +540,7 @@ fst_ngrams_table2 <- function(data,
 #'
 #' Plots most common words.
 #'
-#' @param table Output of `fst_get_top_words()` or `fst_get_top_ngrams()`.
+#' @param table Output of `fst_freq_table()` or `fst_ngrams_table()`.
 #' @param number Optional number of n-grams for the title, default is `NULL`.
 #' @param name An optional "name" for the plot to add to title, default is
 #'  `NULL`.
@@ -682,6 +700,7 @@ fst_freq <- function(data,
 #' c <- fst_child_2
 #' s <- survey::svydesign(id=~1, weights= ~paino, data = child)
 #' i <- 'fsd_id'
+#' T <- TRUE
 #' fst_ngrams(c, ngrams = 3, use_svydesign_weights = T, svydesign = s, id = i)
 fst_ngrams <- function(data,
                        number = 10,
@@ -742,6 +761,7 @@ fst_ngrams <- function(data,
 #' @examples
 #' fst_wordcloud(fst_child)
 #' fst_wordcloud(fst_child, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+#' fst_wordcloud(fst_child, pos_filter = 'NOUN, VERB, ADJ')
 #' fst_wordcloud(fst_child, use_column_weights = TRUE)
 #' i <- 'fsd_id'
 #' c <- fst_child_2
@@ -758,6 +778,11 @@ fst_wordcloud <- function(data,
     data <- fst_use_svydesign(data = data, svydesign = svydesign, id = id)
   }
   if (!is.null(pos_filter)) {
+    if (length(pos_filter) == 1) {
+      pos_filter <- pos_filter %>%
+        stringr::str_extract_all(pattern = "\\w+") %>%
+        unlist()
+    }
     data <- dplyr::filter(data, upos %in% pos_filter)
   }
   wordcloud_data <- data %>%

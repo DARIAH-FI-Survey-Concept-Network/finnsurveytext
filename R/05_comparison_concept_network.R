@@ -39,7 +39,7 @@ fst_cn_get_unique_separate <- function(table1, table2, ...) {
 #' @export
 #'
 #' @examples
-#' pos_filter <- c("NOUN", "VERB", "ADJ", "ADV")
+#' pos_filter <- 'NOUN, VERB, ADJ, ADV'
 #' e1 <- fst_cn_edges(fst_child, "lyödä", pos_filter = pos_filter)
 #' e2 <- fst_cn_edges(fst_child, "lyöminen", pos_filter = pos_filter)
 #' n1 <- fst_cn_nodes(fst_child, e1)
@@ -85,6 +85,7 @@ fst_cn_get_unique <- function(list) {
 #'  pagerank value for a node across all Networks to be plotted together.
 #' @param max_node A numeric value for the scale of the nodes, the largest
 #'  pagerank value for a node across all Networks to be plotted together.
+#' @param title_size size to display plot title
 #'
 #' @return Plot of concept network with concept and unique words (nodes)
 #'  highlighted.
@@ -201,9 +202,9 @@ fst_cn_compare_plot <- function(edges,
 #' s <- survey::svydesign(id=~1, weights= ~paino, data = child)
 #' c2 <- fst_child_2
 #' i <- 'fsd_id'
-#' fst_concept_network_compare(c2, con1, 'gender', NULL, NULL, NULL, T, i, s)
+#' fst_concept_network_compare(c2, con1, 'gender', NULL, NULL, NULL, TRUE, i, s)
 #' con2 <- "köyhyys, nälänhätä, sota"
-#' fst_concept_network_compare(fst_dev_coop, con2, 'education_level')
+#' fst_concept_network_compare(fst_dev_coop, con2, 'gender')
 fst_concept_network_compare <- function(data,
                                         concepts,
                                         field,

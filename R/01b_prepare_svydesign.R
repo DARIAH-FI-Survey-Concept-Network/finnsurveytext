@@ -11,8 +11,8 @@
 #'  question.
 #' @param id The column in the dataframe which contains the ids for the
 #'  responses.
-#' @param model A Finnish language model available for [udpipe], `"ftb"`
-#'  (default) or `"tdt"`.
+#' @param model A language model available for [udpipe], such as `"ftb"`
+#'  (default) or `"tdt"` which are available for Finnish.
 #' @param use_weights Optional, whether to use weights within the `svydesign`
 #' @param add_cols Optional, a column (or columns) from the dataframe which
 #'  contain other information you'd like to retain (for instance, dimension
@@ -32,7 +32,9 @@
 #' fst_format_svydesign(svy_child, 'q7', 'fsd_id', add_cols = cols)
 #'
 #' svy_dev <- survey::svydesign(id = ~1, weights = ~paino, data = dev_coop)
-#' fst_format_svydesign(svy_dev, 'q11_1', 'fsd_id', add_cols = 'gender')
+#' fst_format_svydesign(svy_dev, 'q11_1', 'fsd_id', add_cols = 'gender, region')
+#'
+#' fst_format_svydesign(svy_dev, 'q11_2', 'fsd_id', 'finnish-ftb')
 #' unlink("finnish-ftb-ud-2.5-191206.udpipe")
 #' unlink("finnish-tdt-ud-2.5-191206.udpipe")
 #' }
@@ -66,6 +68,17 @@ fst_format_svydesign <- function(svydesign,
     annotated_data <- as.data.frame(
       udpipe::udpipe_annotate(model_tdt, x = data$new_col, doc_id = data[[id]])
     )
+  } else {
+    name2 <- paste0(model, '-ud-2.5-191206.udpipe')
+    if (!file.exists(name2)) {
+      udpipe::udpipe_download_model(language = model)
+    }
+    model_2 <- udpipe::udpipe_load_model(
+      file = name2
+    )
+    annotated_data <- as.data.frame(
+      udpipe::udpipe_annotate(model_2, x = data$new_col, doc_id = data[[id]])
+    )
   }
   annotated_data <- annotated_data %>%
     dplyr::mutate(token = tolower(token)) %>%
@@ -84,6 +97,11 @@ fst_format_svydesign <- function(svydesign,
     )
   }
   if (!is.null(add_cols)) {
+    if (length(add_cols) == 1) {
+      add_cols <- add_cols %>%
+        stringr::str_extract_all(pattern = "\\w+") %>%
+        unlist()
+    }
     new_cols <- c(id, add_cols)
     add_data <- subset(data, select= new_cols)
     annotated_data <- merge(x = annotated_data,
@@ -110,15 +128,18 @@ fst_format_svydesign <- function(svydesign,
 #'  question.
 #' @param id The column in the dataframe which contains the ids for the
 #'  responses.
-#' @param model A Finnish language model available for [udpipe], `"ftb"`
-#'  (default) or `"tdt"`.
+#' @param model A language model available for [udpipe], such as `"ftb"`
+#'  (default) or `"tdt"` which are available for Finnish.
 #' @param stopword_list A valid Finnish stopword list, default is `"nltk"`, or
 #'  `"none"`.
-#' @param weights Optional, the column of the dataframe which contains the
-#'  respective weights for each response.
+#' @param language two-letter ISO code for the language for the stopword list
+#' @param use_weights Optional, whether to use weights within the `svydesign`
 #' @param add_cols Optional, a column (or columns) from the dataframe which
 #'  contain other information you'd like to retain (for instance, dimension
 #'  columnns for splitting the data for comparison plots).
+#' @param manual An optional boolean to indicate that a manual list will be
+#'  provided, `stopword_list = "manual"` can also or instead be used.
+#' @param manual_list A manual list of stopwords.
 #'
 #' @return A dataframe of Finnish text in CoNLL-U format.
 #' @export
@@ -131,6 +152,8 @@ fst_format_svydesign <- function(svydesign,
 #'
 #' svy_d <- survey::svydesign(id = ~1, weights = ~paino, data =dev_coop)
 #' fst_prepare_svydesign(svy_d, question = "q11_2", id = i, add_cols = 'gender')
+#'
+#' fst_prepare_svydesign(svy_d, 'q11_2', i, 'finnish-ftb', 'nltk', 'fi')
 #' unlink("finnish-ftb-ud-2.5-191206.udpipe")
 #' unlink("finnish-tdt-ud-2.5-191206.udpipe")
 #' }
@@ -139,6 +162,7 @@ fst_prepare_svydesign <- function(svydesign,
                                   id,
                                   model = "ftb",
                                   stopword_list = "nltk",
+                                  language = 'fi',
                                   use_weights = TRUE,
                                   add_cols = NULL,
                                   manual = FALSE,
@@ -152,6 +176,7 @@ fst_prepare_svydesign <- function(svydesign,
   if (stopword_list != "none") {
     an_data <- fst_rm_stop_punct(data = an_data,
                                  stopword_list = stopword_list,
+                                 language = language,
                                  manual = manual,
                                  manual_list = manual_list)
   }

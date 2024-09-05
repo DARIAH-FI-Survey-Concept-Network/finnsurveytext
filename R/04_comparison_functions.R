@@ -21,8 +21,8 @@ fst_get_unique_ngrams_separate <- function(table1, table2, ...) {
     dplyr::mutate(n = 1) %>%
     dplyr::group_by(words) %>%
     dplyr::summarise(n = sum(n)) %>%
-    dplyr::mutate(n = ifelse(n == 1, "yes", "no")) %>%
-    dplyr::rename(unique_word = n)
+    dplyr::mutate(n = ifelse(n == 1, "Unique", "Common")) %>%
+    dplyr::rename(word_type = n)
   df
 }
 
@@ -50,8 +50,8 @@ fst_get_unique_ngrams <- function(list_of_top_ngrams) {
     dplyr::mutate(n = 1) %>%
     dplyr::group_by(words) %>%
     dplyr::summarise(n = sum(n)) %>%
-    dplyr::mutate(n = ifelse(n == 1, "yes", "no")) %>%
-    dplyr::rename(unique_word = n)
+    dplyr::mutate(n = ifelse(n == 1, "Unique", "Common")) %>%
+    dplyr::rename(word_type = n)
   df
 }
 
@@ -92,6 +92,7 @@ fst_join_unique <- function(table, unique_table) {
 #' @param override_title An optional title to override the automatic one for
 #'  the plot. Default is `NULL`. If `NULL`, title of plot will be `number` "Most
 #'  Common 'Term'". 'Term' is "Words", "Bigrams", or "N-Grams" where N > 2.
+#' @param title_size size to display plot title
 #'
 #' @return Plot of top n-grams with unique terms highlighted.
 #' @export
@@ -111,7 +112,7 @@ fst_ngrams_compare_plot <- function(table,
                                     name = NULL,
                                     override_title = NULL,
                                     title_size = 20) {
-  colours <- c("yes" = unique_colour, "no" = "grey50")
+  colours <- c("Unique" = unique_colour, "Common" = "grey50")
   if (ngrams == 1) {
     term <- "Words"
   } else if (ngrams == 2) {
@@ -121,16 +122,16 @@ fst_ngrams_compare_plot <- function(table,
   }
   if (is.null(override_title)) {
     table %>%
-      ggplot2::ggplot(ggplot2::aes(occurrence, words, fill = unique_word)) +
+      ggplot2::ggplot(ggplot2::aes(occurrence, words, fill = word_type)) +
       ggplot2::geom_col() +
-      ggplot2::scale_fill_manual(values = colours, guide = "none") +
+      ggplot2::scale_fill_manual('Word Type', values = colours) +
       ggplot2::labs(y = NULL, title = paste(name, as.character(number), "Most Common", term)) +
       ggplot2::theme(plot.title = ggplot2::element_text(size = title_size))
   } else {
     table %>%
-      ggplot2::ggplot(ggplot2::aes(occurrence, words, fill = unique_word)) +
+      ggplot2::ggplot(ggplot2::aes(occurrence, words, fill = word_type)) +
       ggplot2::geom_col() +
-      ggplot2::scale_fill_manual(values = colours, guide = "none") +
+      ggplot2::scale_fill_manual('Word Type', values = colours) +
       ggplot2::labs(y = NULL, title = override_title) +
       ggplot2::theme(plot.title = ggplot2::element_text(size = title_size))
   }
@@ -146,7 +147,6 @@ fst_ngrams_compare_plot <- function(table,
 #' @param data A dataframe of text in CoNLL-U format with additional `field`
 #'  column for splitting data.
 #' @param field Column in `data` used for splitting groups
-#' @param data4 An optional dataframe of text in CoNLL-U format for the fourth
 #' @param number The number of n-grams to return, default is `10`.
 #' @param norm The method for normalising the data. Valid settings are
 #'  `"number_words"` (the number of words in the responses), `"number_resp"`
@@ -181,12 +181,12 @@ fst_ngrams_compare_plot <- function(table,
 #' @examples
 #' fst_freq_compare(fst_child, 'gender', number = 10, norm = "number_resp")
 #' fst_freq_compare(fst_child, 'gender', number = 10, norm = NULL)
-#' svy_child <- survey::svydesign(id=~1, weights= ~paino, data = child)
+#' s <- survey::svydesign(id=~1, weights= ~paino, data = child)
 #' c2 <- fst_child_2
 #' c <- fst_child
 #' g <- 'gender'
-#' fst_freq_compare(c2, g, 10, NULL, NULL, T, T, T, 'fsd_id', svy_child)
-#' fst_freq_compare(c, g, use_column_weights = T, strict = FALSE)
+#' fst_freq_compare(c2, g, 10, NULL, NULL, TRUE, TRUE, TRUE, 'fsd_id', s)
+#' fst_freq_compare(c, g, use_column_weights = TRUE, strict = FALSE)
 fst_freq_compare <- function(data,
                              field,
                              number = 10,
@@ -257,10 +257,9 @@ fst_freq_compare <- function(data,
                                                     override_title = paste(field, '=', names2[i]),
                                                     title_size = subtitle_size)
     }
-    #do.call(gridExtra::grid.arrange, list_of_plots)
-    # plot <- do.call(gridExtra::grid.arrange, list_of_plots)
     title <- paste("Comparison Plot of", number, "Most Common Words")
-    ggpubr::annotate_figure(do.call(gridExtra::grid.arrange, list_of_plots), top = ggpubr::text_grob(title,
+    plot <- ggpubr::ggarrange(plotlist = list_of_plots, common.legend = TRUE, legend = "right")
+    ggpubr::annotate_figure(plot, top = ggpubr::text_grob(title,
                                                           face = "bold", size = title_size
     ))
   }
@@ -274,7 +273,6 @@ fst_freq_compare <- function(data,
 #' @param data A dataframe of text in CoNLL-U format with additional `field`
 #'  column for splitting data.
 #' @param field Column in `data` used for splitting groups
-#' @param data4 An optional dataframe of text in CoNLL-U format for the fourth
 #' @param number The number of n-grams to return, default is `10`.
 #' @param ngrams The type of n-grams to return, default is `1`.
 #' @param norm The method for normalising the data. Valid settings are
@@ -312,10 +310,10 @@ fst_freq_compare <- function(data,
 #' g <- 'gender'
 #' fst_ngrams_compare(c, g, ngrams = 4, number = 10, norm = "number_resp")
 #' fst_ngrams_compare(c, g, ngrams = 2, number = 10, norm = NULL)
-#' svy_child <- survey::svydesign(id=~1, weights= ~paino, data = child)
+#' s <- survey::svydesign(id=~1, weights= ~paino, data = child)
 #' c2 <- fst_child_2
-#' fst_ngrams_compare(c2, g, 10, 3, NULL, NULL, T, T, T, 'fsd_id', svy_child)
-#' fst_ngrams_compare(c, g, 10, 2, use_column_weights = TRUE, strict = T)
+#' fst_ngrams_compare(c2, g, 10, 3, NULL, NULL, TRUE, TRUE, TRUE, 'fsd_id', s)
+#' fst_ngrams_compare(c, g, 10, 2, use_column_weights = TRUE, strict = TRUE)
 fst_ngrams_compare <- function(data,
                               field,
                               number = 10,
@@ -387,8 +385,7 @@ fst_ngrams_compare <- function(data,
                                                   override_title = paste(field, '=', names2[i]),
                                                   title_size = subtitle_size)
   }
-  # list_of_plots
-  # plot <- do.call(gridExtra::grid.arrange, list_of_plots)
+
   if (ngrams == 1) {
     word = "Words"
   } else if (ngrams == 2) {
@@ -397,7 +394,8 @@ fst_ngrams_compare <- function(data,
     word = paste0(as.character(ngrams), "-Grams")
   }
   title <- paste("Comparison Plot of", number, "Most Common", word)
-  ggpubr::annotate_figure(do.call(gridExtra::grid.arrange, list_of_plots), top = ggpubr::text_grob(title,
+  plot <- ggpubr::ggarrange(plotlist = list_of_plots, common.legend = TRUE, legend = "right")
+  ggpubr::annotate_figure(plot, top = ggpubr::text_grob(title,
                                                         face = "bold", size = title_size
   ))
 }
@@ -571,6 +569,10 @@ fst_length_compare <- function(data,
 #' @param pos_filter List of UPOS tags for inclusion, default is `NULL` which
 #'  means all word types included.
 #' @param max The maximum number of words to display, default is `100`.
+#' @param norm The method for normalising the data. Valid settings are
+#'  `"number_words"` (the number of words in the responses), `"number_resp"`
+#'  (the number of responses), or `NULL` (raw count returned, default, also used
+#'  when weights are applied).
 #' @param use_svydesign_weights Option to weight words in the wordcloud using
 #'  weights from  a svydesign object containing the raw data, default is `FALSE`
 #' @param use_svydesign_field Option to get `field` for splitting the data from
@@ -593,12 +595,19 @@ fst_length_compare <- function(data,
 #' s <- survey::svydesign(id=~1, weights= ~paino, data = child)
 #' i <- 'fsd_id'
 #' c2 <- fst_child_2
-#' fst_comparison_cloud(c2, 'gender', NULL, 100, TRUE, TRUE, i, s)
+#' fst_comparison_cloud(c2, 'gender', NULL, 100, NULL, TRUE, TRUE, i, s)
+#' T <- TRUE
 #' fst_comparison_cloud(fst_dev_coop, 'education_level', use_column_weights = T)
+#' pf <- c("NOUN", "VERB", "ADJ", "ADV")
+#' pf2 <- "NOUN, VERB, ADJ, ADV"
+#' fst_comparison_cloud(fst_dev_coop, 'gender', pos_filter = pf)
+#' fst_comparison_cloud(fst_dev_coop, 'gender', pos_filter = pf2)
+#' fst_comparison_cloud(fst_dev_coop, 'gender', norm = 'number_resp')
 fst_comparison_cloud <- function(data,
                                  field,
                                  pos_filter = NULL,
                                  max = 100,
+                                 norm = NULL,
                                  use_svydesign_weights = FALSE,
                                  use_svydesign_field = FALSE,
                                  id = "",
@@ -606,7 +615,6 @@ fst_comparison_cloud <- function(data,
                                  use_column_weights = FALSE,
                                  exclude_nulls = FALSE,
                                  rename_nulls = "null_data") {
-  #message("Notes on use of fst_comparison_cloud: \n If `max` is large, you may receive \"warnings\" indicating any words which are not plotted due to space constraints.\n\n")
   if (use_svydesign_field == TRUE) {
     data <- fst_use_svydesign(data = data,
                               svydesign = svydesign,
@@ -623,6 +631,11 @@ fst_comparison_cloud <- function(data,
     data <- fst_use_svydesign(data = data, svydesign = svydesign, id = id)
   }
   if (!is.null(pos_filter)) {
+    if (length(pos_filter) == 1) {
+      pos_filter <- pos_filter %>%
+        stringr::str_extract_all(pattern = "\\w+") %>%
+        unlist()
+    }
     data <- dplyr::filter(data, upos %in% pos_filter)
   }
   data <- data %>%
@@ -639,7 +652,7 @@ fst_comparison_cloud <- function(data,
     for (i in 1:length(split_data)) {
       data1 <- split_data[[i]]
       words_counts <- dplyr::count(data1, lemma, sort = TRUE, wt = weight) %>%
-        dplyr::rename(!!paste0(as.character(names_list[i]), "Weighted Freq") := n)
+        dplyr::rename(!!paste0(as.character(names_list[i]), "- Weighted Freq") := n)
       wordcloud_data <- append(wordcloud_data, list(words_counts))
     }
   } else if (use_column_weights == TRUE) {
@@ -652,7 +665,25 @@ fst_comparison_cloud <- function(data,
   } else {
     for (i in 1:length(split_data)) {
       data1 <- split_data[[i]]
-      words_counts <- dplyr::count(data1, lemma, sort = TRUE)%>%
+      if (is.null(norm)) {
+        denom <- 1
+      } else if (norm == "number_words") {
+        data2 <- data1
+        data2 %>%
+          dplyr::filter(data2$dep_rel != "punct") %>%
+          dplyr::filter(!is.na(lemma)) %>%
+          dplyr::filter(lemma != "na")
+        denom <- nrow(data2)
+      } else if (norm == "number_resp") {
+        data2 <- data1
+        denom <- dplyr::n_distinct(data2$doc_id)
+      } else {
+        message("NOTE: A recognised normalisation method has not been provided. \n Function has defaulted to provide raw counts.")
+        denom <- 1
+      }
+
+      words_counts <- dplyr::count(data1, lemma, sort = TRUE) %>%
+        dplyr::mutate(n = (n / denom)) %>%
         dplyr::rename(!!paste0(as.character(names_list[i])) := n)
       wordcloud_data <- append(wordcloud_data, list(words_counts))
     }

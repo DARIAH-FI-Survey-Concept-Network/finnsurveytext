@@ -7,6 +7,7 @@
 fst_rm_stop_punct(
   data,
   stopword_list = "nltk",
+  language = "fi",
   manual = FALSE,
   manual_list = ""
 )
@@ -14,9 +15,12 @@ fst_rm_stop_punct(
 \arguments{
 \item{data}{A dataframe of Finnish text in CoNLL-U format.}
 
-\item{stopword_list}{A valid Finnish stopword list, default is `"nltk"`,
+\item{stopword_list}{A valid stopword list, default is `"nltk"`,
 `"manual"` can be used to indicate that a manual list will be provided, or
-`"none"` if you don't want to remove stopwords.}
+`"none"` if you don't want to remove stopwords, known as 'source' in
+`stopwords::stopwords`}
+
+\item{language}{two-letter ISO code of the language for the stopword list}
 
 \item{manual}{An optional boolean to indicate that a manual list will be
 provided, `stopword_list = "manual"` can also or instead be used.}
@@ -24,7 +28,7 @@ provided, `stopword_list = "manual"` can also or instead be used.}
 \item{manual_list}{A manual list of stopwords.}
 }
 \value{
-A dataframe of Finnish text in CoNLL-U format without stopwords and
+A dataframe of text in CoNLL-U format without stopwords and
  punctuation.
 }
 \description{
@@ -32,7 +36,8 @@ Removes stopwords and punctuation from a dataframe containing Finnish survey
 text data which is already in CoNLL-U format.
 }
 \examples{
-c <- fst_prepare(child, question <- 'q7')
+\donttest{
+c <- fst_format(child, question = 'q7', id = 'fsd_id')
 fst_rm_stop_punct(c)
 fst_rm_stop_punct(c, stopword_list = "snowball")
 fst_rm_stop_punct(c, "stopwords-iso")
@@ -41,4 +46,6 @@ mlist <- c('en', 'et', 'ei', 'emme', 'ette', 'eivät', 'minä', 'minum')
 mlist2 <- "en, et, ei, emme, ette, eivät, minä, minum"
 fst_rm_stop_punct(c, manual = TRUE, manual_list = mlist)
 fst_rm_stop_punct(c, stopword_list = "manual", manual_list = mlist)
+unlink("finnish-ftb-ud-2.5-191206.udpipe")
+}
 }

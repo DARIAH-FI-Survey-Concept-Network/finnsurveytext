@@ -1,3 +1,12 @@
+## V2.0.0
+
+## devtools::check() results
+-- R CMD check results ---------------------------------- finnsurveytext 1.0.0.9000 ----
+Duration: 10.5s
+
+0 errors v | 0 warnings v | 0 notes v
+
+---------------
 ## Resubmission
 This is a resubmission. In this version I have:
 

@@ -47,10 +47,6 @@ required if `use_svydesign_weights = TRUE`.}
 \item{use_column_weights}{Option to weight words in the table using
 weights from  formatted data which includes addition `weight` column,
 default is `FALSE`}
-
-\item{add_cols}{Optional, a column (or columns) from the dataframe which
-contain other information you'd need (for instance, covariate column for
-splitting the data for comparison plots).}
 }
 \value{
 A table of the most frequently occurring n-grams in the data.
@@ -66,7 +62,7 @@ Equivalent to `fst_get_top_ngrams` but doesn't print message about ties.
 fst_ngrams_table2(fst_child, norm = NULL)
 fst_ngrams_table2(fst_child, ngrams = 2, norm = "number_resp")
 c <- fst_child_2
-s <- svy_child
+s <- survey::svydesign(id=~1, weights= ~paino, data = child)
 i <- 'fsd_id'
 T <- TRUE
 fst_ngrams_table2(c, 10, 2, use_svydesign_weights = T, svydesign = s, id = i)

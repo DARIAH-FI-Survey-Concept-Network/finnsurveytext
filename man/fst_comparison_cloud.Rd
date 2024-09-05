@@ -9,6 +9,7 @@ fst_comparison_cloud(
   field,
   pos_filter = NULL,
   max = 100,
+  norm = NULL,
   use_svydesign_weights = FALSE,
   use_svydesign_field = FALSE,
   id = "",
@@ -28,6 +29,11 @@ column for splitting data.}
 means all word types included.}
 
 \item{max}{The maximum number of words to display, default is `100`.}
+
+\item{norm}{The method for normalising the data. Valid settings are
+`"number_words"` (the number of words in the responses), `"number_resp"`
+(the number of responses), or `NULL` (raw count returned, default, also used
+when weights are applied).}
 
 \item{use_svydesign_weights}{Option to weight words in the wordcloud using
 weights from  a svydesign object containing the raw data, default is `FALSE`}
@@ -62,6 +68,12 @@ fst_comparison_cloud(fst_child, 'gender', max = 50)
 s <- survey::svydesign(id=~1, weights= ~paino, data = child)
 i <- 'fsd_id'
 c2 <- fst_child_2
-fst_comparison_cloud(c2, 'gender', NULL, 100, TRUE, TRUE, i, s)
+fst_comparison_cloud(c2, 'gender', NULL, 100, NULL, TRUE, TRUE, i, s)
+T <- TRUE
 fst_comparison_cloud(fst_dev_coop, 'education_level', use_column_weights = T)
+pf <- c("NOUN", "VERB", "ADJ", "ADV")
+pf2 <- "NOUN, VERB, ADJ, ADV"
+fst_comparison_cloud(fst_dev_coop, 'gender', pos_filter = pf)
+fst_comparison_cloud(fst_dev_coop, 'gender', pos_filter = pf2)
+fst_comparison_cloud(fst_dev_coop, 'gender', norm = 'number_resp')
 }

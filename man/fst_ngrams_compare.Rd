@@ -71,8 +71,6 @@ default is `FALSE`}
 \item{title_size}{size to display plot title}
 
 \item{subtitle_size}{size to display title of individual top ngrams plot}
-
-\item{data4}{An optional dataframe of text in CoNLL-U format for the fourth}
 }
 \value{
 Plots of top n-grams in the plots pane with unique n-grams
@@ -88,8 +86,8 @@ c <- fst_child
 g <- 'gender'
 fst_ngrams_compare(c, g, ngrams = 4, number = 10, norm = "number_resp")
 fst_ngrams_compare(c, g, ngrams = 2, number = 10, norm = NULL)
-svy_child <- survey::svydesign(id=~1, weights= ~paino, data = child)
+s <- survey::svydesign(id=~1, weights= ~paino, data = child)
 c2 <- fst_child_2
-fst_ngrams_compare(c2, g, 10, 3, NULL, NULL, T, T, T, 'fsd_id', svy_child)
-fst_ngrams_compare(c, g, 10, 2, use_column_weights = TRUE, strict = T)
+fst_ngrams_compare(c2, g, 10, 3, NULL, NULL, TRUE, TRUE, TRUE, 'fsd_id', s)
+fst_ngrams_compare(c, g, 10, 2, use_column_weights = TRUE, strict = TRUE)
 }

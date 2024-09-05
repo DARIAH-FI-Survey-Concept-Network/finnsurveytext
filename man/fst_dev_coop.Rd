@@ -3,24 +3,9 @@
 \docType{data}
 \name{fst_dev_coop}
 \alias{fst_dev_coop}
-\title{Young People's Views on Development Cooperation 2012 response data}
+\title{Young People's Views on Development Cooperation 2012 q11_3 response data in
+CoNLL-U format with NTLK stopwords removed and background variables.}
 \format{
-## `dev_coop`
-A dataframe with 925 rows and 9 columns:
-\describe{
-  \item{fsd_id}{FSD case id}
-  \item{q1}{Gender: 1 (Male), 2 (Female)}
-  \item{q2}{Year of Birth}
-  \item{q3}{Region of Residence (NUTS2): 1 (Helsinki-Uusima), 2 (Muu Etelä-
-   Suomi), 3 (Länsi-Suomi), 4 (Pohjois- ja Itä-Suomi)}
-  \item{q6}{Education level: 1 (Primary education), 2 (Matriculation
-   examination), 3 (Upper secondary vocational qualification)}
-  \item{q11_1}{response text for q11_1}
-  \item{q11_2}{response text for q11_2}
-  \item{q11_3}{response text for q11_3}
-  \item{paino}{Weight}
-}
-
 ## `fst_dev_coop`
 A dataframe with 4192 rows and 19 columns:
 \describe{
@@ -39,31 +24,20 @@ A dataframe with 4192 rows and 19 columns:
   \item{deps}{Enhanced dependency graph in the form of a list of head-deprel pairs.}
   \item{misc}{Any other annotation.}
   \item{weight}{Weight}
-  \item{q1}{Gender: 1 (Male), 2 (Female)}
-  \item{q2}{Year of Birth}
-  \item{q3}{Region of Residence (NUTS2): 1 (Helsinki-Uusima), 2 (Muu Etelä-
-   Suomi), 3 (Länsi-Suomi), 4 (Pohjois- ja Itä-Suomi)}
+  \item{gender}{Gender}
+  \item{year_of_birth}{Year of Birth}
+  \item{region}{Region of Residence}
 }
 }
 \source{
-<https://urn.fi/urn:nbn:fi:fsd:T-FSD2821>
-Young People's Views on Development Cooperation 2012 q11_3 response data in
-CoNLL-U format with NTLK stopwords removed and background variables.
-
-This data contains the responses to Development Cooperation q11_3 dataset
-in CoNLL-U format with NLTK stopwords and punctuation removed plus weights
-and background variables.
-
 <https://urn.fi/urn:nbn:fi:fsd:T-FSD2821>
 }
 \usage{
 fst_dev_coop
 }
 \description{
-This data contains background variables and the responses to q11_1 'Jatka
-lausetta: Kehitysmaa on maa, jossa... (Avokysymys)', q11_2 'Jatka lausetta:
-Kehitysyhteistyö on toimintaa, jossa... (Avokysymys)', q11_3' Jatka lausetta:
-Maailman kolme suurinta ongelmaa ovat... (Avokysymys)' in the FSD2821 Nuorten
-ajatuksia kehitysyhteistyöstä 2012 dataset.
+This data contains the responses to Development Cooperation q11_3 dataset
+in CoNLL-U format with NLTK stopwords and punctuation removed plus weights
+and background variables.
 }
 \keyword{datasets}

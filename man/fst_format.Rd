@@ -16,8 +16,9 @@ question.}
 \item{id}{The column in the dataframe which contains the ids for the
 responses.}
 
-\item{model}{A Finnish language model available for [udpipe], `"ftb"`
-(default) or `"tdt"`.}
+\item{model}{A language model available for [udpipe]. `"ftb"`
+(default) or `"tdt"` are recognised as shorthand for "finnish-ftb" and
+"finnish-tdt". The full list is available in the [udpipe] documentation.}
 
 \item{weights}{Optional, the column of the dataframe which contains the
 respective weights for each response.}
@@ -42,10 +43,12 @@ i <- "fsd_id"
 fst_format(data = child, question = "q7", id = i)
 fst_format(data = child, question = "q7", id = i, model = "tdt")
 fst_format(data = child, question = "q7", id = i, weights="paino")
-cols <- c("gender", "major_region, daycare_before_school")
+cols <- c("gender", "major_region", "daycare_before_school")
 fst_format(child, question = "q7", id = i, add_cols = cols)
 fst_format(child, question = "q7", id = i, add_cols = "gender, major_region")
+fst_format(child, question = 'q7', id = i, model = 'swedish-talbanken')
 unlink("finnish-ftb-ud-2.5-191206.udpipe")
 unlink("finnish-tdt-ud-2.5-191206.udpipe")
+unlink("swedish-talkbanken-ud-2.5-191206.udpipe")
 }
 }

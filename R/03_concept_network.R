@@ -16,7 +16,9 @@
 #' @examples
 #' con <- "kiusata, lyöminen, lyödä, potkia"
 #' pf <- c("NOUN", "VERB", "ADJ", "ADV")
+#' pf2 <- "NOUN, VERB, ADJ, ADV"
 #' fst_cn_search(fst_child, concepts = con, pos_filter = pf)
+#' fst_cn_search(fst_child, concepts = con, pos_filter = pf2)
 #' fst_cn_search(fst_child, concepts = con)
 fst_cn_search <- function(data,
                           concepts,
@@ -27,6 +29,11 @@ fst_cn_search <- function(data,
       "NUM", "PART", "PRON", "PROPN", "SCONJ", "SYM",
       "VERB", "X"
     )
+  }
+  if (length(pos_filter) == 1) {
+    pos_filter <- pos_filter %>%
+      stringr::str_extract_all(pattern = "\\w+") %>%
+      unlist()
   }
   if (stringr::str_detect(concepts, ",")) {
     concepts <- stringr::str_extract_all(concepts, pattern = "\\w+") %>%
@@ -83,6 +90,7 @@ fst_cn_search <- function(data,
 #' @examples
 #' con <- "kiusata, lyöminen"
 #' fst_cn_edges(fst_child, con, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+#' fst_cn_edges(fst_child, con, pos_filter = 'VERB, NOUN')
 #' fst_cn_edges(fst_child, "lyöminen", threshold = 2, norm = "number_resp")
 fst_cn_edges <- function(data,
                          concepts,
@@ -144,7 +152,9 @@ fst_cn_edges <- function(data,
 #' con <- "kiusata, lyöminen"
 #' cb <- fst_child
 #' edges <- fst_cn_edges(cb, con, pos_filter = c("NOUN", "VERB", "ADJ", "ADV"))
+#' edges2 <- fst_cn_edges(cb, con, pos_filter = 'NOUN, VERB, ADJ, ADV')
 #' fst_cn_nodes(cb, edges, c("NOUN", "VERB", "ADJ", "ADV"))
+#' fst_cn_nodes(cb, edges, 'NOUN, VERB, ADJ, ADV')
 fst_cn_nodes <- function(data,
                          edges,
                          pos_filter = NULL) {
@@ -154,6 +164,11 @@ fst_cn_nodes <- function(data,
       "NUM", "PART", "PRON", "PROPN", "SCONJ", "SYM",
       "VERB", "X"
     )
+  }
+  if (length(pos_filter) == 1) {
+    pos_filter <- pos_filter %>%
+      stringr::str_extract_all(pattern = "\\w+") %>%
+      unlist()
   }
   data <- dplyr::filter(data, token != "na")
   keyw <- textrank::textrank_keywords(data$lemma,

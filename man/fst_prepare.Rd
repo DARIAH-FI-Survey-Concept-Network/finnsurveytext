@@ -10,6 +10,7 @@ fst_prepare(
   id,
   model = "ftb",
   stopword_list = "nltk",
+  language = "fi",
   weights = NULL,
   add_cols = NULL,
   manual = FALSE,
@@ -26,12 +27,16 @@ question.}
 \item{id}{The column in the dataframe which contains the ids for the
 responses.}
 
-\item{model}{A Finnish language model available for [udpipe], `"ftb"`
-(default) or `"tdt"`.}
+\item{model}{A language model available for [udpipe]. `"ftb"`
+(default) or `"tdt"` are recognised as shorthand for "finnish-ftb" and
+"finnish-tdt". The full list is available in the [udpipe] documentation.}
 
-\item{stopword_list}{A valid Finnish stopword list, default is `"nltk"`,
+\item{stopword_list}{A valid stopword list, default is `"nltk"`,
 `"manual"` can be used to indicate that a manual list will be provided, or
-`"none"` if you don't want to remove stopwords.}
+`"none"` if you don't want to remove stopwords known as 'source' in
+`stopwords::stopwords`}
+
+\item{language}{two-letter ISO code for the language for the stopword list}
 
 \item{weights}{Optional, the column of the dataframe which contains the
 respective weights for each response.}
@@ -39,6 +44,11 @@ respective weights for each response.}
 \item{add_cols}{Optional, a column (or columns) from the dataframe which
 contain other information you'd like to retain (for instance, dimension
 columnns for splitting the data for comparison plots).}
+
+\item{manual}{An optional boolean to indicate that a manual list will be
+provided, `stopword_list = "manual"` can also or instead be used.}
+
+\item{manual_list}{A manual list of stopwords.}
 }
 \value{
 A dataframe of Finnish text in CoNLL-U format.
@@ -62,7 +72,9 @@ dev <- dev_coop
 fst_prepare(data = cb, question = "q7", id = 'fsd_id', weights = 'paino')
 fst_prepare(data = dev, question = "q11_2", id = i, add_cols = c('gender'))
 fst_prepare(data = dev, question = "q11_3", id = i, add_cols = 'gender')
+fst_prepare(data = child, question = "q7", id = i, model = 'swedish-lines')
 unlink("finnish-ftb-ud-2.5-191206.udpipe")
 unlink("finnish-tdt-ud-2.5-191206.udpipe")
+unlink("swedish-lines-ud-2.5-191206.udpipe")
 }
 }

@@ -26,6 +26,8 @@ on `pos_filter` and finds words connected to search terms.
 \examples{
 con <- "kiusata, lyöminen, lyödä, potkia"
 pf <- c("NOUN", "VERB", "ADJ", "ADV")
+pf2 <- "NOUN, VERB, ADJ, ADV"
 fst_cn_search(fst_child, concepts = con, pos_filter = pf)
+fst_cn_search(fst_child, concepts = con, pos_filter = pf2)
 fst_cn_search(fst_child, concepts = con)
 }

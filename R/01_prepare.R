@@ -11,8 +11,9 @@
 #'  question.
 #' @param id The column in the dataframe which contains the ids for the
 #'  responses.
-#' @param model A Finnish language model available for [udpipe], `"ftb"`
-#'  (default) or `"tdt"`.
+#' @param model A language model available for [udpipe]. `"ftb"`
+#'  (default) or `"tdt"` are recognised as shorthand for "finnish-ftb" and
+#'  "finnish-tdt". The full list is available in the [udpipe] documentation.
 #' @param weights Optional, the column of the dataframe which contains the
 #'  respective weights for each response.
 #' @param add_cols Optional, a column (or columns) from the dataframe which
@@ -29,11 +30,13 @@
 #' fst_format(data = child, question = "q7", id = i)
 #' fst_format(data = child, question = "q7", id = i, model = "tdt")
 #' fst_format(data = child, question = "q7", id = i, weights="paino")
-#' cols <- c("gender", "major_region, daycare_before_school")
+#' cols <- c("gender", "major_region", "daycare_before_school")
 #' fst_format(child, question = "q7", id = i, add_cols = cols)
 #' fst_format(child, question = "q7", id = i, add_cols = "gender, major_region")
+#' fst_format(child, question = 'q7', id = i, model = 'swedish-talbanken')
 #' unlink("finnish-ftb-ud-2.5-191206.udpipe")
 #' unlink("finnish-tdt-ud-2.5-191206.udpipe")
+#' unlink("swedish-talkbanken-ud-2.5-191206.udpipe")
 #' }
 fst_format <- function(data,
                        question,
@@ -63,6 +66,17 @@ fst_format <- function(data,
     )
     annotated_data <- as.data.frame(
       udpipe::udpipe_annotate(model_tdt, x = data$new_col, doc_id = data[[id]])
+    )
+  } else {
+    name2 <- paste0(model, '-ud-2.5-191206.udpipe')
+    if (!file.exists(name2)) {
+      udpipe::udpipe_download_model(language = model)
+    }
+    model_2 <- udpipe::udpipe_load_model(
+      file = name2
+    )
+    annotated_data <- as.data.frame(
+      udpipe::udpipe_annotate(model_2, x = data$new_col, doc_id = data[[id]])
     )
   }
   annotated_data <- annotated_data %>%
@@ -97,19 +111,22 @@ fst_format <- function(data,
 
 #' Get available Finnish stopwords lists
 #'
-#' Returns a tibble containing all available Finnish stopword lists, their
-#' contents, and the size of the lists.
+#' Returns a tibble containing all available stopword lists for the language,
+#' their contents, and the size of the lists.
+#'
+#' @param language two-letter ISO code of the language for the stopword list
 #'
 #' @return A tibble containing the stopwords lists.
 #' @export
 #'
 #' @examples
 #' fst_find_stopwords()
-fst_find_stopwords <- function() {
+#' fst_find_stopwords(language = 'et')
+fst_find_stopwords <- function(language = 'fi') {
   Name <- sort(stopwords::stopwords_getsources()[unlist(lapply(
     stopwords::stopwords_getsources(),
     function(x) {
-      ifelse("fi" %in% stopwords::stopwords_getlanguages(x),
+      ifelse(language %in% stopwords::stopwords_getlanguages(x),
         TRUE, FALSE
       )
     }
@@ -125,19 +142,22 @@ fst_find_stopwords <- function() {
 #' text data which is already in CoNLL-U format.
 #'
 #' @param data A dataframe of Finnish text in CoNLL-U format.
-#' @param stopword_list A valid Finnish stopword list, default is `"nltk"`,
+#' @param stopword_list A valid stopword list, default is `"nltk"`,
 #'  `"manual"` can be used to indicate that a manual list will be provided, or
-#'  `"none"` if you don't want to remove stopwords.
+#'  `"none"` if you don't want to remove stopwords, known as 'source' in
+#'  `stopwords::stopwords`
+#' @param language two-letter ISO code of the language for the stopword list
 #' @param manual An optional boolean to indicate that a manual list will be
 #'  provided, `stopword_list = "manual"` can also or instead be used.
 #' @param manual_list A manual list of stopwords.
 #'
-#' @return A dataframe of Finnish text in CoNLL-U format without stopwords and
+#' @return A dataframe of text in CoNLL-U format without stopwords and
 #'  punctuation.
 #' @export
 #'
 #' @examples
-#' c <- fst_prepare(child, question <- 'q7')
+#' \donttest{
+#' c <- fst_format(child, question = 'q7', id = 'fsd_id')
 #' fst_rm_stop_punct(c)
 #' fst_rm_stop_punct(c, stopword_list = "snowball")
 #' fst_rm_stop_punct(c, "stopwords-iso")
@@ -146,14 +166,17 @@ fst_find_stopwords <- function() {
 #' mlist2 <- "en, et, ei, emme, ette, eivät, minä, minum"
 #' fst_rm_stop_punct(c, manual = TRUE, manual_list = mlist)
 #' fst_rm_stop_punct(c, stopword_list = "manual", manual_list = mlist)
+#' unlink("finnish-ftb-ud-2.5-191206.udpipe")
+#' }
 fst_rm_stop_punct <- function(data,
                               stopword_list = "nltk",
+                              language = 'fi',
                               manual = FALSE,
                               manual_list = "") {
   if (stopword_list == 'none') {
     swords <- ""
   } else if (!(manual == TRUE || stopword_list == 'manual')) {
-    swords <- stopwords::stopwords("fi", stopword_list)
+    swords <- stopwords::stopwords(language, stopword_list)
   } else {
     if (length(manual_list) == 1) {
       manual_list <- manual_list %>%
@@ -190,16 +213,22 @@ fst_rm_stop_punct <- function(data,
 #'  question.
 #' @param id The column in the dataframe which contains the ids for the
 #'  responses.
-#' @param model A Finnish language model available for [udpipe], `"ftb"`
-#'  (default) or `"tdt"`.
-#' @param stopword_list A valid Finnish stopword list, default is `"nltk"`,
+#' @param model A language model available for [udpipe]. `"ftb"`
+#'  (default) or `"tdt"` are recognised as shorthand for "finnish-ftb" and
+#'  "finnish-tdt". The full list is available in the [udpipe] documentation.
+#' @param stopword_list A valid stopword list, default is `"nltk"`,
 #'  `"manual"` can be used to indicate that a manual list will be provided, or
-#'  `"none"` if you don't want to remove stopwords.
+#'  `"none"` if you don't want to remove stopwords known as 'source' in
+#'  `stopwords::stopwords`
+#' @param language two-letter ISO code for the language for the stopword list
 #' @param weights Optional, the column of the dataframe which contains the
 #'  respective weights for each response.
 #' @param add_cols Optional, a column (or columns) from the dataframe which
 #'  contain other information you'd like to retain (for instance, dimension
 #'  columnns for splitting the data for comparison plots).
+#' @param manual An optional boolean to indicate that a manual list will be
+#'  provided, `stopword_list = "manual"` can also or instead be used.
+#' @param manual_list A manual list of stopwords.
 #'
 #' @return A dataframe of Finnish text in CoNLL-U format.
 #' @export
@@ -212,14 +241,17 @@ fst_rm_stop_punct <- function(data,
 #' fst_prepare(data = cb, question = "q7", id = 'fsd_id', weights = 'paino')
 #' fst_prepare(data = dev, question = "q11_2", id = i, add_cols = c('gender'))
 #' fst_prepare(data = dev, question = "q11_3", id = i, add_cols = 'gender')
+#' fst_prepare(data = child, question = "q7", id = i, model = 'swedish-lines')
 #' unlink("finnish-ftb-ud-2.5-191206.udpipe")
 #' unlink("finnish-tdt-ud-2.5-191206.udpipe")
+#' unlink("swedish-lines-ud-2.5-191206.udpipe")
 #' }
 fst_prepare <- function(data,
                         question,
                         id,
                         model = "ftb",
                         stopword_list = "nltk",
+                        language = 'fi',
                         weights = NULL,
                         add_cols = NULL,
                         manual = FALSE,
@@ -232,6 +264,7 @@ fst_prepare <- function(data,
                                add_cols = add_cols)
   an_data <- fst_rm_stop_punct(data = an_data,
                                stopword_list = stopword_list,
+                               language = language,
                                manual = manual,
                                manual_list = manual_list)
   an_data

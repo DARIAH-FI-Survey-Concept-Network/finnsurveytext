@@ -23,8 +23,8 @@ question.}
 \item{id}{The column in the dataframe which contains the ids for the
 responses.}
 
-\item{model}{A Finnish language model available for [udpipe], `"ftb"`
-(default) or `"tdt"`.}
+\item{model}{A language model available for [udpipe], such as `"ftb"`
+(default) or `"tdt"` which are available for Finnish.}
 
 \item{use_weights}{Optional, whether to use weights within the `svydesign`}
 
@@ -52,7 +52,9 @@ cols <- c('gender', 'major_region')
 fst_format_svydesign(svy_child, 'q7', 'fsd_id', add_cols = cols)
 
 svy_dev <- survey::svydesign(id = ~1, weights = ~paino, data = dev_coop)
-fst_format_svydesign(svy_dev, 'q11_1', 'fsd_id', add_cols = 'gender')
+fst_format_svydesign(svy_dev, 'q11_1', 'fsd_id', add_cols = 'gender, region')
+
+fst_format_svydesign(svy_dev, 'q11_2', 'fsd_id', 'finnish-ftb')
 unlink("finnish-ftb-ud-2.5-191206.udpipe")
 unlink("finnish-tdt-ud-2.5-191206.udpipe")
 }
