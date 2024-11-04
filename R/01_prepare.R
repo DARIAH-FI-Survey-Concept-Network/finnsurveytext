@@ -109,6 +109,48 @@ fst_format <- function(data,
   annotated_data
 }
 
+#' Find treebanks available for use
+#'
+#' @param search An optional string for filtering the list, name of language in
+#'  English, eg. 'estonian'
+#'
+#' @return List of available treebanks, filtered
+#' @export
+#'
+#' @examples
+#' fst_print_available_models()
+#' fst_print_available_models(search = "swedish")
+fst_print_available_models <- function(search = NULL) {
+  models <- models <- c("afrikaans-afribooms", "ancient_greek-perseus", "ancient_greek-proiel",
+                        "arabic-padt", "armenian-armtdp", "basque-bdt", "belarusian-hse", "bulgarian-btb",
+                        "buryat-bdt", "catalan-ancora", "chinese-gsd", "chinese-gsdsimp",
+                        "classical_chinese-kyoto", "coptic-scriptorium", "croatian-set", "czech-cac",
+                        "czech-cltt", "czech-fictree", "czech-pdt", "danish-ddt", "dutch-alpino",
+                        "dutch-lassysmall", "english-ewt", "english-gum", "english-lines", "english-partut",
+                        "estonian-edt", "estonian-ewt", "finnish-ftb", "finnish-tdt", "french-gsd",
+                        "french-partut", "french-sequoia", "french-spoken", "galician-ctg",
+                        "galician-treegal", "german-gsd", "german-hdt", "gothic-proiel", "greek-gdt",
+                        "hebrew-htb", "hindi-hdtb", "hungarian-szeged", "indonesian-gsd", "irish-idt",
+                        "italian-isdt", "italian-partut", "italian-postwita", "italian-twittiro",
+                        "italian-vit", "japanese-gsd", "kazakh-ktb", "korean-gsd", "korean-kaist",
+                        "kurmanji-mg", "latin-ittb", "latin-perseus", "latin-proiel", "latvian-lvtb",
+                        "lithuanian-alksnis", "lithuanian-hse", "maltese-mudt", "marathi-ufal",
+                        "north_sami-giella", "norwegian-bokmaal", "norwegian-nynorsk",
+                        "norwegian-nynorsklia", "old_church_slavonic-proiel", "old_french-srcmf",
+                        "old_russian-torot", "persian-seraji", "polish-lfg", "polish-pdb", "polish-sz",
+                        "portuguese-bosque", "portuguese-br", "portuguese-gsd", "romanian-nonstandard",
+                        "romanian-rrt", "russian-gsd", "russian-syntagrus", "russian-taiga", "sanskrit-ufal",
+                        "scottish_gaelic-arcosg", "serbian-set", "slovak-snk", "slovenian-ssj",
+                        "slovenian-sst", "spanish-ancora", "spanish-gsd", "swedish-lines",
+                        "swedish-talbanken", "tamil-ttb", "telugu-mtg", "turkish-imst", "ukrainian-iu",
+                        "upper_sorbian-ufal", "urdu-udtb", "uyghur-udt", "vietnamese-vtb", "wolof-wtb")
+  if (is.null(search)) {
+    models
+  } else {
+    grep(search, models, value = TRUE)
+  }
+}
+
 #' Get available Finnish stopwords lists
 #'
 #' Returns a tibble containing all available stopword lists for the language,
@@ -131,7 +173,7 @@ fst_find_stopwords <- function(language = 'fi') {
       )
     }
   ))])
-  Stopwords <- c(lapply(Name, function(y) stopwords::stopwords("fi", y)))
+  Stopwords <- c(lapply(Name, function(y) stopwords::stopwords(language, y)))
   Length <- lapply(Stopwords, function(z) ifelse(length(z) > 1, length(z), 0))
   dplyr::tibble(Name, Stopwords, Length)
 }

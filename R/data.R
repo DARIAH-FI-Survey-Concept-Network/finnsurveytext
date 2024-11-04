@@ -164,5 +164,24 @@
 #' @source <https://urn.fi/urn:nbn:fi:fsd:T-FSD3134>
 "fst_child_2"
 
-
+#' English Sample Survey Data: Patient Joe
+#'
+#' This data contains English text responses to ""Joe’s doctor told him that he
+#' would need to return in two weeks to find out whether or not his condition
+#' had improved. But when Joe asked the receptionist for an appointment, he was
+#' told that it would be over a month before the next available appointment.
+#' What should Joe do?" as well as categorisation of these responses by two
+#' coders as either destructive, passive, somewhat proactive, or proactive.
+#'
+#' @format ## `english_sample_survey`
+#' A dataframe with 585 rows and 5 columns:
+#' \describe{
+#'   \item{id}{ID}
+#'   \item{label}{Label: destructive, passive, somewhat proactive, or proactive}
+#'   \item{label_coder1}{Label from coder 1}
+#'   \item{label_coder2}{Label from coder 2}
+#'   \item{text}{Text of response}
+#' }
+#' @source <https://doi.org/10.7802/2474>
+"english_sample_survey"
 

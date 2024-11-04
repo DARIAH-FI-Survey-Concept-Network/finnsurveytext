@@ -98,6 +98,7 @@ fst_pos <- function(data) {
   )
   df <- merge(x = pos_lookup, y = pos_table, by = "UPOS", all.x = TRUE)
   df %>%
+    dplyr::mutate(n = tidyr::replace_na(n, 0)) %>%
     dplyr::rename(Count = n) %>%
     dplyr::mutate(Proportion = round(Count / denom, 3))
 }
