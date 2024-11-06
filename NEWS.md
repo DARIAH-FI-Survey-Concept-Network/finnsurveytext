@@ -1,3 +1,10 @@
+# finnsurveytext 2.1.0
+
+* New function `fst_print_available_models()` to print models available through `udpipe` package
+* Bug fix in `fst_find_stopwords` - remove hardcoded language of `fi`.
+* Bug fix in `fst_pos` to set NAs in count to 0
+* New English sample data 
+
 # finnsurveytext 2.0.0
 
 ## 01_prepare and 01b_prepare_svydesign
