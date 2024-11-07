@@ -4,7 +4,7 @@
 #' @export
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #'   runDemo()
 #' }
 runDemo <- function() {

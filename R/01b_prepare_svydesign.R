@@ -23,7 +23,7 @@
 #' @export
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' i <- "fsd_id"
 #' svy_child <- survey::svydesign(id=~1, weights= ~paino, data = child)
 #' fst_format_svydesign(svy_child, question = 'q7', id = 'fsd_id')
@@ -145,7 +145,7 @@ fst_format_svydesign <- function(svydesign,
 #' @export
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' i <- "fsd_id"
 #' svy_child <- survey::svydesign(id=~1, weights= ~paino, data = child)
 #' fst_prepare_svydesign(svy_child, question = "q7", id = i, use_weights = TRUE)

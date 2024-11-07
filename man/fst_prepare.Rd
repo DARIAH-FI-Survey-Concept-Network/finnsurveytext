@@ -65,7 +65,7 @@ the `stopword_list` argument is not "none".
  responses in CoNLL-U format with stopwords optionally removed.
 }
 \examples{
-\donttest{
+\dontrun{
 i <- "fsd_id"
 cb <- child
 dev <- dev_coop

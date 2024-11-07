@@ -38,7 +38,7 @@ additional columns that are included such as `weights` or columns added
 through `add_cols`.
 }
 \examples{
-\donttest{
+\dontrun{
 i <- "fsd_id"
 fst_format(data = child, question = "q7", id = i)
 fst_format(data = child, question = "q7", id = i, model = "tdt")

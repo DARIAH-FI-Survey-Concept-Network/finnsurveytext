@@ -60,7 +60,7 @@ the `stopword_list` argument is not "none".
  responses in CoNLL-U format with stopwords optionally removed.
 }
 \examples{
-\donttest{
+\dontrun{
 i <- "fsd_id"
 svy_child <- survey::svydesign(id=~1, weights= ~paino, data = child)
 fst_prepare_svydesign(svy_child, question = "q7", id = i, use_weights = TRUE)

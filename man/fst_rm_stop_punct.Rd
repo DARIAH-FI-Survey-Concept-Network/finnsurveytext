@@ -36,7 +36,7 @@ Removes stopwords and punctuation from a dataframe containing Finnish survey
 text data which is already in CoNLL-U format.
 }
 \examples{
-\donttest{
+\dontrun{
 c <- fst_format(child, question = 'q7', id = 'fsd_id')
 fst_rm_stop_punct(c)
 fst_rm_stop_punct(c, stopword_list = "snowball")

@@ -25,7 +25,7 @@
 #' @export
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' i <- "fsd_id"
 #' fst_format(data = child, question = "q7", id = i)
 #' fst_format(data = child, question = "q7", id = i, model = "tdt")
@@ -198,7 +198,7 @@ fst_find_stopwords <- function(language = 'fi') {
 #' @export
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' c <- fst_format(child, question = 'q7', id = 'fsd_id')
 #' fst_rm_stop_punct(c)
 #' fst_rm_stop_punct(c, stopword_list = "snowball")
@@ -276,7 +276,7 @@ fst_rm_stop_punct <- function(data,
 #' @export
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' i <- "fsd_id"
 #' cb <- child
 #' dev <- dev_coop

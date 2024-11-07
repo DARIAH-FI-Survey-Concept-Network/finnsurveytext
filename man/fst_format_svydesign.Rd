@@ -43,7 +43,7 @@ weights if these are included in the `svydesign` object and any columns added
 through `add_cols`.
 }
 \examples{
-\donttest{
+\dontrun{
 i <- "fsd_id"
 svy_child <- survey::svydesign(id=~1, weights= ~paino, data = child)
 fst_format_svydesign(svy_child, question = 'q7', id = 'fsd_id')
