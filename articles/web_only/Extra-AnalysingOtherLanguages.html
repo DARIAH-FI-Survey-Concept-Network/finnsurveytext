@@ -68,7 +68,7 @@
       <h1>Extra-AnalysingOtherLanguages</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/DARIAH-FI-Survey-Concept-Network/finnsurveytext/blob/v2.0.0/vignettes/web_only/Extra-AnalysingOtherLanguages.Rmd" class="external-link"><code>vignettes/web_only/Extra-AnalysingOtherLanguages.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/DARIAH-FI-Survey-Concept-Network/finnsurveytext/blob/main/vignettes/web_only/Extra-AnalysingOtherLanguages.Rmd" class="external-link"><code>vignettes/web_only/Extra-AnalysingOtherLanguages.Rmd</code></a></small>
       <div class="d-none name"><code>Extra-AnalysingOtherLanguages.Rmd</code></div>
     </div>
 
@@ -123,6 +123,69 @@ swedish-lines, swedish-talbanken, tamil-ttb, telugu-mtg, turkish-imst,
 ukrainian-iu, upper_sorbian-ufal, urdu-udtb, uyghur-udt,
 vietnamese-vtb</p>
 </blockquote>
+<p>Alternatively, you can find the list of available models by running
+<code><a href="../../reference/fst_print_available_models.html">fst_print_available_models()</a></code>. By providing a
+<code>search</code> term, the list will be filtered for models
+containing this language:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/fst_print_available_models.html">fst_print_available_models</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   [1] "afrikaans-afribooms"        "ancient_greek-perseus"     </span></span>
+<span><span class="co">#&gt;   [3] "ancient_greek-proiel"       "arabic-padt"               </span></span>
+<span><span class="co">#&gt;   [5] "armenian-armtdp"            "basque-bdt"                </span></span>
+<span><span class="co">#&gt;   [7] "belarusian-hse"             "bulgarian-btb"             </span></span>
+<span><span class="co">#&gt;   [9] "buryat-bdt"                 "catalan-ancora"            </span></span>
+<span><span class="co">#&gt;  [11] "chinese-gsd"                "chinese-gsdsimp"           </span></span>
+<span><span class="co">#&gt;  [13] "classical_chinese-kyoto"    "coptic-scriptorium"        </span></span>
+<span><span class="co">#&gt;  [15] "croatian-set"               "czech-cac"                 </span></span>
+<span><span class="co">#&gt;  [17] "czech-cltt"                 "czech-fictree"             </span></span>
+<span><span class="co">#&gt;  [19] "czech-pdt"                  "danish-ddt"                </span></span>
+<span><span class="co">#&gt;  [21] "dutch-alpino"               "dutch-lassysmall"          </span></span>
+<span><span class="co">#&gt;  [23] "english-ewt"                "english-gum"               </span></span>
+<span><span class="co">#&gt;  [25] "english-lines"              "english-partut"            </span></span>
+<span><span class="co">#&gt;  [27] "estonian-edt"               "estonian-ewt"              </span></span>
+<span><span class="co">#&gt;  [29] "finnish-ftb"                "finnish-tdt"               </span></span>
+<span><span class="co">#&gt;  [31] "french-gsd"                 "french-partut"             </span></span>
+<span><span class="co">#&gt;  [33] "french-sequoia"             "french-spoken"             </span></span>
+<span><span class="co">#&gt;  [35] "galician-ctg"               "galician-treegal"          </span></span>
+<span><span class="co">#&gt;  [37] "german-gsd"                 "german-hdt"                </span></span>
+<span><span class="co">#&gt;  [39] "gothic-proiel"              "greek-gdt"                 </span></span>
+<span><span class="co">#&gt;  [41] "hebrew-htb"                 "hindi-hdtb"                </span></span>
+<span><span class="co">#&gt;  [43] "hungarian-szeged"           "indonesian-gsd"            </span></span>
+<span><span class="co">#&gt;  [45] "irish-idt"                  "italian-isdt"              </span></span>
+<span><span class="co">#&gt;  [47] "italian-partut"             "italian-postwita"          </span></span>
+<span><span class="co">#&gt;  [49] "italian-twittiro"           "italian-vit"               </span></span>
+<span><span class="co">#&gt;  [51] "japanese-gsd"               "kazakh-ktb"                </span></span>
+<span><span class="co">#&gt;  [53] "korean-gsd"                 "korean-kaist"              </span></span>
+<span><span class="co">#&gt;  [55] "kurmanji-mg"                "latin-ittb"                </span></span>
+<span><span class="co">#&gt;  [57] "latin-perseus"              "latin-proiel"              </span></span>
+<span><span class="co">#&gt;  [59] "latvian-lvtb"               "lithuanian-alksnis"        </span></span>
+<span><span class="co">#&gt;  [61] "lithuanian-hse"             "maltese-mudt"              </span></span>
+<span><span class="co">#&gt;  [63] "marathi-ufal"               "north_sami-giella"         </span></span>
+<span><span class="co">#&gt;  [65] "norwegian-bokmaal"          "norwegian-nynorsk"         </span></span>
+<span><span class="co">#&gt;  [67] "norwegian-nynorsklia"       "old_church_slavonic-proiel"</span></span>
+<span><span class="co">#&gt;  [69] "old_french-srcmf"           "old_russian-torot"         </span></span>
+<span><span class="co">#&gt;  [71] "persian-seraji"             "polish-lfg"                </span></span>
+<span><span class="co">#&gt;  [73] "polish-pdb"                 "polish-sz"                 </span></span>
+<span><span class="co">#&gt;  [75] "portuguese-bosque"          "portuguese-br"             </span></span>
+<span><span class="co">#&gt;  [77] "portuguese-gsd"             "romanian-nonstandard"      </span></span>
+<span><span class="co">#&gt;  [79] "romanian-rrt"               "russian-gsd"               </span></span>
+<span><span class="co">#&gt;  [81] "russian-syntagrus"          "russian-taiga"             </span></span>
+<span><span class="co">#&gt;  [83] "sanskrit-ufal"              "scottish_gaelic-arcosg"    </span></span>
+<span><span class="co">#&gt;  [85] "serbian-set"                "slovak-snk"                </span></span>
+<span><span class="co">#&gt;  [87] "slovenian-ssj"              "slovenian-sst"             </span></span>
+<span><span class="co">#&gt;  [89] "spanish-ancora"             "spanish-gsd"               </span></span>
+<span><span class="co">#&gt;  [91] "swedish-lines"              "swedish-talbanken"         </span></span>
+<span><span class="co">#&gt;  [93] "tamil-ttb"                  "telugu-mtg"                </span></span>
+<span><span class="co">#&gt;  [95] "turkish-imst"               "ukrainian-iu"              </span></span>
+<span><span class="co">#&gt;  [97] "upper_sorbian-ufal"         "urdu-udtb"                 </span></span>
+<span><span class="co">#&gt;  [99] "uyghur-udt"                 "vietnamese-vtb"            </span></span>
+<span><span class="co">#&gt; [101] "wolof-wtb"</span></span>
+<span></span>
+<span><span class="fu"><a href="../../reference/fst_print_available_models.html">fst_print_available_models</a></span><span class="op">(</span>search <span class="op">=</span> <span class="st">'estonian'</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "estonian-edt" "estonian-ewt"</span></span>
+<span></span>
+<span><span class="fu"><a href="../../reference/fst_print_available_models.html">fst_print_available_models</a></span><span class="op">(</span><span class="st">'sami'</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "north_sami-giella"</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="how-to-use">How to use:<a class="anchor" aria-label="anchor" href="#how-to-use"></a>
 </h3>
@@ -144,7 +207,7 @@ identify the two-letter <a href="https://en.wikipedia.org/wiki/List_of_ISO_639_l
 code</a> for the language you are using. You can see the list of
 available sources and languages in the <code>stopwords</code> <a href="https://cran.r-project.org/web/packages/stopwords/stopwords.pdf" class="external-link">manual</a>
 or by running the ‘get sources’ and ‘get languages’ functions:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/stopwords/man/stopwords_getsources.html" class="external-link">stopwords_getsources</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "snowball"      "stopwords-iso" "misc"          "smart"        </span></span>
 <span><span class="co">#&gt; [5] "marimo"        "ancient"       "nltk"          "perseus"</span></span>
@@ -183,12 +246,12 @@ provides a table of lists available through the <code>stopwords</code>
 package for a language and provides the contents for comparison (if you
 have multiple options!). To run this, you need the two-letter ISO
 language code:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="fu"><a href="../../reference/fst_find_stopwords.html">fst_find_stopwords</a></span><span class="op">(</span>language <span class="op">=</span> <span class="st">'lv'</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <colgroup>
 <col width="0%">
-<col width="99%">
+<col width="98%">
 <col width="0%">
 </colgroup>
 <thead><tr class="header">
@@ -198,129 +261,35 @@ language code:</p>
 </tr></thead>
 <tbody><tr class="odd">
 <td align="left">stopwords-iso</td>
-<td align="left">aiemmin , aika , aikaa , aikaan , aikaisemmin ,
-aikaisin , aikajen , aikana , aikoina , aikoo , aikovat , aina ,
-ainakaan , ainakin , ainoa , ainoat , aiomme , aion , aiotte , aist ,
-aivan , ajan , alas , alemmas , alkuisin , alkuun , alla , alle ,
-aloitamme , aloitan , aloitat , aloitatte , aloitattivat , aloitettava ,
-aloitettevaksi, aloitettu , aloitimme , aloitin , aloitit , aloititte ,
-aloittaa , aloittamatta , aloitti , aloittivat , alta , aluksi , alussa
-, alusta , annettavaksi , annetteva , annettu , ansiosta , antaa ,
-antamatta , antoi , aoua , apu , asia , asiaa , asian , asiasta , asiat
-, asioiden , asioihin , asioita , asti , avuksi , avulla , avun , avutta
-, edelle , edelleen , edellä , edeltä , edemmäs , edes , edessä , edestä
-, ehkä , ei , eikä , eilen , eivät , eli , ellei , elleivät , ellemme ,
-ellen , ellet , ellette , emme , en , enemmän , eniten , ennen , ensi ,
-ensimmäinen , ensimmäiseksi , ensimmäisen , ensimmäisenä , ensimmäiset ,
-ensimmäisiksi , ensimmäisinä , ensimmäisiä , ensimmäistä , ensin ,
-entinen , entisen , entisiä , entisten , entistä , enää , eri , erittäin
-, erityisesti , eräiden , eräs , eräät , esi , esiin , esillä ,
-esimerkiksi , et , eteen , etenkin , etessa , ette , ettei , että ,
-haikki , halua , haluaa , haluamatta , haluamme , haluan , haluat ,
-haluatte , haluavat , halunnut , halusi , halusimme , halusin , halusit
-, halusitte , halusivat , halutessa , haluton , he , hei , heidän ,
-heidät , heihin , heille , heillä , heiltä , heissä , heistä , heitä ,
-helposti , heti , hetkellä , hieman , hitaasti , hoikein , huolimatta ,
-huomenna , hyvien , hyviin , hyviksi , hyville , hyviltä , hyvin ,
-hyvinä , hyvissä , hyvistä , hyviä , hyvä , hyvät , hyvää , hän , häneen
-, hänelle , hänellä , häneltä , hänen , hänessä , hänestä , hänet ,
-häntä , ihan , ilman , ilmeisesti , itse , itsensä , itseään , ja , jo ,
-johon , joiden , joihin , joiksi , joilla , joille , joilta , joina ,
-joissa , joista , joita , joka , jokainen , jokin , joko , joksi , joku
-, jolla , jolle , jolloin , jolta , jompikumpi , jona , jonka , jonkin ,
-jonne , joo , jopa , jos , joskus , jossa , josta , jota , jotain ,
-joten , jotenkin , jotenkuten , jotka , jotta , jouduimme , jouduin ,
-jouduit , jouduitte , joudumme , joudun , joudutte , joukkoon , joukossa
-, joukosta , joutua , joutui , joutuivat , joutumaan , joutuu , joutuvat
-, juuri , jälkeen , jälleen , jää , kahdeksan , kahdeksannen , kahdella
-, kahdelle , kahdelta , kahden , kahdessa , kahdesta , kahta , kahteen ,
-kai , kaiken , kaikille , kaikilta , kaikkea , kaikki , kaikkia ,
-kaikkiaan , kaikkialla , kaikkialle , kaikkialta , kaikkien , kaikkin ,
-kaksi , kannalta , kannattaa , kanssa , kanssaan , kanssamme , kanssani
-, kanssanne , kanssasi , kauan , kauemmas , kaukana , kautta , kehen ,
-keiden , keihin , keiksi , keille , keillä , keiltä , keinä , keissä ,
-keistä , keitten , keittä , keitä , keneen , keneksi , kenelle , kenellä
-, keneltä , kenen , kenenä , kenessä , kenestä , kenet , kenettä ,
-kennessästä , kenties , kerran , kerta , kertaa , keskellä , kesken ,
-keskimäärin , ketkä , ketä , kiitos , kohti , koko , kokonaan , kolmas ,
-kolme , kolmen , kolmesti , koska , koskaan , kovin , kuin , kuinka ,
-kuinkan , kuitenkaan , kuitenkin , kuka , kukaan , kukin , kukka ,
-kumpainen , kumpainenkaan , kumpi , kumpikaan , kumpikin , kun , kuten ,
-kuuden , kuusi , kuutta , kylliksi , kyllä , kymmenen , kyse , liian ,
-liki , lisäksi , lisää , lla , luo , luona , lähekkäin , lähelle ,
-lähellä , läheltä , lähemmäs , lähes , lähinnä , lähtien , läpi ,
-mahdollisimman, mahdollista , me , meidän , meidät , meihin , meille ,
-meillä , meiltä , meissä , meistä , meitä , melkein , melko , menee ,
-meneet , menemme , menen , menet , menette , menevät , meni , menimme ,
-menin , menit , menivät , mennessä , mennyt , menossa , mihin , mikin ,
-miksi , mikä , mikäli , mikään , mille , milloin , milloinkan , millä ,
-miltä , minkä , minne , minua , minulla , minulle , minulta , minun ,
-minussa , minusta , minut , minuun , minä , missä , mistä , miten ,
-mitkä , mitä , mitään , moi , molemmat , mones , monesti , monet , moni
-, moniaalla , moniaalle , moniaalta , monta , muassa , muiden , muita ,
-muka , mukaan , mukaansa , mukana , mutta , muu , muualla , muualle ,
-muualta , muuanne , muulloin , muun , muut , muuta , muutama , muutaman
-, muuten , myöhemmin , myös , myöskin , myöskään , myötä , ne , neljä ,
-neljän , neljää , niiden , niihin , niiksi , niille , niillä , niiltä ,
-niin , niinä , niissä , niistä , niitä , noiden , noihin , noiksi ,
-noilla , noille , noilta , noin , noina , noissa , noista , noita ,
-nopeammin , nopeasti , nopeiten , nro , nuo , nyt , näiden , näihin ,
-näiksi , näille , näillä , näiltä , näin , näinä , näissä , näissähin ,
-näissälle , näissältä , näissästä , näistä , näitä , nämä , ohi , oikea
-, oikealla , oikein , ole , olemme , olen , olet , olette , oleva ,
-olevan , olevat , oli , olimme , olin , olisi , olisimme , olisin ,
-olisit , olisitte , olisivat , olit , olitte , olivat , olla , olleet ,
-olli , ollut , oma , omaa , omaan , omaksi , omalle , omalta , oman ,
-omassa , omat , omia , omien , omiin , omiksi , omille , omilta , omissa
-, omista , on , onkin , onko , ovat , paikoittain , paitsi , pakosti ,
-paljon , paremmin , parempi , parhaillaan , parhaiten , perusteella ,
-peräti , pian , pieneen , pieneksi , pienelle , pienellä , pieneltä ,
-pienempi , pienestä , pieni , pienin , poikki , puolesta , puolestaan ,
-päälle , runsaasti , saakka , sadam , sama , samaa , samaan , samalla ,
-samallalta , samallassa , samallasta , saman , samat , samoin , sata ,
-sataa , satojen , se , seitsemän , sekä , sen , seuraavat , siellä ,
-sieltä , siihen , siinä , siis , siitä , sijaan , siksi , sille ,
-silloin , sillä , silti , siltä , sinne , sinua , sinulla , sinulle ,
-sinulta , sinun , sinussa , sinusta , sinut , sinuun , sinä , sisäkkäin
-, sisällä , siten , sitten , sitä , ssa , sta , suoraan , suuntaan ,
-suuren , suuret , suuri , suuria , suurin , suurten , taa , taas ,
-taemmas , tahansa , tai , takaa , takaisin , takana , takia , tallä ,
-tapauksessa , tarpeeksi , tavalla , tavoitteena , te , teidän , teidät ,
-teihin , teille , teillä , teiltä , teissä , teistä , teitä , tietysti ,
-todella , toinen , toisaalla , toisaalle , toisaalta , toiseen ,
-toiseksi , toisella , toiselle , toiselta , toisemme , toisen , toisensa
-, toisessa , toisesta , toista , toistaiseksi , toki , tosin , tuhannen
-, tuhat , tule , tulee , tulemme , tulen , tulet , tulette , tulevat ,
-tulimme , tulin , tulisi , tulisimme , tulisin , tulisit , tulisitte ,
-tulisivat , tulit , tulitte , tulivat , tulla , tulleet , tullut ,
-tuntuu , tuo , tuohon , tuoksi , tuolla , tuolle , tuolloin , tuolta ,
-tuon , tuona , tuonne , tuossa , tuosta , tuota , tuotä , tuskin , tykö
-, tähän , täksi , tälle , tällä , tällöin , tältä , tämä , tämän , tänne
-, tänä , tänään , tässä , tästä , täten , tätä , täysin , täytyvät ,
-täytyy , täällä , täältä , ulkopuolella , usea , useasti , useimmiten ,
-usein , useita , uudeksi , uudelleen , uuden , uudet , uusi , uusia ,
-uusien , uusinta , uuteen , uutta , vaan , vahemmän , vai , vaiheessa ,
-vaikea , vaikean , vaikeat , vaikeilla , vaikeille , vaikeilta ,
-vaikeissa , vaikeista , vaikka , vain , varmasti , varsin , varsinkin ,
-varten , vasen , vasenmalla , vasta , vastaan , vastakkain , vastan ,
-verran , vielä , vierekkäin , vieressä , vieri , viiden , viime ,
-viimeinen , viimeisen , viimeksi , viisi , voi , voidaan , voimme , voin
-, voisi , voit , voitte , voivat , vuoden , vuoksi , vuosi , vuosien ,
-vuosina , vuotta , vähemmän , vähintään , vähiten , vähän , välillä ,
-yhdeksän , yhden , yhdessä , yhteen , yhteensä , yhteydessä , yhteyteen
-, yhtä , yhtäälle , yhtäällä , yhtäältä , yhtään , yhä , yksi , yksin ,
-yksittäin , yleensä , ylemmäs , yli , ylös , ympäri , älköön , älä</td>
-<td align="left">847</td>
+<td align="left">aiz , ap , apakš , apakšpus , ar , arī , augšpus , bet
+, bez , bija , biji , biju , bijām , bijāt , būs , būsi , būsiet , būsim
+, būt , būšu , caur , diemžēl , diezin , droši , dēļ , esam , esat , esi
+, esmu , gan , gar , iekam , iekams , iekām , iekāms , iekš , iekšpus ,
+ik , ir , it , itin , iz , ja , jau , jeb , jebšu , jel , jo , jā , ka ,
+kamēr , kaut , kolīdz , kopš , kā , kļuva , kļuvi , kļuvu , kļuvām ,
+kļuvāt , kļūs , kļūsi , kļūsiet , kļūsim , kļūst , kļūstam , kļūstat ,
+kļūsti , kļūstu , kļūt , kļūšu , labad , lai , lejpus , līdz , līdzko ,
+ne , nebūt , nedz , nekā , nevis , nezin , no , nu , nē , otrpus , pa ,
+par , pat , pie , pirms , pret , priekš , pār , pēc , starp , tad , tak
+, tapi , taps , tapsi , tapsiet , tapsim , tapt , tapāt , tapšu , taču ,
+te , tiec , tiek , tiekam , tiekat , tieku , tik , tika , tikai , tiki ,
+tikko , tiklab , tiklīdz , tiks , tiksiet , tiksim , tikt , tiku ,
+tikvien , tikām , tikāt , tikšu , tomēr , topat , turpretim, turpretī ,
+tā , tādēļ , tālab , tāpēc , un , uz , vai , var , varat , varēja ,
+varēji , varēju , varējām , varējāt , varēs , varēsi , varēsiet ,
+varēsim , varēt , varēšu , vien , virs , virspus , vis , viņpus , zem ,
+ārpus , šaipus</td>
+<td align="left">161</td>
 </tr></tbody>
 </table>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/fst_find_stopwords.html">fst_find_stopwords</a></span><span class="op">(</span>language <span class="op">=</span> <span class="st">'no'</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 3</span></span></span>
 <span><span class="co">#&gt;   Name          Stopwords   Length   </span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> nltk          <span style="color: #949494;">&lt;chr [229]&gt;</span> <span style="color: #949494;">&lt;int [1]&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> snowball      <span style="color: #949494;">&lt;chr [68]&gt;</span>  <span style="color: #949494;">&lt;int [1]&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> stopwords-iso <span style="color: #949494;">&lt;chr [847]&gt;</span> <span style="color: #949494;">&lt;int [1]&gt;</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> nltk          <span style="color: #949494;">&lt;chr [172]&gt;</span> <span style="color: #949494;">&lt;int [1]&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> snowball      <span style="color: #949494;">&lt;chr [176]&gt;</span> <span style="color: #949494;">&lt;int [1]&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> stopwords-iso <span style="color: #949494;">&lt;chr [221]&gt;</span> <span style="color: #949494;">&lt;int [1]&gt;</span></span></span></code></pre></div>
 <div class="section level3">
 <h3 id="how-to-use-1">How to use:<a class="anchor" aria-label="anchor" href="#how-to-use-1"></a>
 </h3>
@@ -344,7 +313,7 @@ want to remove them to get more meaningful results!</p>
 <p>If you provide a manual list, you can leave
 <code>stopword_list</code> and <code>language</code> as their default
 values.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#EXAMPLE OF PROVIDING A MANUAL LIST</span></span>
 <span><span class="va">manualList</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'en'</span>, <span class="st">'et'</span>, <span class="st">'ei'</span>, <span class="st">'emme'</span>, <span class="st">'ette'</span>, <span class="st">'eivät'</span>, <span class="st">'minä'</span>, <span class="st">'minum'</span><span class="op">)</span></span>
 <span><span class="va">manualList2</span> <span class="op">&lt;-</span> <span class="st">"en, et, ei, emme, ette, eivät, minä, minum"</span></span>
@@ -363,7 +332,7 @@ values.</p>
 the ISO code is ‘sv’, I could check my favourite stopwords list, ‘nltk’
 and discover Swedish is there and choose to remove stopwrods from this
 list from my data.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="fu"><a href="../../reference/fst_find_stopwords.html">fst_find_stopwords</a></span><span class="op">(</span><span class="st">'sv'</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <colgroup>
@@ -379,167 +348,89 @@ list from my data.</p>
 <tbody>
 <tr class="odd">
 <td align="left">nltk</td>
-<td align="left">olla , olen , olet , on , olemme , olette , ovat , ole
-, oli , olisi , olisit , olisin , olisimme, olisitte, olisivat, olit ,
-olin , olimme , olitte , olivat , ollut , olleet , en , et , ei , emme ,
-ette , eivät , minä , minun , minut , minua , minussa , minusta , minuun
-, minulla , minulta , minulle , sinä , sinun , sinut , sinua , sinussa ,
-sinusta , sinuun , sinulla , sinulta , sinulle , hän , hänen , hänet ,
-häntä , hänessä , hänestä , häneen , hänellä , häneltä , hänelle , me ,
-meidän , meidät , meitä , meissä , meistä , meihin , meillä , meiltä ,
-meille , te , teidän , teidät , teitä , teissä , teistä , teihin ,
-teillä , teiltä , teille , he , heidän , heidät , heitä , heissä ,
-heistä , heihin , heillä , heiltä , heille , tämä , tämän , tätä , tässä
-, tästä , tähän , tallä , tältä , tälle , tänä , täksi , tuo , tuon ,
-tuotä , tuossa , tuosta , tuohon , tuolla , tuolta , tuolle , tuona ,
-tuoksi , se , sen , sitä , siinä , siitä , siihen , sillä , siltä ,
-sille , siksi , nämä , näiden , näitä , näissä , näistä , näihin ,
-näillä , näiltä , näille , näinä , näiksi , nuo , noiden , noita ,
-noissa , noista , noihin , noilla , noilta , noille , noina , noiksi ,
-ne , niiden , niitä , niissä , niistä , niihin , niillä , niiltä ,
-niille , niinä , niiksi , kuka , kenen , kenet , ketä , kenessä ,
-kenestä , keneen , kenellä , keneltä , kenelle , kenenä , keneksi ,
-ketkä , keiden , keitä , keissä , keistä , keihin , keillä , keiltä ,
-keille , keinä , keiksi , mikä , minkä , mitä , missä , mistä , mihin ,
-millä , miltä , mille , miksi , mitkä , joka , jonka , jota , jossa ,
-josta , johon , jolla , jolta , jolle , jona , joksi , jotka , joiden ,
-joita , joissa , joista , joihin , joilla , joilta , joille , joina ,
-joiksi , että , ja , jos , koska , kuin , mutta , niin , sekä , tai ,
-vaan , vai , vaikka , kanssa , mukaan , noin , poikki , yli , kun , nyt
-, itse</td>
-<td align="left">229</td>
+<td align="left">och , det , att , i , en , jag , hon , som , han , på ,
+den , med , var , sig , för , så , till , är , men , ett , om , hade ,
+de , av , icke , mig , du , henne , då , sin , nu , har , inte , hans ,
+honom , skulle, hennes, där , min , man , ej , vid , kunde , något ,
+från , ut , när , efter , upp , vi , dem , vara , vad , över , än , dig
+, kan , sina , här , ha , mot , alla , under , någon , eller , allt ,
+mycket, sedan , ju , denna , själv , detta , åt , utan , varit , hur ,
+ingen , mitt , ni , bli , blev , oss , din , dessa , några , deras ,
+blir , mina , samma , vilken, er , sådan , vår , blivit, dess , inom ,
+mellan, sådant, varför, varje , vilka , ditt , vem , vilket, sitta ,
+sådana, vart , dina , vars , vårt , våra , ert , era , vilkas</td>
+<td align="left">114</td>
 </tr>
 <tr class="even">
 <td align="left">snowball</td>
-<td align="left">olla , olen , olet , on , olemme , olette , ovat , ole
-, oli , olisi , olisit , olisin , olisimme, olisitte, olisivat, olit ,
-olin , olimme , olitte , olivat , ollut , olleet , en , et , ei , emme ,
-ette , eivät , minä , sinä , hän , me , te , he , tämä , tuo , se , nämä
-, nuo , ne , kuka , ketkä , mikä , mitkä , joka , jotka , että , ja ,
-jos , koska , kuin , mutta , niin , sekä , sillä , tai , vaan , vai ,
-vaikka , kanssa , mukaan , noin , poikki , yli , kun , niin , nyt ,
-itse</td>
-<td align="left">68</td>
+<td align="left">och , det , att , i , en , jag , hon , som , han , på ,
+den , med , var , sig , för , så , till , är , men , ett , om , hade ,
+de , av , icke , mig , du , henne , då , sin , nu , har , inte , hans ,
+honom , skulle, hennes, där , min , man , ej , vid , kunde , något ,
+från , ut , när , efter , upp , vi , dem , vara , vad , över , än , dig
+, kan , sina , här , ha , mot , alla , under , någon , eller , allt ,
+mycket, sedan , ju , denna , själv , detta , åt , utan , varit , hur ,
+ingen , mitt , ni , bli , blev , oss , din , dessa , några , deras ,
+blir , mina , samma , vilken, er , sådan , vår , blivit, dess , inom ,
+mellan, sådant, varför, varje , vilka , ditt , vem , vilket, sitta ,
+sådana, vart , dina , vars , vårt , våra , ert , era , vilkas</td>
+<td align="left">114</td>
 </tr>
 <tr class="odd">
 <td align="left">stopwords-iso</td>
-<td align="left">aiemmin , aika , aikaa , aikaan , aikaisemmin ,
-aikaisin , aikajen , aikana , aikoina , aikoo , aikovat , aina ,
-ainakaan , ainakin , ainoa , ainoat , aiomme , aion , aiotte , aist ,
-aivan , ajan , alas , alemmas , alkuisin , alkuun , alla , alle ,
-aloitamme , aloitan , aloitat , aloitatte , aloitattivat , aloitettava ,
-aloitettevaksi, aloitettu , aloitimme , aloitin , aloitit , aloititte ,
-aloittaa , aloittamatta , aloitti , aloittivat , alta , aluksi , alussa
-, alusta , annettavaksi , annetteva , annettu , ansiosta , antaa ,
-antamatta , antoi , aoua , apu , asia , asiaa , asian , asiasta , asiat
-, asioiden , asioihin , asioita , asti , avuksi , avulla , avun , avutta
-, edelle , edelleen , edellä , edeltä , edemmäs , edes , edessä , edestä
-, ehkä , ei , eikä , eilen , eivät , eli , ellei , elleivät , ellemme ,
-ellen , ellet , ellette , emme , en , enemmän , eniten , ennen , ensi ,
-ensimmäinen , ensimmäiseksi , ensimmäisen , ensimmäisenä , ensimmäiset ,
-ensimmäisiksi , ensimmäisinä , ensimmäisiä , ensimmäistä , ensin ,
-entinen , entisen , entisiä , entisten , entistä , enää , eri , erittäin
-, erityisesti , eräiden , eräs , eräät , esi , esiin , esillä ,
-esimerkiksi , et , eteen , etenkin , etessa , ette , ettei , että ,
-haikki , halua , haluaa , haluamatta , haluamme , haluan , haluat ,
-haluatte , haluavat , halunnut , halusi , halusimme , halusin , halusit
-, halusitte , halusivat , halutessa , haluton , he , hei , heidän ,
-heidät , heihin , heille , heillä , heiltä , heissä , heistä , heitä ,
-helposti , heti , hetkellä , hieman , hitaasti , hoikein , huolimatta ,
-huomenna , hyvien , hyviin , hyviksi , hyville , hyviltä , hyvin ,
-hyvinä , hyvissä , hyvistä , hyviä , hyvä , hyvät , hyvää , hän , häneen
-, hänelle , hänellä , häneltä , hänen , hänessä , hänestä , hänet ,
-häntä , ihan , ilman , ilmeisesti , itse , itsensä , itseään , ja , jo ,
-johon , joiden , joihin , joiksi , joilla , joille , joilta , joina ,
-joissa , joista , joita , joka , jokainen , jokin , joko , joksi , joku
-, jolla , jolle , jolloin , jolta , jompikumpi , jona , jonka , jonkin ,
-jonne , joo , jopa , jos , joskus , jossa , josta , jota , jotain ,
-joten , jotenkin , jotenkuten , jotka , jotta , jouduimme , jouduin ,
-jouduit , jouduitte , joudumme , joudun , joudutte , joukkoon , joukossa
-, joukosta , joutua , joutui , joutuivat , joutumaan , joutuu , joutuvat
-, juuri , jälkeen , jälleen , jää , kahdeksan , kahdeksannen , kahdella
-, kahdelle , kahdelta , kahden , kahdessa , kahdesta , kahta , kahteen ,
-kai , kaiken , kaikille , kaikilta , kaikkea , kaikki , kaikkia ,
-kaikkiaan , kaikkialla , kaikkialle , kaikkialta , kaikkien , kaikkin ,
-kaksi , kannalta , kannattaa , kanssa , kanssaan , kanssamme , kanssani
-, kanssanne , kanssasi , kauan , kauemmas , kaukana , kautta , kehen ,
-keiden , keihin , keiksi , keille , keillä , keiltä , keinä , keissä ,
-keistä , keitten , keittä , keitä , keneen , keneksi , kenelle , kenellä
-, keneltä , kenen , kenenä , kenessä , kenestä , kenet , kenettä ,
-kennessästä , kenties , kerran , kerta , kertaa , keskellä , kesken ,
-keskimäärin , ketkä , ketä , kiitos , kohti , koko , kokonaan , kolmas ,
-kolme , kolmen , kolmesti , koska , koskaan , kovin , kuin , kuinka ,
-kuinkan , kuitenkaan , kuitenkin , kuka , kukaan , kukin , kukka ,
-kumpainen , kumpainenkaan , kumpi , kumpikaan , kumpikin , kun , kuten ,
-kuuden , kuusi , kuutta , kylliksi , kyllä , kymmenen , kyse , liian ,
-liki , lisäksi , lisää , lla , luo , luona , lähekkäin , lähelle ,
-lähellä , läheltä , lähemmäs , lähes , lähinnä , lähtien , läpi ,
-mahdollisimman, mahdollista , me , meidän , meidät , meihin , meille ,
-meillä , meiltä , meissä , meistä , meitä , melkein , melko , menee ,
-meneet , menemme , menen , menet , menette , menevät , meni , menimme ,
-menin , menit , menivät , mennessä , mennyt , menossa , mihin , mikin ,
-miksi , mikä , mikäli , mikään , mille , milloin , milloinkan , millä ,
-miltä , minkä , minne , minua , minulla , minulle , minulta , minun ,
-minussa , minusta , minut , minuun , minä , missä , mistä , miten ,
-mitkä , mitä , mitään , moi , molemmat , mones , monesti , monet , moni
-, moniaalla , moniaalle , moniaalta , monta , muassa , muiden , muita ,
-muka , mukaan , mukaansa , mukana , mutta , muu , muualla , muualle ,
-muualta , muuanne , muulloin , muun , muut , muuta , muutama , muutaman
-, muuten , myöhemmin , myös , myöskin , myöskään , myötä , ne , neljä ,
-neljän , neljää , niiden , niihin , niiksi , niille , niillä , niiltä ,
-niin , niinä , niissä , niistä , niitä , noiden , noihin , noiksi ,
-noilla , noille , noilta , noin , noina , noissa , noista , noita ,
-nopeammin , nopeasti , nopeiten , nro , nuo , nyt , näiden , näihin ,
-näiksi , näille , näillä , näiltä , näin , näinä , näissä , näissähin ,
-näissälle , näissältä , näissästä , näistä , näitä , nämä , ohi , oikea
-, oikealla , oikein , ole , olemme , olen , olet , olette , oleva ,
-olevan , olevat , oli , olimme , olin , olisi , olisimme , olisin ,
-olisit , olisitte , olisivat , olit , olitte , olivat , olla , olleet ,
-olli , ollut , oma , omaa , omaan , omaksi , omalle , omalta , oman ,
-omassa , omat , omia , omien , omiin , omiksi , omille , omilta , omissa
-, omista , on , onkin , onko , ovat , paikoittain , paitsi , pakosti ,
-paljon , paremmin , parempi , parhaillaan , parhaiten , perusteella ,
-peräti , pian , pieneen , pieneksi , pienelle , pienellä , pieneltä ,
-pienempi , pienestä , pieni , pienin , poikki , puolesta , puolestaan ,
-päälle , runsaasti , saakka , sadam , sama , samaa , samaan , samalla ,
-samallalta , samallassa , samallasta , saman , samat , samoin , sata ,
-sataa , satojen , se , seitsemän , sekä , sen , seuraavat , siellä ,
-sieltä , siihen , siinä , siis , siitä , sijaan , siksi , sille ,
-silloin , sillä , silti , siltä , sinne , sinua , sinulla , sinulle ,
-sinulta , sinun , sinussa , sinusta , sinut , sinuun , sinä , sisäkkäin
-, sisällä , siten , sitten , sitä , ssa , sta , suoraan , suuntaan ,
-suuren , suuret , suuri , suuria , suurin , suurten , taa , taas ,
-taemmas , tahansa , tai , takaa , takaisin , takana , takia , tallä ,
-tapauksessa , tarpeeksi , tavalla , tavoitteena , te , teidän , teidät ,
-teihin , teille , teillä , teiltä , teissä , teistä , teitä , tietysti ,
-todella , toinen , toisaalla , toisaalle , toisaalta , toiseen ,
-toiseksi , toisella , toiselle , toiselta , toisemme , toisen , toisensa
-, toisessa , toisesta , toista , toistaiseksi , toki , tosin , tuhannen
-, tuhat , tule , tulee , tulemme , tulen , tulet , tulette , tulevat ,
-tulimme , tulin , tulisi , tulisimme , tulisin , tulisit , tulisitte ,
-tulisivat , tulit , tulitte , tulivat , tulla , tulleet , tullut ,
-tuntuu , tuo , tuohon , tuoksi , tuolla , tuolle , tuolloin , tuolta ,
-tuon , tuona , tuonne , tuossa , tuosta , tuota , tuotä , tuskin , tykö
-, tähän , täksi , tälle , tällä , tällöin , tältä , tämä , tämän , tänne
-, tänä , tänään , tässä , tästä , täten , tätä , täysin , täytyvät ,
-täytyy , täällä , täältä , ulkopuolella , usea , useasti , useimmiten ,
-usein , useita , uudeksi , uudelleen , uuden , uudet , uusi , uusia ,
-uusien , uusinta , uuteen , uutta , vaan , vahemmän , vai , vaiheessa ,
-vaikea , vaikean , vaikeat , vaikeilla , vaikeille , vaikeilta ,
-vaikeissa , vaikeista , vaikka , vain , varmasti , varsin , varsinkin ,
-varten , vasen , vasenmalla , vasta , vastaan , vastakkain , vastan ,
-verran , vielä , vierekkäin , vieressä , vieri , viiden , viime ,
-viimeinen , viimeisen , viimeksi , viisi , voi , voidaan , voimme , voin
-, voisi , voit , voitte , voivat , vuoden , vuoksi , vuosi , vuosien ,
-vuosina , vuotta , vähemmän , vähintään , vähiten , vähän , välillä ,
-yhdeksän , yhden , yhdessä , yhteen , yhteensä , yhteydessä , yhteyteen
-, yhtä , yhtäälle , yhtäällä , yhtäältä , yhtään , yhä , yksi , yksin ,
-yksittäin , yleensä , ylemmäs , yli , ylös , ympäri , älköön , älä</td>
-<td align="left">847</td>
+<td align="left">aderton , adertonde , adjö , aldrig , alla , allas ,
+allt , alltid , alltså , andra , andras , annan , annat , artonde ,
+artonn , att , av , bakom , bara , behöva , behövas , behövde , behövt ,
+beslut , beslutat , beslutit , bland , blev , bli , blir , blivit , bort
+, borta , bra , bäst , bättre , båda , bådas , dag , dagar , dagarna ,
+dagen , de , del , delen , dem , den , denna , deras , dess , dessa ,
+det , detta , dig , din , dina , dit , ditt , dock , dom , du , där ,
+därför , då , e , efter , eftersom , ej , elfte , eller , elva , emot ,
+en , enkel , enkelt , enkla , enligt , ens , er , era , ers , ert , ett
+, ettusen , fanns , fem , femte , femtio , femtionde , femton , femtonde
+, fick , fin , finnas , finns , fjorton , fjortonde , fjärde , fler ,
+flera , flesta , fram , framför , från , fyra , fyrtio , fyrtionde , få
+, får , fått , följande , för , före , förlåt , förra , första , genast
+, genom , gick , gjorde , gjort , god , goda , godare , godast , gott ,
+gälla , gäller , gällt , gärna , gå , går , gått , gör , göra , ha ,
+hade , haft , han , hans , har , heller , hellre , helst , helt , henne
+, hennes , hit , hon , honom , hundra , hundraen , hundraett , hur , här
+, hög , höger , högre , högst , i , ibland , icke , idag , igen , igår ,
+imorgon , in , inför , inga , ingen , ingenting , inget , innan , inne ,
+inom , inte , inuti , ja , jag , jo , ju , just , jämfört , kan , kanske
+, knappast , kom , komma , kommer , kommit , kr , kunde , kunna , kunnat
+, kvar , legat , ligga , ligger , lika , likställd , likställda , lilla
+, lite , liten , litet , länge , längre , längst , lätt , lättare ,
+lättast , långsam , långsammare , långsammast , långsamt , långt , låt ,
+man , med , mej , mellan , men , mer , mera , mest , mig , min , mina ,
+mindre , minst , mitt , mittemot , mot , mycket , många , måste , möjlig
+, möjligen , möjligt , möjligtvis , ned , nederst , nedersta , nedre ,
+nej , ner , ni , nio , nionde , nittio , nittionde , nitton , nittonde ,
+nog , noll , nr , nu , nummer , när , nästa , någon , någonting , något
+, några , nån , nånting , nåt , nödvändig , nödvändiga , nödvändigt ,
+nödvändigtvis, och , också , ofta , oftast , olika , olikt , om , oss ,
+på , rakt , redan , rätt , sa , sade , sagt , samma , sedan , senare ,
+senast , sent , sex , sextio , sextionde , sexton , sextonde , sig , sin
+, sina , sist , sista , siste , sitt , sitta , sju , sjunde , sjuttio ,
+sjuttionde , sjutton , sjuttonde , själv , sjätte , ska , skall , skulle
+, slutligen , små , smått , snart , som , stor , stora , stort , större
+, störst , säga , säger , sämre , sämst , så , sådan , sådana , sådant ,
+ta , tack , tar , tidig , tidigare , tidigast , tidigt , till , tills ,
+tillsammans , tio , tionde , tjugo , tjugoen , tjugoett , tjugonde ,
+tjugotre , tjugotvå , tjungo , tolfte , tolv , tre , tredje , trettio ,
+trettionde , tretton , trettonde , två , tvåhundra , under , upp , ur ,
+ursäkt , ut , utan , utanför , ute , va , vad , var , vara , varför ,
+varifrån , varit , varje , varken , vars , varsågod , vart , vem , vems
+, verkligen , vi , vid , vidare , viktig , viktigare , viktigast ,
+viktigt , vilka , vilkas , vilken , vilket , vill , väl , vänster ,
+vänstra , värre , vår , våra , vårt , än , ännu , är , även , åt ,
+åtminstone , åtta , åttio , åttionde , åttonde , över , övermorgon ,
+överst , övre</td>
+<td align="left">418</td>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/fst_prepare.html">fst_prepare</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">swedish_survey</span>,</span>
 <span>                  question <span class="op">=</span> <span class="st">'swedish_question'</span>,</span>
 <span>                  id <span class="op">=</span> <span class="st">'swedish_id'</span>,</span>
@@ -555,13 +446,13 @@ yksittäin , yleensä , ylemmäs , yli , ylös , ympäri , älköön , älä</td
 ‘estonian-edt’ is available for <code>udpipe</code>, find the ISO code
 is ‘et’ and discover that there is an estonian wor process the responses
 to the open-ended question as follows:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="fu"><a href="../../reference/fst_find_stopwords.html">fst_find_stopwords</a></span><span class="op">(</span><span class="st">'et'</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <colgroup>
-<col width="0%">
-<col width="99%">
-<col width="0%">
+<col width="4%">
+<col width="92%">
+<col width="2%">
 </colgroup>
 <thead><tr class="header">
 <th align="left">Name</th>
@@ -570,122 +461,14 @@ to the open-ended question as follows:</p>
 </tr></thead>
 <tbody><tr class="odd">
 <td align="left">stopwords-iso</td>
-<td align="left">aiemmin , aika , aikaa , aikaan , aikaisemmin ,
-aikaisin , aikajen , aikana , aikoina , aikoo , aikovat , aina ,
-ainakaan , ainakin , ainoa , ainoat , aiomme , aion , aiotte , aist ,
-aivan , ajan , alas , alemmas , alkuisin , alkuun , alla , alle ,
-aloitamme , aloitan , aloitat , aloitatte , aloitattivat , aloitettava ,
-aloitettevaksi, aloitettu , aloitimme , aloitin , aloitit , aloititte ,
-aloittaa , aloittamatta , aloitti , aloittivat , alta , aluksi , alussa
-, alusta , annettavaksi , annetteva , annettu , ansiosta , antaa ,
-antamatta , antoi , aoua , apu , asia , asiaa , asian , asiasta , asiat
-, asioiden , asioihin , asioita , asti , avuksi , avulla , avun , avutta
-, edelle , edelleen , edellä , edeltä , edemmäs , edes , edessä , edestä
-, ehkä , ei , eikä , eilen , eivät , eli , ellei , elleivät , ellemme ,
-ellen , ellet , ellette , emme , en , enemmän , eniten , ennen , ensi ,
-ensimmäinen , ensimmäiseksi , ensimmäisen , ensimmäisenä , ensimmäiset ,
-ensimmäisiksi , ensimmäisinä , ensimmäisiä , ensimmäistä , ensin ,
-entinen , entisen , entisiä , entisten , entistä , enää , eri , erittäin
-, erityisesti , eräiden , eräs , eräät , esi , esiin , esillä ,
-esimerkiksi , et , eteen , etenkin , etessa , ette , ettei , että ,
-haikki , halua , haluaa , haluamatta , haluamme , haluan , haluat ,
-haluatte , haluavat , halunnut , halusi , halusimme , halusin , halusit
-, halusitte , halusivat , halutessa , haluton , he , hei , heidän ,
-heidät , heihin , heille , heillä , heiltä , heissä , heistä , heitä ,
-helposti , heti , hetkellä , hieman , hitaasti , hoikein , huolimatta ,
-huomenna , hyvien , hyviin , hyviksi , hyville , hyviltä , hyvin ,
-hyvinä , hyvissä , hyvistä , hyviä , hyvä , hyvät , hyvää , hän , häneen
-, hänelle , hänellä , häneltä , hänen , hänessä , hänestä , hänet ,
-häntä , ihan , ilman , ilmeisesti , itse , itsensä , itseään , ja , jo ,
-johon , joiden , joihin , joiksi , joilla , joille , joilta , joina ,
-joissa , joista , joita , joka , jokainen , jokin , joko , joksi , joku
-, jolla , jolle , jolloin , jolta , jompikumpi , jona , jonka , jonkin ,
-jonne , joo , jopa , jos , joskus , jossa , josta , jota , jotain ,
-joten , jotenkin , jotenkuten , jotka , jotta , jouduimme , jouduin ,
-jouduit , jouduitte , joudumme , joudun , joudutte , joukkoon , joukossa
-, joukosta , joutua , joutui , joutuivat , joutumaan , joutuu , joutuvat
-, juuri , jälkeen , jälleen , jää , kahdeksan , kahdeksannen , kahdella
-, kahdelle , kahdelta , kahden , kahdessa , kahdesta , kahta , kahteen ,
-kai , kaiken , kaikille , kaikilta , kaikkea , kaikki , kaikkia ,
-kaikkiaan , kaikkialla , kaikkialle , kaikkialta , kaikkien , kaikkin ,
-kaksi , kannalta , kannattaa , kanssa , kanssaan , kanssamme , kanssani
-, kanssanne , kanssasi , kauan , kauemmas , kaukana , kautta , kehen ,
-keiden , keihin , keiksi , keille , keillä , keiltä , keinä , keissä ,
-keistä , keitten , keittä , keitä , keneen , keneksi , kenelle , kenellä
-, keneltä , kenen , kenenä , kenessä , kenestä , kenet , kenettä ,
-kennessästä , kenties , kerran , kerta , kertaa , keskellä , kesken ,
-keskimäärin , ketkä , ketä , kiitos , kohti , koko , kokonaan , kolmas ,
-kolme , kolmen , kolmesti , koska , koskaan , kovin , kuin , kuinka ,
-kuinkan , kuitenkaan , kuitenkin , kuka , kukaan , kukin , kukka ,
-kumpainen , kumpainenkaan , kumpi , kumpikaan , kumpikin , kun , kuten ,
-kuuden , kuusi , kuutta , kylliksi , kyllä , kymmenen , kyse , liian ,
-liki , lisäksi , lisää , lla , luo , luona , lähekkäin , lähelle ,
-lähellä , läheltä , lähemmäs , lähes , lähinnä , lähtien , läpi ,
-mahdollisimman, mahdollista , me , meidän , meidät , meihin , meille ,
-meillä , meiltä , meissä , meistä , meitä , melkein , melko , menee ,
-meneet , menemme , menen , menet , menette , menevät , meni , menimme ,
-menin , menit , menivät , mennessä , mennyt , menossa , mihin , mikin ,
-miksi , mikä , mikäli , mikään , mille , milloin , milloinkan , millä ,
-miltä , minkä , minne , minua , minulla , minulle , minulta , minun ,
-minussa , minusta , minut , minuun , minä , missä , mistä , miten ,
-mitkä , mitä , mitään , moi , molemmat , mones , monesti , monet , moni
-, moniaalla , moniaalle , moniaalta , monta , muassa , muiden , muita ,
-muka , mukaan , mukaansa , mukana , mutta , muu , muualla , muualle ,
-muualta , muuanne , muulloin , muun , muut , muuta , muutama , muutaman
-, muuten , myöhemmin , myös , myöskin , myöskään , myötä , ne , neljä ,
-neljän , neljää , niiden , niihin , niiksi , niille , niillä , niiltä ,
-niin , niinä , niissä , niistä , niitä , noiden , noihin , noiksi ,
-noilla , noille , noilta , noin , noina , noissa , noista , noita ,
-nopeammin , nopeasti , nopeiten , nro , nuo , nyt , näiden , näihin ,
-näiksi , näille , näillä , näiltä , näin , näinä , näissä , näissähin ,
-näissälle , näissältä , näissästä , näistä , näitä , nämä , ohi , oikea
-, oikealla , oikein , ole , olemme , olen , olet , olette , oleva ,
-olevan , olevat , oli , olimme , olin , olisi , olisimme , olisin ,
-olisit , olisitte , olisivat , olit , olitte , olivat , olla , olleet ,
-olli , ollut , oma , omaa , omaan , omaksi , omalle , omalta , oman ,
-omassa , omat , omia , omien , omiin , omiksi , omille , omilta , omissa
-, omista , on , onkin , onko , ovat , paikoittain , paitsi , pakosti ,
-paljon , paremmin , parempi , parhaillaan , parhaiten , perusteella ,
-peräti , pian , pieneen , pieneksi , pienelle , pienellä , pieneltä ,
-pienempi , pienestä , pieni , pienin , poikki , puolesta , puolestaan ,
-päälle , runsaasti , saakka , sadam , sama , samaa , samaan , samalla ,
-samallalta , samallassa , samallasta , saman , samat , samoin , sata ,
-sataa , satojen , se , seitsemän , sekä , sen , seuraavat , siellä ,
-sieltä , siihen , siinä , siis , siitä , sijaan , siksi , sille ,
-silloin , sillä , silti , siltä , sinne , sinua , sinulla , sinulle ,
-sinulta , sinun , sinussa , sinusta , sinut , sinuun , sinä , sisäkkäin
-, sisällä , siten , sitten , sitä , ssa , sta , suoraan , suuntaan ,
-suuren , suuret , suuri , suuria , suurin , suurten , taa , taas ,
-taemmas , tahansa , tai , takaa , takaisin , takana , takia , tallä ,
-tapauksessa , tarpeeksi , tavalla , tavoitteena , te , teidän , teidät ,
-teihin , teille , teillä , teiltä , teissä , teistä , teitä , tietysti ,
-todella , toinen , toisaalla , toisaalle , toisaalta , toiseen ,
-toiseksi , toisella , toiselle , toiselta , toisemme , toisen , toisensa
-, toisessa , toisesta , toista , toistaiseksi , toki , tosin , tuhannen
-, tuhat , tule , tulee , tulemme , tulen , tulet , tulette , tulevat ,
-tulimme , tulin , tulisi , tulisimme , tulisin , tulisit , tulisitte ,
-tulisivat , tulit , tulitte , tulivat , tulla , tulleet , tullut ,
-tuntuu , tuo , tuohon , tuoksi , tuolla , tuolle , tuolloin , tuolta ,
-tuon , tuona , tuonne , tuossa , tuosta , tuota , tuotä , tuskin , tykö
-, tähän , täksi , tälle , tällä , tällöin , tältä , tämä , tämän , tänne
-, tänä , tänään , tässä , tästä , täten , tätä , täysin , täytyvät ,
-täytyy , täällä , täältä , ulkopuolella , usea , useasti , useimmiten ,
-usein , useita , uudeksi , uudelleen , uuden , uudet , uusi , uusia ,
-uusien , uusinta , uuteen , uutta , vaan , vahemmän , vai , vaiheessa ,
-vaikea , vaikean , vaikeat , vaikeilla , vaikeille , vaikeilta ,
-vaikeissa , vaikeista , vaikka , vain , varmasti , varsin , varsinkin ,
-varten , vasen , vasenmalla , vasta , vastaan , vastakkain , vastan ,
-verran , vielä , vierekkäin , vieressä , vieri , viiden , viime ,
-viimeinen , viimeisen , viimeksi , viisi , voi , voidaan , voimme , voin
-, voisi , voit , voitte , voivat , vuoden , vuoksi , vuosi , vuosien ,
-vuosina , vuotta , vähemmän , vähintään , vähiten , vähän , välillä ,
-yhdeksän , yhden , yhdessä , yhteen , yhteensä , yhteydessä , yhteyteen
-, yhtä , yhtäälle , yhtäällä , yhtäältä , yhtään , yhä , yksi , yksin ,
-yksittäin , yleensä , ylemmäs , yli , ylös , ympäri , älköön , älä</td>
-<td align="left">847</td>
+<td align="left">aga , ei , et , ja , jah , kas , kui , kõik , ma , me ,
+mida , midagi, mind , minu , mis , mu , mul , mulle , nad , nii , oled ,
+olen , oli , oma , on , pole , sa , seda , see , selle , siin , siis ,
+ta , te , ära</td>
+<td align="left">35</td>
 </tr></tbody>
 </table>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/fst_prepare.html">fst_prepare</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">surveydata</span>,</span>
 <span>                  question <span class="op">=</span> <span class="st">'oe_question'</span>,</span>
 <span>                  id <span class="op">=</span> <span class="st">'ID'</span>,</span>
@@ -711,7 +494,7 @@ survey responses.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer>
