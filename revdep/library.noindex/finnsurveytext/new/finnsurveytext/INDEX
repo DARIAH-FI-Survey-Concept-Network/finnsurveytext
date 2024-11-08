@@ -1,0 +1,72 @@
+child                   Child Barometer 2016 response data
+dev_coop                Young People's Views on Development Cooperation
+                        2012 response data
+english_sample_survey   English Sample Survey Data: Patient Joe
+fst_child               Child Barometer 2016 Bullying response data in
+                        CoNLL-U format with NLTK stopwords removed and
+                        background variables
+fst_child_2             Child Barometer 2016 Bullying response data in
+                        CoNLL-U format with NLTK stopwords removed
+fst_cn_compare_plot     Concept Network- Plot comparison Concept
+                        Network
+fst_cn_edges            Concept Network - Get TextRank edges
+fst_cn_get_unique       Concept Network- Get unique nodes from a list
+                        of top n-grams tables
+fst_cn_get_unique_separate
+                        Concept Network- Get unique nodes from separate
+                        top n-grams tables
+fst_cn_nodes            Concept Network - Get TextRank nodes
+fst_cn_plot             Plot Concept Network
+fst_cn_search           Concept Network - Search TextRank for concepts
+fst_comparison_cloud    Make comparison cloud
+fst_concept_network     Concept Network - Make Concept Network plot
+fst_concept_network_compare
+                        Concept Network- Compare and plot Concept
+                        Network
+fst_dev_coop            Young People's Views on Development Cooperation
+                        2012 q11_3 response data in CoNLL-U format with
+                        NTLK stopwords removed and background
+                        variables.
+fst_dev_coop_2          Young People's Views on Development Cooperation
+                        2012 q11_3 response data in CoNLL-U format with
+                        NTLK stopwords removed
+fst_find_stopwords      Get available Finnish stopwords lists
+fst_format              Annotate open-ended survey responses in Finnish
+                        into CoNLL-U format
+fst_format_svydesign    Annotate open-ended survey responses in Finnish
+                        within a 'svydesign' object into CoNLL-U format
+fst_freq                Find and Plot Top Words
+fst_freq_compare        Compare and plot top words
+fst_freq_plot           Make Top Words plot
+fst_freq_table          Make Top Words Table
+fst_get_unique_ngrams   Get unique n-grams from a list of top n-grams
+                        tables
+fst_get_unique_ngrams_separate
+                        Get unique n-grams from separate top n-grams
+                        tables
+fst_join_unique         Merge N-grams table with unique words
+fst_length_compare      Compare response lengths
+fst_length_summary      Make Length Summary Table
+fst_ngrams              Find and Plot Top N-grams
+fst_ngrams_compare      Compare and plot top n-grams
+fst_ngrams_compare_plot
+                        Plot comparison n-grams
+fst_ngrams_plot         Make N-grams plot
+fst_ngrams_table        Make Top N-grams Table
+fst_ngrams_table2       Make Top N-grams Table 2
+fst_pos                 Make POS Summary Table
+fst_pos_compare         Compare parts-of-speech
+fst_prepare             Read In and format Finnish survey text
+                        responses
+fst_prepare_svydesign   Read In and format Finnish survey text
+                        responses from 'svydesign' object
+fst_print_available_models
+                        Find treebanks available for use
+fst_rm_stop_punct       Remove Finnish stopwords and punctuation from
+                        CoNLL-U dataframe
+fst_summarise           Make Summary Table
+fst_summarise_compare   Make comparison summary
+fst_summarise_short     Make Simple Summary Table
+fst_use_svydesign       Add 'svydesign' weights to CoNLL-U data
+fst_wordcloud           Make Wordcloud
+runDemo                 Run Shiny App Demo
