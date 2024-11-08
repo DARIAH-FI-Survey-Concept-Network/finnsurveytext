@@ -1,3 +1,11 @@
+## V2.1.0
+
+## devtools::check() results
+── R CMD check results ──────────────────────────────────────────────────────────── finnsurveytext 2.1.0 ────
+Duration: 9.2s
+
+0 errors ✔ | 0 warnings ✔ | 0 notes ✔
+
 ## V2.0.0
 
 ## devtools::check() results
