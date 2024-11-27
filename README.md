@@ -47,9 +47,9 @@ A **BETA** demo of the package can also be launched by running the function finn
 ## Sample Data ##
 Our repository also contains sample data which can be used to demonstrate and learn the functionality of `finnsurveytext`. 
  
-The sample data comes from 2 surveys and can be found in the 'data' folder. The raw data (just from the relevant open-ended questions) is in data/bullying_data.rda and data/dev_data.rda. The data folder also contains examples of this data after the preparation functions have been applied and split by sample cohort groups. 
+The sample data comes from 3 surveys and can be found in the 'data' folder. The raw data (just from the relevant open-ended questions) is in data/bullying_data.rda, data/dev_data.rda, and data/english_sample_survey.rda. The data folder also contains examples of this data after the preparation functions have been applied and split by sample cohort groups. 
  
-The raw data can also be downloaded from the Finnish Social Science Data Archive.  
+The raw Finnish data can also be downloaded from the Finnish Social Science Data Archive and the English survey is available from GESIS – Leibniz Institute for the Social Sciences.  
  
 1. Child Barometer 2016 Data
     * Source: FSD3134 Lapsibarometri 2016
@@ -62,6 +62,12 @@ The raw data can also be downloaded from the Finnish Social Science Data Archive
     *	Open-ended questions: q11_1 ‘Jatka lausetta: Kehitysmaa on maa, jossa… (Avokysymys)’, q11_2 ‘Jatka lausetta: Kehitysyhteistyö on toimintaa, jossa… (Avokysymys)’, q11_3’ Jatka lausetta: Maailman kolme suurinta	ongelmaa ovat… (Avokysymys)’
     *	Licence: (A) openly available for all users without registration (CC BY 4.0).
     *	Link to Data: https://urn.fi/urn:nbn:fi:fsd:T-FSD2821
+  
+3. Patient Joe (open-ended question)
+    * Source: GESIS – Leibniz Institute for the Social Sciences
+    * Open-ended question: 'Joe’s doctor told him that he would need to return in two weeks to find out whether or not his condition had improved. But when Joe asked the receptionist for an appointment, he was told that it would be over a month before the next available appointment. What should Joe do?'
+    * Licence: CC BY 4.0: Attribution 
+    * Link to Data: https://doi.org/10.7802/2474
  
  
 ## Installation and License ##
@@ -78,6 +84,8 @@ He, Z., & Schonlau, M. (2021). Coding Text Answers to Open-ended Questions: Huma
  
 The Office of Ombudsman for Children: Child Barometer 2016 [dataset]. Version 1.0 (2016-12-09). Finnish
 Social Science Data Archive [distributor]. https://urn.fi/urn:nbn:fi:fsd:T-FSD3134
+
+Schonlau, Matthias (2022). Patient Joe (open-ended question). GESIS, Cologne. Data File Version 1.0.0, https://doi.org/10.7802/2474.
  
  
  
