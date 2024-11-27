@@ -8,8 +8,8 @@
 <title>Analyse Open-Ended Survey Responses in Finnish • finnsurveytext</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Analyse Open-Ended Survey Responses in Finnish">
 <meta name="description" content="Annotates Finnish textual survey responses into CoNLL-U format using Finnish treebanks from &lt;https://universaldependencies.org/format.html&gt; using UDPipe as described in Straka and Straková (2017) &lt;doi:10.18653/v1/K17-3009&gt;. Formatted data is then analysed using single or comparison n-gram plots, wordclouds, summary tables and Concept Network plots. The Concept Network plots use the TextRank algorithm as outlined in Mihalcea, Rada &amp; Tarau, Paul (2004) &lt;https://aclanthology.org/W04-3252/&gt;.">
 <meta property="og:description" content="Annotates Finnish textual survey responses into CoNLL-U format using Finnish treebanks from &lt;https://universaldependencies.org/format.html&gt; using UDPipe as described in Straka and Straková (2017) &lt;doi:10.18653/v1/K17-3009&gt;. Formatted data is then analysed using single or comparison n-gram plots, wordclouds, summary tables and Concept Network plots. The Concept Network plots use the TextRank algorithm as outlined in Mihalcea, Rada &amp; Tarau, Paul (2004) &lt;https://aclanthology.org/W04-3252/&gt;.">
@@ -126,8 +126,8 @@
 <h2 id="sample-data">Sample Data<a class="anchor" aria-label="anchor" href="#sample-data"></a>
 </h2>
 <p>Our repository also contains sample data which can be used to demonstrate and learn the functionality of <code>finnsurveytext</code>.</p>
-<p>The sample data comes from 2 surveys and can be found in the ‘data’ folder. The raw data (just from the relevant open-ended questions) is in data/bullying_data.rda and data/dev_data.rda. The data folder also contains examples of this data after the preparation functions have been applied and split by sample cohort groups.</p>
-<p>The raw data can also be downloaded from the Finnish Social Science Data Archive.</p>
+<p>The sample data comes from 3 surveys and can be found in the ‘data’ folder. The raw data (just from the relevant open-ended questions) is in data/bullying_data.rda, data/dev_data.rda, and data/english_sample_survey.rda. The data folder also contains examples of this data after the preparation functions have been applied and split by sample cohort groups.</p>
+<p>The raw Finnish data can also be downloaded from the Finnish Social Science Data Archive and the English survey is available from GESIS – Leibniz Institute for the Social Sciences.</p>
 <ol style="list-style-type: decimal">
 <li>Child Barometer 2016 Data
 <ul>
@@ -147,6 +147,15 @@
 </li>
 </ul>
 </li>
+<li>Patient Joe (open-ended question)
+<ul>
+<li>Source: GESIS – Leibniz Institute for the Social Sciences</li>
+<li>Open-ended question: ‘Joe’s doctor told him that he would need to return in two weeks to find out whether or not his condition had improved. But when Joe asked the receptionist for an appointment, he was told that it would be over a month before the next available appointment. What should Joe do?’</li>
+<li>Licence: CC BY 4.0: Attribution</li>
+<li>Link to Data: <a href="https://doi.org/10.7802/2474" class="external-link uri">https://doi.org/10.7802/2474</a>
+</li>
+</ul>
+</li>
 </ol>
 </div>
 <div class="section level2">
@@ -161,6 +170,7 @@
 <p>Finnish Children and Youth Foundation: Young People’s Views on Development Cooperation 2012 [dataset]. Version 2.0 (2019-01-22). Finnish Social Science Data Archive [distributor]. <a href="https://urn.fi/urn:nbn:fi:fsd:T-FSD2821" class="external-link uri">https://urn.fi/urn:nbn:fi:fsd:T-FSD2821</a></p>
 <p>He, Z., &amp; Schonlau, M. (2021). Coding Text Answers to Open-ended Questions: Human Coders and Statistical Learning Algorithms Make Similar Mistakes. Methods, Data, Analyses, 15(1), Article 1. <a href="https://doi.org/10.12758/mda.2020.10" class="external-link uri">https://doi.org/10.12758/mda.2020.10</a>.</p>
 <p>The Office of Ombudsman for Children: Child Barometer 2016 [dataset]. Version 1.0 (2016-12-09). Finnish Social Science Data Archive [distributor]. <a href="https://urn.fi/urn:nbn:fi:fsd:T-FSD3134" class="external-link uri">https://urn.fi/urn:nbn:fi:fsd:T-FSD3134</a></p>
+<p>Schonlau, Matthias (2022). Patient Joe (open-ended question). GESIS, Cologne. Data File Version 1.0.0, <a href="https://doi.org/10.7802/2474" class="external-link uri">https://doi.org/10.7802/2474</a>.</p>
 </div>
 
   </main><aside class="col-md-3"><div class="links">
