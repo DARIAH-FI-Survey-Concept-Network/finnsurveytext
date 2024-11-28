@@ -1,7 +1,7 @@
-#' Annotate open-ended survey responses in Finnish into CoNLL-U format
+#' Annotate open-ended survey responses in into CoNLL-U format
 #'
-#' Creates a dataframe in CoNLL-U format from a dataframe containing Finnish
-#' text from using the [udpipe] package and a Finnish language model plus any
+#' Creates a dataframe in CoNLL-U format from a dataframe containing
+#' text from using the [udpipe] package and a language model plus any
 #' additional columns that are included such as `weights` or columns added
 #' through `add_cols`.
 #'
@@ -13,7 +13,8 @@
 #'  responses.
 #' @param model A language model available for [udpipe]. `"ftb"`
 #'  (default) or `"tdt"` are recognised as shorthand for "finnish-ftb" and
-#'  "finnish-tdt". The full list is available in the [udpipe] documentation.
+#'  "finnish-tdt". The full list is available in the [udpipe] documentation or
+#'  via `fst_print_available_models()`.
 #' @param weights Optional, the column of the dataframe which contains the
 #'  respective weights for each response.
 #' @param add_cols Optional, a column (or columns) from the dataframe which
@@ -151,7 +152,7 @@ fst_print_available_models <- function(search = NULL) {
   }
 }
 
-#' Get available Finnish stopwords lists
+#' Get available stopwords lists
 #'
 #' Returns a tibble containing all available stopword lists for the language,
 #' their contents, and the size of the lists.
@@ -178,12 +179,12 @@ fst_find_stopwords <- function(language = 'fi') {
   dplyr::tibble(Name, Stopwords, Length)
 }
 
-#' Remove Finnish stopwords and punctuation from CoNLL-U dataframe
+#' Remove stopwords and punctuation from CoNLL-U dataframe
 #'
-#' Removes stopwords and punctuation from a dataframe containing Finnish survey
+#' Removes stopwords and punctuation from a dataframe containing survey
 #' text data which is already in CoNLL-U format.
 #'
-#' @param data A dataframe of Finnish text in CoNLL-U format.
+#' @param data A dataframe of text in CoNLL-U format.
 #' @param stopword_list A valid stopword list, default is `"nltk"`,
 #'  `"manual"` can be used to indicate that a manual list will be provided, or
 #'  `"none"` if you don't want to remove stopwords, known as 'source' in
@@ -239,15 +240,15 @@ fst_rm_stop_punct <- function(data,
 }
 
 
-#' Read In and format Finnish survey text responses
+#' Read In and format survey text responses
 #'
-#' Creates a dataframe in CoNLL-U format from a dataframe containing Finnish
-#' text from using the [udpipe] package and a Finnish language model plus any
+#' Creates a dataframe in CoNLL-U format from a dataframe containing
+#' text from using the [udpipe] package and a language model plus any
 #' additional columns that are included such as `weights` or columns added
 #' through `add_cols`. Stopwords and punctuation are optionally removed if the
 #' the `stopword_list` argument is not "none".
 #'
-#' `fst_prepare_conllu()` produces a dataframe containing Finnish survey text
+#' `fst_prepare_conllu()` produces a dataframe containing survey text
 #'  responses in CoNLL-U format with stopwords optionally removed.
 #' @param data A dataframe of survey responses which contains an open-ended
 #'  question.
@@ -257,7 +258,8 @@ fst_rm_stop_punct <- function(data,
 #'  responses.
 #' @param model A language model available for [udpipe]. `"ftb"`
 #'  (default) or `"tdt"` are recognised as shorthand for "finnish-ftb" and
-#'  "finnish-tdt". The full list is available in the [udpipe] documentation.
+#'  "finnish-tdt". The full list is available in the [udpipe] documentation or
+#'  via `fst_print_available_models()`.
 #' @param stopword_list A valid stopword list, default is `"nltk"`,
 #'  `"manual"` can be used to indicate that a manual list will be provided, or
 #'  `"none"` if you don't want to remove stopwords known as 'source' in
@@ -272,7 +274,7 @@ fst_rm_stop_punct <- function(data,
 #'  provided, `stopword_list = "manual"` can also or instead be used.
 #' @param manual_list A manual list of stopwords.
 #'
-#' @return A dataframe of Finnish text in CoNLL-U format.
+#' @return A dataframe of text in CoNLL-U format.
 #' @export
 #'
 #' @examples

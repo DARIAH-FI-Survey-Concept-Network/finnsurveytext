@@ -230,7 +230,6 @@ fst_comparison_cloud(
 
 Based on comparison cloud, it looks like: 
 
-* 'sota' associated with those that didn't provide a gender in their survey
 * 'epätasa-arvo' 'köyhyys', and 'nälänhätä associated with females
 * 'ilmastonmuutos' associated with males 
 

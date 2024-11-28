@@ -46,8 +46,9 @@ The relevant function here is `fst_prepare_svydesign()`.
 * `svydesign`: the name of the svydesign object
 * `question`: the column of 'data' that contains the open-ended question
 * `id`: the ID column in 'data'
-`model`: a Finnish language model available for udpipe, "ftb" or "tdt". (If you do not provide a value, this will default to "ftb".)
+* `model`: a language model available for udpipe, "ftb" or "tdt". (If you do not provide a value, this will default to "ftb".)
 * `stopword_list`: a list of stopwords to remove from your 'data'. (To find relevant stopwords lists, you can run `fst_find_stopwords()`. If you do not provide a value, this will default to "nltk". "manual" can be used to indicate that a manual list will be provided.)
+* `language` This should be the two-letter ISO code for the language for the stopword list. The default `language` is "fi". 
 * `use_weights`: optional, a boolean as to whether to include weights from the svydesign. (If you do not provide a value, this will default to TRUE.)
 * `add_columns`: any columns you want to add to the formatted data from the svydesign object, such as for use in comparison functions. (If you do not provide any values, this will default to NULL.)
 * `manual`: an optional boolean to indicate that a manual list will be provided. (`stopword_list = "manual"` can also or instead be used. If you do not provide any values, this will default to FALSE.)

@@ -2,6 +2,8 @@ This repository contains an R package called `finnsurveytext`.
 For further details on how to use the package, please see the [package website](https://dariah-fi-survey-concept-network.github.io/finnsurveytext/index.html) which contains tutorials covering all the functions available in `finnsurveytext`. 
 
 A video demonstrating use of the first version of the package is available [here](https://www.helsinki.fi/fi/unitube/video/307d2df5-1a2b-4440-9562-d7d915addc35)
+
+A preprint about the package development is also available [here](https://zenodo.org/records/14191177).
  
 ## Background ##
 DARIAH-FI is one of two components of FIN-CLARIAH which is a research infrastructure project for Social Sciences and Humanities (SSH) in Finland. DARIAH-FI involves all Finnish universities with research in SSH. 
@@ -82,11 +84,11 @@ Version 2.0 (2019-01-22). Finnish Social Science Data Archive [distributor]. htt
  
 He, Z., & Schonlau, M. (2021). Coding Text Answers to Open-ended Questions: Human Coders and Statistical Learning Algorithms Make Similar Mistakes. Methods, Data, Analyses, 15(1), Article 1. https://doi.org/10.12758/mda.2020.10.
  
+Schonlau, Matthias (2022). Patient Joe (open-ended question). GESIS, Cologne. Data File Version 1.0.0, https://doi.org/10.7802/2474.
+
 The Office of Ombudsman for Children: Child Barometer 2016 [dataset]. Version 1.0 (2016-12-09). Finnish
 Social Science Data Archive [distributor]. https://urn.fi/urn:nbn:fi:fsd:T-FSD3134
 
-Schonlau, Matthias (2022). Patient Joe (open-ended question). GESIS, Cologne. Data File Version 1.0.0, https://doi.org/10.7802/2474.
- 
  
  
  

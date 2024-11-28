@@ -1,8 +1,8 @@
-#' Annotate open-ended survey responses in Finnish within a `svydesign` object
+#' Annotate open-ended survey responses within a `svydesign` object
 #' into CoNLL-U format
 #'
 #' Creates a dataframe in CoNLL-U format from a `svydesign` object including
-#' Finnish text using the [udpipe] package and a Finnish language model plus
+#' text using the [udpipe] package and a language model plus
 #' weights if these are included in the `svydesign` object and any columns added
 #' through `add_cols`.
 #'
@@ -11,8 +11,10 @@
 #'  question.
 #' @param id The column in the dataframe which contains the ids for the
 #'  responses.
-#' @param model A language model available for [udpipe], such as `"ftb"`
-#'  (default) or `"tdt"` which are available for Finnish.
+#' @param model A language model available for [udpipe]. `"ftb"`
+#'  (default) or `"tdt"` are recognised as shorthand for "finnish-ftb" and
+#'  "finnish-tdt". The full list is available in the [udpipe] documentation or
+#'  via `fst_print_available_models()`.
 #' @param use_weights Optional, whether to use weights within the `svydesign`
 #' @param add_cols Optional, a column (or columns) from the dataframe which
 #'  contain other information you'd like to retain (for instance, dimension
@@ -113,24 +115,26 @@ fst_format_svydesign <- function(svydesign,
   annotated_data
 }
 
-#' Read In and format Finnish survey text responses from `svydesign` object
+#' Read In and format survey text responses from `svydesign` object
 #'
 #' Creates a dataframe in CoNLL-U format from a `svydesign` object including
-#' Finnish text using the [udpipe] package and a Finnish language model plus
+#' text using the [udpipe] package and a language model plus
 #' weights if these are included in the `svydesign` object and any columns added
 #' through `add_cols`.Stopwords and punctuation are optionally removed if the
 #' the `stopword_list` argument is not "none".
 #'
-#' `fst_prepare_svydesign()` produces a dataframe containing Finnish survey text
+#' `fst_prepare_svydesign()` produces a dataframe containing survey text
 #'  responses in CoNLL-U format with stopwords optionally removed.
 #' @param svydesign A `svydesign` object which contains an open-ended question.
 #' @param question The column in the dataframe which contains the open-ended
 #'  question.
 #' @param id The column in the dataframe which contains the ids for the
 #'  responses.
-#' @param model A language model available for [udpipe], such as `"ftb"`
-#'  (default) or `"tdt"` which are available for Finnish.
-#' @param stopword_list A valid Finnish stopword list, default is `"nltk"`, or
+#' @param model A language model available for [udpipe]. `"ftb"`
+#'  (default) or `"tdt"` are recognised as shorthand for "finnish-ftb" and
+#'  "finnish-tdt". The full list is available in the [udpipe] documentation or
+#'  via `fst_print_available_models()`.
+#' @param stopword_list A valid stopword list, default is `"nltk"`, or
 #'  `"none"`.
 #' @param language two-letter ISO code for the language for the stopword list
 #' @param use_weights Optional, whether to use weights within the `svydesign`
@@ -141,7 +145,7 @@ fst_format_svydesign <- function(svydesign,
 #'  provided, `stopword_list = "manual"` can also or instead be used.
 #' @param manual_list A manual list of stopwords.
 #'
-#' @return A dataframe of Finnish text in CoNLL-U format.
+#' @return A dataframe of text in CoNLL-U format.
 #' @export
 #'
 #' @examples

@@ -19,9 +19,11 @@ library(finnsurveytext)
 ```
 
 This repository contains an R package called `finnsurveytext` 
-For further details on how to use the package, please see the [package website](https://dariah-fi-survey-concept-network.github.io/finnsurveytext/index.html) which contains tutorials covering all the functions available in `finnsurveytext` 
+For further details on how to use the package, please see the [package website](https://dariah-fi-survey-concept-network.github.io/finnsurveytext/index.html) which contains tutorials covering all the functions available in `finnsurveytext`. 
 
-A video demonstrating use of the package version 1 is available [here](https://www.helsinki.fi/fi/unitube/video/307d2df5-1a2b-4440-9562-d7d915addc35)
+A video demonstrating use of the package version 1 is available [here](https://www.helsinki.fi/fi/unitube/video/307d2df5-1a2b-4440-9562-d7d915addc35).
+
+A preprint about the package development is also available [here](https://zenodo.org/records/14191177).
  
 ## Background ##
 DARIAH-FI is one of two components of FIN-CLARIAH which is a research infrastructure project for Social Sciences and Humanities (SSH) in Finland. DARIAH-FI involves all Finnish universities with research in SSH. 
@@ -65,7 +67,7 @@ A **BETA** demo of the package can also be launched by running the function finn
 ## Sample Data ##
 Our repository also contains sample data which can be used to demonstrate and learn the functionality of `finnsurveytext` 
  
-The sample data comes from 2 surveys and can be found in the 'data' folder. The raw data (just from the relevant open-ended questions) is in data/bullying_data.rda and data/dev_data.rda. The data folder also contains examples of this data after the preparation functions have been applied and split by sample cohort groups. 
+The sample data comes from 3 surveys and can be found in the 'data' folder. The raw data (just from the relevant open-ended questions) is in data/bullying_data.rda, data/dev_data.rda, and data/english_sample_survey.rda. The data folder also contains examples of this data after the preparation functions have been applied and split by sample cohort groups. 
  
 The raw data can also be downloaded from the Finnish Social Science Data Archive.  
  
@@ -80,6 +82,12 @@ The raw data can also be downloaded from the Finnish Social Science Data Archive
     *	Open-ended questions: q11_1 ‘Jatka lausetta: Kehitysmaa on maa, jossa… (Avokysymys)’, q11_2 ‘Jatka lausetta: Kehitysyhteistyö on toimintaa, jossa… (Avokysymys)’, q11_3’ Jatka lausetta: Maailman kolme suurinta	ongelmaa ovat… (Avokysymys)’
     *	Licence: (A) openly available for all users without registration (CC BY 4.0).
     *	Link to Data: https://urn.fi/urn:nbn:fi:fsd:T-FSD2821
+
+3. Patient Joe (open-ended question)
+    * Source: GESIS – Leibniz Institute for the Social Sciences
+    * Open-ended question: 'Joe’s doctor told him that he would need to return in two weeks to find out whether or not his condition had improved. But when Joe asked the receptionist for an appointment, he was told that it would be over a month before the next available appointment. What should Joe do?'
+    * Licence: CC BY 4.0: Attribution 
+    * Link to Data: https://doi.org/10.7802/2474
  
  
 ## Installation and License ##
@@ -93,6 +101,8 @@ Finnish Children and Youth Foundation: Young People’s Views on Development Coo
 Version 2.0 (2019-01-22). Finnish Social Science Data Archive [distributor]. https://urn.fi/urn:nbn:fi:fsd:T-FSD2821
  
 He, Z., & Schonlau, M. (2021). Coding Text Answers to Open-ended Questions: Human Coders and Statistical Learning Algorithms Make Similar Mistakes. Methods, Data, Analyses, 15(1), Article 1. https://doi.org/10.12758/mda.2020.10.
+
+Schonlau, Matthias (2022). Patient Joe (open-ended question). GESIS, Cologne. Data File Version 1.0.0, https://doi.org/10.7802/2474.
  
 The Office of Ombudsman for Children: Child Barometer 2016 [dataset]. Version 1.0 (2016-12-09). Finnish
 Social Science Data Archive [distributor]. https://urn.fi/urn:nbn:fi:fsd:T-FSD3134

@@ -16,9 +16,9 @@ knitr::opts_chunk$set(
 ```
 
 ## Introduction
-This tutorial guides you through creation of a concept network plot. A concept network is a way to visualise words which often occur together.
+One way to investigate co-occurring ideas within texts is through a network of keywords which visualises relative word importance and co-occurrence between words. These networks also attempt to identify when multiple co-occurring words represent the same concept, and when some pairs of co-occurring words act as links between different concepts. To produce such a network requires keywords and co-occurring terms to be identified, and their relative importance quantified. These networks allow investigation of common concepts and thoughts within the text. Within such a network, a concept could be identified as a single word, multiple words, or the entire plot depending on search terms.
 
-Our concept network function uses the TextRank algorithm which is a graph-based ranking model for text processing. Vertices represent words and co-occurrence between words is shown through edges. Word importance is determined recursively (through the unsupervised learning TextRank algorithm) where words get more weight based on how many words co-occur and the weight of these co-occurring words. 
+The finnsurveytext package currently contains our first iteration of a function which plots a concept network. These plots visualise keywords which are identified through the TextRank algorithm and maps co-occurrences between these terms. Vertices represent words with vertex size indicating word importance and co-occurrence between words is shown through edges with edge thickness indicating number of co-occurrences. Word importance is determined recursively (through the unsupervised TextRank algorithm, a graph-based ranking model for text processing) where words get more weight based on how many words co-occur and the weight of these co-occurring words. The concept network functions take search terms input by the user and the algorithm then suggests other words that are related to these input terms by co-occurrence. The input terms can be identified through functions in the package (such as `fst_cn_search()` or `fst_freq_table()`) or through other analysis separately conducted by the user. The concept network function can be used to identify concepts which could be individual words or a group of co-occurring words, or may contain a single ’concept’ whose component words are investigated and identified within a single network plot.
 
 To utilise the TextRank algorithm in `finnsurveytext`, we use the `textrank` package. For further information on the package, please see [this documentation](https://cran.r-project.org/web/packages/textrank/vignettes/textrank.html). This package implements the TextRank and PageRank algorithms. (PageRank is the algorithm that Google uses to rank webpages.) You can read about the underlying TextRank algorithm [here](https://web.eecs.umich.edu/~mihalcea/papers/mihalcea.emnlp04.pdf) and about the PageRank algorithm [here](https://www.sciencedirect.com/science/article/abs/pii/S016975529800110X).  
 
@@ -213,7 +213,7 @@ The arguments are:
 
 ## Conclusion
 
-This tutorial ran you through the functions used to create Concept Networks which are included in `finnsurveytext`. A concept network visualises word importance and co-occurrence between words. 
+This tutorial ran you through the functions used to create Concept Networks which are included in `finnsurveytext`. Our concept network visualises word importance and co-occurrence between words. 
 
 ## Citation
 
