@@ -117,15 +117,20 @@ data.</p>
 <code>question</code>: the column of ‘data’ that contains the
 open-ended question</li>
 <li>
-<code>id</code>: the ID column in ‘data’ <code>model</code>: a
-Finnish language model available for udpipe, “ftb” or “tdt”. (If you do
-not provide a value, this will default to “ftb”.)</li>
+<code>id</code>: the ID column in ‘data’</li>
+<li>
+<code>model</code>: a language model available for udpipe, “ftb” or
+“tdt”. (If you do not provide a value, this will default to “ftb”.)</li>
 <li>
 <code>stopword_list</code>: a list of stopwords to remove from your
 ‘data’. (To find relevant stopwords lists, you can run
 <code><a href="../../reference/fst_find_stopwords.html">fst_find_stopwords()</a></code>. If you do not provide a value, this
 will default to “nltk”. “manual” can be used to indicate that a manual
 list will be provided.)</li>
+<li>
+<code>language</code> This should be the two-letter ISO code for the
+language for the stopword list. The default <code>language</code> is
+“fi”.</li>
 <li>
 <code>use_weights</code>: optional, a boolean as to whether to
 include weights from the svydesign. (If you do not provide a value, this

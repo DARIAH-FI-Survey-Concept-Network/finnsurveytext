@@ -100,7 +100,7 @@ functions which are outlined in the sections below.</p>
 <td>use the <code>udpipe</code> <code>R</code> package to clean and
 annotate the raw data into a standardised format (CoNLL-U) suitable for
 analysis.</td>
-<td>fst_format()<br>fst_print_available_models()<br>fst_find_stopwords()<br>fst_rm_stop_punct()<br><strong>fst_prepare()</strong><br><strong>fst_prepare_svydesign()</strong>
+<td>fst_format()<br>fst_format_svydesign()<br>fst_print_available_models()<br>fst_find_stopwords()<br>fst_rm_stop_punct()<br><strong>fst_prepare()</strong><br><strong>fst_prepare_svydesign()</strong>
 </td>
 </tr>
 <tr class="even">
@@ -126,6 +126,11 @@ survey respondents.</td>
 <td>
 <strong>fst_pos_compare()</strong><br><strong>fst_summarise_compare()</strong><br><strong>fst_length_compare()</strong><br>fst_get_unique_ngrams_separate()<br>fst_get_unique_ngrams()<br>fst_join_unique()<br>fst_ngrams_compare_plot()<br><strong>fst_freq_compare()</strong><br><strong>fst_ngrams_compare()</strong><br><strong>fst_comparison_cloud()</strong><br>fst_cn_get_unique_separate()<br>fst_cn_get_unique()<br>fst_cn_compare_plot()<br><strong>fst_concept_network_compare()</strong>
 </td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>5. RShiny Demo App</strong></td>
+<td>A beta version of a UI for the package</td>
+<td>runDemo()</td>
 </tr>
 </tbody>
 </table>
@@ -258,10 +263,11 @@ values to compare groups.</p>
 <span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>                        id,</span>
 <span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>                        <span class="at">model =</span> <span class="st">"ftb"</span>,</span>
 <span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>                        <span class="at">stopword_list =</span> <span class="st">"nltk"</span>,</span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>                        <span class="at">weights =</span> <span class="cn">NULL</span>,</span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>                        <span class="at">add_cols =</span> <span class="cn">NULL</span>,</span>
-<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>                        <span class="at">manual =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>                        <span class="at">manual_list =</span> <span class="st">""</span>)</span></code></pre></div>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>                        <span class="at">language =</span> <span class="st">"fi"</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>                        <span class="at">weights =</span> <span class="cn">NULL</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>                        <span class="at">add_cols =</span> <span class="cn">NULL</span>,</span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>                        <span class="at">manual =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>                        <span class="at">manual_list =</span> <span class="st">""</span>)</span></code></pre></div>
 <p>We can run the function as follows:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fst_prepare.html">fst_prepare</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dev_coop</span>,</span>
@@ -280,7 +286,7 @@ which contains the open-ended survey question. In this example, we’re
 considering “q11_3”</li>
 <li>
 <code>id</code> is the id column in our data, which is “fsd_id”</li>
-<li>The function also requires a Finnish language model available for
+<li>The function also requires a language model available for
 <code>udpipe</code>, in this case we are using the default Finnish
 Treebank, <code>model = "ftb"</code>. (There are two options for Finnish
 language model; the other option is the Turku Dependency Treebank
@@ -290,6 +296,8 @@ language model; the other option is the Turku Dependency Treebank
 of Finnish stopwords, you can run the <code><a href="../reference/fst_find_stopwords.html">fst_find_stopwords()</a></code>
 function.) Punctuation is also removed from the data whenever stopwords
 are removed.</li>
+<li>The default <code>language</code> is “fi”. This should be the
+two-letter ISO code for the language for the stopword list.</li>
 <li>Optionally, you can add a <code>weights</code> column in your
 formatted data. Our weights are stored in the raw data as “paino”.</li>
 <li>Optionally, you can add other columns to your formatted data (for
@@ -398,10 +406,11 @@ package is a popular package used for analysing surveys.</p>
 <span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>                                  id,</span>
 <span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>                                  <span class="at">model =</span> <span class="st">"ftb"</span>,</span>
 <span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>                                  <span class="at">stopword_list =</span> <span class="st">"nltk"</span>,</span>
-<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>                                  <span class="at">use_weights =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>                                  <span class="at">add_cols =</span> <span class="cn">NULL</span>,</span>
-<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>                                  <span class="at">manual =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a>                                  <span class="at">manual_list =</span> <span class="st">""</span>) </span></code></pre></div>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>                                  <span class="at">language =</span> <span class="st">"fi"</span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>                                  <span class="at">use_weights =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>                                  <span class="at">add_cols =</span> <span class="cn">NULL</span>,</span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a>                                  <span class="at">manual =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a>                                  <span class="at">manual_list =</span> <span class="st">""</span>) </span></code></pre></div>
 <p>We can run the function as follows:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fst_prepare_svydesign.html">fst_prepare_svydesign</a></span><span class="op">(</span>svydesign <span class="op">=</span> <span class="va">svy_dev</span>,</span>
@@ -737,12 +746,25 @@ can be used to instead create tables of the top words.)</p>
 <div class="section level2">
 <h2 id="concept-network">3. Concept Network<a class="anchor" aria-label="anchor" href="#concept-network"></a>
 </h2>
-<p>Our concept network function uses the TextRank algorithm which is a
-graph-based ranking model for text processing. Vertices represent words
-and co-occurrence between words is shown through edges. Word importance
-is determined recursively (through the unsupervised learning TextRank
-algorithm) where words get more weight based on how many words co-occur
-and the weight of these co-occurring words.</p>
+<p>The finnsurveytext package currently contains our first iteration of
+a function which plots a concept network. These plots visualise keywords
+which are identified through the TextRank algorithm and maps
+co-occurrences between these terms. Vertices represent words with vertex
+size indicating word importance and co-occurrence between words is shown
+through edges with edge thickness indicating number of co-occurrences.
+Word importance is determined recursively (through the unsupervised
+TextRank algorithm, a graph-based ranking model for text processing)
+where words get more weight based on how many words co-occur and the
+weight of these co-occurring words. The concept network functions take
+search terms input by the user and the algorithm then suggests other
+words that are related to these input terms by co-occurrence. The input
+terms can be identified through functions in the package (such as
+<code><a href="../reference/fst_cn_search.html">fst_cn_search()</a></code> or <code><a href="../reference/fst_freq_table.html">fst_freq_table()</a></code>) or
+through other analysis separately conducted by the user. The concept
+network function can be used to identify concepts which could be
+individual words or a group of co-occurring words, or may contain a
+single ’concept’ whose component words are investigated and identified
+within a single network plot.</p>
 <p>To utilise the TextRank algorithm in finnsurveytext, we use the
 textrank package. For further information on the package, please see <a href="https://CRAN.R-project.org/package=textrank" class="external-link">this
 documentation</a>. This package implements the TextRank and PageRank
@@ -1413,8 +1435,9 @@ website</a> and documentation available from the <a href="https://CRAN.R-project
 <div class="section level2">
 <h2 id="data">Data<a class="anchor" aria-label="anchor" href="#data"></a>
 </h2>
-<p>The package comes with sample data from two surveys obtained from the
-Finnish Social Science Data Archive:</p>
+<p>The package comes with sample data from two Finnish surveys obtained
+from the Finnish Social Science Data Archive an a survey in English
+available from GESIS:</p>
 <div class="section level5">
 <h5 id="child-barometer-data">1. Child Barometer Data<a class="anchor" aria-label="anchor" href="#child-barometer-data"></a>
 </h5>
@@ -1440,6 +1463,21 @@ ongelmaa ovat… (Avokysymys)’</li>
 <li>Licence: (A) openly available for all users without registration (CC
 BY 4.0).</li>
 <li>Link to Data: <a href="https://urn.fi/urn:nbn:fi:fsd:T-FSD2821" class="external-link uri">https://urn.fi/urn:nbn:fi:fsd:T-FSD2821</a>
+</li>
+</ul>
+</div>
+<div class="section level5">
+<h5 id="patient-joe-open-ended-question">3. Patient Joe (open-ended question)<a class="anchor" aria-label="anchor" href="#patient-joe-open-ended-question"></a>
+</h5>
+<ul>
+<li>Source: GESIS – Leibniz Institute for the Social Sciences</li>
+<li>Open-ended question: ‘Joe’s doctor told him that he would need to
+return in two weeks to find out whether or not his condition had
+improved. But when Joe asked the receptionist for an appointment, he was
+told that it would be over a month before the next available
+appointment. What should Joe do?’</li>
+<li>Licence: CC BY 4.0: Attribution</li>
+<li>Link to Data: <a href="https://doi.org/10.7802/2474" class="external-link uri">https://doi.org/10.7802/2474</a>
 </li>
 </ul>
 </div>

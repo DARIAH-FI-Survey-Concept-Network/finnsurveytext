@@ -193,10 +193,11 @@ follows:</p>
 <span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  <span class="at">question =</span> <span class="st">"q7"</span>,</span>
 <span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>  <span class="at">id =</span> <span class="st">'fsd_id'</span></span>
 <span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>  <span class="at">stopword_list =</span> <span class="st">"nltk"</span>,</span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>  <span class="at">model =</span> <span class="st">"ftb"</span>,</span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>  <span class="at">weights =</span> <span class="cn">NULL</span>,</span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>  <span class="at">add_cols =</span> <span class="cn">NULL</span></span>
-<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>)</span></code></pre></div>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>  <span class="at">language =</span> <span class="st">"fi"</span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>  <span class="at">model =</span> <span class="st">"ftb"</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>  <span class="at">weights =</span> <span class="cn">NULL</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>  <span class="at">add_cols =</span> <span class="cn">NULL</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>)</span></code></pre></div>
 <p>Summary of components</p>
 <ul>
 <li>
@@ -209,11 +210,11 @@ which contains the open-ended survey question. In this example, the
 responses about bullying are in question 7.</li>
 <li>The <code>id</code> is a unique identifier for each response.</li>
 <li>We have chosen to remove stopwords from the “nltk” stopword list in
-this example. To find the relevant lists of Finnish stopwords, you can
-run the <code>fst_rm_stopwords_punct()</code> function which is outlined
-below. Punctuation is also removed from the data whenever stopwords are
+this example. To find the relevant lists of stopwords, you can run the
+<code><a href="../../reference/fst_find_stopwords.html">fst_find_stopwords()</a></code> function which is outlined below.
+Punctuation is also removed from the data whenever stopwords are
 removed.</li>
-<li>The function also requires a Finnish language model available for
+<li>The function also requires a language model available for
 <code>udpipe</code>, in this case we are using the default Finnish
 Treebank, <code>model = "ftb"</code>. (There are two options for Finnish
 langage model; the other option is the Turku Dependency Treebank. For
@@ -249,7 +250,7 @@ prepared using this function call:</p>
 <ul>
 <li>
 <code>data</code> is the dataframe of interest. In this case, we are
-using data that comes with the pacakge called ‘dev_data’. Otherwise, if
+using data that comes with the package called ‘dev_data’. Otherwise, if
 you read in a csv containing a dataframe, such as through
 <code><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv()</a></code> in base R for use in this tutorial.</li>
 <li>The <code>question</code> is the name of the column in your data
@@ -257,8 +258,8 @@ which contains the open-ended survey question. In this example, the
 responses are in question 11_2.</li>
 <li>We have chosen <em>not</em> to remove stopwords in this example.
 (<code>stopword_list = NULL</code>)</li>
-<li>The function also requires a Finnish language model available for
-[udpipe], in this case we are using the Turku Dependency Treebank,
+<li>The function also requires a language model available for [udpipe],
+in this case we are using the Turku Dependency Treebank,
 <code>model = "tdt"</code>.</li>
 <li>The results in CoNLL-U format are stored in the local environment as
 “prepd_dev”.</li>
@@ -275,15 +276,15 @@ go through each of the functions that this one calls. These are:</p>
 <li><code>fst_rm_stopwords_punct()</code></li>
 </ul>
 <p>Additionally, the <code><a href="../../reference/fst_find_stopwords.html">fst_find_stopwords()</a></code> function can be
-used to find currently available lists of Finnish stopwords for
-exclusion from the data. The “name” column can be used to choose a list
-for the <code>stopword_list</code> variable above. Stopword lists are
-lists of common words (eg. “and”, “the”, and “is”, or in Finnish “olla”,
-“ollet”, “ollen”, and “on”…) which are often filtered out of the data,
-leaving less frequently-occurring, and thus more more meaningful, words
-remaining.</p>
+used to find currently available lists of stopwords for exclusion from
+the data. (The default “language” is “fi”, but ) The “name” column can
+be used to choose a list for the <code>stopword_list</code> variable
+above. Stopword lists are lists of common words (eg. “and”, “the”, and
+“is”, or in Finnish “olla”, “ollet”, “ollen”, and “on”…) which are often
+filtered out of the data, leaving less frequently-occurring, and thus
+more more meaningful, words remaining.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">stopwords</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/fst_find_stopwords.html">fst_find_stopwords</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">stopwords</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/fst_find_stopwords.html">fst_find_stopwords</a></span><span class="op">(</span><span class="st">"fi"</span><span class="op">)</span></span></code></pre></div>
 <p>The stopwords lists can be very long, so only one (nltk) is shown
 below. Another two lists, snowball and stopwords-iso, can be found by
 running the <code><a href="../../reference/fst_find_stopwords.html">fst_find_stopwords()</a></code> function in your local
@@ -335,7 +336,7 @@ vaan , vai , vaikka , kanssa , mukaan , noin , poikki , yli , kun , nyt
 <div class="section level3">
 <h3 id="format-as-connl-u">Format as CoNNL-U<a class="anchor" aria-label="anchor" href="#format-as-connl-u"></a>
 </h3>
-<p><code>fst_format_connlu()</code></p>
+<p><code><a href="../../reference/fst_format.html">fst_format()</a></code></p>
 <p>This function is used to format the data from your open-ended survey
 question into CoNLL-U format. It also:</p>
 <ul>
