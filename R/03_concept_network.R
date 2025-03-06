@@ -107,7 +107,9 @@ fst_cn_edges <- function(data,
       dplyr::filter(lemma != "na")
     denom <- nrow(data)
   } else if (norm == "number_resp") {
-    denom <- dplyr::n_distinct(data$doc_id)
+    no_resp_count <- length(which(data$sentence %in% c("NA", "na")))
+    count <- dplyr::n_distinct(data$doc_id) - no_resp_count
+    denom <- count
   } else {
     message("NOTE: A recognised normalisation method has not been provided. \n
             Function has defaulted to has defaulted to provide raw counts")

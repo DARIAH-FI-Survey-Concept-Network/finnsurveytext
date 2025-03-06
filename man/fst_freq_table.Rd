@@ -24,7 +24,7 @@ columns.}
 
 \item{norm}{The method for normalising the data. Valid settings are
 `"number_words"` (the number of words in the responses), `"number_resp"`
-(the number of responses), or `NULL` (raw count returned, default, also used
+(the number of r , or `NULL` (raw count returned, default, also used
 when weights are applied).}
 
 \item{pos_filter}{List of UPOS tags for inclusion, default is `NULL` which

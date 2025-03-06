@@ -2,7 +2,7 @@
 % Please edit documentation in R/01_prepare.R
 \name{fst_find_stopwords}
 \alias{fst_find_stopwords}
-\title{Get available Finnish stopwords lists}
+\title{Get available stopwords lists}
 \usage{
 fst_find_stopwords(language = "fi")
 }

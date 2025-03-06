@@ -2,7 +2,7 @@
 % Please edit documentation in R/01_prepare.R
 \name{fst_prepare}
 \alias{fst_prepare}
-\title{Read In and format Finnish survey text responses}
+\title{Read In and format survey text responses}
 \usage{
 fst_prepare(
   data,
@@ -29,7 +29,8 @@ responses.}
 
 \item{model}{A language model available for [udpipe]. `"ftb"`
 (default) or `"tdt"` are recognised as shorthand for "finnish-ftb" and
-"finnish-tdt". The full list is available in the [udpipe] documentation.}
+"finnish-tdt". The full list is available in the [udpipe] documentation or
+via `fst_print_available_models()`.}
 
 \item{stopword_list}{A valid stopword list, default is `"nltk"`,
 `"manual"` can be used to indicate that a manual list will be provided, or
@@ -51,17 +52,17 @@ provided, `stopword_list = "manual"` can also or instead be used.}
 \item{manual_list}{A manual list of stopwords.}
 }
 \value{
-A dataframe of Finnish text in CoNLL-U format.
+A dataframe of text in CoNLL-U format.
 }
 \description{
-Creates a dataframe in CoNLL-U format from a dataframe containing Finnish
-text from using the [udpipe] package and a Finnish language model plus any
+Creates a dataframe in CoNLL-U format from a dataframe containing
+text from using the [udpipe] package and a language model plus any
 additional columns that are included such as `weights` or columns added
 through `add_cols`. Stopwords and punctuation are optionally removed if the
 the `stopword_list` argument is not "none".
 }
 \details{
-`fst_prepare_conllu()` produces a dataframe containing Finnish survey text
+`fst_prepare_conllu()` produces a dataframe containing survey text
  responses in CoNLL-U format with stopwords optionally removed.
 }
 \examples{

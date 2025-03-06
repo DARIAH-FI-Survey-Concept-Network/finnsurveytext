@@ -2,7 +2,7 @@
 % Please edit documentation in R/01b_prepare_svydesign.R
 \name{fst_format_svydesign}
 \alias{fst_format_svydesign}
-\title{Annotate open-ended survey responses in Finnish within a `svydesign` object
+\title{Annotate open-ended survey responses within a `svydesign` object
 into CoNLL-U format}
 \usage{
 fst_format_svydesign(
@@ -23,8 +23,10 @@ question.}
 \item{id}{The column in the dataframe which contains the ids for the
 responses.}
 
-\item{model}{A language model available for [udpipe], such as `"ftb"`
-(default) or `"tdt"` which are available for Finnish.}
+\item{model}{A language model available for [udpipe]. `"ftb"`
+(default) or `"tdt"` are recognised as shorthand for "finnish-ftb" and
+"finnish-tdt". The full list is available in the [udpipe] documentation or
+via `fst_print_available_models()`.}
 
 \item{use_weights}{Optional, whether to use weights within the `svydesign`}
 
@@ -38,7 +40,7 @@ Dataframe of annotated text in CoNLL-U format plus any additional
 }
 \description{
 Creates a dataframe in CoNLL-U format from a `svydesign` object including
-Finnish text using the [udpipe] package and a Finnish language model plus
+text using the [udpipe] package and a language model plus
 weights if these are included in the `svydesign` object and any columns added
 through `add_cols`.
 }

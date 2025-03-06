@@ -2,7 +2,7 @@
 % Please edit documentation in R/01b_prepare_svydesign.R
 \name{fst_prepare_svydesign}
 \alias{fst_prepare_svydesign}
-\title{Read In and format Finnish survey text responses from `svydesign` object}
+\title{Read In and format survey text responses from `svydesign` object}
 \usage{
 fst_prepare_svydesign(
   svydesign,
@@ -26,10 +26,12 @@ question.}
 \item{id}{The column in the dataframe which contains the ids for the
 responses.}
 
-\item{model}{A language model available for [udpipe], such as `"ftb"`
-(default) or `"tdt"` which are available for Finnish.}
+\item{model}{A language model available for [udpipe]. `"ftb"`
+(default) or `"tdt"` are recognised as shorthand for "finnish-ftb" and
+"finnish-tdt". The full list is available in the [udpipe] documentation or
+via `fst_print_available_models()`.}
 
-\item{stopword_list}{A valid Finnish stopword list, default is `"nltk"`, or
+\item{stopword_list}{A valid stopword list, default is `"nltk"`, or
 `"none"`.}
 
 \item{language}{two-letter ISO code for the language for the stopword list}
@@ -46,17 +48,17 @@ provided, `stopword_list = "manual"` can also or instead be used.}
 \item{manual_list}{A manual list of stopwords.}
 }
 \value{
-A dataframe of Finnish text in CoNLL-U format.
+A dataframe of text in CoNLL-U format.
 }
 \description{
 Creates a dataframe in CoNLL-U format from a `svydesign` object including
-Finnish text using the [udpipe] package and a Finnish language model plus
+text using the [udpipe] package and a language model plus
 weights if these are included in the `svydesign` object and any columns added
 through `add_cols`.Stopwords and punctuation are optionally removed if the
 the `stopword_list` argument is not "none".
 }
 \details{
-`fst_prepare_svydesign()` produces a dataframe containing Finnish survey text
+`fst_prepare_svydesign()` produces a dataframe containing survey text
  responses in CoNLL-U format with stopwords optionally removed.
 }
 \examples{

@@ -1,3 +1,7 @@
+# finnsurveytext 2.1.1
+
+* fix bug which was counting number of respondents to the open-ended question incorrectly. (Previously it was the number of overall survey respondents.)
+
 # finnsurveytext 2.1.0
 
 * New function `fst_print_available_models()` to print models available through `udpipe` package

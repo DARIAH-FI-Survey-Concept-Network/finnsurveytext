@@ -676,7 +676,9 @@ fst_comparison_cloud <- function(data,
         denom <- nrow(data2)
       } else if (norm == "number_resp") {
         data2 <- data1
-        denom <- dplyr::n_distinct(data2$doc_id)
+        no_resp_count <- length(which(data2$sentence %in% c("NA", "na")))
+        count <- dplyr::n_distinct(data2$doc_id) - no_resp_count
+        denom <- count
       } else {
         message("NOTE: A recognised normalisation method has not been provided. \n Function has defaulted to provide raw counts.")
         denom <- 1

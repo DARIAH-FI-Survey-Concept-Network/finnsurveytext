@@ -2,7 +2,7 @@
 % Please edit documentation in R/01_prepare.R
 \name{fst_rm_stop_punct}
 \alias{fst_rm_stop_punct}
-\title{Remove Finnish stopwords and punctuation from CoNLL-U dataframe}
+\title{Remove stopwords and punctuation from CoNLL-U dataframe}
 \usage{
 fst_rm_stop_punct(
   data,
@@ -13,7 +13,7 @@ fst_rm_stop_punct(
 )
 }
 \arguments{
-\item{data}{A dataframe of Finnish text in CoNLL-U format.}
+\item{data}{A dataframe of text in CoNLL-U format.}
 
 \item{stopword_list}{A valid stopword list, default is `"nltk"`,
 `"manual"` can be used to indicate that a manual list will be provided, or
@@ -32,7 +32,7 @@ A dataframe of text in CoNLL-U format without stopwords and
  punctuation.
 }
 \description{
-Removes stopwords and punctuation from a dataframe containing Finnish survey
+Removes stopwords and punctuation from a dataframe containing survey
 text data which is already in CoNLL-U format.
 }
 \examples{

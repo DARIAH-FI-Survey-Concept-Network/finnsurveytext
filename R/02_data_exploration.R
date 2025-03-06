@@ -13,9 +13,11 @@
 #' fst_summarise_short(fst_child)
 #' fst_summarise_short(fst_dev_coop)
 fst_summarise_short <- function(data) {
+  no_resp_count <- length(which(data$sentence %in% c("NA", "na")))
+  count <- dplyr::n_distinct(data$doc_id) - no_resp_count
   data %>%
     dplyr::summarize(
-      Respondents = dplyr::n_distinct(doc_id),
+      Respondents = count,
       "Total Words" = dplyr::n(),
       "Unique Words" = length(unique(token)),
       "Unique Lemmas" = length(unique(lemma))
@@ -42,14 +44,14 @@ fst_summarise_short <- function(data) {
 #' fst_summarise(fst_dev_coop, "Q11_3")
 fst_summarise <- function(data, desc = "All responses") {
   no_resp_count <- length(which(data$sentence %in% c("NA", "na")))
+  count <- dplyr::n_distinct(data$doc_id) - no_resp_count
   df <- data %>%
     dplyr::summarize(
       "Description" = desc,
-      "Respondents" = dplyr::n_distinct(doc_id),
+      "Respondents" = count,
       "No Response" = no_resp_count,
-      "Proportion" = round(dplyr::n_distinct(doc_id) /
-        (no_resp_count +
-          dplyr::n_distinct(doc_id)), 2),
+      "Proportion" = round(count /
+        dplyr::n_distinct(doc_id), 2),
       "Total Words" = dplyr::n(),
       "Unique Words" = length(unique(token)),
       "Unique Lemmas" = length(unique(lemma))
@@ -73,6 +75,10 @@ fst_summarise <- function(data, desc = "All responses") {
 #' fst_pos(fst_child)
 #' fst_pos(fst_dev_coop)
 fst_pos <- function(data) {
+  data <- data %>%
+    dplyr::filter(!is.na(sentence)) %>%
+    dplyr::filter(sentence != "na") %>%
+    dplyr::filter(sentence != "NA")
   denom <- nrow(data)
   pos_table <- data %>%
     dplyr::count(upos, sort = TRUE) %>%
@@ -124,6 +130,7 @@ fst_length_summary <- function(data,
                                desc = "All responses",
                                incl_sentences = TRUE) {
   no_resp_count <- length(which(data$sentence %in% c("NA", "na")))
+  count <- dplyr::n_distinct(data$doc_id) - no_resp_count
   data <- dplyr::select(data, doc_id, sentence) %>%
     dplyr::mutate(length = stringr::str_count(sentence, "\\w+")) %>%
     dplyr::filter(!is.na(sentence)) %>%
@@ -138,7 +145,7 @@ fst_length_summary <- function(data,
   word_df <- data %>%
     dplyr::summarize(
       "Description" = paste0(desc, "- Words"),
-      "Respondents" = dplyr::n_distinct(doc_id),
+      "Respondents" = count,
       "Mean" = round(mean(data$number_of_words), 3),
       "Minimum" = min(data$number_of_words),
       "Q1" = quantile(data$number_of_words, 0.25),
@@ -150,7 +157,7 @@ fst_length_summary <- function(data,
     sentence_df <- data %>%
       dplyr::summarize(
         "Description" = paste0(desc, "- Sentences"),
-        "Respondents" = dplyr::n_distinct(doc_id),
+        "Respondents" = count,
         "Mean" = round(mean(data$number_sentences), 3),
         "Minimum" = min(data$number_sentences),
         "Q1" = quantile(data$number_sentences, 0.25),
@@ -229,7 +236,7 @@ fst_use_svydesign <- function(data,
 #' @param number The number of top words to return, default is `10`.
 #' @param norm The method for normalising the data. Valid settings are
 #'  `"number_words"` (the number of words in the responses), `"number_resp"`
-#'  (the number of responses), or `NULL` (raw count returned, default, also used
+#'  (the number of r , or `NULL` (raw count returned, default, also used
 #'  when weights are applied).
 #' @param pos_filter List of UPOS tags for inclusion, default is `NULL` which
 #'  means all word types included.
@@ -290,7 +297,9 @@ fst_freq_table <- function(data,
       dplyr::filter(lemma != "na")
     denom <- nrow(data)
   } else if (norm == "number_resp") {
-    denom <- dplyr::n_distinct(data$doc_id)
+    no_resp_count <- length(which(data$sentence %in% c("NA", "na")))
+    count <- dplyr::n_distinct(data$doc_id) - no_resp_count
+    denom <- count
   } else {
     message("NOTE: A recognised normalisation method has not been provided. \n Function has defaulted to provide raw counts.")
     denom <- 1
@@ -396,7 +405,9 @@ fst_ngrams_table <- function(data,
       dplyr::filter(lemma != "na")
     denom <- nrow(data)
   } else if (norm == "number_resp") {
-    denom <- dplyr::n_distinct(data$doc_id)
+    no_resp_count <- length(which(data$sentence %in% c("NA", "na")))
+    count <- dplyr::n_distinct(data$doc_id) - no_resp_count
+    denom <- count
   } else if (norm == "use_weights") {
     denom <- 1
   } else {
@@ -500,7 +511,9 @@ fst_ngrams_table2 <- function(data,
       dplyr::filter(lemma != "na")
     denom <- nrow(data)
   } else if (norm == "number_resp") {
-    denom <- dplyr::n_distinct(data$doc_id)
+    no_resp_count <- length(which(data$sentence %in% c("NA", "na")))
+    count <- dplyr::n_distinct(data$doc_id) - no_resp_count
+    denom <- count
   } else if (norm == "use_weights") {
     denom <- 1
   } else {

@@ -2,7 +2,7 @@
 % Please edit documentation in R/01_prepare.R
 \name{fst_format}
 \alias{fst_format}
-\title{Annotate open-ended survey responses in Finnish into CoNLL-U format}
+\title{Annotate open-ended survey responses in into CoNLL-U format}
 \usage{
 fst_format(data, question, id, model = "ftb", weights = NULL, add_cols = NULL)
 }
@@ -18,7 +18,8 @@ responses.}
 
 \item{model}{A language model available for [udpipe]. `"ftb"`
 (default) or `"tdt"` are recognised as shorthand for "finnish-ftb" and
-"finnish-tdt". The full list is available in the [udpipe] documentation.}
+"finnish-tdt". The full list is available in the [udpipe] documentation or
+via `fst_print_available_models()`.}
 
 \item{weights}{Optional, the column of the dataframe which contains the
 respective weights for each response.}
@@ -32,8 +33,8 @@ Dataframe of annotated text in CoNLL-U format plus any additional
  columns.
 }
 \description{
-Creates a dataframe in CoNLL-U format from a dataframe containing Finnish
-text from using the [udpipe] package and a Finnish language model plus any
+Creates a dataframe in CoNLL-U format from a dataframe containing
+text from using the [udpipe] package and a language model plus any
 additional columns that are included such as `weights` or columns added
 through `add_cols`.
 }
